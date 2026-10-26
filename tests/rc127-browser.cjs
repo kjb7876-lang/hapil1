@@ -2,6 +2,7 @@
 // Staged native runtime regression. Not a claim of natural full-campaign completion.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),cp=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc127');fs.mkdirSync(out,{recursive:true});
 const bridge=`\nconst rc127OriginalRender=$n;$n=function(...a){if(window.__RC127_FIXED_STATE__)a[1]=window.__RC127_FIXED_STATE__;return rc127OriginalRender(...a);};window.__RC127_NATIVE__={initial:oi,project:G,queue:MONGSE_queueImage,mastery:gr,impact:(...a)=>MONGSE_spawnTelegraphedImpact(...a),phase:(...a)=>MONGSE_enemyActivePhase(...a),save:(...a)=>Fi(...a),normalize:(...a)=>ji(...a)};`;
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'};
@@ -9,11 +10,13 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 async function main(){await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={commit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),scope:'Native staged fixtures on desktop and mobile emulation, not full natural play',profiles:[]};
 try{browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
 for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
- const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
+ const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+ const context=await browser.newContext({viewport:combatViewport,isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
  page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)missing.push({url:r.url(),status:r.status()});});
- await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_ARSENAL_V31318__?.installed);
+ await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_ARSENAL_V31318__?.installed);
  await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
  for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+ const orientation=await contract(page,requestedViewport);
  const result=await page.evaluate(async()=>{
   const P=window.__HAPIL_POLICY_RC127__,D=window.__HAPIL_DARK_JELLY_RC127__,C=window.__HAPIL_SKILL_COMPLETION_V31412__,T=window.__RC127_NATIVE__,B=window.__HAPIL_RC86_BRIDGE__,L=window.__HAPIL_LUCIFER_V31318__,A=window.__HAPIL_ARSENAL_V31318__,F=window.__HAPIL_COMBAT_FLOW_RC95__,N=window.__HAPIL_RC95_NATIVE__,problems=[],casts=[],palettes=[];let checks=0;
   const test=(ok,label,extra={})=>{checks++;if(!ok)problems.push({label,...extra});},close=(a,b)=>Math.abs(a-b)<1e-6;
@@ -65,7 +68,7 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
   return{checks,problems,casts,palettes,reference,policy:P.snapshot(),material:D.snapshot()};
  });
  for(const [key,file]of[['__RC127_COSMIC_FIXTURE__','cosmic-final-delivery'],['__RC127_JELLY_FIXTURE__','dark-jelly']]){await page.evaluate(k=>{window.__RC127_FIXED_STATE__=window[k];},key);await page.waitForTimeout(1000);await page.screenshot({path:path.join(out,name+'-'+file+'.png')});}
- Object.assign(result,{name,errors,missing});report.profiles.push(result);console.log('RC127_BROWSER_RESULT',JSON.stringify(result));fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));assert.deepEqual(result.problems,[]);assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);await context.close();
+ Object.assign(result,{name,requestedViewport,combatViewport,orientation,errors,missing});report.profiles.push(result);console.log('RC127_BROWSER_RESULT',JSON.stringify(result));fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));assert.deepEqual(result.problems,[]);assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);await context.close();
 }
 }finally{fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));await browser?.close();server.close();}}
 main().catch(e=>{console.error(e);server.close();process.exitCode=1;});

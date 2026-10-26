@@ -1,0 +1,169 @@
+name: RC231 all-combat Persona regression
+on:
+  push:
+    branches: [codex/rc231-all-combat-persona-20261026]
+    paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/rc231-combat.yml']
+  pull_request:
+    paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/rc231-combat.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc231-${{ github.event_name }}-${{ github.sha }}
+  cancel-in-progress: false
+env:
+  EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+jobs:
+  cpu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.EXPECTED_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated pinned parser and media verifier
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rc231-cpu/evidence"
+          if ! command -v ffprobe >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          ffprobe -version
+          npm install --prefix "$RUNNER_TEMP/rc231-cpu/runtime" --no-save --package-lock=false acorn@8.15.0
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc231-cpu/runtime/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$RUNNER_TEMP/rc231-cpu/runtime/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact source and all CPU regressions
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-cpu/evidence
+        run: |
+          set -uo pipefail
+          task_dir="$RUNNER_TEMP/rc231-cpu"
+          export NODE_PATH="$CODEX_PRIMARY_RUNTIME_NODE_MODULES"
+          status=0
+          run_check() {
+            local name="$1"
+            shift
+            local result=0
+            if "$@" > "$task_dir/evidence/$name.log" 2>&1; then result=0; else result=$?; fi
+            printf '%s %s\n' "$name" "$result" | tee -a "$task_dir/evidence/exit-codes.txt"
+            if [ "$result" -eq 0 ]; then tail -n 4 "$task_dir/evidence/$name.log"; else cat "$task_dir/evidence/$name.log"; fi
+            if [ "$result" -ne 0 ]; then status=1; fi
+          }
+          git rev-parse HEAD | tee "$task_dir/evidence/sha.txt"
+          printf 'RC231_CHECKOUT expected=%s actual=%s event=%s\n' "$EXPECTED_SHA" "$(git rev-parse HEAD)" "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA" || exit 1
+          test -z "$(git status --porcelain)" || exit 1
+          run_check extension158 node tools/rc232-build-extension.cjs --check
+          run_check native-source-sync node tools/rc215-build-native.cjs --check
+          shopt -s nullglob
+          targeted=(tests/rc231-*-unit.cjs)
+          test "${#targeted[@]}" -gt 0 || exit 1
+          for test_file in "${targeted[@]}"; do run_check "$(basename "$test_file" .cjs)" node "$test_file"; done
+          run_check admission node tests/rc229-admission-unit.cjs
+          run_check shooting node tests/rc226-shooting-unit.cjs
+          run_check floor node tests/rc227-floor-unit.cjs
+          run_check storage node tests/rc222-storage-unit.cjs
+          run_check cooperative-runtime node tests/rc222-runtime-unit.cjs
+          run_check cooperative-transport node tests/rc222-transport-unit.cjs
+          run_check cooperative-checkpoint node tests/rc222-rift-checkpoint-unit.cjs
+          run_check samong-rules node tests/rc137-samong-rules.cjs
+          run_check reset-trace node tests/rc162-reset-trace-unit.cjs
+          run_check native-combat node tests/rc220-combat-unit.cjs
+          run_check cosmic-loader node tests/rc154-cosmic-loader-unit.cjs
+          run_check cosmic-smoke node tests/rc86-samong-cosmic-smoke.cjs
+          run_check preservation-negative node tests/rc133-preservation-unit.cjs
+          run_check existing75 node tools/rc207-cpu-audit.cjs
+          run_check chrome-policy node tests/chromium-sandbox-policy.cjs
+          test -z "$(git status --porcelain)" || status=1
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc231-cpu-${{ env.EXPECTED_SHA }}
+          path: |
+            ${{ runner.temp }}/rc231-cpu/evidence/
+            ${{ runner.temp }}/rc207-cpu/
+          if-no-files-found: error
+          retention-days: 14
+  official-chrome:
+    name: official-chrome (${{ matrix.profile }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [pc, landscape, portrait]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.EXPECTED_SHA }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated pinned tooling for Chrome Stable
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/rc231-browser/runtime" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          command -v google-chrome
+          google-chrome --version
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc231-browser/runtime/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$RUNNER_TEMP/rc231-browser/runtime/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact Chrome Stable sandbox
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/sandbox
+        run: |
+          set -euo pipefail
+          printf 'RC231_CHECKOUT expected=%s actual=%s event=%s\n' "$EXPECTED_SHA" "$(git rev-parse HEAD)" "$GITHUB_SHA"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Exercise modes saves and real input
+        env:
+          RC231_PROFILE: ${{ matrix.profile }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/${{ matrix.profile }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/rc231-modes-save-input-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Verify native death save and revival boundaries
+        if: matrix.profile == 'pc'
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc137-death-choice-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Verify original death rendering after portrait resume
+        env:
+          RC144_PROFILE: ${{ matrix.profile }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/legacy-death-${{ matrix.profile }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc144-death-burn-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Verify original global body matrix after portrait resume
+        if: matrix.profile == 'pc'
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/legacy-body
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc146-global-body-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc231-chrome-${{ matrix.profile }}-${{ env.EXPECTED_SHA }}
+          path: ${{ runner.temp }}/rc231-browser/
+          if-no-files-found: error
+          retention-days: 14

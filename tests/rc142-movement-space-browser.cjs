@@ -3,6 +3,7 @@
 // natural campaign progress: every actor and zone below is an isolated fixture.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc142-movement-space';fs.mkdirSync(out,{recursive:true});
 const zones=JSON.parse(fs.readFileSync(path.join(root,'qa/rc138/map-format-manifest.json'),'utf8')).rows.map(r=>r.id);
 const bridge='\nwindow.__RC142_MOVE_QA__={initial:oi,move:(...a)=>ft(...a)};';
@@ -15,11 +16,15 @@ function polygonMetrics(points){let twice=0;for(let i=0;i<points.length;i++){con
  if(process.env.EXPECTED_SHA)assert(report.commit===process.env.EXPECTED_SHA&&!report.dirty,'exact clean revision required');
  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]]){
-  const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,errors:[],httpErrors:[]};report.profiles.push(row);
+  const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+  const context=await browser.newContext({viewport:combatViewport,deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,requestedViewport,combatViewport,errors:[],httpErrors:[]};report.profiles.push(row);
   page.on('pageerror',e=>row.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
-  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_NATIVE_ARENA_RC138__?.installed&&window.__RC142_MOVE_QA__?.move,{timeout:60000});
+  await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_NATIVE_ARENA_RC138__?.installed&&window.__RC142_MOVE_QA__?.move,{timeout:60000});
+  await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
+  await page.waitForSelector('#hapil-story-rc51');for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}await page.waitForFunction(()=>!document.querySelector('#hapil-story-rc51'));
+  row.orientation=await contract(page,requestedViewport);
   row.result=await page.evaluate(zones=>{
-   const Q=window.__RC142_MOVE_QA__,C=window.__HAPIL_CONTROLS_V31329__,R=window.__HAPIL_BATTLE_ARENA_RC138__,D=window.__HAPIL_PERSONA_DUEL_RC134__,results=[],modes=['STORY','DREAM'];
+   const Q=window.__RC142_MOVE_QA__,C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,R=window.__HAPIL_BATTLE_ARENA_RC138__,D=window.__HAPIL_PERSONA_DUEL_RC134__,results=[],modes=['STORY','DREAM'];
    const project=(x,y)=>({x:640+27*(x-y),y:13.5*(x+y)}),metrics=points=>{let twice=0;for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length];twice+=a.x*b.y-a.y*b.x;}const coords=points.map(p=>project(p.x,p.y));return{areaWorld:Math.abs(twice/2),bounds:{x:[Math.min(...coords.map(p=>p.x)),Math.max(...coords.map(p=>p.x))],y:[Math.min(...coords.map(p=>p.y)),Math.max(...coords.map(p=>p.y))]}};};
    const polygon=D.polygon('left',.8),candidate=metrics(polygon),reference={policy:{acrossRadius:15,depthRadius:8.3,centerGap:1.45,actorRadius:.8},playerSide:{areaWorld:147.1780510972126,bounds:{x:[97.91067733256716,600.85],y:[370.34863637351464,655.6513636264854]}}};
    const extremes=[
@@ -28,10 +33,18 @@ function polygonMetrics(points){let twice=0;for(let i=0;i<points.length;i++){con
     ['up',p=>project(p.x,p.y).y,(a,b)=>a<b],
     ['down',p=>project(p.x,p.y).y,(a,b)=>a>b]
    ];
-   for(const mode of modes)for(const zone of zones){
+   const originalState=C.binding.state.current,originalMode=C.effective();
+   const regular=a=>a&&!a.boss&&!a.midboss&&!a.friendly&&!a.neutral&&!a.visualOnly&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307&&R.hostile(a)&&typeof a.sprite==='string'&&a.sprite.length>0;
+   try{for(const mode of modes)for(const zone of zones){
     if(!R.enabledZone(zone))throw Error('route is not in the native movement owner: '+mode+'/'+zone);
-    const s=Q.initial();Object.assign(s,{zone,gameModeV31346:mode,time:100,x:R.format.entry.x,y:R.format.entry.y,hp:240,maxHp:240,activeHeroId:'hwando',spawnedWaves:new Set([1,2,3]),bossDefeated:false,pendingSpawns:[],enemies:[{id:'rc142-movement-fixture',name:'fixture',hp:100,maxHp:100,x:R.format.exit.x,y:R.format.exit.y,boss:false,midboss:false}]});
-    C.binding.state.current=s;C.setMode('manual');R.enforce(s);if(!R.locked(s)||!R.contains(s,'left',.8))throw Error('native player bound unavailable: '+mode+'/'+zone);
+    const s=Q.initial();Object.assign(s,{zone,gameModeV31346:mode,time:100,x:R.format.entry.x,y:R.format.entry.y,hp:240,maxHp:240,activeHeroId:'hwando',spawnedWaves:new Set([1,2,3]),bossDefeated:false,pendingSpawns:[],enemies:[]});
+    C.binding.state.current=s;C.setMode('manual');
+    // Native templates provide the real sprite, navigation and animation
+    // fields expected by both movement and presentation owners.
+    const ownTemplate=B.zoneActors(zone).find(regular),templateZone=ownTemplate?zone:'dist01',template=ownTemplate??B.zoneActors(templateZone).find(regular);
+    if(!template)throw Error('native regular movement template unavailable: '+zone);
+    const enemy=B.cloneEnemy(template,templateZone);if(typeof enemy.sprite!=='string'||!enemy.sprite||!Array.isArray(enemy.navPath))throw Error('native movement actor is incomplete: '+zone);
+    Object.assign(enemy,{hp:100,maxHp:100,x:R.format.exit.x,y:R.format.exit.y});s.enemies=[enemy];R.enforce(s);if(!R.locked(s)||!R.contains(s,'left',.8))throw Error('native player bound unavailable: '+mode+'/'+zone);
     const reached={};
     for(const [name,coord,better] of extremes){
      const target=polygon.reduce((best,p)=>better(coord(p),coord(best))?p:best,polygon[0]),entry={x:s.x,y:s.y};let steps=0;
@@ -44,11 +57,13 @@ function polygonMetrics(points){let twice=0;for(let i=0;i<points.length;i++){con
      reached[name]={entry,world:at,projected:p,targetProjected:wanted,steps,withinWorldUnits:gap};
      s.x=R.format.entry.x;s.y=R.format.entry.y;
     }
-    results.push({mode,zone,actorRadius:.8,playerSide:metrics(polygon),reached});
+    results.push({mode,zone,actorRadius:.8,fixtureSource:{zone:templateZone,id:template.id,sprite:enemy.sprite},playerSide:metrics(polygon),reached});
    }
-   return{policy:{...D.policy},reference,candidate,modes:results};
+   }finally{C.binding.state.current=originalState;C.setMode(originalMode);}
+   if(C.binding.state.current!==originalState)throw Error('movement fixture did not restore native live world');
+   return{policy:{...D.policy},reference,candidate,modes:results,restoredNativeWorld:true};
   },zones);
-  row.tests=row.result.modes.length;row.errors.push(...(row.result.modes.errors||[]));if(row.tests!==zones.length*2)throw Error('movement fixture count mismatch');if(row.result.candidate.areaWorld<=row.result.reference.playerSide.areaWorld)throw Error('expanded policy did not expand actual player-side area');
+  assert.equal(row.result.restoredNativeWorld,true,'isolated traversal restores the actual live state before rendering');row.tests=row.result.modes.length;row.errors.push(...(row.result.modes.errors||[]));if(row.tests!==zones.length*2)throw Error('movement fixture count mismatch');if(row.result.candidate.areaWorld<=row.result.reference.playerSide.areaWorld)throw Error('expanded policy did not expand actual player-side area');
   save();
  }
  for(const p of report.profiles){assert.deepEqual(p.errors,[]);assert.deepEqual(p.httpErrors,[]);}

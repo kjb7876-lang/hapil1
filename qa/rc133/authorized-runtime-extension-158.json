@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "base": "9bfd8d4fbc434223c8927755c714b4a205c8bfec",
+  "baseTree": "a5ff008d70b1a471401e5697890ebd427651cf5b",
+  "sourceCommit": "a623e1749b831df7e6204cbad07c1fd044d619ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ebbeef6548780b2fa1c2841c305e48bb67778e83f8095ae715559d862d886e3c",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "dbbc6dd636d6d9840eed5cb1962dd414bccc0d0c",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "6b0099f589c64be9942b44ac89fc54cde4b4af3b38d6d5e86bc679eaf88f51ba",
+        "gitBlob": "97911d57fb64594fe6bfa8d0ae1b9b4643f0e7a1"
+      },
+      "reason": "assets/index-v31526.js: Pause native auto-progress and asynchronous encounter commits, and neutralize queued legacy remote input while preserving its sequence, whenever the portrait gate is active."
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "97702c841a5d9741a6628147f6017eefeb704aa7",
+        "file": "assets/rc153/combat-layout.js"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "sha256": "c64afbaeee399677705222ed7d1c381e28653415a7d505f3c2abd926a38318c2",
+        "gitBlob": "424eb5f51c40a09c9f5352fd5832a76ef09d0f75"
+      },
+      "reason": "assets/rc153/combat-layout.js: Require landscape for every actual portrait viewport, block native progress and input, preserve existing pause state on rotation back, and show the exact requested orientation instruction."
+    },
+    {
+      "file": "assets/rc222/runtime.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c16175752b843b52e9c68784ca119197c906380c",
+        "file": "assets/rc222/runtime.js"
+      },
+      "after": {
+        "file": "assets/rc222/runtime.js",
+        "mode": "100644",
+        "sha256": "5fa5d2fb0d6a82c8163d9895bab143d126bcec708aa3f579161557181a047849",
+        "gitBlob": "32ad9a8b3c331b7dc1607253be30317934703569"
+      },
+      "reason": "assets/rc222/runtime.js: Reject remote and local cooperative input in every actual portrait viewport without changing transport configuration or input sequence accounting."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b36f41eba8128181962bcd354bcc912790bd33eb",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "428507616748608a14d1092e7de5d87a2bc958d7c2767fe2a7a3a61016441265",
+        "gitBlob": "bb383d45a0c8cf23b1693237d37c8d6ef3cf94c9"
+      },
+      "reason": "index.html: Cache-bust only the exact all-viewport landscape gate, native progress guards and cooperative input runtime."
+    }
+  ],
+  "targetProtectedRowsSha256": "b30861c358aa99d4df3551bb877f0226f0aaaab81122cca7d55999baf3fdbeac"
+}

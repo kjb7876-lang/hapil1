@@ -3,6 +3,7 @@
 // observations below use unmodified live state, and they do not prove boss clears.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),cp=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc128-native');fs.mkdirSync(out,{recursive:true});
 const bridge=`\nconst rc128OriginalRender=$n;$n=function(...a){const s=window.__RC128_FIXED_STATE__;if(s){a[1]=s;const hero=window.__HAPIL_RC95_NATIVE__?.heroes?.find(h=>h.id===s.activeHeroId);if(hero)a[3]=hero;}return rc128OriginalRender(...a);};window.__RC128_NATIVE__={initial:oi,project:G,queue:MONGSE_queueImage};`;
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'};
@@ -14,17 +15,19 @@ async function main(){
  try{
   browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
   for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
-   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
+   const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+   const context=await browser.newContext({viewport:combatViewport,isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
    page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)missing.push({url:r.url(),status:r.status()});});
-   await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');
+   await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');
    await page.waitForFunction(()=>window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_SAMONG_RC91__?.installed&&window.__HAPIL_FEEDBACK_RC128__?.installed);
    await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
    for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+   const orientation=await contract(page,requestedViewport);
    const live=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{zone:s.zone,time:s.time,hp:s.hp,hero:s.activeHeroId,mode:s.gameModeV31346,x:s.x,y:s.y,enemies:s.enemies.filter(a=>a.hp>0).length,speed:s.rc127MovementSpeed,feedback:window.__HAPIL_FEEDBACK_RC128__.snapshot(s)};});
    const first=await live();await page.keyboard.down('ArrowRight');await page.waitForTimeout(350);await page.keyboard.up('ArrowRight');await page.keyboard.down('a');await page.waitForTimeout(500);await page.keyboard.up('a');await page.waitForTimeout(600);const last=await live();
    assert(last.time>first.time,'unmodified startup must advance the simulation');assert(Number.isFinite(last.hp),'startup health remains finite');
    await page.screenshot({path:path.join(out,name+'-natural-start.png')});
-   const profile={name,naturalStartup:{usedProgressCheats:false,scope:'startup and first combat only; not a boss-clear assertion',first,last},errors,missing};report.profiles.push(profile);save();
+   const profile={name,requestedViewport,combatViewport,orientation,naturalStartup:{usedProgressCheats:false,scope:'startup and first combat only; not a boss-clear assertion',first,last},errors,missing};report.profiles.push(profile);save();
    const art=await page.evaluate(async()=>{const A=window.__HAPIL_SAMONG_RC91__,rows=[];for(const id of A.heroes){const image=new Image();image.src=A.art[id];await image.decode();rows.push({hero:id,width:image.naturalWidth,height:image.naturalHeight});A.picture(id);}return rows;});
    assert.equal(art.length,8);assert(art.every(a=>a.width>0&&a.height>0));profile.art=art;
    for(const hero of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner'])for(const mode of ['STORY','HELL','DREAM']){

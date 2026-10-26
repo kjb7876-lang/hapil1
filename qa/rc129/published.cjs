@@ -3,6 +3,7 @@
 // HP edits, forced victory, progress injection or suppression of HTTP failures.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
+const {beforeLoad,contract}=require('../../tests/helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'../..'),base=process.env.HAPIL_TEST_BASE||'https://kjb7876-lang.github.io/hapil1/';
 const out=process.env.HAPIL_QA_OUTPUT||path.join(process.env.RUNNER_TEMP||path.join(root,'qa-results'),'rc129-results','public');fs.mkdirSync(out,{recursive:true});
 const files=['index.html','assets/index-v31526.js','assets/rc126/finite-native.js','assets/rc126/combat-safety.js','assets/rc108/laser-topology.js','assets/rc95/combat-flow.js','assets/combat-v31402/projectile-pipeline.js','assets/combat-v31402/contact-geometry.js','assets/rc43/bloodied-flight.js','assets/rc77/connected-laser.js','assets/rc124/laser-overrun.js','assets/rc125/adaptive-battlefield.js','assets/rc125/adaptive-battlefield.css','assets/rc127/combat-policy.js','assets/rc127/dark-jelly.js','assets/combat-v31412/skill-completion.js','assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','assets/rc91/samong-awakening.js','assets/combat-v31402/combat-core.js','assets/rc23/feedback.js','assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js'];
@@ -24,13 +25,18 @@ async function main(){
   for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
    const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[],httpErrors:[],samples:[]};report.screens.push(row);page.setDefaultTimeout(30000);
    page.on('pageerror',e=>row.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({url:r.url(),status:r.status()});});
+   row.requestedViewport=page.viewportSize();row.combatViewport=await beforeLoad(page);
    const url=new URL(base);url.searchParams.set('v','42901');url.searchParams.set('qa','1');await page.goto(url.href);
    await page.waitForFunction(()=>window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_FEEDBACK_RC128__?.installed);
+   row.orientation={title:await contract(page,row.requestedViewport)};
    await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
    assert.equal(await page.locator('[data-game-mode-v31354="HELL"]:visible').count(),0,'HELL must remain removed');
    await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
    await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.setMode('full'));
+   await page.waitForSelector('#hapil-story-rc51');
    for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+   await page.waitForFunction(()=>!document.querySelector('#hapil-story-rc51'));
+   row.orientation.gameplay=await contract(page,row.requestedViewport);
    for(let i=0;i<15;i++){
     await page.waitForTimeout(2000);
     row.samples.push(await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,D=window.__HAPIL_DANMAKU_RC129__;return{zone:s.zone,time:s.time,hp:s.hp,hero:s.activeHeroId,mode:s.gameModeV31346,speed:s.rc127MovementSpeed,fixed:window.__HAPIL_POLICY_RC127__.fixedSpeed,shots:s.hostileProjectiles.length,finite:s.hostileProjectiles.every(q=>[q.x,q.y,q.vx,q.vy].every(Number.isFinite)),director:D.snapshot(s),hud:window.__HAPIL_DANMAKU_HUD_RC129__.snapshot(s),rc128:window.__HAPIL_FEEDBACK_RC128__.snapshot(s),bosses:s.enemies.filter(D.safeActor).map(a=>String(a.id))};}));

@@ -1,7 +1,7 @@
 name: RC147 camera and finale exact candidate
 on:
   push:
-    branches: [main, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc163-ego-mobile-victory, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic, codex/rc169-final-runtime-regression, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
+    branches: [main, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc163-ego-mobile-victory, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic, codex/rc169-final-runtime-regression, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/rc231-all-combat-persona-20261026]
     paths:
       - 'assets/rc210/**'
       - 'tests/rc210-*'
@@ -53,6 +53,13 @@ on:
       - '.github/workflows/rc147-camera-finale.yml'
       - '.github/workflows/rc137-integration.yml'
       - '.github/workflows/story-narration-audit.yml'
+      - 'tests/rc231*'
+      - 'tests/helpers/landscape-orientation.cjs'
+      - 'tools/rc232-build-extension.cjs'
+      - 'tests/helpers/rc231-orientation-snapshot.cjs'
+      - 'qa/rc132/published.cjs'
+      - 'tests/rc133-public-contract.cjs'
+      - 'tests/rc137-death-choice-browser.cjs'
   workflow_dispatch:
 permissions:
   contents: read

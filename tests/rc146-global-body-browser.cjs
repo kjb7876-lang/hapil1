@@ -2,6 +2,7 @@
 // Staged native-render matrix. HP and encounter actors are explicit fixtures.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc146-global-body';fs.mkdirSync(out,{recursive:true});
 const bridge='\nwindow.__RC146_QA__={initial:oi,actors:z=>N[z]?.enemies??[],roster:()=>Object.entries(N).flatMap(([zone,v])=>(v.enemies??[]).map(a=>{const c=window.__HAPIL_RC86_BRIDGE__.cloneEnemy(a,zone);return{zone,id:c.id,boss:!!c.boss,midboss:!!c.midboss,maxHp:c.maxHp,visualOnly:!!c.visualOnly,friendly:!!c.friendly,objectiveStructureV31238:!!c.objectiveStructureV31238,narrativeStructureV31238:!!c.narrativeStructureV31238,protectedNarrativeTargetV31307:!!c.protectedNarrativeTargetV31307}})),queue:MONGSE_queueImage,drawEnemy:Yn,drawDeath:Xn,point:G,fire:()=>window.__RC146_FIRE_CALLS__||0,resetFire:()=>{window.__RC146_FIRE_CALLS__=0}};const rc146Fire=MONGSE_drawFireTonguesRC144;MONGSE_drawFireTonguesRC144=function(...args){window.__RC146_FIRE_CALLS__=(window.__RC146_FIRE_CALLS__||0)+1;return rc146Fire.apply(this,args)};';
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.wav':'audio/wav','.mp3':'audio/mpeg','.woff2':'font/woff2'};
@@ -9,12 +10,17 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={status:'running',staged:true,profiles:[]};try{
  browser=await chromium.launch({chromiumSandbox: true, channel:'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,w,h]of[['pc',1280,900],['portrait',390,844],['landscape',844,390]]){
-  const page=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:name==='pc'?1:2,isMobile:name!=='pc',hasTouch:name!=='pc'}),row={name,errors:[],httpErrors:[]};
+  const requestedViewport={width:w,height:h},combatViewport=landscape(requestedViewport);
+  const page=await browser.newPage({viewport:combatViewport,deviceScaleFactor:name==='pc'?1:2,isMobile:name!=='pc',hasTouch:name!=='pc'}),row={name,requestedViewport,combatViewport,orientation:{},errors:[],httpErrors:[]};
   if(process.env.RC146_CPU_THROTTLE){const cdp=await page.context().newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:Number(process.env.RC146_CPU_THROTTLE)});row.cpuThrottle=Number(process.env.RC146_CPU_THROTTLE);}
   page.on('pageerror',e=>row.errors.push(e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
-  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__RC146_QA__&&window.__HAPIL_BODY_ASH_RC145__&&window.__HAPIL_LUCIFER_V31318__&&window.__HAPIL_ECHOES_V31368__&&window.__HAPIL_MEDIA_ART_RC133__?.ready,{timeout:60000});
+  await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__RC146_QA__&&window.__HAPIL_BODY_ASH_RC145__&&window.__HAPIL_LUCIFER_V31318__&&window.__HAPIL_ECHOES_V31368__&&window.__HAPIL_MEDIA_ART_RC133__?.ready,{timeout:60000});
+  row.orientation.title=await contract(page,requestedViewport);
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
+  await page.waitForSelector('#hapil-story-rc51');
   for(let i=0;i<18&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(60);}
+  await page.waitForFunction(()=>!document.querySelector('#hapil-story-rc51'));
+  row.orientation.gameplay=await contract(page,requestedViewport);
   const result=await page.evaluate(async()=>{
    const Q=window.__RC146_QA__,A=window.__HAPIL_BODY_ASH_RC145__,B=window.__HAPIL_RC86_BRIDGE__,C=window.__HAPIL_CONTROLS_V31329__,L=window.__HAPIL_LUCIFER_V31318__,E=window.__HAPIL_ECHOES_V31368__,M=window.__HAPIL_MEDIA_ART_RC133__,burn=window.__HAPIL_DEATH_BURN_RC144__,s=window.__MONGSE_QA_STATE__,cache=C.binding.cache.current;
    C.setMode('manual');Object.assign(s,{time:100,hp:240,maxHp:240,x:13.5,y:24.5,activeHeroId:'gunner',defeated:[],effects:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],spawnedWaves:new Set([1,2,3,4])});

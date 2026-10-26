@@ -2,6 +2,7 @@
 // Staged native browser fixture. No campaign progress or boss kill is claimed.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc150-live';fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.woff2':'font/woff2'};
 const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404).end();}});
@@ -9,8 +10,9 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  const report=[];
  for(const [name,width,height,mobile]of[['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]].filter(row=>!process.env.RC150_PROFILE||row[0]===process.env.RC150_PROFILE)){
-  const context=await browser.newContext({viewport:{width,height},screen:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];
-  page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:'+server.address().port+'/?rc150=1',{waitUntil:'domcontentloaded'});
+  const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+  const context=await browser.newContext({viewport:combatViewport,screen:combatViewport,deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?rc150=1',{waitUntil:'domcontentloaded'});
   console.log('RC150 PROFILE LOAD '+name);
   await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_AWAKENING_IMPACT_RC150__&&window.__HAPIL_INNER_FINAL_RC133__?.metrics()?.artReady,null,{timeout:20000});
   console.log('RC150 PROFILE READY '+name);
@@ -27,6 +29,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
    await page.keyboard.press('Enter');
   }
   await page.waitForFunction(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===false,null,{timeout:10000});
+  const orientation=await contract(page,requestedViewport);
   await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.heroBleedUntil=s.time+10;s.heroBurnUntil=s.time+8;s.heroEnvyPoisonUntil=s.time+9;});
   await page.waitForTimeout(200);const liveStatus=await page.evaluate(()=>({s:window.__HAPIL_FEEDBACK_RC128__.snapshot(window.__HAPIL_CONTROLS_V31329__.binding.state.current),portrait:window.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics(),viewport:window.__HAPIL_VIEWPORT_RC104__?.last,adaptive:window.__HAPIL_ADAPTIVE_RC125__?.snapshot()?.lastCamera}));
   assert(liveStatus.s.lastAilmentsDraw?.point,'active native timers must project a visible status overlay');
@@ -63,7 +66,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
   assert(Math.abs(result.guaranteed.damage-result.guaranteed.expected)<1e-8&&result.guaranteed.duplicateDamage===result.guaranteed.damage&&result.guaranteed.seedUnchanged&&result.guaranteed.rollsUnchanged,'red Persona awakening is guaranteed max HP 2.38%, once, without a 66% defense roll');
   assert(result.clock.sameRolls&&result.clock.blocked>30&&result.clock.blocked<50&&result.clock.allowed>0);
   assert(result.reload.active&&result.reload.rolls===result.clock.rolls&&result.reload.nativeSaved===result.clock.rolls&&result.reload.nativeNormalized===result.clock.rolls);
-  assert.deepEqual(errors,[]);report.push({name,...result,statusProjection:liveStatus.s.lastAilmentsDraw.point,errors:errors.length});await context.close();
+  assert.deepEqual(errors,[]);report.push({name,requestedViewport,combatViewport,orientation,...result,statusProjection:liveStatus.s.lastAilmentsDraw.point,errors:errors.length});await context.close();
  }
  fs.writeFileSync(path.join(out,'results.json'),JSON.stringify({status:'passed',profiles:report},null,2));console.log('RC150 LIVE BROWSER '+JSON.stringify({status:'passed',profiles:report.map(r=>({name:r.name,burst:r.burst,boss:r.boss,clock:r.clock,reload:r.reload,errors:r.errors}))}));
 }finally{await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

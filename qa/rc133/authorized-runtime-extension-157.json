@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "base": "59598c41d747819590ca4b0c90cb0cd3b5f3c4b0",
+  "baseTree": "8c45b0dee8f0e2de91fa17a023997cc64a4549c6",
+  "sourceCommit": "8316fbd68e989774ac8ab2aa532f6563f8212abc",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d660d0c2be1278eb3fbff4b45233c2613879be63ea83977153e0f6c10f8bf315",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "0eae7e35914baec1c0e261c4ffd31c592351e011",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "ea71356cbb4ff4cdf6e4dc51b7fc826ff3dd98dc65797fcd1096a27fdd6d6917",
+        "gitBlob": "dbbc6dd636d6d9840eed5cb1962dd414bccc0d0c"
+      },
+      "reason": "assets/index-v31526.js: Apply the all-combat Persona eligibility and bounded enemy projectile lifecycle through the native integration and final lexical bindings."
+    },
+    {
+      "file": "assets/rc133/native-install-v2.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "e5d5586bae328fe05fa33efa2b5fe7f799571449",
+        "file": "assets/rc133/native-install-v2.js.txt"
+      },
+      "after": {
+        "file": "assets/rc133/native-install-v2.js.txt",
+        "mode": "100644",
+        "sha256": "08b480278d6852f74318bb4fd4edaf5b848ebd4ba5412aed8647867875ee1856",
+        "gitBlob": "06d273199c44da023e245b2df110891c5d17bf23"
+      },
+      "reason": "assets/rc133/native-install-v2.js.txt: Keep the editable bounded native installation source identical to its shipped all-combat lifecycle integration."
+    },
+    {
+      "file": "assets/rc231/combat-lifecycle.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc231/combat-lifecycle.js",
+        "mode": "100644",
+        "sha256": "f482c54cdb325c2d33074832c61142346871445abd5a7c97868eded55e462912",
+        "gitBlob": "ef22b92980e12df3f5cc035a89c913c60b609652"
+      },
+      "reason": "assets/rc231/combat-lifecycle.js: Own enemy projectile cast, release and recovery admission across combat modes while retaining authored timing, exceptions and every committed native packet."
+    },
+    {
+      "file": "assets/rc95/combat-flow.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "d5f78e5f60dc810905217a6e0c8e2b5a9839aa12",
+        "file": "assets/rc95/combat-flow.js"
+      },
+      "after": {
+        "file": "assets/rc95/combat-flow.js",
+        "mode": "100644",
+        "sha256": "50146c18a7758e9b8d9db68a7b143ce2c45d45cf32d4a403203f4088f6479c3a",
+        "gitBlob": "97c762cda8cc3d160dd5a79434867452acd6d28d"
+      },
+      "reason": "assets/rc95/combat-flow.js: Apply whole-volley admission with rollback and retry, and mixed-pattern recovery before the next native enemy cast."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1a92dd2db8386d0b352ad9fe61fe7e1b3e025c29",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "9c0d8117375709c4da399a5ceda83307b0703c48f6839e57027d6d0a9f1e3b64",
+        "gitBlob": "b36f41eba8128181962bcd354bcc912790bd33eb"
+      },
+      "reason": "index.html: Load and cache-bust only the exact new all-combat lifecycle and native runtime outputs."
+    }
+  ],
+  "targetProtectedRowsSha256": "cc9f9645f38c8075083a04882c747368faeb0f32587b716996b3d2902a287bca"
+}

@@ -3,20 +3,26 @@
 // fixtures are explicit; this is not a natural campaign-clear claim.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),profile=process.env.RC144_PROFILE||'pc',out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc144-death-burn';
 const size={pc:[1280,900],portrait:[390,844],landscape:[844,390]}[profile];assert(size);fs.mkdirSync(out,{recursive:true});
+const requestedViewport={width:size[0],height:size[1]},combatViewport=landscape(requestedViewport);
 const sha=cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),dirty=!!cp.execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim();
 if(process.env.EXPECTED_SHA)assert(sha===process.env.EXPECTED_SHA&&!dirty,'exact clean SHA required');
 const bridge='\nwindow.__RC144_QA__={actors:z=>N[z]?.enemies??[],drawLiving:MONGSE_drawLivingEmbersRC144,drawDeath:Xn,drawFrame:$n,queue:MONGSE_queueImage,initial:oi};';
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
 const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');const bytes=fs.readFileSync(file);res.end(file.endsWith('/assets/index-v31526.js')?Buffer.concat([bytes,Buffer.from(bridge)]):bytes);}catch{res.writeHead(404).end();}});
-(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={status:'running',sha,dirty,profile,staged:true,errors:[],httpErrors:[]};try{
+(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={status:'running',sha,dirty,profile,requestedViewport,combatViewport,orientation:{},staged:true,errors:[],httpErrors:[]};try{
  browser=await chromium.launch({chromiumSandbox: true, channel:'chrome', args:['--disable-dev-shm-usage']});
- const page=await browser.newPage({viewport:{width:size[0],height:size[1]},deviceScaleFactor:profile==='pc'?1:2,isMobile:profile!=='pc',hasTouch:profile!=='pc'});
+ const page=await browser.newPage({viewport:combatViewport,deviceScaleFactor:profile==='pc'?1:2,isMobile:profile!=='pc',hasTouch:profile!=='pc'});
  page.on('pageerror',e=>report.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)report.httpErrors.push({url:r.url(),status:r.status()});});
- await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready&&window.__RC144_QA__&&window.__HAPIL_DEATH_BURN_RC144__,{timeout:60000});
+ await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready&&window.__RC144_QA__&&window.__HAPIL_DEATH_BURN_RC144__,{timeout:60000});
+ report.orientation.title=await contract(page,requestedViewport);
  await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_API__&&window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
+ await page.waitForSelector('#hapil-story-rc51');
  for(let i=0;i<18&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(60);}
+ await page.waitForFunction(()=>!document.querySelector('#hapil-story-rc51'));
+ report.orientation.gameplay=await contract(page,requestedViewport);
  report.transactions=await page.evaluate(async(profile)=>{
   const Q=window.__RC144_QA__,s=window.__MONGSE_QA_STATE__,api=window.__MONGSE_QA_API__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,C=window.__HAPIL_CONTROLS_V31329__,burn=window.__HAPIL_DEATH_BURN_RC144__;
   C.setMode('manual');Object.assign(s,{time:100,zone:'dist01',hp:240,maxHp:240,gameModeV31346:'STORY',effects:[],defeated:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),targetEnemyId:null});

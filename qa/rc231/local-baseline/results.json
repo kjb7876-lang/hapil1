@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-10-26T08:12:01.150Z",
+  "baselineSha": "59598c41d747819590ca4b0c90cb0cd3b5f3c4b0",
+  "cpu": {
+    "status": "passed",
+    "tests": [
+      "tests/rc229-admission-unit.cjs",
+      "tests/rc222-storage-unit.cjs",
+      "tests/rc226-shooting-unit.cjs",
+      "tests/rc227-floor-unit.cjs",
+      "tests/rc137-samong-rules.cjs",
+      "tests/rc162-reset-trace-unit.cjs"
+    ],
+    "evidence": [
+      {
+        "file": "admission.log",
+        "bytes": 295,
+        "sha256": "6551f72db9c2bb2bac234f2319d2c15ff61c4070e06233e7fce27d553e190ac3"
+      },
+      {
+        "file": "storage.log",
+        "bytes": 234,
+        "sha256": "79efa5a98dbe787f0ab7f7b1fc3be8c89bf4f079589f24b45a4054323b884f2b"
+      },
+      {
+        "file": "shooting.log",
+        "bytes": 256,
+        "sha256": "e8125f23bff6cb4f0ae4e71063c6121ac213cf9c1a886f5112398397e1a2bac6"
+      },
+      {
+        "file": "floor.log",
+        "bytes": 14902,
+        "sha256": "1a60282760b8cba9c87576126af454a94c58e481d987925a01a2b03f4630d4ba"
+      },
+      {
+        "file": "samong.log",
+        "bytes": 74,
+        "sha256": "d589fe3416b9d4cc2309b5e29fed0616b4c9b21606f226a9a3154a9c93f84b9a"
+      },
+      {
+        "file": "reset.log",
+        "bytes": 171,
+        "sha256": "fa8be30b190787d9ed456714642c1b18be428994490f16b6257f3b624062246a"
+      },
+      {
+        "file": "sandbox-policy.log",
+        "bytes": 3718,
+        "sha256": "0d7b5bb50bc8076594d1c528f8550b55ade33ed3eace518cc91e120df5e74d69"
+      }
+    ]
+  },
+  "browser": {
+    "status": "blocked",
+    "officialChrome": {
+      "action": "sandboxed Chrome Stable smoke",
+      "target": "/opt/google/chrome/chrome",
+      "reason": "Google Chrome Stable binary is not installed",
+      "attempted": true,
+      "outcome": "known not launched",
+      "evidence": "chrome-sandbox-smoke.json"
+    },
+    "supplementalSystemChromium": {
+      "action": "single sandbox=true headless launch",
+      "target": "/usr/bin/chromium",
+      "reason": "SUID sandbox helper /usr/lib/chromium/chrome-sandbox is not configured correctly; Chromium aborted with SIGABRT",
+      "attempted": true,
+      "outcome": "aborted before page opened",
+      "retry": false,
+      "privilegeOrSecurityChanges": false
+    },
+    "screenshots": 0,
+    "newRunnerExecuted": false,
+    "requiredNextAction": "Run exact clean candidate SHA on existing CI with preinstalled Google Chrome Stable, official sandbox smoke, then tests/rc231-modes-save-input-browser.cjs for pc/landscape/portrait"
+  },
+  "claims": {
+    "naturalCampaignCompleted": false,
+    "naturalPersonaVictory": false,
+    "physicalDeviceTested": false,
+    "hardwareGpuTested": false,
+    "deploymentVerified": false
+  },
+  "exactShaValidation": false,
+  "executionContext": "Shared workspace initially observed clean at baseline SHA. CPU baseline logs preceded browser test authoring; source-policy and later CPU repeats include in-progress changes by other agents. Final candidate exact-clean-SHA CI remains required.",
+  "staticReview": {
+    "runner": "tests/rc231-modes-save-input-browser.cjs",
+    "syntax": "passed",
+    "chromiumSandboxPolicy": "passed",
+    "independentReviewer": "/root/encounter_audit",
+    "findings": "No static API/source blocker; actual browser execution pending in CI."
+  }
+}

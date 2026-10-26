@@ -1,4 +1,5 @@
 'use strict';
+const orientation=require('./helpers/landscape-orientation.cjs');
 // Staged native attack/render boundaries. Source art is real; no natural campaign claim.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 require('./rc134-persona-pacing-contract.cjs');
@@ -14,7 +15,8 @@ const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(rep
  for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[],httpErrors:[]};report.profiles.push(row);
   try{page.on('pageerror',e=>row.errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
-   await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');await page.locator('.game-stage canvas').waitFor({state:'visible'});
+   await orientation.beforeLoad(page);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');await page.locator('.game-stage canvas').waitFor({state:'visible'});
+row.orientation=await orientation.contract(page);
    row.result=await page.evaluate(()=>{
     const Q=window.__RC134_EFFECT_QA__,H=window.__HAPIL_INNER_FINAL_RC133__,M=window.__HAPIL_MEDIA_ART_RC133__,T=window.__HAPIL_THEME_V31323__,B=window.__HAPIL_RC86_BRIDGE__,control=window.__HAPIL_CONTROLS_V31329__,binding=control.binding,original=binding.state.current,canvas=document.createElement('canvas');canvas.width=1280;canvas.height=720;
     const ctx=canvas.getContext('2d'),cache={},clean=p=>p?new URL(String(p),location.href).pathname.replace(/^\//,'./'):'',allowed=new Set([...Object.values(M.personaSkills),...Object.values(M.samongSkills)].map(clean)),problems=[],rows=[];let checks=0;

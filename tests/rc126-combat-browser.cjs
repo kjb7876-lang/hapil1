@@ -2,6 +2,7 @@
 // Staged native combat/render tests. These are NOT full natural campaign completions.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),cp=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc126');fs.mkdirSync(out,{recursive:true});
 const bridge='\nconst rc126Render=$n;$n=function(...a){if(window.__RC126_FIXED_STATE__)a[1]=window.__RC126_FIXED_STATE__;return rc126Render(...a);};window.__RC126_NATIVE__={initial:oi,project:G,hit:Di,queue:MONGSE_queueImage,impact:(...a)=>MONGSE_spawnTelegraphedImpact(...a),save:(...a)=>Fi(...a),normalize:(...a)=>ji(...a)};';
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'};
@@ -9,9 +10,11 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 async function main(){await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const results={testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),scope:'Staged native fixtures, not a natural campaign',screens:[]};
 try{browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
 for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
- const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)missing.push({url:r.url(),status:r.status()});});
- await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC95_NATIVE__&&window.__HAPIL_COMBAT_SAFETY_RC126__?.snapshot().installed&&window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
+ const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+ const context=await browser.newContext({viewport:combatViewport,isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)missing.push({url:r.url(),status:r.status()});});
+ await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC95_NATIVE__&&window.__HAPIL_COMBAT_SAFETY_RC126__?.snapshot().installed&&window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
  for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+ const orientation=await contract(page,requestedViewport);
  const result=await page.evaluate(async()=>{
   const R=window.__HAPIL_COMBAT_SAFETY_RC126__,T=window.__RC126_NATIVE__,B=window.__HAPIL_RC86_BRIDGE__,P=window.__HAPIL_PATTERNS_V31317__,F=window.__HAPIL_COMBAT_FLOW_RC95__,A=window.__HAPIL_RC95_NATIVE__,V=window.__HAPIL_PROJECTILE_PIPELINE_V31402__,problems=[],beams=[],cache={};
   const assert=(ok,name,detail={})=>{if(!ok)problems.push({name,...detail});};
@@ -44,7 +47,7 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
   return{beams,volley:{first:first.length,later:later.length,releaseSpan:span,commonCount:later.filter(q=>q.rc126CommonSprite).length,zigzags:first.filter(q=>q.rc126Zigzag).length},commonPixel,blue:{id:blue.a.id,boss:blue.a.boss,patterns:blueCards.length},metrics:R.snapshot(s),problems};
  });
  for(const [key,file]of [['__RC126_BEAM_FIXTURE__','finite-native-beam'],['__RC126_VOLLEY_FIXTURE__','paced-native-volleys']]){await page.evaluate(k=>{window.__RC126_FIXED_STATE__=window[k];},key);await page.waitForTimeout(1200);await page.screenshot({path:path.join(out,`${name}-${file}.png`)});}
- result.name=name;result.errors=errors;result.failedResponses=missing;results.screens.push(result);console.log('RC126_BROWSER_RESULT',JSON.stringify(result));fs.writeFileSync(path.join(out,'combat-results.json'),JSON.stringify(results,null,2));assert.deepEqual(result.problems,[]);assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);await context.close();
+ result.name=name;result.requestedViewport=requestedViewport;result.combatViewport=combatViewport;result.orientation=orientation;result.errors=errors;result.failedResponses=missing;results.screens.push(result);console.log('RC126_BROWSER_RESULT',JSON.stringify(result));fs.writeFileSync(path.join(out,'combat-results.json'),JSON.stringify(results,null,2));assert.deepEqual(result.problems,[]);assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);await context.close();
 }
 }finally{fs.writeFileSync(path.join(out,'combat-results.json'),JSON.stringify(results,null,2));await browser?.close();server.close();}}
 main().catch(e=>{console.error(e);server.close();process.exitCode=1;});

@@ -2,7 +2,7 @@
 (()=>{'use strict';
  const n=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const names=['탄환','레이저','혼합'],frames=new WeakMap(),dispatch=new WeakSet();
- const stats={bullets:0,lasers:0,deferred:0,balanced:0};
+ const stats={bullets:0,lasers:0,deferred:0,balanced:0,volleyRetries:0,volleyRollbacks:0};
  const mode=s=>window.__HAPIL_MODES_V31346__?.mode(s)??s?.gameModeV31346??'STORY';
  const protectedActor=a=>!a||a.visualOnly||a.friendly||a.neutral||a.canonAlly||a.canonAllyV31217||a.canonicalAllyV31217||a.protectedObjective||a.objectiveStructureV31238||a.narrativeStructureV31238||a.protectedNarrativeTargetV31307||a.rc88Part||a.echoChildV31368||a.rc89CommandBody;
  function enabled(s){return !!s&&s.hp>0&&!s.practiceV31329&&!s.practicePatternV31365&&!['hub','village'].includes(s.zone);}
@@ -57,17 +57,29 @@
    }
   }
   if(p.index===1||s.time<f.nextBullet)return;
-  const cap=window.innerWidth<800?40:56;if((s.hostileProjectiles??[]).length>=cap)return;
-  const a=choice?.lead(s,owners)??owners[f.cursor++%owners.length];if(p.index!==2&&(n(a.atomicCastUntil31210)>s.time||n(a.recoverUntil)>s.time))return;
-  const count=a.boss?7:5,cycle=n(a.rc95BulletCycle),aim=Math.atan2(s.y-a.y,s.x-a.x),spread=p.index===2?.95:1.4,speed=mode(s)==='HELL'?6.8:5.5;
-  const shots=Math.min(count,cap-(s.hostileProjectiles??[]).length);
+  const bulletPolicy=window.__HAPIL_BULLET_BALANCE_RC210__,cap=bulletPolicy?.admissionCap?.()??(window.innerWidth<800?40:56);if((s.hostileProjectiles??[]).length>=cap)return;
+  const a=choice?.lead(s,owners)??owners[f.cursor++%owners.length];if(n(a.atomicCastUntil31210)>s.time||n(a.recoverUntil)>s.time||window.__HAPIL_COMBAT_LIFECYCLE_RC231__?.ready(s,a)===false)return;
+  const fragments=window.__HAPIL_FRAGMENTS_RC210__,fragmentVolley=fragments?.eligible(a,{vx:1,vy:0,patternKind:'rc95-volley'})===true,budget=window.__HAPIL_BULLET_BALANCE_RC210__?.policy;
+  const count=fragmentVolley?Math.min(a.boss?7:5,budget?.fragmentOwnerCap??4):a.boss?7:5,cycle=n(a.rc95BulletCycle),aim=Math.atan2(s.y-a.y,s.x-a.x),spread=p.index===2?.95:1.4,speed=mode(s)==='HELL'?6.8:5.5;
+  const shots=count;
   const authored=director?.volley(s,a,p,shots)??choice?.volley(s,a,p,shots);
-  const rc126Before=(s.hostileProjectiles??[]).length;
-  run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){const angle=cycle%3===2?aim+(i-(shots-1)/2)*.36:aim+(shots===1?0:i/(shots-1)-.5)*spread+(cycle%3===1?.22:0);const before=(s.hostileProjectiles??[]).length,spec=authored?.[i]??{vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28,damage:a.boss?(p.index===2?12:10):(p.index===2?10:8),curve:0,homingMode31212:'none',frozenUntil:s.time,life:6,patternKind:'rc95-volley',label:a.name+' · '+names[p.index],status:'none'};api.bullet(s,a,spec);for(const q of (s.hostileProjectiles??[]).slice(before)){for(const key of ['frozenUntil','telegraphUntil31210','motionReleaseAt31219','collisionDisabledUntil31219','collisionDisabledUntilV31226'])q[key]=s.time;q.hideUntilRelease31219=false;q.bodySpawned31219=true;q.rc95Bullet=true;q.heavyBossSkill=false;if(spec.rc97Grammar){q.rc97Grammar=spec.rc97Grammar;q.scatterHomingPrepared31211=true;}director?.markShot(s,q,spec);}}});
-  const newShots=(s.hostileProjectiles??[]).slice(rc126Before);
+  const planned=authored?.length??shots;
+  const specs=authored??Array.from({length:shots},(_,i)=>{const angle=cycle%3===2?aim+(i-(shots-1)/2)*.36:aim+(shots===1?0:i/(shots-1)-.5)*spread+(cycle%3===1?.22:0);return{vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28,damage:a.boss?(p.index===2?12:10):(p.index===2?10:8),curve:0,homingMode31212:'none',frozenUntil:s.time,life:6,patternKind:'rc95-volley',label:a.name+' · '+names[p.index],status:'none'};});
+  const extras=specs.filter(spec=>bulletPolicy?.eligible?.(a,spec)&&!spec.rc133InnerShot&&!spec.danmakuV31316&&!spec.persistentProjectile31222&&!spec.rc150PersonaAwakeningShot&&!fragments?.eligible(a,spec)).length;
+  const required=planned+extras,live=(s.hostileProjectiles??[]).filter(q=>!q.cancelled&&!q.projectileRemovalReason31215&&!q.friendly&&!q.reflected);
+  const deferVolley=()=>{f.bulletRetries=Math.min(6,n(f.bulletRetries)+1);f.nextBullet=s.time+Math.min(.8,.12*Math.pow(2,f.bulletRetries-1));stats.volleyRetries++;};
+  // A salvo is one committed attack. Capacity never clips its authored safe
+  // lanes, and a rejected attempt cannot advance the owner's pattern cycle.
+  const liveFragments=fragmentVolley?(s.hostileProjectiles??[]).filter(q=>fragments.owns(s,q)&&!q.friendly&&!q.reflected&&!q.cancelled&&!q.projectileRemovalReason31215&&!q.reachedHero31213&&!q.reachedMapBoundary31213):[];
+  if(required+(s.hostileProjectiles??[]).length>cap||extras&&(live.length+required>(budget?.extraGlobalCap??144)||live.filter(q=>q.sourceId===a.id).length+required>(budget?.extraOwnerCap??48))||fragmentVolley&&(liveFragments.length+planned>(budget?.fragmentGlobalCap??8)||liveFragments.filter(q=>q.sourceId===a.id).length+planned>(budget?.fragmentOwnerCap??4))){deferVolley();return;}
+  const existing=new Set(s.hostileProjectiles??[]);
+  let admitted=0;
+  run(s,()=>{for(const spec of specs){const before=(s.hostileProjectiles??[]).length;api.bullet(s,a,spec);if((s.hostileProjectiles??[]).length>before)admitted++;for(const q of (s.hostileProjectiles??[]).slice(before)){for(const key of ['frozenUntil','telegraphUntil31210','motionReleaseAt31219','collisionDisabledUntil31219','collisionDisabledUntilV31226'])q[key]=s.time;q.hideUntilRelease31219=false;q.bodySpawned31219=true;q.rc95Bullet=true;q.heavyBossSkill=false;if(spec.rc97Grammar){q.rc97Grammar=spec.rc97Grammar;q.scatterHomingPrepared31211=true;}director?.markShot(s,q,spec);}}});
+  const newShots=(s.hostileProjectiles??[]).filter(q=>!existing.has(q));
+  if(admitted<planned||newShots.length<required){s.hostileProjectiles=(s.hostileProjectiles??[]).filter(q=>existing.has(q));if(newShots.length)stats.volleyRollbacks++;deferVolley();return;}
   const rc126Volley=window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareVolley(s,a,newShots,{rhythm:true});
   director?.prepareVolley(s,newShots,rc126Volley);
-  const planned=authored?.length??shots;if(planned){a.rc95BulletCycle=cycle+1;f.nextBullet=window.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16))??Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
+  if(planned){window.__HAPIL_COMBAT_LIFECYCLE_RC231__?.prepareFrame(s);f.bulletRetries=0;a.rc95BulletCycle=cycle+1;f.nextBullet=window.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16))??Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
  }
  function snapshot(s){return{...phase(s),admissionOnly:true,stats:{...stats}};}
  window.__HAPIL_COMBAT_FLOW_RC95__=Object.freeze({installed:true,version:'RC95',enabled,frame,phase,managed,allowed,admit,laser,executing,run,reset,laserReadyAt,rank,targets,estimate,balance,tick,snapshot});

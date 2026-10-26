@@ -123,27 +123,30 @@
 
 
 /* RC152_ORIENTATION_PAUSE_BEGIN */
-/* RC152: stop the live combat frame while a touch device is in portrait. */
+/* RC231: every portrait viewport pauses progression before native game work.
+ * Orientation owns its own flag and never changes a menu or user pause. */
 (()=>{'use strict';
- const LABEL='가로 화면으로 전환해주세요',CLASS='rc152-portrait-paused';
+ const LABEL='기기를 가로로 돌려주세요',CLASS='rc152-portrait-paused';
  let gate=null,paused=false,enters=0,resumes=0,blocked=0;
  const html=()=>document.documentElement;
  const control=()=>window.__HAPIL_CONTROLS_V31329__;
- const mobile=()=>navigator.userAgentData?.mobile===true||/android|iphone|ipod|ipad|mobile/i.test(String(navigator.userAgent??''))||(navigator.platform==='MacIntel'&&(navigator.maxTouchPoints??0)>1);
- const game=()=>{const phase=control()?.binding?.phase;return phase!=null?phase==='game':document.body?.classList.contains('rc15-playing')===true;};
- const shouldPauseFor=({mobile:touch,game:playing,width,height}={})=>touch===true&&playing===true&&Number.isFinite(width)&&Number.isFinite(height)&&height>width;
+ const shouldPauseFor=({width,height}={})=>Number.isFinite(width)&&Number.isFinite(height)&&width>0&&height>width;
  function mount(){if(gate||!document.body)return gate;gate=document.createElement('div');gate.id='rc152-orientation-gate';gate.className='rc152-orientation-gate';gate.setAttribute('role','status');gate.setAttribute('aria-live','polite');gate.textContent=LABEL;document.body.appendChild(gate);return gate;}
  function clearHeldInput(){
   const binding=control()?.binding;
   let cleared=false;try{if(typeof control()?.clear==='function'){control().clear();cleared=true;}}catch{}
   try{binding?.input?.current?.clear?.();}catch{}
+  try{window.__HAPIL_PARTY_V31322__?.clearInputs?.();}catch{}
   if(!cleared)try{window.__HAPIL_MOBILE_V31366__?.clear?.('portrait-orientation');}catch{}
+  // Party/guest key edges are privately owned by their existing blur listener.
+  // Reuse that input-cancel lifecycle without closing a menu or changing pause.
+  try{if(typeof window.dispatchEvent==='function'&&typeof window.Event==='function')window.dispatchEvent(new window.Event('blur'));}catch{}
  }
  function sync(){
-  const next=shouldPauseFor({mobile:mobile(),game:game(),width:window.innerWidth,height:window.innerHeight});
+  const next=shouldPauseFor({width:window.innerWidth,height:window.innerHeight});
   html().classList.toggle(CLASS,next);
   if(next&&!paused){paused=true;enters++;clearHeldInput();}
-  else if(!next&&paused){paused=false;resumes++;}
+  else if(!next&&paused){clearHeldInput();paused=false;resumes++;}
   if(next)mount();
   return next;
  }
