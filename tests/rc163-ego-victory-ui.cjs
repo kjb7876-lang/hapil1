@@ -1,5 +1,6 @@
 'use strict';
 const assert=require('node:assert/strict');
+const{contract}=require('./helpers/landscape-orientation.cjs');
 async function interact(page,cfg){if(cfg.isMobile)await page.locator('#hapil-mobile-controls-v31366 [data-mobile-action="F"]').tap();else await page.keyboard.press('KeyF');}
 async function advanceStory(page,cfg){for(const selector of ['#hapil-story-rc51 .rc51-footer > button:has-text("계속 · Enter")','.rc26-story-continue','.interlude-next']){const button=page.locator(selector).first();if(await button.isVisible()){if(cfg.isMobile)await button.tap();else await button.click();return true;}}return false;}
 async function run(openProbe,out){
@@ -8,7 +9,7 @@ async function run(openProbe,out){
   // Touch emulation alone keeps Playwright's desktop user agent. Use a real
   // mobile UA so the production orientation detector is exercised unchanged.
   const{page,errors}=await openProbe({viewport:cfg.viewport,isMobile:cfg.isMobile??false,hasTouch:cfg.hasTouch??false,...(cfg.isMobile?{userAgent:'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36'}:{})});try{
-   if(cfg.viewport.height>cfg.viewport.width&&cfg.isMobile){await page.waitForFunction(()=>window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused()===true,null,{timeout:5000});await page.screenshot({path:out+'/rc163-portrait-rotation-guide.png'});await page.setViewportSize({width:844,height:390});}
+   const orientation=await contract(page,cfg.viewport,{onPortrait:()=>page.screenshot({path:out+'/rc163-portrait-rotation-guide.png'})});
    await page.evaluate(mode=>{
     const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,s=Q.initial();Object.assign(s,{zone:'cult04',time:100,gameModeV31346:'DREAM',samongUnlockedRC91:true,activeHeroId:'gunner'});C.binding.state.current=s;C.binding.hero.current='gunner';window.__HAPIL_RUN_V31400__.init(s,'gunner',{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'practice'});window.__HAPIL_PARTY_V31322__.configure(window.__HAPIL_RUN_V31400__.configFor(s,'gunner'));Q.enter(s,'cult04',false);C.binding.state.current=s;C.setMode(mode);s.invulnerableUntil=s.time+10000;
     // A staged full-health checkpoint. Do not assign enemy HP, phase, revival,
@@ -55,7 +56,7 @@ async function run(openProbe,out){
    }
    const reverse=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{zone:s.zone,ego:window.__HAPIL_EGO_GUARDIAN_RC155__.snapshot(s),next:window.__RC158_QA__.world[s.zone]?.next,terminal:!!s.hapilTerminalCompleteV31301};});assert.equal(reverse.zone,'cult04','actual village exit returns into canonical EGO reverse journey');assert(reverse.ego.active&&!reverse.terminal);assert.equal(reverse.next,'cult03');after.reverse=reverse;
    assert(victory.blackholeDraws.length>0,'real world renderer must consume owned blackhole image');for(const d of victory.blackholeDraws){assert(d.visible>0&&d.red/d.visible>.9&&d.blue/d.visible<.05,'actual decoded area blackhole source is red');}
-   assert.deepEqual(errors,[]);await page.screenshot({path:out+'/rc163-'+cfg.name+'-after-ui.png'});results.push({name:cfg.name,victory,after});console.log('RC163_NATIVE_EGO_UI',JSON.stringify({name:cfg.name,after,method:'full-health native cult04 checkpoint; controlled native outgoing probes, one player-invulnerability fixture; actual boss callbacks/revival/real RAF and rendered manual portal or full-auto progression; no HP1/revival-consumed/completion/EGO/destination override'}));
+   assert.deepEqual(errors,[]);await page.screenshot({path:out+'/rc163-'+cfg.name+'-after-ui.png'});results.push({name:cfg.name,orientation,victory,after});console.log('RC163_NATIVE_EGO_UI',JSON.stringify({name:cfg.name,after,method:'full-health native cult04 checkpoint; controlled native outgoing probes, one player-invulnerability fixture; actual boss callbacks/revival/real RAF and rendered manual portal or full-auto progression; no HP1/revival-consumed/completion/EGO/destination override'}));
   }catch(e){console.log('RC163_EGO_UI_FAILURE',JSON.stringify(await page.evaluate(()=>{const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,s=C.binding.state.current;clearInterval(Q.egoUITimer);return{trace:{...Q.egoUI,samples:Q.egoUI?.samples.slice(-8)},zone:s.zone,time:s.time,phase:C.binding.phase,enemies:s.enemies.map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,phase:a.phase})),inner:s.innerFinalRC133,dream:s.dreamFinalV31346,blocked:C.binding.blocked?.(),flowReady:window.__HAPIL_FLOW_V31343__?.ready(s,false),settings:C.binding.settings.current,ego:s.egoGuardianRC155,flow:s.flowStateV31343,error:s.flowTransitionErrorV31343,drops:s.egoDrops,story:document.querySelector('#hapil-story-rc51')?.textContent,rotation:document.querySelector('[role="dialog"]')?.textContent};})));throw e;}finally{await page.close();}
  }
  return{results,staged:true,physicalDevice:false};

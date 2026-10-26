@@ -517,9 +517,9 @@ async function assertNativeImpact(evidence) {
     check('mobile touch start keeps title/story upload-free and starts native combat music');
 
     const openMobileSettings=async()=>{
-      // Touch CSS hides the native topbar. Its replacement toolbar dispatches
-      // Settings on trusted pointerdown through the mobile action controller.
-      await page.getByRole('button',{name:'설정 메뉴 열기',exact:true}).tap();
+      // Landscape touch CSS hides the old mobile toolbar Menu button. The
+      // visible overlay gear forwards a trusted tap to the native settings UI.
+      await page.locator('#rc108-control-overlay').getByRole('button',{name:'설정 · 메뉴',exact:true}).tap();
       await page.getByRole('dialog',{name:'설정',exact:true}).waitFor();
     };
     const closeMobileSettings=()=>page.getByRole('dialog',{name:'설정',exact:true}).getByRole('button',{name:'닫기 ×',exact:true}).tap();

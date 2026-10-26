@@ -11,7 +11,7 @@ concurrency:
   group: rc231-${{ github.event_name }}-${{ github.sha }}
   cancel-in-progress: false
 env:
-  EXPECTED_SHA: ${{ github.sha }}
+  EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 jobs:
   cpu:
     runs-on: ubuntu-24.04
@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ env.EXPECTED_SHA }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v6
@@ -55,6 +55,7 @@ jobs:
             if [ "$result" -ne 0 ]; then status=1; fi
           }
           git rev-parse HEAD | tee "$task_dir/evidence/sha.txt"
+          printf 'RC231_CHECKOUT expected=%s actual=%s event=%s\n' "$EXPECTED_SHA" "$(git rev-parse HEAD)" "$GITHUB_SHA"
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA" || exit 1
           test -z "$(git status --porcelain)" || exit 1
           run_check extension158 node tools/rc232-build-extension.cjs --check
@@ -83,7 +84,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: rc231-cpu-${{ github.sha }}
+          name: rc231-cpu-${{ env.EXPECTED_SHA }}
           path: |
             ${{ runner.temp }}/rc231-cpu/evidence/
             ${{ runner.temp }}/rc207-cpu/
@@ -100,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ env.EXPECTED_SHA }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v6
@@ -119,6 +120,7 @@ jobs:
           HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/sandbox
         run: |
           set -euo pipefail
+          printf 'RC231_CHECKOUT expected=%s actual=%s event=%s\n' "$EXPECTED_SHA" "$(git rev-parse HEAD)" "$GITHUB_SHA"
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
@@ -136,7 +138,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: rc231-chrome-${{ matrix.profile }}-${{ github.sha }}
+          name: rc231-chrome-${{ matrix.profile }}-${{ env.EXPECTED_SHA }}
           path: ${{ runner.temp }}/rc231-browser/
           if-no-files-found: error
           retention-days: 14
