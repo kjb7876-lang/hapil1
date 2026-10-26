@@ -33,6 +33,14 @@ const FIXTURES = Object.freeze([
 ]);
 const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const git = args => cp.execFileSync('git', args, { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
+function nativeEchoProducer(bytes) {
+  const text = bytes.toString(), marker = text.indexOf('/* 3.13.68: bounded, owner-authored echoes.');
+  const cfg = text.indexOf(' const cfg=', marker), cfgEnd = text.indexOf(';', cfg) + 1;
+  const owner = text.indexOf('\n function owner(s,id)', marker), ownerEnd = text.indexOf('\n function colors(', owner);
+  const fire = text.indexOf('\n function fire(s,c)', marker), fireEnd = text.indexOf('\n function spawn(', fire);
+  assert(marker > 0 && cfg > marker && cfgEnd > cfg && owner > marker && ownerEnd > owner && fire > marker && fireEnd > fire);
+  return Buffer.from([text.slice(cfg, cfgEnd), text.slice(owner, ownerEnd), text.slice(fire, fireEnd)].join('\n'));
+}
 
 // This lexical bridge exposes existing functions and adds call-through actor /
 // projectile paint receipts. It does not change their arguments/results,
@@ -100,6 +108,51 @@ function installQualityProbe() {
   // eligible functions are pure reads; its API object and all emission results
   // remain native. Observe the final emitter, including its density extra.
   Q.observeAdmissions();
+  const nativePush = Array.prototype.push, copyChanges = new Set(['id', 'rc220DensityCopy', 'rc220ParentId', 'rc220AwaitParent', 'rc220AngleOffset', 'vx', 'vy', 'rc153ScatterAngle', 'danmakuAngleV31316', 'cosmicAngleV31318']);
+  const contacts = new Set(['hitTargets', 'hitActors', 'contactTargets', 'rc133Hits', 'coreContactsV31333']);
+  // RC220 appends its native copies in one push after constructing them. Observe
+  // that exact boundary, before native flight moves either body. The array,
+  // arguments, original API object and push return value remain unchanged.
+  Array.prototype.push = function () {
+    const s = window.__RC233_WORLD__;
+    if (!window.__RC233_OBSERVING__ || this !== s?.hostileProjectiles) return nativePush.apply(this, arguments);
+    const items = Array.from(arguments), evidence = [], echoEvidence = [];
+    for (const q of items) if (q?.echoBoltV31368 && !q.rc220DensityCopy) {
+      const caller = String(new Error().stack).split('\n').find(line => /\bat fire\b/.test(line) && line.includes('/assets/index-v31526.js')) ?? '';
+      nativePush.call(echoEvidence, { time: s.time, id: q.id, owner: q.sourceId, caller, sourceExact: !!caller,
+        before: this.filter(old => old.echoBoltV31368).length, cap: window.__HAPIL_ECHOES_V31368__.cfg.maxBolts });
+    }
+    for (const q of items) if (q?.rc220DensityCopy) {
+      const p = this.find(parent => parent.id === q.rc220ParentId), actor = p && window.__HAPIL_COMBAT_RC220__.owner(s, p);
+      const caller = String(new Error().stack).split('\n').find(line => line.includes('/assets/rc220/combat.js')) ?? '';
+      const angle = p ? Math.atan2(p.vy, p.vx) : NaN, aim = Number.isFinite(p?.cosmicAimV31318) ? p.cosmicAimV31318 : p ? Math.atan2(s.y - p.y, s.x - p.x) : NaN;
+      const delta = Math.atan2(Math.sin(angle - aim), Math.cos(angle - aim)), side = p?.rc129Plan?.side ?? (delta < 0 ? -1 : 1), next = angle + side * .085, speed = p ? Math.hypot(p.vx, p.vy) : NaN;
+      const inheritedExact = !!p && Object.keys(p).filter(key => !copyChanges.has(key)).every(key => {
+        if (contacts.has(key) && (p[key] instanceof Set || Array.isArray(p[key]))) {
+          const a = [...p[key]], b = q[key]; return b !== p[key] && (p[key] instanceof Set ? b instanceof Set : Array.isArray(b)) && a.length === (b instanceof Set ? b.size : b.length) && a.every((value, i) => Object.is(value, [...b][i]));
+        }
+        return Object.is(p[key], q[key]);
+      });
+      const physicsExact = q.vx === Math.cos(next) * speed && q.vy === Math.sin(next) * speed && q.rc220AngleOffset === side * .085 && ['rc153ScatterAngle', 'danmakuAngleV31316', 'cosmicAngleV31318'].every(key => q[key] === next);
+      const clocks = packet => Object.fromEntries(['born', 'sourceBorn', 'expiresAt', 'frozenUntil', 'telegraphUntil31210', 'motionReleaseAt31219', 'collisionDisabledUntil31219', 'collisionDisabledUntilV31226', 'bossCastResolveAt31210', 'interruptProtectedUntil31210'].filter(key => packet && key in packet).map(key => [key, packet[key]]));
+      nativePush.call(evidence, { time: s.time, id: q.id, parentId: q.rc220ParentId, owner: q.sourceId, caller,
+        sourceExact: /prepareFrame/.test(caller), inheritedExact, physicsExact,
+        contractExact: !!p && !!actor && window.__HAPIL_BULLET_BALANCE_RC210__.eligible(actor, p) && !p.rc220DensityCopy && p.rc220DensityProcessed === true && p.rc220HalfSize === true && q.rc220AwaitParent === (p.bodySpawned31219 === false) && inheritedExact && physicsExact && !this.some(old => old.id === q.id) && Object.keys(q).every(key => key in p || copyChanges.has(key)),
+        parentPhysics: p && { x: p.x, y: p.y, vx: p.vx, vy: p.vy, radius: p.radius, damage: p.damage, factor: p.rc210BulletBaseline?.factor },
+        childPhysics: { x: q.x, y: q.y, vx: q.vx, vy: q.vy, radius: q.radius, damage: q.damage, factor: q.rc210BulletBaseline?.factor },
+        parentClocks: clocks(p), childClocks: clocks(q) });
+    }
+    const result = nativePush.apply(this, items);
+    for (const row of evidence) if (this.some(q => q.id === row.id)) {
+      if (window.__RC233_COPIES__.length < 4096) nativePush.call(window.__RC233_COPIES__, row);
+      else window.__RC233_COPY_OVERFLOW__++;
+    }
+    for (const row of echoEvidence) if (this.some(q => q.id === row.id)) {
+      if (window.__RC233_ECHOES__.length < 4096) nativePush.call(window.__RC233_ECHOES__, { ...row, after: this.filter(q => q.echoBoltV31368).length });
+      else window.__RC233_COPY_OVERFLOW__++;
+    }
+    return result;
+  };
   const number = (v, fallback = 0) => Number.isFinite(v) ? v : fallback;
   const release = q => Math.max(...['born', 'frozenUntil', 'telegraphUntil31210', 'motionReleaseAt31219', 'collisionDisabledUntil31219', 'collisionDisabledUntilV31226'].map(k => number(q[k])));
   const removed = q => q.cancelled || q.projectileRemovalReason31215 || q.reachedHero31213 || q.reachedMapBoundary31213 || q.friendly || q.reflected;
@@ -211,7 +264,7 @@ function installQualityProbe() {
     window.__HAPIL_BATTLE_ARENA_RC138__.enforce(s);
     const actorGuards = actors.map(a => ({ id: a.id, x: typeof Object.getOwnPropertyDescriptor(a, 'x')?.get === 'function', y: typeof Object.getOwnPropertyDescriptor(a, 'y')?.get === 'function' }));
     if (!actorGuards.every(row => row.x && row.y)) throw Error('native roster setter did not enroll actor coordinate guards ' + JSON.stringify(actorGuards));
-    window.__RC233_OBSERVING__ = true; window.__RC233_ADMISSIONS__ = [];
+    window.__RC233_WORLD__ = s; window.__RC233_OBSERVING__ = true; window.__RC233_ADMISSIONS__ = []; window.__RC233_COPIES__ = []; window.__RC233_ECHOES__ = []; window.__RC233_COPY_OVERFLOW__ = 0;
     for (const key of Object.keys(window.__RC233_PAINT__)) window.__RC233_PAINT__[key] = [];
     C.binding.modal.current = null;
     return { time: s.time, zone: s.zone, hero: s.activeHeroId, partyRoster: P.roster, otherPartyActors: P.actors.length,
@@ -222,13 +275,13 @@ function installQualityProbe() {
   function observe(fixture, criteria) {
     return new Promise((resolve, reject) => {
       const s = C.binding.state.current, L = window.__HAPIL_COMBAT_LIFECYCLE_RC231__, ids = fixture.ids ?? [fixture.id], start = s.time;
-      const cycles = [], samples = [], majorPackets = new Map(), packetIds = new Set(), ordinaryPackets = new WeakSet(), cyclePackets = new Map(), lastCycles = new Map(), snapshots = {}, endWall = performance.now() + criteria.fixtureWallTimeoutMs;
+      const cycles = [], samples = [], majorPackets = new Map(), packetIds = new Set(), echoIds = new Set(), ordinaryPackets = new WeakSet(), cyclePackets = new Map(), lineageCycles = new Map(), lastCycles = new Map(), snapshots = {}, endWall = performance.now() + criteria.fixtureWallTimeoutMs;
       let tracked = null, trackedRelease = null, actualScene = null, lastTime = s.time, idle = 0, maxIdle = 0, bodyGap = 0, maxBodyGap = 0, maxQueue = 0, queueHighWater = null, maxEchoBolts = 0;
       const complete = timedOut => {
         pause(); window.__RC233_SNAPSHOTS__ = snapshots;
         const actors = ids.map(id => s.enemies.find(a => a.id === id));
         resolve({ start, end: s.time, timedOut, cycles, samples, majorPackets: [...majorPackets.values()], maxIdle, maxBodyGap, maxQueue, cap: samples[0]?.cap,
-          queueHighWater, maxEchoBolts, echoBoltCap: window.__HAPIL_ECHOES_V31368__.cfg.maxBolts, admissionEvents: window.__RC233_ADMISSIONS__,
+          queueHighWater, maxEchoBolts, echoBoltCap: window.__HAPIL_ECHOES_V31368__.cfg.maxBolts, observedEchoIds: [...echoIds], echoAdmissionEvents: window.__RC233_ECHOES__, admissionEvents: window.__RC233_ADMISSIONS__, densityCopyEvents: window.__RC233_COPIES__, densityCopyOverflow: window.__RC233_COPY_OVERFLOW__,
           observedPacketCount: packetIds.size, snapshotStages: Object.keys(snapshots), nativePaint: window.__RC233_PAINT__, actualScene,
           actorHp: actors.map(a => ({ id: a.id, hp: a.hp, maxHp: a.maxHp })),
           readability: window.__HAPIL_PROJECTILE_READABILITY_RC232__?.metrics() ?? null, pausedForRaster: true,
@@ -242,11 +295,12 @@ function installQualityProbe() {
           const dt = Math.max(0, s.time - lastTime); lastTime = s.time;
           const queues = s.hostileProjectiles ?? [], owned = queues.filter(q => ids.includes(q.sourceId) && !removed(q));
           const echoes = queues.filter(q => q.echoBoltV31368).length;
+          for (const q of queues) if (q.echoBoltV31368) echoIds.add(q.id);
           maxEchoBolts = Math.max(maxEchoBolts, echoes);
           if (queues.length > maxQueue) {
             maxQueue = queues.length;
             queueHighWater = { time: s.time, rawTotal: queues.length, echoBolts: echoes,
-              rc95Pressure: queues.filter(q => q.rc95Bullet).length, densityExtras: queues.filter(q => q.rc210DensityExtra).length,
+              rc95Pressure: queues.filter(q => q.rc95Bullet).length, densityExtras: queues.filter(q => q.rc210DensityExtra).length, rc220Copies: queues.filter(q => q.rc220DensityCopy).length,
               terminal: queues.filter(removed).length,
               specialNative: queues.filter(q => q.rc133InnerShot || q.danmakuV31316 || q.persistentProjectile31222 || q.rc150PersonaAwakeningShot).length,
               byOwner: Object.fromEntries([...new Set(queues.map(q => String(q.sourceId)))].map(id => [id, queues.filter(q => String(q.sourceId) === id).length])),
@@ -266,13 +320,21 @@ function installQualityProbe() {
             if ((ordinary ? counter >= start : counter > 0) && counter !== previous) {
               lastCycles.set(a.id, counter);
               let seen = cyclePackets.get(a.id); if (!seen) { seen = new WeakSet(); cyclePackets.set(a.id, seen); }
-              const volley = owned.filter(q => q.sourceId === a.id && q.rc95Bullet && !seen.has(q));
+              const volley = owned.filter(q => q.sourceId === a.id && q.rc95Bullet && !q.rc220DensityCopy && !seen.has(q));
               for (const q of volley) seen.add(q);
               const row = L.inspect(s, a, 'pressure') ?? L.inspect(s, a);
-              cycles.push({ owner: a.id, cycle: counter, announcedAt: ordinary ? counter : row?.announcedAt ?? s.time, observedAt: s.time,
+              const cycle = { owner: a.id, cycle: counter, announcedAt: ordinary ? counter : row?.announcedAt ?? s.time, observedAt: s.time,
                 releaseAt: volley.length ? Math.max(...volley.map(release)) : row?.releaseAt ?? number(a.attackAt),
                 firstReleaseAt: volley.length ? Math.min(...volley.map(release)) : null, salvos: [...new Set(volley.map(q => q.rc126Salvo ?? null))],
-                until: row?.until ?? null, packets: volley.length, packetIds: volley.map(q => q.id), deliveredPacketIds: [], clocks: clocks(a), phase: window.__HAPIL_COMBAT_FLOW_RC95__.phase(s) });
+                until: row?.until ?? null, packets: volley.length, packetIds: volley.map(q => q.id), nativeDensityChildren: [], deliveredPacketIds: [], clocks: clocks(a), phase: window.__HAPIL_COMBAT_FLOW_RC95__.phase(s) };
+              cycles.push(cycle); for (const q of volley) lineageCycles.set(q.id, cycle);
+            }
+          }
+          for (const q of owned) if (q.rc95Bullet) {
+            const cycle = lineageCycles.get(q.rc220DensityCopy ? q.rc220ParentId : q.id);
+            if (cycle) {
+              cycle.releaseAt = Math.max(cycle.releaseAt, release(q));
+              if (q.rc220DensityCopy && !cycle.nativeDensityChildren.includes(q.id)) cycle.nativeDensityChildren.push(q.id);
             }
           }
           if (fixture.role === 'ordinary') for (const q of owned) if (!ordinaryPackets.has(q) && [q.x, q.y, q.vx, q.vy].every(Number.isFinite) && Math.hypot(q.vx, q.vy) > .001 && q.damage > 0) {
@@ -413,13 +475,14 @@ function pressureSummary(trace) {
     releaseToNextAnnouncement: Math.max(0, row.announcedAt - rows[i].releaseAt) }));
   return { cycles: rows.length, owners: [...new Set(rows.map(r => r.owner))], maxIdleWithoutMajor: trace.maxIdle,
     maxBodyCenterGapWithoutMajor: trace.maxBodyGap, deliveredCycles: rows.filter(row => row.packets > 0).length,
+    nativeEmittedPackets: rows.map(row => row.packets), nativeDensityChildren: rows.map(row => row.nativeDensityChildren?.length ?? 0),
     warningDurations: rows.map(row => Math.max(0, row.releaseAt - row.announcedAt)),
     maxReleaseToNextAnnouncement: Math.max(0, ...gaps.map(row => row.releaseToNextAnnouncement)), maxQueue: trace.maxQueue,
     cap: trace.cap, queueHighWater: trace.queueHighWater, maxEchoBolts: trace.maxEchoBolts, echoBoltCap: trace.echoBoltCap, gaps };
 }
 
 function admissionSummary(trace) {
-  const events = trace.admissionEvents ?? [], guarded = events.filter(row => row.guarded), violations = [];
+  const events = trace.admissionEvents ?? [], guarded = events.filter(row => row.guarded), copies = trace.densityCopyEvents ?? [], violations = [];
   for (const [index, row] of events.entries()) {
     if (row.allowed !== (!row.guarded || row.before < row.cap)) violations.push({ index, reason: 'served admission decision differs from its native threshold' });
     if (!row.allowed && row.added.length) violations.push({ index, reason: 'rejected native emission added packets' });
@@ -427,11 +490,36 @@ function admissionSummary(trace) {
     if (row.added.some(q => q.owner !== row.owner)) violations.push({ index, reason: 'emitter packet lost its actual owner provenance' });
   }
   const pressureIds = new Set(events.filter(row => row.pressure).flatMap(row => row.added.map(q => q.id)));
-  const observedPressureIds = trace.cycles.flatMap(row => row.packetIds ?? []);
+  const copyById = new Map(), childrenPerParent = new Map();
+  for (const row of copies) {
+    if (!row.sourceExact || !row.contractExact) violations.push({ id: row.id, reason: 'native density copy lacks exact producer and constructor proof' });
+    if (copyById.has(row.id)) violations.push({ id: row.id, reason: 'native density child ID was reused' });
+    copyById.set(row.id, row); childrenPerParent.set(row.parentId, (childrenPerParent.get(row.parentId) ?? 0) + 1);
+  }
+  if ([...childrenPerParent.values()].some(count => count !== 1)) violations.push({ reason: 'native processed parent created more than one density child' });
+  if (trace.densityCopyOverflow) violations.push({ reason: 'native copy receipts exceeded their declared bound' });
+  const descendantOfPressure = (id, visited = new Set()) => {
+    if (pressureIds.has(id)) return true;
+    if (visited.has(id)) return false; visited.add(id);
+    const copy = copyById.get(id); return !!copy && copy.sourceExact && copy.contractExact && descendantOfPressure(copy.parentId, visited);
+  };
+  const directIds = trace.cycles.flatMap(row => row.packetIds ?? []), childIds = trace.cycles.flatMap(row => row.nativeDensityChildren ?? []);
+  const observedPressureIds = [...directIds, ...childIds];
+  const echoEvents = trace.echoAdmissionEvents ?? [], echoOrigins = new Set(echoEvents.map(row => row.id));
+  for (const row of echoEvents) if (!row.sourceExact || !(row.before < row.cap && row.after <= row.cap)) violations.push({ id: row.id, reason: 'actual native echo origin violated its source/admission contract' });
+  const descendantOfEcho = (id, visited = new Set()) => {
+    if (echoOrigins.has(id)) return true;
+    if (visited.has(id)) return false; visited.add(id);
+    const copy = copyById.get(id); return !!copy && copy.sourceExact && copy.contractExact && descendantOfEcho(copy.parentId, visited);
+  };
   return { calls: events.length, guardedCalls: guarded.length, guardedEmissions: guarded.filter(row => row.added.length).length,
     deniedGuardedCalls: guarded.filter(row => !row.allowed).length, pressureEmittedIds: [...pressureIds],
-    observedPressurePackets: observedPressureIds.length, pressureProvenanceExact: observedPressureIds.every(id => pressureIds.has(id)), violations,
-    meaning: 'Actual final native emitter call-through receipts. The unchanged 40/56 policy limits guarded moving boss/miniboss admissions; native echoes and special producers retain their own limits. Raw global queue peaks are reported separately and never filtered into a claimed global cap.' };
+    nativeEmittedPackets: directIds.length, nativeDensityChildren: childIds.length, nativeCopiesObserved: copies.length,
+    echoOriginAdmissions: echoEvents.length, echoBodiesObserved: trace.observedEchoIds?.length ?? 0,
+    echoProvenanceExact: (trace.observedEchoIds ?? []).every(id => descendantOfEcho(id)),
+    nativeCopyLimit: 'Exactly one child per processed original parent; no recursive copies.',
+    observedPressurePackets: observedPressureIds.length, pressureProvenanceExact: observedPressureIds.every(id => descendantOfPressure(id)), violations,
+    meaning: 'Actual final native emitter receipts plus exact native RC220 constructor/parent lineage. The unchanged 40/56 policy limits guarded moving boss/miniboss admissions; density copies, echoes and special producers retain their own rules. Raw global queue peaks remain unfiltered.' };
 }
 
 async function cameraEvidence(page, release) {
@@ -561,6 +649,10 @@ async function main() {
       const sourceSha = release === 'before' ? BASELINE : head, sourceBundle = releaseBytes(release, 'assets/index-v31526.js');
       const source = report.releases[release] = { sourceSha, sourceBundleSha256: digest(sourceBundle), bridgeSha256: digest(BRIDGE),
         servedBundleSha256: digest(Buffer.concat([sourceBundle, BRIDGE])), loadedJavaScript: [], fixtures: [], controlDefects: [], errors: [], httpErrors: [], externalAttempts: [] };
+      source.nativeDensityCopy = { file: 'assets/rc220/combat.js', sha256: digest(releaseBytes(release, 'assets/rc220/combat.js')) };
+      assert.equal(source.nativeDensityCopy.sha256, digest(releaseBytes('before', 'assets/rc220/combat.js')), 'the measured native RC220 copy producer remains byte-identical to the immutable baseline');
+      source.nativeEchoAdmission = { file: 'assets/index-v31526.js', producerSha256: digest(nativeEchoProducer(sourceBundle)), sourceBundleSha256: source.sourceBundleSha256 };
+      assert.equal(source.nativeEchoAdmission.producerSha256, digest(nativeEchoProducer(releaseBytes('before', 'assets/index-v31526.js'))), 'the measured native echo fire/owner/limit remain byte-identical to the immutable baseline');
       const context = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1, isMobile: PROFILE !== 'pc', hasTouch: PROFILE !== 'pc',
         userAgent: PROFILE === 'pc' ? undefined : 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + browser.version() + ' Mobile Safari/537.36' });
       await localOnly(context, report.environment.localOrigin, source.externalAttempts);
@@ -596,6 +688,8 @@ async function main() {
           }
         }
         row.pressure = pressureSummary(row.trace); row.admission = admissionSummary(row.trace);
+        row.admission.nativeCopySource = source.nativeDensityCopy;
+        row.admission.nativeEchoSource = source.nativeEchoAdmission;
         row.raster = await page.evaluate(() => window.__RC233_QUALITY__.rasters());
         row.raster.floorSource = { file: row.raster.floor.replace(/^\.\//, ''), sha256: digest(releaseBytes(release, row.raster.floor.replace(/^\.\//, ''))) };
         for (const raster of Object.values(row.raster.rows)) for (const receipt of raster.receipts) {
@@ -616,7 +710,7 @@ async function main() {
           assert(row.trace.observedPacketCount > 0 && row.raster.rows.release && row.raster.rows.flight, 'actual live release and later flight must both be observed');
           if (fixture.name !== 'ordinary-spider') assert(row.trace.actualScene, 'existing native three-cycle window includes an actual battlefield scene with the declared actor and released-body count');
           assert.deepEqual(row.admission.violations, [], 'actual guarded native admissions preserve their unchanged cap and rejected emissions add no packets');
-          assert(row.trace.maxEchoBolts <= row.trace.echoBoltCap, 'independent native echo bolts retain their original family cap');
+          assert(row.admission.echoProvenanceExact, 'all native echo bodies retain their original admitted origin or exact native density-copy lineage');
           if (fixture.role !== 'ordinary') {
             assert(row.admission.guardedCalls > 0 && row.admission.guardedEmissions > 0, 'actual moving ranked emissions are observed through the native admission guard');
             assert(row.admission.observedPressurePackets > 0 && row.admission.pressureProvenanceExact, 'every observed native pressure-cycle packet has an actual capped-emitter receipt');
@@ -644,10 +738,12 @@ async function main() {
       source.major.trace = await page.evaluate(({ fixture, criteria }) => window.__RC233_QUALITY__.observe(fixture, criteria), { fixture: { ...majorFixture, controlBaseline: release === 'before' }, criteria: CRITERIA });
       source.major.pressure = pressureSummary(source.major.trace);
       source.major.admission = admissionSummary(source.major.trace);
+      source.major.admission.nativeCopySource = source.nativeDensityCopy;
+      source.major.admission.nativeEchoSource = source.nativeEchoAdmission;
       if (release === 'after') {
         assert.deepEqual(source.major.admission.violations, [], 'native major preservation case keeps guarded supplemental admissions capped');
         assert(source.major.admission.pressureProvenanceExact && source.major.admission.observedPressurePackets > 0, 'major-case pressure packets retain actual capped-emitter provenance');
-        assert(source.major.trace.maxEchoBolts <= source.major.trace.echoBoltCap, 'major-case native echoes retain their own cap');
+        assert(source.major.admission.echoProvenanceExact, 'major-case native echo bodies retain their original admitted origin or exact native density-copy lineage');
         assert(source.major.pressure.deliveredCycles >= CRITERIA.majorFixtureMinimumPressureCycles, 'separate major-preservation case observes actual pressure before and after its native blood action');
         assert.equal(source.major.trace.cycles[0].owner, 'mb-ep1b03', 'ready native owner acts while the initial lead is still blocked');
         assert(source.major.pressure.owners.includes('b03-boss') && source.major.pressure.owners.includes('mb-ep1b03'), 'both actual ranked owners receive pressure turns');
