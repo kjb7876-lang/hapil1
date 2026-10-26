@@ -287,7 +287,8 @@ async function liveLifecycle(role, mode) {
     stage = 'official-chrome-launch';
     browser = await chromium.launch({ chromiumSandbox: true, channel: 'chrome', headless: true, args: [] });
     report.environment.browserVersion = browser.version();
-    context = await browser.newContext({ viewport, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile });
+    context = await browser.newContext({ viewport, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile,
+      userAgent: mobile ? 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/' + browser.version() + ' Mobile Safari/537.36' : undefined });
     page = await context.newPage(); page.setDefaultTimeout(30000);
     page.on('pageerror', e => report.errors.push(e.stack || e.message));
     page.on('response', r => { if (r.status() >= 400) report.httpErrors.push({ url: r.url(), status: r.status() }); });
@@ -304,6 +305,16 @@ async function liveLifecycle(role, mode) {
     const base = 'http://127.0.0.1:' + server.address().port;
     stage = 'natural-title-and-hero-start';
     await page.goto(base + '/?qa=1', { waitUntil: 'domcontentloaded' }); await ready();
+    report.environment.client = await page.evaluate(() => ({ userAgent: navigator.userAgent,
+      userAgentDataMobile: navigator.userAgentData?.mobile ?? null, platform: navigator.platform,
+      maxTouchPoints: navigator.maxTouchPoints, coarsePointer: matchMedia('(pointer:coarse)').matches,
+      viewport: { width: innerWidth, height: innerHeight },
+      nativeMobileControls: window.__HAPIL_MOBILE_V31366__?.enabled?.() ?? null }));
+    if (mobile) {
+      assert.match(report.environment.client.userAgent, /Android 14.*Mobile/);
+      assert(report.environment.client.maxTouchPoints > 0, 'mobile fixture reports an actual emulated touch capability');
+    }
+    console.log('RC231_BROWSER_CLIENT', JSON.stringify({ profile, ...report.environment.client }));
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: '새 게임 시작', exact: true }).click();
     await page.getByRole('button', { name: '이 편성으로 접속', exact: true }).click();
@@ -517,15 +528,32 @@ async function liveLifecycle(role, mode) {
       stage = 'portrait-orientation-pause';
       await page.setViewportSize({ width: 390, height: 844 });
       await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
-      const before = await page.evaluate(() => ({ time: window.__HAPIL_CONTROLS_V31329__.binding.state.current.time, hp: window.__HAPIL_CONTROLS_V31329__.binding.state.current.hp }));
+      const before = await page.evaluate(() => {
+        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
+        window.__RC231_ORIENTATION_REF__ = s;
+        return { time: s.time, hp: s.hp };
+      });
       await page.keyboard.press('ArrowUp'); await page.waitForTimeout(250);
       const after = await page.evaluate(() => ({ time: window.__HAPIL_CONTROLS_V31329__.binding.state.current.time, hp: window.__HAPIL_CONTROLS_V31329__.binding.state.current.hp,
-        gate: document.querySelector('#rc152-orientation-gate')?.textContent, paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused() }));
+        gate: document.querySelector('#rc152-orientation-gate')?.textContent, paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused(),
+        viewport: { width: innerWidth, height: innerHeight }, userAgent: navigator.userAgent,
+        userAgentDataMobile: navigator.userAgentData?.mobile ?? null, maxTouchPoints: navigator.maxTouchPoints }));
       assert.equal(after.time, before.time); assert.equal(after.hp, before.hp);
       assert.equal(after.gate, '가로 화면으로 전환해주세요'); assert(after.paused);
       await page.setViewportSize(viewport);
       await page.waitForFunction(() => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
-      check('portrait orientation gate freezes simulation and resumes on landscape', { before, after, resumed: true });
+      await page.waitForFunction(time => {
+        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
+        return s === window.__RC231_ORIENTATION_REF__ && s.time > time;
+      }, after.time, { timeout: 10000 });
+      const resumed = await page.evaluate(() => {
+        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
+        return { time: s.time, hp: s.hp, sameInstance: s === window.__RC231_ORIENTATION_REF__,
+          paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused(), viewport: { width: innerWidth, height: innerHeight } };
+      });
+      assert(resumed.sameInstance && resumed.time > after.time && !resumed.paused);
+      assert.equal(resumed.hp, after.hp, 'landscape resumes the same protected native player without changing HP');
+      check('portrait orientation gate freezes simulation and resumes on landscape', { before, after, resumed });
     }
     report.environment.renderer = await page.evaluate(() => {
       const gl = document.createElement('canvas').getContext('webgl');
@@ -550,6 +578,8 @@ async function liveLifecycle(role, mode) {
         zone: s?.zone, hp: s?.hp, time: s?.time, modal: C?.binding?.modal?.current,
         story: window.__HAPIL_STORY_RC51__?.currentNarrative?.(), readingBlocked: window.__HAPIL_READING_V31342__?.blocked,
         blocked: C?.binding?.blocked?.(), documentHidden: document.hidden,
+        client: { userAgent: navigator.userAgent, userAgentDataMobile: navigator.userAgentData?.mobile ?? null,
+          maxTouchPoints: navigator.maxTouchPoints, viewport: { width: innerWidth, height: innerHeight } },
         orientationPaused: window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.(),
         partyIsControl: window.__HAPIL_PARTY_V31322__?.state === s,
         qaIsControl: window.__MONGSE_QA_STATE__ === s,
