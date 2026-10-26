@@ -109,6 +109,7 @@ ok(hookStart >= 0 && hookEnd > hookStart, 'bounded native integration block exis
 const hook = native.slice(hookStart, hookEnd);
 ok(bundle.includes(hook.trimEnd()), 'the deployed bundle carries the actual integration source');
 runtime.nativeCalls = [];
+runtime.MONGSE_shouldBossStartNormalAttackSmartR1 = () => true;
 runtime.Ei = (s, a) => { runtime.nativeCalls.push('cast'); s.hostileProjectiles.push(packet(a, { frozenUntil: s.time + .7 })); return 'native-cast'; };
 runtime.MONGSE_spawnBossCombatPatternV31230 = (s, a) => { runtime.nativeCalls.push('pattern'); return { native: true }; };
 runtime.MONGSE_beginSpatialRiftBarrage = () => { runtime.nativeCalls.push('rift'); return 'native-rift'; };

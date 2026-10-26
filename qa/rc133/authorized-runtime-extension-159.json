@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "base": "346bee26788b789168fca50f63f12a09f6869c2d",
+  "baseTree": "478ad5de761f6e436e055af86768bbaa9efcce0c",
+  "sourceCommit": "59b999d8daf276d36ea38ea19864d734a7eea10b",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "c4ab9e1d0ba0857b2a3a28ca6512476461576a6eaa4ecc16890a89c4d78ff602",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "97911d57fb64594fe6bfa8d0ae1b9b4643f0e7a1",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "3720de7ceba3919156278720f097ab1ad10f565769abedf87e4b97366d43e5b8",
+        "gitBlob": "47aae637867cc83d6de522d95be33da31f041458"
+      },
+      "reason": "assets/index-v31526.js: Synchronize the bounded native pressure, steady-camera and projectile readability integration; outside that region change only the exact arena shake guard, existing camera subscription and existing toggle description."
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ca6565339cbe9b9f4036088ec517a4ca87dc8e0b",
+        "file": "assets/rc128/combat-feedback.js"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "sha256": "a55a2a47bbf41257a719f37c0af75ab66fa7bb92e60a3200c1507ca364e587ad",
+        "gitBlob": "29f0c8d63d8aca5c8e57050029fa26870f1a0e80"
+      },
+      "reason": "assets/rc128/combat-feedback.js: Keep the composited battle picture steady while preserving native flashes, feedback cues and audio."
+    },
+    {
+      "file": "assets/rc133/native-install-v2.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "06d273199c44da023e245b2df110891c5d17bf23",
+        "file": "assets/rc133/native-install-v2.js.txt"
+      },
+      "after": {
+        "file": "assets/rc133/native-install-v2.js.txt",
+        "mode": "100644",
+        "sha256": "9086a7ddef3e15173d9b13c7a39099b39916963253dfd8e0b7e863396115ad84",
+        "gitBlob": "689dd3996e8faa8dd295f0b6d3c6d0ff123073bb"
+      },
+      "reason": "assets/rc133/native-install-v2.js.txt: Keep the editable native integration identical to the shipped boss-basic admission, call-through steady-camera and source-owned projectile readability hooks."
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "424eb5f51c40a09c9f5352fd5832a76ef09d0f75",
+        "file": "assets/rc153/combat-layout.js"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "sha256": "427739508196b687fbf57f236dba7da87c4b5816bd4ec325779419413fa21ab9",
+        "gitBlob": "38a7f0543223ef517f50285e413e2f07d5b72adb"
+      },
+      "reason": "assets/rc153/combat-layout.js: Stabilize native camera fitting and safe whole-body bounds while preserving the exact all-viewport orientation module."
+    },
+    {
+      "file": "assets/rc223/camera.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c0f53f20a5b2d1555765987c222af76726a87b61",
+        "file": "assets/rc223/camera.js"
+      },
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "2c5e253782931cc4fe50a619e5731cd93bcd33b61875571863320305d807d8e4",
+        "gitBlob": "e282ea218786e038b447d0c7b5b2b53e6c187db9"
+      },
+      "reason": "assets/rc223/camera.js: Separate stored camera preference from effective safe fitting, with stable aspect-aware bounds and live notifications for the existing settings UI."
+    },
+    {
+      "file": "assets/rc231/combat-lifecycle.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ef22b92980e12df3f5cc035a89c913c60b609652",
+        "file": "assets/rc231/combat-lifecycle.js"
+      },
+      "after": {
+        "file": "assets/rc231/combat-lifecycle.js",
+        "mode": "100644",
+        "sha256": "cf1cd44e85106f598ed2bd9bf6674806c259a0cfb181fae52100b81ba00d4fea",
+        "gitBlob": "bea40a620680234e588ceb63eefd9fee6ef0c1d6"
+      },
+      "reason": "assets/rc231/combat-lifecycle.js: Track pressure release and recovery privately without rewriting native signature clocks or saved state; preserve committed packet contact and major-action gates."
+    },
+    {
+      "file": "assets/rc232/projectile-readability.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc232/projectile-readability.js",
+        "mode": "100644",
+        "sha256": "50dd68b6db1bb49d40c52e879bf403546ae7c22e73ba598b1cf0b361122329e4",
+        "gitBlob": "2f60ba785bdf75961ebe53b39a8313713b789d54"
+      },
+      "reason": "assets/rc232/projectile-readability.js: Improve released native projectile readability using source-alpha-preserving contrast, immediate body visibility and a bounded idle-prepared raster cache without replacing owned art or geometry."
+    },
+    {
+      "file": "assets/rc95/combat-flow.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "97c762cda8cc3d160dd5a79434867452acd6d28d",
+        "file": "assets/rc95/combat-flow.js"
+      },
+      "after": {
+        "file": "assets/rc95/combat-flow.js",
+        "mode": "100644",
+        "sha256": "72ff9830dfa4ae454b8365c5849bdd7b39560502444ba80a636a7849c392387b",
+        "gitBlob": "b7c4de98b5b8d0d66d5c6fcc8fe7c32de37a31a1"
+      },
+      "reason": "assets/rc95/combat-flow.js: Admit complete authored salvos fairly during eligible pressure gaps while retaining native phase identity, packet timing, geometry, damage and admission caps."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "bb383d45a0c8cf23b1693237d37c8d6ef3cf94c9",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "ae8eef1b4d83bdc0870a63b7fc1475e9efc3090416c2d942d0184092ca0ff086",
+        "gitBlob": "fd5d0c3019219e7c2fe25aa647306b86d4ed1b3c"
+      },
+      "reason": "index.html: Load the exact new projectile readability module before the native bundle and cache-bust only the approved quality runtime modules."
+    }
+  ],
+  "targetProtectedRowsSha256": "9d7900a495e2ba8ea3e6d77271bfa31163a7eb7d87136612e000fc7f7bac6a5c"
+}
