@@ -57,6 +57,8 @@ on:
       - 'tests/helpers/landscape-orientation.cjs'
       - 'tools/rc232-build-extension.cjs'
       - 'tests/helpers/rc231-orientation-snapshot.cjs'
+      - 'qa/rc132/published.cjs'
+      - 'tests/rc133-public-contract.cjs'
   workflow_dispatch:
 permissions:
   contents: read

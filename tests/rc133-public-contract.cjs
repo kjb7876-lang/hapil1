@@ -9,6 +9,11 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeU
  for(const suite of ['rc130/public-smoke','rc132/published']){const directory=path.join(out,suite);fs.mkdirSync(directory,{recursive:true});const args=['qa/'+suite+'.cjs'];
   const result=await new Promise(resolve=>{const child=cp.spawn(process.execPath,args,{cwd:root,env:{...process.env,HAPIL_TEST_BASE:base,HAPIL_QA_OUTPUT:directory},stdio:['ignore',fs.openSync(path.join(directory,'stdout.log'),'w'),fs.openSync(path.join(directory,'stderr.log'),'w')]});child.once('error',error=>resolve({code:null,error:String(error)}));child.once('exit',code=>resolve({code}));});
   const row={name:suite,...result,status:result.code===0?'passed':'failed'};report.tests.push(row);console.log('RC133_PUBLIC_CONTRACT',JSON.stringify(row));
+  if(row.status==='failed'){
+   const stderr=fs.readFileSync(path.join(directory,'stderr.log'),'utf8').trim();
+   if(stderr)console.error('RC133_PUBLIC_CHILD_STDERR',suite,stderr.slice(-8000));
+   try{const summary=JSON.parse(fs.readFileSync(path.join(directory,'summary.json'),'utf8'));row.diagnostic={status:summary.status,error:summary.error??null,profiles:(summary.profiles??[]).filter(profile=>profile.status!=='passed').map(profile=>({name:profile.name,profileAttempt:profile.profileAttempt,error:profile.error,httpErrors:profile.httpErrors,requestFailures:profile.requestFailures}))};console.error('RC133_PUBLIC_CHILD_FAILURE',suite,JSON.stringify(row.diagnostic));}catch(error){console.error('RC133_PUBLIC_CHILD_DIAGNOSTIC_UNAVAILABLE',suite,String(error));}
+  }
  }
  report.status=report.tests.every(r=>r.status==='passed')?'passed':'failed';fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));assert.equal(report.status,'passed');
 }finally{server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});
