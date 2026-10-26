@@ -59,6 +59,7 @@ on:
       - 'tests/helpers/rc231-orientation-snapshot.cjs'
       - 'qa/rc132/published.cjs'
       - 'tests/rc133-public-contract.cjs'
+      - 'tests/rc137-death-choice-browser.cjs'
   workflow_dispatch:
 permissions:
   contents: read

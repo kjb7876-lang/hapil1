@@ -135,6 +135,13 @@ jobs:
           test -z "$(git status --porcelain)"
           node tests/rc231-modes-save-input-browser.cjs
           test -z "$(git status --porcelain)"
+      - name: Verify native death save and revival boundaries
+        if: matrix.profile == 'pc'
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc137-death-choice-browser.cjs
+          test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
