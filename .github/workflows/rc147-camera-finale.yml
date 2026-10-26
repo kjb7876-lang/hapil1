@@ -63,6 +63,7 @@ on:
       - 'qa/rc132/published.cjs'
       - 'tests/rc133-public-contract.cjs'
       - 'tests/rc137-death-choice-browser.cjs'
+      - 'tests/rc137-boss-lifecycle-browser.cjs'
   workflow_dispatch:
 permissions:
   contents: read
