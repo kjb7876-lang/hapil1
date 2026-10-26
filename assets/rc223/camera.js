@@ -25,11 +25,24 @@
  // does not collapse into a small centered island at the upper setting. On
  // ultra-wide, short screens keep the authored arena at its base scale: its
  // width is already close to the 90% full-canvas floor.
- function ultraWide(){
-  const visual=root.visualViewport??{},width=finite(visual.width,finite(root.innerWidth,0)),height=finite(visual.height,finite(root.innerHeight,0));
-  return height>0&&width/height>=3.3;
+ function aspectAllowance(viewport){
+  // Visual viewport height can flicker by a pixel with browser chrome/pinch
+  // even while the game canvas and layout viewport stay fixed. It must not
+  // switch the world between 100% and 105% at the 3.3 aspect boundary.
+  const width=finite(viewport?.width,finite(root.innerWidth,0)),height=finite(viewport?.height,finite(root.innerHeight,0));
+  // Spend only the remaining aspect room near the short-screen limit. This
+  // reaches zero continuously, instead of jumping five percent at one pixel.
+  return height>0&&width>0?Math.min(.05,Math.max(0,3.3*height/width-1)):.05;
  }
- function appliedZoom(value=factor()){return 1+(value-1)*(ultraWide()?0:.05);}
+ function requestedZoom(value=factor(),viewport){return 1+(value-1)*aspectAllowance(viewport);}
+ function mapCoverage(camera){const width=camera?.rc153View?.width,mapWidth=camera?.rc153MapWidth;return camera?.rc153WholeBody&&Number.isFinite(width)&&width>0&&Number.isFinite(mapWidth)&&mapWidth>0&&Number.isFinite(camera.scale)?mapWidth*camera.scale/width:null;}
+ function appliedZoom(value=factor(),viewport,camera=metrics.last?.base){
+  const requested=requestedZoom(value,viewport),coverage=mapCoverage(camera);
+  // A saved presentation preference never changes actor size/contact fitting.
+  // Limit only its final optional shrink when the fitted map is already near
+  // the 90% floor. An impossible base fit keeps full-body/safe-area priority.
+  return coverage===null?requested:Math.max(1,Math.min(requested,coverage/.9));
+ }
  function defaultAnchor(){
   try{const view=root.__HAPIL_VIEWPORT_RC104__?.view?.();if(view&&[view.x,view.y,view.width,view.height].every(Number.isFinite)&&view.width>0&&view.height>0)return{x:view.x+view.width/2,y:view.y+view.height/2};}catch{}
   return{x:640,y:360};
@@ -46,9 +59,16 @@
  function applyCamera(camera,anchor){
   if(!camera||typeof camera!=='object'||!Number.isFinite(camera.scale))return camera;
   if(probeDepth>0){metrics.probeCameraCalls++;metrics.lastProbeCamera=cameraCopy(camera);return camera;}
-  const viewAnchor=anchorCopy(anchor??defaultAnchor()),zoom=factor(),scaleFactor=appliedZoom(zoom);
+  // The fitted arena owns its viewport for this frame. Sampling a second live
+  // viewport here moved the final anchor despite a stable RC153 base camera.
+  const fitted=camera.rc153View,fittedAnchor=fitted&&[fitted.x,fitted.y,fitted.width,fitted.height].every(Number.isFinite)&&fitted.width>0&&fitted.height>0?{x:fitted.x+fitted.width/2,y:fitted.y+fitted.height/2}:null;
+  const viewAnchor=anchorCopy(fittedAnchor??anchor??defaultAnchor()),zoom=factor(),requested=requestedZoom(zoom,camera.rc153Viewport),scaleFactor=appliedZoom(zoom,camera.rc153Viewport,camera);
   const adjusted=scaleFactor===1?camera:{...camera,x:viewAnchor.x+(finite(camera.x,viewAnchor.x)-viewAnchor.x)/scaleFactor,y:viewAnchor.y+(finite(camera.y,viewAnchor.y)-viewAnchor.y)/scaleFactor,scale:camera.scale/scaleFactor};
-  metrics.applied++;metrics.last={base:cameraCopy(camera),adjusted:cameraCopy(adjusted),anchor:viewAnchor,factor:zoom,appliedZoom:scaleFactor,portraitSplitRC108:camera.portraitSplitRC108??null};
+  const previousReadout=metrics.last?Math.round(metrics.last.appliedZoom*100):null;
+  metrics.applied++;metrics.last={base:cameraCopy(camera),adjusted:cameraCopy(adjusted),anchor:viewAnchor,factor:zoom,requestedZoom:requested,appliedZoom:scaleFactor,mapFloorLimited:scaleFactor<requested-1e-12,baseMapCoverage:mapCoverage(camera),portraitSplitRC108:camera.portraitSplitRC108??null};
+  // Settings can stay open through a real resize. Notify only when its visible
+  // percentage changes; ordinary camera reads do not schedule UI work.
+  if(previousReadout!==Math.round(scaleFactor*100))notify();
   return adjusted;
  }
  function withBaseCamera(callback){
@@ -58,5 +78,5 @@
  }
  function subscribe(listener){if(typeof listener!=='function')return()=>{};listeners.add(listener);return()=>listeners.delete(listener);}
  function diagnostics(){return Object.freeze({...metrics,last:metrics.last?Object.freeze({...metrics.last,base:cameraCopy(metrics.last.base),adjusted:cameraCopy(metrics.last.adjusted),anchor:{...metrics.last.anchor}}):null,lastProbeCamera:cameraCopy(metrics.lastProbeCamera),baseCameraDepth:probeDepth});}
- root.__HAPIL_CAMERA_RC223__=Object.freeze({installed:true,version:'RC223',key:KEY,mobile,factor,appliedZoom,snapshot,setFactor,applyCamera,withBaseCamera,baseCameraActive:()=>probeDepth>0,subscribe,diagnostics});
+ root.__HAPIL_CAMERA_RC223__=Object.freeze({installed:true,version:'RC223',key:KEY,mobile,factor,requestedZoom,appliedZoom,snapshot,setFactor,applyCamera,withBaseCamera,baseCameraActive:()=>probeDepth>0,subscribe,diagnostics});
 })();

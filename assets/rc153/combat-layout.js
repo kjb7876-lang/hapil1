@@ -70,6 +70,14 @@
  // Compact view already reserves safe pixels in its small vertical budget;
  // count the inset once, while retaining ordinary viewport spacing unchanged.
  function verticalMargins(inset){return root.innerHeight<=260?{top:Math.max(8,inset('top')),bottom:Math.max(6,inset('bottom'))}:{top:8+inset('top'),bottom:12+inset('bottom')};}
+ function fittedMargins(s,view,frame,inset){
+  const gaps=verticalMargins(inset),mapWidth=n(deps.mapWidth?.(s),1584),width=n(root.innerWidth,n(view.width,1280)*n(view.k,1));if(!(mapWidth>0&&width>0))return gaps;
+  // When the minimum body frame is just taller than the ordinary gutter
+  // budget, spend only decorative spacing before shrinking the authored map.
+  // Real safe-area insets and the minimum uniform body scale remain intact.
+  const top=inset('top'),bottom=inset('bottom'),extraTop=Math.max(0,gaps.top-top),extraBottom=Math.max(0,gaps.bottom-bottom),extra=extraTop+extraBottom,required=(frame.bottom-frame.top)*(.9*width+1)/mapWidth,capacity=Math.max(0,n(view.height,720)*n(view.k,1)-top-bottom-required);
+  if(!(extra>0)||capacity>=extra)return gaps;const ratio=capacity/extra;return{top:top+extraTop*ratio,bottom:bottom+extraBottom*ratio};
+ }
  function imageReadiness(cache){return [...new Set([...(root.__HAPIL_BALROG_BODY_RC210__?.assets??[]),...(root.__HAPIL_SLAYER_STANDING_RC210__?.assets??[]),...(root.__HAPIL_MACHINE_FIELDS_RC210__?.assets??[]),root.__HAPIL_WALL_TOWERS_RC210__?.image].filter(Boolean))].map(path=>{const im=cache[path]??cache[String(path).split(/[?#]/)[0]];return[path,im?.complete?n(im.naturalWidth):0,im?.complete?n(im.naturalHeight):0];});}
  function actorScale(s,a){
   // A tall stationary creature can otherwise force the entire 240px-high map
@@ -84,13 +92,13 @@
   // A complete image must invalidate that provisional fit, just as it does the
   // fixed camera frame. Actor movement and attack clocks remain outside the key.
   const images=root.__HAPIL_CONTROLS_V31329__?.binding?.cache?.current??{},ready=path=>{const im=images[path]??images[String(path??'').split(/[?#]/)[0]];return im?.complete?[n(im.naturalWidth),n(im.naturalHeight)]:[0,0];},balrog=root.__MONGSE_BALROG_POSE_RC151__;
-  const key=JSON.stringify([viewportKey(s),imageReadiness(images),s.zone,s.activeHeroId,s.egoGuardianRC155?.active,a.id,a.sprite,a.phaseIndex,a.currentPhase,hero.top,hero.bottom,ready(a.sprite),ready(balrog?.body),ready(balrog?.weapon),root.__HAPIL_MEDIA_ART_RC133__?.ready]);let entries=scaleCache.get(s);if(!entries){entries=new Map();scaleCache.set(s,entries);}if(entries.has(key))return entries.get(key);
+  const key=JSON.stringify([viewportKey(s),imageReadiness(images),s.zone,s.activeHeroId,s.egoGuardianRC155?.active,a.id,a.sprite,a.phaseIndex,a.currentPhase,a.fixedPhase,a.scale,a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0,hero.top,hero.bottom,ready(a.sprite),ready(balrog?.body),ready(balrog?.weapon),root.__HAPIL_MEDIA_ART_RC133__?.ready]);let entries=scaleCache.get(s);if(!entries){entries=new Map();scaleCache.set(s,entries);}if(entries.has(key))return entries.get(key);
   const af=deps.project(a.x,a.y),heroTop=hero.top,heroBottom=hero.bottom,band=[policy.rightDepthMin,policy.rightDepthMax].map(v=>deps.project(v/2,v/2).y);
   const pad=n(paint.padding,28),span=factor=>Math.max(heroBottom,Math.max(...band)+(paint.bottom-af.y-pad)*factor+pad)-Math.min(heroTop,Math.min(...band)+(paint.top-af.y+pad)*factor-pad);
-  let factor=1;if(span(1)>budget&&span(.5)<=budget){let low=.5,high=1;for(let i=0;i<28;i++){const mid=(low+high)/2;if(span(mid)<=budget)low=mid;else high=mid;}factor=low;}
+  let factor=1;if(span(1)>budget){factor=.5;if(span(.5)<=budget){let low=.5,high=1;for(let i=0;i<28;i++){const mid=(low+high)/2;if(span(mid)<=budget)low=mid;else high=mid;}factor=low;}}
   entries.set(key,factor);while(entries.size>8)entries.delete(entries.keys().next().value);return factor;
  }
- function framing(s,actors){const duel=root.__HAPIL_PERSONA_DUEL_RC134__,polygon=duel?.polygon?.('all',.8);if(!polygon?.length)return bounds(s,actors);const subjects=actors??[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],cache=root.__HAPIL_CONTROLS_V31329__?.binding?.cache?.current??{},ready=path=>{const im=cache[path]??cache[String(path??'').split(/[?#]/)[0]];return im?.complete?n(im.naturalWidth):0;},balrog=root.__MONGSE_BALROG_POSE_RC151__,key=JSON.stringify([viewportKey(s),imageReadiness(cache),s.zone,actors===null?'all':actors===undefined?'all':subjects.every(a=>a===s)?'hero':'boss',root.__HAPIL_MEDIA_ART_RC133__?.ready===true,root.__HAPIL_EGO_ART_RC155__?.diagnostics?.().decoded??0,root.__HAPIL_SLAYER_RIG_RC204__?.decoded(cache)??0,s.egoGuardianRC155?.active===true,ready(balrog?.body),ready(balrog?.weapon),subjects.map(a=>a.id==='inner-evil-rc133'?[a.id,'fixed-authored-persona-frame']:[a===s?'hero':a.id,a===s?s.activeHeroId:a.sprite,a.phaseIndex,a.currentPhase,ready(a.sprite)])]);let entries=frameCache.get(s);if(!entries){entries=new Map();frameCache.set(s,entries);}const saved=entries.get(key);if(saved&&saved.pendingPaintActors===0)return saved;
+ function framing(s,actors){const duel=root.__HAPIL_PERSONA_DUEL_RC134__,polygon=duel?.polygon?.('all',.8);if(!polygon?.length)return bounds(s,actors);const subjects=actors??[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],cache=root.__HAPIL_CONTROLS_V31329__?.binding?.cache?.current??{},ready=path=>{const im=cache[path]??cache[String(path??'').split(/[?#]/)[0]];return im?.complete?n(im.naturalWidth):0;},balrog=root.__MONGSE_BALROG_POSE_RC151__,key=JSON.stringify([viewportKey(s),imageReadiness(cache),s.zone,actors===null?'all':actors===undefined?'all':subjects.every(a=>a===s)?'hero':'boss',root.__HAPIL_MEDIA_ART_RC133__?.ready===true,root.__HAPIL_EGO_ART_RC155__?.diagnostics?.().decoded??0,root.__HAPIL_SLAYER_RIG_RC204__?.decoded(cache)??0,s.egoGuardianRC155?.active===true,ready(balrog?.body),ready(balrog?.weapon),subjects.map(a=>a.id==='inner-evil-rc133'?[a.id,'fixed-authored-persona-frame']:[a===s?'hero':a.id,a===s?s.activeHeroId:a.sprite,a.phaseIndex,a.currentPhase,a.fixedPhase,a.humanPhase0,a.rc133HumanPhase,a.scale,a===s?null:a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0,ready(a.sprite)])]);let entries=frameCache.get(s);if(!entries){entries=new Map();frameCache.set(s,entries);}const saved=entries.get(key);if(saved&&saved.pendingPaintActors===0)return saved;
   const floor=polygon.map(p=>deps.project(p.x,p.y)),rects=[{left:Math.min(...floor.map(p=>p.x)),right:Math.max(...floor.map(p=>p.x)),top:Math.min(...floor.map(p=>p.y)),bottom:Math.max(...floor.map(p=>p.y))}],paintedRects=rects.slice();let nativePaintActors=0;
   for(const a of subjects){const foot=deps.project(a.x,a.y),paint=deps.paintEnvelope?.(s,a,a===s),size=Math.max(55,n(deps.size(a),a===s?100:210)),relative=paint?{left:paint.left-foot.x,right:paint.right-foot.x,top:paint.top-foot.y,bottom:paint.bottom-foot.y}:{left:-size*policy.bodyWidth/2,right:size*policy.bodyWidth/2,top:-size*policy.bodyAbove,bottom:size*policy.bodyBelow};if(paint)nativePaintActors++;
    // Heroes and mobile Persona bodies need their legal floor. Stationary bosses
@@ -103,19 +111,52 @@
   // map inversion. Viewport/safe-area fitting is applied separately in camera.
   const rect={left:Math.min(...rects.map(r=>r.left)),right:Math.max(...rects.map(r=>r.right)),top:Math.min(...rects.map(r=>r.top)),bottom:Math.max(...rects.map(r=>r.bottom)),nativePaintActors,pendingPaintActors:subjects.length-nativePaintActors,paintedBounds:{left:Math.min(...paintedRects.map(r=>r.left)),right:Math.max(...paintedRects.map(r=>r.right)),top:Math.min(...paintedRects.map(r=>r.top)),bottom:Math.max(...paintedRects.map(r=>r.bottom))},nearbyProjectiles:0,fixedFloor:true};entries.set(key,rect);while(entries.size>8)entries.delete(entries.keys().next().value);return rect;
  }
- // RC200: retain the largest essential frame in an entry/viewport epoch.
- // Newly decoded bodies may require one-way expansion, never zoom-in on death.
+ // Retain the largest essential frame for the encounter. A resize changes the
+ // fit, not the encounter: otherwise a 1px browser resize after a large phase
+ // disappeared discarded its frame and abruptly zoomed into the smaller roster.
+ // Keep read-only visual profiles as well as their fitted frame: the native
+ // uniform body fit changes with viewport height. A resized frame must replay
+ // those same essential profiles at the new budget, not reuse already-scaled
+ // rectangles or forget a larger body when it leaves the current roster.
  const cameraEpochs=new WeakMap();
  function resetCamera(s){if(!s||typeof s!=='object')return false;cameraEpochs.delete(s);frameCache.delete(s);scaleCache.delete(s);return true;}
- function cameraEpochKey(s,view){const css=root.document&&root.getComputedStyle?.(root.document.documentElement),hasWindow=n(root.innerWidth)>0&&n(root.innerHeight)>0;return JSON.stringify([s.zone,hasWindow?root.innerWidth:n(view.width,1280),hasWindow?root.innerHeight:n(view.height,720),...['left','right','top','bottom'].map(k=>css?.getPropertyValue('--rc154-safe-'+k)??'')]);}
+ function cameraLayoutKey(){const css=root.document&&root.getComputedStyle?.(root.document.documentElement),mobile=root.__HAPIL_MOBILE_V31366__?.enabled?.()===true;return JSON.stringify([mobile,mobile&&root.innerWidth>root.innerHeight,...['left','right','top','bottom'].map(k=>css?.getPropertyValue('--rc154-safe-'+k)??'')]);}
+ function rememberFrameSubjects(epoch,s){
+  const heroKey=JSON.stringify([s.activeHeroId,s.egoGuardianRC155?.active===true]);
+  if(!epoch.heroes.has(heroKey))epoch.heroes.set(heroKey,{...s,egoGuardianRC155:s.egoGuardianRC155?{...s.egoGuardianRC155}:undefined});
+  for(const a of s.enemies??[]){if(!(a.hp>0)||a.friendly||a.visualOnly)continue;const key=JSON.stringify([boss(a)?a.rc133TemplateId??a.id:a.rc133TemplateId??a.kind??a.sprite,a.sprite,a.phaseIndex,a.currentPhase,a.fixedPhase,a.humanPhase0,a.rc133HumanPhase,a.scale,a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0]);if(!epoch.actors.has(key))epoch.actors.set(key,{...a});}
+ }
+ function essentialFrame(frame){return typeof deps.paintEnvelope==='function'&&frame.paintedBounds?{...frame,...frame.paintedBounds}:frame;}
+ function resizedFrame(epoch,s,slot){
+  const actors=[...epoch.actors.values()],frames=[];
+  for(const hero of epoch.heroes.values()){
+   const world={...hero,zone:s.zone,time:s.time,enemies:actors},subjects=slot==='hero'?[world]:slot==='boss'&&actors.length?actors:null;
+   frames.push(essentialFrame(framing(world,subjects)));
+  }
+  return{left:Math.min(...frames.map(f=>f.left)),right:Math.max(...frames.map(f=>f.right)),top:Math.min(...frames.map(f=>f.top)),bottom:Math.max(...frames.map(f=>f.bottom))};
+ }
+ function cameraViewport(view){
+  // RC138 delegates before RC125.camera can refresh its measured CSS box. Read
+  // the actual canvas on resize so the first old-aspect render cannot seed the
+  // whole new camera epoch. Backing bitmap dimensions never participate.
+  const adaptive=root.__HAPIL_ADAPTIVE_RC125__,rect=adaptive?.installed&&root.document?.querySelector?.('.game-stage > canvas')?.getBoundingClientRect?.();
+  if(rect&&rect.width>0&&rect.height>0&&typeof adaptive.view==='function')view=adaptive.view(rect.width,rect.height);
+  const hasWindow=n(root.innerWidth)>0&&n(root.innerHeight)>0,width=hasWindow?root.innerWidth:n(view.width,1280),height=hasWindow?root.innerHeight:n(view.height,720);
+  return{view,key:JSON.stringify([width,height,rect?.width??null,rect?.height??null]),width,height};
+ }
  function camera(s,view,slot){if(!deps||!root.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s))return null;
-  const key=cameraEpochKey(s,view),channel=slot??'whole',now=Number.isFinite(s.time)?s.time:null;let epoch=cameraEpochs.get(s);
-  if(!epoch||epoch.key!==key||now!==null&&epoch.time!==null&&now<epoch.time-1e-8){resetCamera(s);epoch={key,time:now,channels:new Map()};cameraEpochs.set(s,epoch);}if(now!==null)epoch.time=now;
-  const actors=slot==='boss'?(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly):slot==='hero'?[s]:null,frame=framing(s,actors?.length?actors:null),current=typeof deps.paintEnvelope==='function'&&frame.paintedBounds?{...frame,...frame.paintedBounds}:frame,saved=epoch.channels.get(channel),b=saved?{...current,left:Math.min(saved.bounds.left,current.left),right:Math.max(saved.bounds.right,current.right),top:Math.min(saved.bounds.top,current.top),bottom:Math.max(saved.bounds.bottom,current.bottom)}:current;
-  if(saved&&['left','right','top','bottom'].every(k=>Math.abs(b[k]-saved.bounds[k])<1e-8))return saved.camera;
+  const key=s.zone,channel=slot??'whole',now=Number.isFinite(s.time)?s.time:null,viewport=cameraViewport(view),viewportKey=viewport.key+':'+cameraLayoutKey();let epoch=cameraEpochs.get(s);
+  if(!epoch||epoch.key!==key||now!==null&&epoch.time!==null&&now<epoch.time-1e-8){resetCamera(s);epoch={key,time:now,channels:new Map(),frames:new Map(),heroes:new Map(),actors:new Map()};cameraEpochs.set(s,epoch);}if(now!==null)epoch.time=now;
+  const actors=slot==='boss'?(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly):slot==='hero'?[s]:null,frame=framing(s,actors?.length?actors:null),current=essentialFrame(frame),saved=epoch.channels.get(channel);
+  // Repeated bitmap/contact/render reads share the existing all-pose frame.
+  // Archive profiles only when that frame changes, never scan them per read.
+  if(epoch.frames.get(channel)!==frame){rememberFrameSubjects(epoch,s);epoch.frames.set(channel,frame);}
+  const memory=saved?.viewportKey===viewportKey?saved.bounds:saved?resizedFrame(epoch,s,slot):null;
+  const b=memory?{...current,left:Math.min(memory.left,current.left),right:Math.max(memory.right,current.right),top:Math.min(memory.top,current.top),bottom:Math.max(memory.bottom,current.bottom)}:current;
+  if(saved&&saved.viewportKey===viewportKey&&['left','right','top','bottom'].every(k=>Math.abs(b[k]-saved.bounds[k])<1e-8))return saved.camera;
   // Canvas/backing jitter cannot replace the viewport chosen for this epoch.
-  view=saved?.view??{...view};const landscape=saved?saved.landscape:!slot&&root.__HAPIL_MOBILE_V31366__?.enabled?.()===true&&root.innerWidth>root.innerHeight,insets=landscape?root.getComputedStyle(root.document.documentElement):null,inset=k=>Math.max(0,parseFloat(insets?.getPropertyValue('--rc154-safe-'+k))||0),gaps=landscape?verticalMargins(inset):{top:84,bottom:100},x=n(view.x),k=n(view.k,1),pad=Math.max(landscape?48:12,inset('left')+8,inset('right')+8)/k,width=Math.max(1,n(view.width,1280)-pad*2),vh=n(view.height,720),vy=n(view.y),top=slot?(slot==='boss'?250:196):vy+Math.min(gaps.top/k,vh*.22),bottom=slot?(slot==='hero'?470:524):vy+vh-Math.min(gaps.bottom/k,vh*.24),height=Math.max(1,bottom-top),scale=Math.min(landscape?2.4:.96,width/Math.max(1,slot?b.right-b.left:2*Math.max(Math.abs(640-b.left),Math.abs(b.right-640))),height/Math.max(1,b.bottom-b.top));
-  stats.cameraFits++;const result={x:x+n(view.width,1280)/2-(slot?(b.left+b.right)/2:640)*scale,y:(top+bottom)/2-(b.top+b.bottom)*scale/2,scale,battleArenaRC138:true,rc153WholeBody:true,rc153Safe:{left:x+pad,right:x+n(view.width,1280)-pad,top,bottom},...(slot?{rc138Side:root.__HAPIL_BATTLE_ARENA_RC138__.side(s,slot==='hero'),rc138Row:1,rc138Coverage:b}:{})};epoch.channels.set(channel,{bounds:b,camera:result,view,landscape});return result;
+  view=saved?.viewportKey===viewportKey?saved.view:{...viewport.view};const landscape=!slot&&root.__HAPIL_MOBILE_V31366__?.enabled?.()===true&&root.innerWidth>root.innerHeight,insets=landscape?root.getComputedStyle(root.document.documentElement):null,inset=k=>Math.max(0,parseFloat(insets?.getPropertyValue('--rc154-safe-'+k))||0),gaps=landscape?fittedMargins(s,view,b,inset):{top:84,bottom:100},x=n(view.x),k=n(view.k,1),pad=Math.max(landscape?48:12,inset('left')+8,inset('right')+8)/k,width=Math.max(1,n(view.width,1280)-pad*2),vh=n(view.height,720),vy=n(view.y),top=slot?(slot==='boss'?250:196):vy+Math.min(gaps.top/k,vh*.22),bottom=slot?(slot==='hero'?470:524):vy+vh-Math.min(gaps.bottom/k,vh*.24),height=Math.max(1,bottom-top),scale=Math.min(landscape?2.4:.96,width/Math.max(1,slot?b.right-b.left:2*Math.max(Math.abs(640-b.left),Math.abs(b.right-640))),height/Math.max(1,b.bottom-b.top));
+  stats.cameraFits++;const result={x:x+n(view.width,1280)/2-(slot?(b.left+b.right)/2:640)*scale,y:(top+bottom)/2-(b.top+b.bottom)*scale/2,scale,battleArenaRC138:true,rc153WholeBody:true,rc153View:{...view},rc153Viewport:{width:viewport.width,height:viewport.height},rc153MapWidth:n(deps.mapWidth?.(s),1584),rc153Safe:{left:x+pad,right:x+n(view.width,1280)-pad,top,bottom},...(slot?{rc138Side:root.__HAPIL_BATTLE_ARENA_RC138__.side(s,slot==='hero'),rc138Row:1,rc138Coverage:b}:{})};epoch.channels.set(channel,{bounds:b,camera:result,view,landscape,viewportKey});return result;
  }
  function bind(api){deps=api;for(const id of api.ranked??[])ranked.add(id);}
  root.__HAPIL_COMBAT_LAYOUT_RC153__=Object.freeze({policy,boss,eligible,scatter,lock,storyStyles,storyProfiles,storyProfile,storyFormation,basicProfiles,basicProfile,beginBasic,placeBasic,position,bounds,framing,camera,actorScale,envelopePadding,resetCamera,bind,metrics:()=>JSON.parse(JSON.stringify(stats))});
