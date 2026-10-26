@@ -8,6 +8,7 @@ const cp = require('node:child_process');
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
+const { assertPausedSnapshot } = require('./helpers/rc231-orientation-snapshot.cjs');
 const { chromium } = require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES || '/tmp/pw155/node_modules', 'playwright'));
 
 const root = path.resolve(process.env.HAPIL_APP_ROOT || path.join(__dirname, '..'));
@@ -286,12 +287,13 @@ async function combatOrientationContract() {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
   await page.keyboard.press('Escape'); await page.keyboard.press('a'); await page.waitForTimeout(250);
-  const menuPortrait = await orientationSnapshot(); assert.deepEqual(menuPortrait, menuBefore);
+  const menuPortrait = await orientationSnapshot();
+  const portraitComparison = assertPausedSnapshot(menuPortrait, menuBefore, 'existing menu pause survives portrait');
   await page.setViewportSize(viewport);
   await page.waitForFunction(() => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
   await menu.waitFor({ state: 'visible' }); await page.waitForTimeout(300);
   const menuLandscape = await orientationSnapshot(), menuInput = await orientationInputState();
-  assert.deepEqual(menuLandscape, menuBefore, 'rotation back preserves the existing native menu pause');
+  const landscapeComparison = assertPausedSnapshot(menuLandscape, menuBefore, 'rotation back preserves the existing native menu pause');
   assert.equal(menuInput.modal, 'menu'); assertNoHeldInput(menuInput);
   await menu.getByRole('button', { name: '닫기 ×', exact: true }).click();
   await page.waitForFunction(time => window.__HAPIL_CONTROLS_V31329__.binding.modal.current == null &&
@@ -300,7 +302,8 @@ async function combatOrientationContract() {
   assert(menuResumed.sameInstance && menuResumed.world.time > menuBefore.world.time);
   assert.equal(menuResumed.world.hp, menuBefore.world.hp); assertNoHeldInput(resumedInput);
   return { scope: 'all actual portrait viewports, including desktop UA; native RAF and trusted input only', physicalDevice: false,
-    rotations, existingMenuPause: { menuBefore, menuPortrait, menuLandscape, menuInput, menuResumed, resumedInput, resumedByActualCloseClick: true } };
+    rotations, existingMenuPause: { menuBefore, menuPortrait, menuLandscape, portraitComparison, landscapeComparison,
+      menuInput, menuResumed, resumedInput, resumedByActualCloseClick: true } };
 }
 
 async function pendingTransitionOrientationContract() {

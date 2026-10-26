@@ -86,6 +86,10 @@ on:
       - 'data/rc57/narrative-proofreads-20261002.json'
       - 'tests/story-narration*'
       - 'index.html'
+      - 'tests/rc231*'
+      - 'tests/helpers/landscape-orientation.cjs'
+      - 'tools/rc232-build-extension.cjs'
+      - 'tests/helpers/rc231-orientation-snapshot.cjs'
   workflow_dispatch:
 permissions:
   contents: read

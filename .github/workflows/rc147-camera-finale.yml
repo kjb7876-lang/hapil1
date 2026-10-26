@@ -53,6 +53,10 @@ on:
       - '.github/workflows/rc147-camera-finale.yml'
       - '.github/workflows/rc137-integration.yml'
       - '.github/workflows/story-narration-audit.yml'
+      - 'tests/rc231*'
+      - 'tests/helpers/landscape-orientation.cjs'
+      - 'tools/rc232-build-extension.cjs'
+      - 'tests/helpers/rc231-orientation-snapshot.cjs'
   workflow_dispatch:
 permissions:
   contents: read
