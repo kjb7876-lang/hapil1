@@ -127118,6 +127118,20 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   const personaPattern=MONGSE_spawnBossCombatPatternV31230;MONGSE_spawnBossCombatPatternV31230=function(s,a,...args){if(a?.id===H().id)return {projectiles:0,lasers:0};return personaPattern.call(this,s,a,...args);};
   const personaTheme=MONGSE_spawnThemeOrdnanceKind3129;MONGSE_spawnThemeOrdnanceKind3129=function(s,a,...args){if(a?.id===H().id)return {projectiles:0,lasers:0,deferredRC137:true};return personaTheme.call(this,s,a,...args);};
   const personaBarrage=bi;bi=function(s,a,...args){if(a?.id===H().id)return 0;return personaBarrage.call(this,s,a,...args);};
+  // RC231: finalize native packets after the producer has applied its final
+  // warning/stagger. Existing chained deliveries keep their authored order;
+  // only primary new casts use the same-owner admission gate.
+  const lifecycle=window.__HAPIL_COMBAT_LIFECYCLE_RC231__;
+  if(lifecycle){
+   const lifecycleCast=Ei;Ei=function(s,a,...args){return lifecycle.run(s,a,()=>lifecycleCast.call(this,s,a,...args),null);};
+   const lifecyclePattern=MONGSE_spawnBossCombatPatternV31230;MONGSE_spawnBossCombatPatternV31230=function(s,a,...args){return lifecycle.run(s,a,()=>lifecyclePattern.call(this,s,a,...args),()=>({projectiles:0,lasers:0,deferredRC231:true}));};
+   const lifecycleRift=MONGSE_beginSpatialRiftBarrage;MONGSE_beginSpatialRiftBarrage=function(s,a,...args){return lifecycle.run(s,a,()=>lifecycleRift.call(this,s,a,...args),null);};
+   const lifecycleTheme=MONGSE_spawnThemeOrdnanceKind3129;MONGSE_spawnThemeOrdnanceKind3129=function(s,a,...args){return lifecycle.run(s,a,()=>lifecycleTheme.call(this,s,a,...args),null,false);};
+   const lifecycleBarrage=bi;bi=function(s,a,...args){return lifecycle.run(s,a,()=>lifecycleBarrage.call(this,s,a,...args),0,false);};
+   const safety=window.__HAPIL_COMBAT_SAFETY_RC126__;if(safety)window.__HAPIL_COMBAT_SAFETY_RC126__=Object.freeze({...safety,prepareFrame(s,...args){const result=safety.prepareFrame.call(safety,s,...args);lifecycle.prepareFrame(s);return result;}});
+   const preserve=HAPIL_preserveCommittedCombatQueuesV31303;HAPIL_preserveCommittedCombatQueuesV31303=function(s,...args){const result=preserve.call(this,s,...args);lifecycle.prepareFrame(s);return result;};
+   const completion=window.__HAPIL_SKILL_COMPLETION_V31412__;if(completion)window.__HAPIL_SKILL_COMPLETION_V31412__=Object.freeze({...completion,beginEnemyCast(s,a,...args){const result=completion.beginEnemyCast.call(completion,s,a,...args);lifecycle.basic(s,a);return result;}});
+  }
   H().bind({...window.__HAPIL_RC95_NATIVE__,bullet:(...args)=>MONGSE_pushThemeProjectile3129(...args),prepareFinalTransition:(s)=>{
    if(!s)return false;
    const dialogue=s.encounterDialogue31226,wasLocked=MONGSE_isEncounterLocked31226(s);
