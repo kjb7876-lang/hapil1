@@ -7,6 +7,7 @@ const path = require('node:path');
 const http = require('node:http');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root = path.resolve(__dirname, '..');
 const fallback = process.env.HAPIL_SOURCE_ROOT ? path.resolve(process.env.HAPIL_SOURCE_ROOT) : root;
 const output = process.env.HAPIL_COMBAT_AUDIO_OUTPUT || path.join(root, 'qa-results', 'combat-audio-browser');
@@ -473,7 +474,8 @@ async function assertNativeImpact(evidence) {
     // touch emulation, not a physical Android/iOS device or speaker test.
     failurePaths.clear();
     await page.close();
-    const mobileContext=await browser.newContext({viewport:{width:390,height:844},screen:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});
+    const mobileRequestedViewport={width:390,height:844},mobileCombatViewport=landscape(mobileRequestedViewport);
+    const mobileContext=await browser.newContext({viewport:mobileCombatViewport,screen:mobileCombatViewport,isMobile:true,hasTouch:true,deviceScaleFactor:2});
     page=await mobileContext.newPage();
     page.setDefaultTimeout(20000);
     observeDialogs(page);
@@ -485,8 +487,9 @@ async function assertNativeImpact(evidence) {
     page.on('pageerror',error=>errors.push('mobile: '+String(error)));
     const mobileRequests=[];
     page.on('request',request=>{if(uploaded(new URL(request.url()).pathname))mobileRequests.push(request.url());});
-    await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`,{waitUntil:'domcontentloaded'});
+    await beforeLoad(page,mobileRequestedViewport);await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`,{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__,null,{timeout:60000});
+    const mobileTitleOrientation=await contract(page,mobileRequestedViewport);
     assert.equal(mobileRequests.length,0,'mobile title/prologue never preloads combat uploads');
     const mobileInput=await page.evaluate(()=>({touchPoints:navigator.maxTouchPoints,coarse:matchMedia('(pointer: coarse)').matches,viewport:{width:innerWidth,height:innerHeight}}));
     assert(mobileInput.touchPoints>0&&mobileInput.coarse,'fresh context exposes a real Chromium touch input surface');
@@ -508,6 +511,8 @@ async function assertNativeImpact(evidence) {
     await waitSilent();
     await page.getByRole('button',{name:'계속 · Enter',exact:true}).tap();
     await stage('dist01','ordinary');await waitPlayed('clockwork');await waitMusic('clockwork');
+    const mobileCombatOrientation=await contract(page,mobileRequestedViewport);await waitMusic('clockwork');
+    check('mobile portrait guide freezes native combat and landscape restores playback');
     assert(await page.evaluate(()=>navigator.userActivation.hasBeenActive),'touch start provides actual browser user activation');
     check('mobile touch start keeps title/story upload-free and starts native combat music');
 
@@ -561,7 +566,7 @@ async function assertNativeImpact(evidence) {
     const trustedTouches=await page.evaluate(()=>__trustedCombatTouches);
     assert(trustedTouches>=10,'mobile flow used trusted touchscreen events for startup and controls');
     await page.screenshot({path:path.join(output,'mobile-touch-combat.png')});
-    report.mobile={...mobileInput,trustedTouches,selectedMusicVolume:selectedMobileVolume/100,uploadedRequests:mobileRequests.length,maximumUploadedMusic:mobileAudio.maxMusic,maximumUploadedEffects:mobileAudio.maxEffects,scope:'390x844 Chromium mobile/touch emulation; native media playback, not physical-device or iOS/Safari validation'};
+    report.mobile={...mobileInput,requestedViewport:mobileRequestedViewport,combatViewport:mobileCombatViewport,orientation:{title:mobileTitleOrientation,combat:mobileCombatOrientation},trustedTouches,selectedMusicVolume:selectedMobileVolume/100,uploadedRequests:mobileRequests.length,maximumUploadedMusic:mobileAudio.maxMusic,maximumUploadedEffects:mobileAudio.maxEffects,scope:'390x844 portrait contract and 844x390 Chromium mobile/touch combat; native media playback, not physical-device or iOS/Safari validation'};
     assert.deepEqual(unexpectedDialogs,[],'no unexpected native browser dialogs');
     assert.deepEqual(errors,[], 'no uncaught errors in full game browser');
     report.pass=true;

@@ -2,7 +2,7 @@
 name: Canonical story narration audit
 on:
   push:
-    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc152-image-combat, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc163-ego-mobile-victory, codex/rc169-final-runtime-regression, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
+    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc152-image-combat, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc163-ego-mobile-victory, codex/rc169-final-runtime-regression, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/rc231-all-combat-persona-20261026]
     paths:
       - 'assets/rc210/**'
       - 'tests/rc210-*'

@@ -3,14 +3,17 @@
 // served unchanged except for exposing QA entry points already used in RC121.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc123-boundary');fs.mkdirSync(out,{recursive:true});
 const harness='\nconst rc123NativeRender=$n;$n=function(...a){if(window.__RC123_RENDER_STATE__)a[1]=window.__RC123_RENDER_STATE__;return rc123NativeRender(...a);};window.__RC123_NATIVE__={initial:oi,cast:(...a)=>Ei(...a),queue:MONGSE_queueImage};';
 const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html'));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(f)]||'application/octet-stream');res.end(f.endsWith('index-v31526.js')?fs.readFileSync(f,'utf8')+harness:fs.readFileSync(f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
 (async()=>{let browser;const summary=[];try{browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
-  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
+  const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+  const context=await browser.newContext({viewport:combatViewport,isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],missing=[];
   page.on('pageerror',e=>errors.push(e.stack));page.on('response',r=>{if(r.status()===404)missing.push(r.url());});
-  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__HAPIL_RC72__?.audit?.().allPass);
+  await beforeLoad(page,requestedViewport);await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__HAPIL_RC72__?.audit?.().allPass);
+  const orientation=await contract(page,requestedViewport);
   const result=await page.evaluate(async name=>{
    const T=window.__RC123_NATIVE__,L=window.__HAPIL_LASERS_V31330__,B=window.__HAPIL_RC86_BRIDGE__,blood=window.__HAPIL_BLOOD_RC16__,top=window.__HAPIL_LASER_TOPOLOGY_RC108__,owners=L.owners.filter(o=>!o.native),owner=owners.find(o=>o.id==='dist06-boss');
    const problems=[],rows=[],cache={},fixtures=[],near=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)<1e-4;
@@ -31,6 +34,7 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+new URL
    }
    await Promise.all(Object.values(cache).map(im=>im.decode?.()));window.__RC123_FIXTURES__=fixtures;return{name,rows,problems,metrics:top.metrics(),scope:'staged native boss laser fixtures; not natural play'};
   },name);
+  Object.assign(result,{requestedViewport,combatViewport,orientation});
   fs.writeFileSync(path.join(out,name+'-boundary.json'),JSON.stringify(result,null,2));console.log('RC123_BOUNDARY_BROWSER',JSON.stringify({name,types:result.rows.length,terminalChecks:result.rows.reduce((n,r)=>n+r.terminalChecks,0),contactChecks:result.rows.reduce((n,r)=>n+r.contactChecks,0),problems:result.problems.slice(0,12),problemCount:result.problems.length,errors}));
   // Capture even failing fixtures for diagnosis; do not disguise failures as passes.
   for(const type of['branch-y','fork-link']){

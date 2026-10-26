@@ -23,11 +23,11 @@ const dirty = !!cp.execFileSync('git', ['status', '--porcelain'], { cwd: root, e
 const originalBundle = fs.readFileSync(path.join(root, 'assets/index-v31526.js'));
 // This localhost-only bridge exposes existing native functions unchanged. It
 // does not replace attacks, reducers, frame scheduling, save/load or entry code.
-const bridge = Buffer.from('\n;window.__RC231_QA__=Object.freeze({writeSave:(...a)=>MONGSE_writeSave(...a),incoming:(...a)=>Y(...a)});\n');
+const bridge = Buffer.from('\n;window.__RC231_QA__=Object.freeze({writeSave:(...a)=>MONGSE_writeSave(...a),incoming:(...a)=>Y(...a),clueIds:zone=>ci(zone).map(a=>a.id)});\n');
 const report = {
   schema: 1, status: 'running', appSha, dirty, profile, startedAt: new Date().toISOString(),
   environment: { channel: 'chrome', chromiumSandbox: true, headless: true, physicalDevice: false,
-    mobile: mobile ? 'Chrome emulated landscape touchscreen; portrait pause checked separately when requested' : false,
+    mobile: mobile ? 'Chrome emulated landscape touchscreen; all profiles also verify portrait blocking' : false,
     hardwareGpu: 'unverified; inspect renderer below; headless timing is not physical-device FPS' },
   scope: 'Natural title/hero startup only. Staged native ordinary/manual, midboss/semi and boss/full repeated RAF attacks with actual release/recovery gates and controlled native damage reducers. Representative Story/Dream save round trips, Samong revival, EGO reverse-route ledger, developer-777 hidden entry, checkpoint lethal input and actual rendered revival click. This is not a natural campaign, unassisted Persona victory, or a physical-device test.',
   source: { bundleSha256: sha256(originalBundle), bridgeSha256: sha256(bridge),
@@ -189,6 +189,179 @@ async function touchMovement() {
   return { staged: true, physicalDevice: false, method: 'Chrome CDP touchscreen to real native pointer handlers', before, after };
 }
 
+async function titleOrientationContract() {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+  const before = await page.evaluate(() => ({ phase: window.__HAPIL_CONTROLS_V31329__.binding.phase,
+    gate: document.querySelector('#rc152-orientation-gate')?.textContent,
+    gateVisible: !!document.querySelector('#rc152-orientation-gate')?.getClientRects().length,
+    viewport: { width: innerWidth, height: innerHeight } }));
+  assert.equal(before.phase, 'title'); assert.equal(before.gate, '기기를 가로로 돌려주세요'); assert(before.gateVisible);
+  const target = await page.getByRole('button', { name: '새 게임 시작', exact: true }).boundingBox();
+  assert(target, 'existing title action has a measurable position beneath the gate');
+  await page.keyboard.press('Enter'); await page.keyboard.press('Escape');
+  await page.mouse.click(target.x + target.width / 2, target.y + target.height / 2);
+  if (mobile) await page.touchscreen.tap(target.x + target.width / 2, target.y + target.height / 2);
+  await page.waitForTimeout(200);
+  const after = await page.evaluate(() => ({ phase: window.__HAPIL_CONTROLS_V31329__.binding.phase,
+    paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused() }));
+  assert.equal(after.phase, before.phase, 'portrait trusted input cannot start or advance title flow'); assert(after.paused);
+  await page.setViewportSize(viewport);
+  await page.waitForFunction(() => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+  return { before, after, landscapeRestored: true, trustedMouse: true, trustedTouch: mobile };
+}
+
+async function orientationSnapshot() {
+  return page.evaluate(() => {
+    const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current;
+    const fields = (o, keys) => Object.fromEntries(keys.map(key => [key, o?.[key] ?? null]));
+    const attackFields = ['id', 'hp', 'maxHp', 'x', 'y', 'currentPhase', 'phase', 'attackStarted', 'attackAt', 'attackImpactAt',
+      'recoverUntil', 'readyAt', 'patternReadyAt', 'atomicCastUntil31210', 'invulnerableUntil'];
+    const packetFields = ['id', 'sourceId', 'x', 'y', 'vx', 'vy', 'born', 'at', 'impactAt', 'frozenUntil', 'motionReleaseAt31219',
+      'collisionDisabledUntil31219', 'collisionDisabledUntilV31226', 'expiresAt', 'life', 'endAt', 'damage', 'projectileRemovalReason31215'];
+    return { sameInstance: s === window.__RC231_ORIENTATION_REF__, partyIsControl: window.__HAPIL_PARTY_V31322__.state === s,
+      world: fields(s, ['zone', 'frontierZone', 'time', 'hp', 'maxHp', 'x', 'y', 'resonance', 'bossDefeated', 'activeHeroId', 'lastAttack', 'basicAttackCount']),
+      progress: { completedZones: [...s.completedZones].sort(), clues: [...s.clues].sort(), loopCycles: { ...s.loopCycles }, spawnedWaves: [...s.spawnedWaves].sort() },
+      cooldowns: { ...s.cooldowns }, inner: JSON.parse(JSON.stringify(s.innerFinalRC133 ?? null)),
+      actors: s.enemies.map(a => fields(a, attackFields)),
+      queues: Object.fromEntries(window.__HAPIL_COMBAT_LIFECYCLE_RC231__.queues.map(key => [key, (s[key] ?? []).map(q => fields(q, packetFields))])) };
+  });
+}
+async function orientationInputState() {
+  return page.evaluate(() => {
+    const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current, gate = document.querySelector('#rc152-orientation-gate');
+    return { paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused(), gate: gate?.textContent,
+      gateVisible: !!gate?.getClientRects().length && getComputedStyle(gate).display !== 'none',
+      keys: [...C.binding.input.current], held: C.inputSnapshot().held,
+      pointers: window.__HAPIL_MOBILE_V31366__?.snapshot?.().pointers ?? [],
+      charging: window.__HAPIL_LOOP_V31365__?.isCharging?.(s) ?? false,
+      defending: window.__HAPIL_CHANNEL_V31364__?.active?.(s) ?? false,
+      modal: C.binding.modal.current, viewport: { width: innerWidth, height: innerHeight },
+      userAgent: navigator.userAgent, userAgentDataMobile: navigator.userAgentData?.mobile ?? null, maxTouchPoints: navigator.maxTouchPoints };
+  });
+}
+function assertNoHeldInput(row) {
+  assert.equal(row.keys.length, 0); assert.equal(row.held.length, 0); assert.equal(row.pointers.length, 0);
+  assert.equal(row.charging, false); assert.equal(row.defending, false);
+}
+async function combatOrientationContract() {
+  // Existing full-HP hidden fixture supplies actual native moving packets.
+  // No packet, attack, damage, time or pause reducer is replaced for this test.
+  await page.waitForFunction(() => window.__HAPIL_CONTROLS_V31329__.binding.state.current.hostileProjectiles.some(q => q.rc133InnerShot), null, { timeout: 15000 });
+  await page.evaluate(() => { window.__RC231_ORIENTATION_REF__ = window.__HAPIL_CONTROLS_V31329__.binding.state.current; });
+  const rotations = [];
+  for (const portrait of [{ width: 390, height: 844 }, mobile ? { width: 430, height: 932 } : { width: 600, height: 900 }]) {
+    await page.keyboard.down('ArrowRight'); await page.waitForTimeout(80);
+    await page.setViewportSize(portrait);
+    await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+    const before = await orientationSnapshot(), paused = await orientationInputState();
+    assert(before.sameInstance && before.partyIsControl);
+    assert(before.queues.hostileProjectiles.length > 0, 'portrait freeze observes actual native projectiles');
+    assert.equal(paused.gate, '기기를 가로로 돌려주세요'); assert(paused.paused && paused.gateVisible); assertNoHeldInput(paused);
+    if (!rotations.length) await capture('horizontal-only-guide');
+    const pausedAt = Date.now();
+    for (const key of ['ArrowUp', 'a', 's', 'q', 'r', 'Escape']) await page.keyboard.press(key);
+    await page.mouse.click(100, 200);
+    if (mobile) await page.touchscreen.tap(150, 250);
+    await page.keyboard.up('ArrowRight'); await page.waitForTimeout(1000);
+    const frozen = await orientationSnapshot(), blocked = await orientationInputState();
+    assert.deepEqual(frozen, before, 'portrait freezes native progression, HP, attack deadlines, packet positions, release and expiry clocks');
+    assertNoHeldInput(blocked); assert.equal(blocked.modal, paused.modal, 'portrait Escape cannot change the existing menu state');
+    await page.setViewportSize(viewport);
+    await page.waitForFunction(time => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused() &&
+      window.__HAPIL_CONTROLS_V31329__.binding.state.current.time > time, before.world.time, { timeout: 10000 });
+    const resumed = await orientationSnapshot(), input = await orientationInputState();
+    assert(resumed.sameInstance && resumed.partyIsControl); assert.equal(resumed.world.hp, before.world.hp);
+    assert.equal(resumed.world.zone, before.world.zone); assertNoHeldInput(input);
+    assert(resumed.world.time > before.world.time && resumed.world.time - before.world.time < .5, 'rotation resumes native time without catching up paused wall time');
+    assert((resumed.inner?.cycle ?? 0) <= (before.inner?.cycle ?? 0) + 1, 'rotation cannot burst multiple expired native attacks');
+    rotations.push({ portrait, wallPausedMs: Date.now() - pausedAt, before, frozen, paused, blocked, resumed, input });
+  }
+  // Keep an actual native user pause distinct from the orientation pause.
+  await page.keyboard.press('Escape');
+  const menu = page.getByRole('dialog', { name: '시스템 메뉴', exact: true });
+  await menu.waitFor({ state: 'visible' });
+  await page.waitForFunction(() => window.__HAPIL_CONTROLS_V31329__.binding.modal.current === 'menu');
+  const menuBefore = await orientationSnapshot();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+  await page.keyboard.press('Escape'); await page.keyboard.press('a'); await page.waitForTimeout(250);
+  const menuPortrait = await orientationSnapshot(); assert.deepEqual(menuPortrait, menuBefore);
+  await page.setViewportSize(viewport);
+  await page.waitForFunction(() => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+  await menu.waitFor({ state: 'visible' }); await page.waitForTimeout(300);
+  const menuLandscape = await orientationSnapshot(), menuInput = await orientationInputState();
+  assert.deepEqual(menuLandscape, menuBefore, 'rotation back preserves the existing native menu pause');
+  assert.equal(menuInput.modal, 'menu'); assertNoHeldInput(menuInput);
+  await menu.getByRole('button', { name: '닫기 ×', exact: true }).click();
+  await page.waitForFunction(time => window.__HAPIL_CONTROLS_V31329__.binding.modal.current == null &&
+    window.__HAPIL_CONTROLS_V31329__.binding.state.current.time > time, menuBefore.world.time, { timeout: 10000 });
+  const menuResumed = await orientationSnapshot(), resumedInput = await orientationInputState();
+  assert(menuResumed.sameInstance && menuResumed.world.time > menuBefore.world.time);
+  assert.equal(menuResumed.world.hp, menuBefore.world.hp); assertNoHeldInput(resumedInput);
+  return { scope: 'all actual portrait viewports, including desktop UA; native RAF and trusted input only', physicalDevice: false,
+    rotations, existingMenuPause: { menuBefore, menuPortrait, menuLandscape, menuInput, menuResumed, resumedInput, resumedByActualCloseClick: true } };
+}
+
+async function pendingTransitionOrientationContract() {
+  await fixture('dist01', 'STORY');
+  const staged = await page.evaluate(() => {
+    const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current, S = window.__HAPIL_STORY_RC51__, F = window.__HAPIL_FLOW_V31343__;
+    // Explicit cleared-route fixture. Keep real native readiness time and
+    // callbacks; only the external map preparation Promise is held open.
+    s.enemies = []; s.spawnedWaves = new Set([1, 2, 3, 4]); s.bossDefeated = false; s.egoDrops = [];
+    for (const id of window.__RC231_QA__.clueIds(s.zone)) s.clues.add(id);
+    S.beforeFrame(s, { blocked: false, clear: true, sound: false }); S.close(false);
+    const gate = F.gate(s), ready = F.ready(s, false);
+    window.__RC231_ORIENTATION_REF__ = s;
+    return { staged: true, zone: s.zone, time: s.time, gate, ready, next: F.profile(s.zone).nextMapId,
+      scope: 'cleared authored dist01 roster/waves/clues; native readiness clock and real save/transition paths; deliberately delayed external map preparation' };
+  });
+  assert(staged.gate.clear, 'pending transition fixture meets actual native objective gate');
+  await page.waitForFunction(() => {
+    const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
+    return s.zone === 'dist01' && window.__HAPIL_FLOW_V31343__.ready(s, false).ready;
+  }, null, { timeout: 10000 });
+  const pending = await page.evaluate(() => {
+    const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current, F = window.__HAPIL_FLOW_V31343__, B = window.__HAPIL_RC86_BRIDGE__;
+    let resolve; const preparation = new Promise(done => { resolve = done; });
+    const probe = { state: s, resolve, interactCalls: 0 };
+    window.__RC231_PENDING_MAP__ = probe;
+    F.bind(s, { blocked: () => !!C.binding.modal.current || C.binding.blocked?.() === true,
+      save: () => window.__RC231_QA__.writeSave('auto', B.serializeSave(s, s.activeHeroId, [], C.binding.passives.current, C.binding.shards.current)),
+      clearInput: () => C.clear(), prepare: () => preparation });
+    const accepted = F.transition(s, () => { probe.interactCalls++; C.binding.actions.interact(); }, false, true);
+    if (!accepted || F.record(s).transition?.stage !== 'preparing') throw Error('native pending transition was not armed');
+    window.__HAPIL_BATTLE_ARENA_RC138__.applyPosition(s, F.profile(s.zone).exitAnchorWorld);
+    C.setMode('full');
+    return { accepted, stage: F.record(s).transition.stage, zone: s.zone, time: s.time, interactCalls: probe.interactCalls };
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
+  const before = await orientationSnapshot();
+  await page.evaluate(() => window.__RC231_PENDING_MAP__.resolve(true));
+  // Covers more than five actual 220ms auto-exit ticks while the real async
+  // transition completion also attempts its native pause/clear recheck.
+  await page.waitForTimeout(1400);
+  const frozen = await orientationSnapshot(); assert.deepEqual(frozen, before, 'portrait blocks async map commit and automatic exit progression');
+  const blocked = await page.evaluate(() => {
+    const p = window.__RC231_PENDING_MAP__, C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current, F = window.__HAPIL_FLOW_V31343__;
+    return { sameInstance: s === p.state, mode: C.effective(), interactCalls: p.interactCalls, zone: s.zone,
+      nativeGateBlocked: F.blocked(s), pendingStage: F.record(s).transition?.stage ?? null };
+  });
+  assert(blocked.sameInstance && blocked.nativeGateBlocked); assert.equal(blocked.interactCalls, 0);
+  assert.equal(blocked.mode, 'full'); assert.equal(blocked.zone, staged.zone);
+  assertNoHeldInput(await orientationInputState());
+  await page.setViewportSize(viewport);
+  await page.waitForFunction(next => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused() &&
+    window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone === next, staged.next, { timeout: 30000 });
+  const resumed = await orientationSnapshot(); assert(resumed.sameInstance && resumed.partyIsControl);
+  assert.equal(resumed.world.zone, staged.next); assert(resumed.world.time >= before.world.time);
+  await page.evaluate(() => { delete window.__RC231_PENDING_MAP__; });
+  return { staged, pending, before, frozen, blocked, resumed,
+    resumedByNativeFullAutoExit: true, naturalCampaignClearClaimed: false };
+}
+
 async function liveLifecycle(role, mode) {
   const zone = role === 'ordinary' ? 'dist02' : 'ep1b03';
   await fixture(zone, 'STORY');
@@ -315,6 +488,10 @@ async function liveLifecycle(role, mode) {
       assert(report.environment.client.maxTouchPoints > 0, 'mobile fixture reports an actual emulated touch capability');
     }
     console.log('RC231_BROWSER_CLIENT', JSON.stringify({ profile, ...report.environment.client }));
+    stage = 'portrait-title-input-block';
+    report.titleOrientation = await titleOrientationContract();
+    check('portrait blocks trusted title progression on every viewport profile', report.titleOrientation);
+    stage = 'natural-title-and-hero-start';
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: '새 게임 시작', exact: true }).click();
     await page.getByRole('button', { name: '이 편성으로 접속', exact: true }).click();
@@ -348,7 +525,6 @@ async function liveLifecycle(role, mode) {
     stage = 'manual-input-and-release'; await fixture();
     report.keyboard = await keyboardMovement(); check('trusted keyboard movement and release', report.keyboard);
     if (mobile) { report.touch = await touchMovement(); check('trusted emulated touchscreen movement and release', report.touch); }
-    await capture('native-input');
     stage = 'manual-semi-full-mode-switch';
     report.controlModes = [];
     for (const mode of ['manual', 'semi', 'full', 'manual']) {
@@ -524,37 +700,12 @@ async function liveLifecycle(role, mode) {
         packets: s.hostileProjectiles.map(q => ({ id: q.id, sourceId: q.sourceId, skill: q.rc133Skill ?? q.skillId ?? null })) };
     });
     check('777-assisted hidden battle enters actual native fight with original boss HP', report.hidden); await capture('hidden');
-    if (profile === 'portrait') {
-      stage = 'portrait-orientation-pause';
-      await page.setViewportSize({ width: 390, height: 844 });
-      await page.waitForFunction(() => window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
-      const before = await page.evaluate(() => {
-        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
-        window.__RC231_ORIENTATION_REF__ = s;
-        return { time: s.time, hp: s.hp };
-      });
-      await page.keyboard.press('ArrowUp'); await page.waitForTimeout(250);
-      const after = await page.evaluate(() => ({ time: window.__HAPIL_CONTROLS_V31329__.binding.state.current.time, hp: window.__HAPIL_CONTROLS_V31329__.binding.state.current.hp,
-        gate: document.querySelector('#rc152-orientation-gate')?.textContent, paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused(),
-        viewport: { width: innerWidth, height: innerHeight }, userAgent: navigator.userAgent,
-        userAgentDataMobile: navigator.userAgentData?.mobile ?? null, maxTouchPoints: navigator.maxTouchPoints }));
-      assert.equal(after.time, before.time); assert.equal(after.hp, before.hp);
-      assert.equal(after.gate, '가로 화면으로 전환해주세요'); assert(after.paused);
-      await page.setViewportSize(viewport);
-      await page.waitForFunction(() => !window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused());
-      await page.waitForFunction(time => {
-        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
-        return s === window.__RC231_ORIENTATION_REF__ && s.time > time;
-      }, after.time, { timeout: 10000 });
-      const resumed = await page.evaluate(() => {
-        const s = window.__HAPIL_CONTROLS_V31329__.binding.state.current;
-        return { time: s.time, hp: s.hp, sameInstance: s === window.__RC231_ORIENTATION_REF__,
-          paused: window.__HAPIL_ORIENTATION_PAUSE_RC152__.paused(), viewport: { width: innerWidth, height: innerHeight } };
-      });
-      assert(resumed.sameInstance && resumed.time > after.time && !resumed.paused);
-      assert.equal(resumed.hp, after.hp, 'landscape resumes the same protected native player without changing HP');
-      check('portrait orientation gate freezes simulation and resumes on landscape', { before, after, resumed });
-    }
+    stage = 'all-viewports-horizontal-only-orientation';
+    report.orientation = await combatOrientationContract();
+    check('all portrait viewports freeze native combat and preserve existing menu pause', report.orientation);
+    stage = 'portrait-pending-map-preparation';
+    report.pendingTransitionOrientation = await pendingTransitionOrientationContract();
+    check('portrait blocks real pending map commit and automatic exit timers', report.pendingTransitionOrientation);
     report.environment.renderer = await page.evaluate(() => {
       const gl = document.createElement('canvas').getContext('webgl');
       if (!gl) return { available: false };

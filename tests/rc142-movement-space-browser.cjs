@@ -3,6 +3,7 @@
 // natural campaign progress: every actor and zone below is an isolated fixture.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc142-movement-space';fs.mkdirSync(out,{recursive:true});
 const zones=JSON.parse(fs.readFileSync(path.join(root,'qa/rc138/map-format-manifest.json'),'utf8')).rows.map(r=>r.id);
 const bridge='\nwindow.__RC142_MOVE_QA__={initial:oi,move:(...a)=>ft(...a)};';
@@ -15,9 +16,13 @@ function polygonMetrics(points){let twice=0;for(let i=0;i<points.length;i++){con
  if(process.env.EXPECTED_SHA)assert(report.commit===process.env.EXPECTED_SHA&&!report.dirty,'exact clean revision required');
  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]]){
-  const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,errors:[],httpErrors:[]};report.profiles.push(row);
+  const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+  const context=await browser.newContext({viewport:combatViewport,deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,requestedViewport,combatViewport,errors:[],httpErrors:[]};report.profiles.push(row);
   page.on('pageerror',e=>row.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
-  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_NATIVE_ARENA_RC138__?.installed&&window.__RC142_MOVE_QA__?.move,{timeout:60000});
+  await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_NATIVE_ARENA_RC138__?.installed&&window.__RC142_MOVE_QA__?.move,{timeout:60000});
+  await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
+  await page.waitForSelector('#hapil-story-rc51');for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}await page.waitForFunction(()=>!document.querySelector('#hapil-story-rc51'));
+  row.orientation=await contract(page,requestedViewport);
   row.result=await page.evaluate(zones=>{
    const Q=window.__RC142_MOVE_QA__,C=window.__HAPIL_CONTROLS_V31329__,R=window.__HAPIL_BATTLE_ARENA_RC138__,D=window.__HAPIL_PERSONA_DUEL_RC134__,results=[],modes=['STORY','DREAM'];
    const project=(x,y)=>({x:640+27*(x-y),y:13.5*(x+y)}),metrics=points=>{let twice=0;for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length];twice+=a.x*b.y-a.y*b.x;}const coords=points.map(p=>project(p.x,p.y));return{areaWorld:Math.abs(twice/2),bounds:{x:[Math.min(...coords.map(p=>p.x)),Math.max(...coords.map(p=>p.x))],y:[Math.min(...coords.map(p=>p.y)),Math.max(...coords.map(p=>p.y))]}};};

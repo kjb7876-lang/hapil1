@@ -3,6 +3,7 @@
 // Unmodified live startup is recorded separately; fixtures are not natural play.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),cp=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const {landscape,beforeLoad,contract}=require('./helpers/landscape-orientation.cjs');
 const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc129-browser');fs.mkdirSync(out,{recursive:true});
 const bridge='\nwindow.__RC129_NATIVE__={initial:oi,project:G,queue:MONGSE_queueImage};';
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2','.svg':'image/svg+xml'};
@@ -13,14 +14,16 @@ async function main(){
  try{
  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
-  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],httpErrors=[];
-  const profile={name,errors,httpErrors};report.profiles.push(profile);save();
+  const requestedViewport={width,height},combatViewport=landscape(requestedViewport);
+  const context=await browser.newContext({viewport:combatViewport,isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],httpErrors=[];
+  const profile={name,requestedViewport,combatViewport,errors,httpErrors};report.profiles.push(profile);save();
   page.on('pageerror',e=>{errors.push(e.stack||e.message);console.error('RC129_NATIVE_ERROR',e.stack||e.message);});page.on('response',r=>{if(r.status()>=400)httpErrors.push({url:r.url(),status:r.status()});});
-  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__);
+  await beforeLoad(page,requestedViewport);await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__);
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
   assert.equal(await page.locator('[data-game-mode-v31354="HELL"]:visible').count(),0,'HELL must not return to the mode selector');
   await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
   for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+  profile.orientation=await contract(page,requestedViewport);
   const live=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{zone:s.zone,time:s.time,hp:s.hp,x:s.x,y:s.y,speed:s.rc127MovementSpeed,mode:s.gameModeV31346,hud:window.__HAPIL_DANMAKU_HUD_RC129__.snapshot(s)};});
   const first=await live();await page.keyboard.down('ArrowRight');await page.waitForTimeout(350);await page.keyboard.up('ArrowRight');await page.waitForTimeout(1200);const last=await live();assert(last.time>first.time,'natural startup progresses');assert(Number.isFinite(last.hp));
   profile.startup={first,last,usedProgressCheats:false};await page.screenshot({path:path.join(out,name+'-natural-start.png')});save();

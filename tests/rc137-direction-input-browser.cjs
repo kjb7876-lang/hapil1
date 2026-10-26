@@ -1,4 +1,5 @@
 "use strict";
+const orientation=require('./helpers/landscape-orientation.cjs');
 // Native rAF locomotion and trusted keyboard/touch controls. Staged route, legal
 // starting point and player invulnerability; no natural campaign completion claim.
 const fs = require("node:fs"),
@@ -251,6 +252,7 @@ function verify(rows, x, y, label) {
       });
       const cdp = await context.newCDPSession(page);
       await cdp.send("Emulation.setCPUThrottlingRate", { rate: cpu });
+      await orientation.beforeLoad(page);
       await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
       await page.waitForFunction(
         () =>
@@ -281,6 +283,7 @@ function verify(rows, x, y, label) {
         await page.keyboard.press("Enter");
         await page.waitForTimeout(70);
       }
+      row.orientation=await orientation.contract(page);
       for (const mode of ["manual", "semi", "full"]) {
         await prepare(page, mode);
         for (const [keys, x, y] of [

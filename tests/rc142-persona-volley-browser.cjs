@@ -1,4 +1,5 @@
 'use strict';
+const orientation=require('./helpers/landscape-orientation.cjs');
 // Staged native volleys: warning/release timing, bounded motion, contact/evasion,
 // and emulated mobile render-frame observations. No natural campaign claim.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
@@ -28,6 +29,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
   if(process.env.RC142_SEED)await page.addInitScript(seed=>{let value=seed>>>0;Math.random=()=>((value=Math.imul(value,1664525)+1013904223>>>0)/4294967296);},Number(process.env.RC142_SEED));
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:cpu});
   page.on('pageerror',e=>{row.errors.push(e.stack||e.message);report.errors.push({profile:name,error:e.stack||e.message});});page.on('response',r=>{if(r.status()>=400){const e={profile:name,status:r.status(),url:r.url()};row.httpErrors.push(e);report.httpErrors.push(e);}});
+  await orientation.beforeLoad(page);
   await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready&&window.__RC142_VOLLEY_QA__?.step,{timeout:60000});
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
   if(name==='portrait'){row.orientationContract=await orientationContract(page,out);assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);save();console.log('RC218_ORIENTATION_CONTRACT',JSON.stringify({commit:report.commit,...row.orientationContract}));return;}
