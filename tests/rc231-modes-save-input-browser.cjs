@@ -83,12 +83,23 @@ async function dismissStory() {
   await page.evaluate(() => { window.__HAPIL_PARTY_LAUNCH_V31322__?.dismissGuestUI?.(); });
 }
 async function fixture(zone = 'dist01', mode = 'STORY') {
-  return page.evaluate(({ zone, mode }) => {
-    const N = window.__HAPIL_RC133_NATIVE__, C = window.__HAPIL_CONTROLS_V31329__;
-    const s = N.makeState();
-    Object.assign(s, { zone, frontierZone: zone, time: 100, activeHeroId: 'hwando',
+  const entry = await page.evaluate(({ zone, mode }) => {
+    const N = window.__HAPIL_RC133_NATIVE__, C = window.__HAPIL_CONTROLS_V31329__, P = window.__HAPIL_PARTY_V31322__;
+    // Live fixtures retain the object used by the native RAF and party owner.
+    // Standalone makeState objects are reserved for isolated save round trips.
+    const s = P.state ?? C.binding.state.current;
+    if (!s || C.binding.phase !== 'game') throw Error('native live fixture requires an active game world');
+    const identityBefore = { partyIsControl: P.state === C.binding.state.current, qaIsControl: window.__MONGSE_QA_STATE__ === C.binding.state.current };
+    C.clear(); window.__HAPIL_STORY_RC51__?.close?.(false);
+    window.__HAPIL_PERSONA_DUEL_RC134__?.release?.(s);
+    window.__HAPIL_BATTLE_ARENA_RC138__?.release?.(s);
+    // Reset fixture fields while keeping the actual native world's identity.
+    // The native guard owners are released above before x/y are replaced.
+    for (const key of Object.keys(s)) delete s[key];
+    Object.assign(s, N.makeState(), { zone, frontierZone: zone, time: 100, activeHeroId: 'hwando',
       gameModeV31346: mode, samongUnlockedRC91: mode === 'DREAM', hp: 240, maxHp: 240 });
-    C.clear(); C.binding.state.current = s; C.binding.hero.current = 'hwando';
+    C.binding.state.current = s; C.binding.hero.current = 'hwando';
+    window.__RC231_LIVE_FIXTURE_REF__ = s;
     window.__HAPIL_STORY_RC51__?.suppressEntry?.(s);
     N.enter(s, zone);
     window.__HAPIL_STORY_RC51__?.close?.(false);
@@ -98,30 +109,47 @@ async function fixture(zone = 'dist01', mode = 'STORY') {
     Object.assign(s, { paused: false, pause: false, encounterDialogue31226: null,
       encounterLockUntil31226: 0, timeStopUntil: 0, invulnerableUntil: s.time + 60 });
     C.setMode('manual');
-    return { staged: true, zone: s.zone, mode: s.gameModeV31346, hp: s.hp,
+    P.capture(s, { damage: C.binding.actions.damage, heroRef: C.binding.hero, cache: C.binding.cache.current }, false);
+    return { staged: true, zone: s.zone, mode: s.gameModeV31346, hp: s.hp, time: s.time,
+      identityBefore, identityAfter: { partyIsControl: P.state === C.binding.state.current, fixtureIsControl: s === C.binding.state.current },
       nativeRoster: s.enemies.map(a => ({ id: a.id, hp: a.hp, maxHp: a.maxHp, midboss: !!a.midboss, boss: !!a.boss })) };
   }, { zone, mode });
+  await page.waitForFunction(({ zone, time }) => {
+    const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current;
+    return s.zone === zone && s.time > time && s === window.__HAPIL_PARTY_V31322__.state &&
+      s === window.__MONGSE_QA_STATE__ && s === window.__RC231_LIVE_FIXTURE_REF__;
+  }, { zone: entry.zone, time: entry.time }, { timeout: 10000 });
+  return entry;
 }
 async function keyboardMovement() {
   const before = await page.evaluate(() => {
     const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current;
-    // Empty hostiles and center position isolate physical input and release.
-    s.enemies = []; s.spawnedWaves = new Set([1, 2, 3, 4]);
+    // Keep the actual live native roster and wave fields. Emptying every enemy
+    // while marking all waves spawned opens the post-story and pauses RAF.
+    if (!(s.enemies ?? []).some(a => a.hp > 0 && !a.visualOnly)) throw Error('native input fixture requires living authored enemies');
     Object.assign(s, { x: 13.8, y: 24.2, moveVx: 0, moveVy: 0, target: null, path: [] });
     window.__HAPIL_BATTLE_ARENA_RC138__.enforce(s);
     window.__RC231_TRUSTED_KEYS__ = [];
     document.addEventListener('keydown', e => {
       if (e.code === 'ArrowRight') window.__RC231_TRUSTED_KEYS__.push({ code: e.code, trusted: e.isTrusted });
     }, true);
-    return { x: s.x, y: s.y, time: s.time };
+    return { x: s.x, y: s.y, time: s.time, livingActors: s.enemies.filter(a => a.hp > 0).length,
+      waves: [...s.spawnedWaves], partyIsControl: window.__HAPIL_PARTY_V31322__.state === s,
+      qaIsControl: window.__MONGSE_QA_STATE__ === s, fixtureIsControl: window.__RC231_LIVE_FIXTURE_REF__ === s };
   });
   await page.keyboard.down('ArrowRight');
   try { await page.waitForTimeout(450); } finally { await page.keyboard.up('ArrowRight'); }
   const after = await page.evaluate(() => {
     const C = window.__HAPIL_CONTROLS_V31329__, s = C.binding.state.current;
     return { x: s.x, y: s.y, time: s.time, keys: [...C.binding.input.current],
-      held: C.inputSnapshot().held, trusted: window.__RC231_TRUSTED_KEYS__ };
+      held: C.inputSnapshot().held, trusted: window.__RC231_TRUSTED_KEYS__,
+      partyIsControl: window.__HAPIL_PARTY_V31322__.state === s,
+      qaIsControl: window.__MONGSE_QA_STATE__ === s, fixtureIsControl: window.__RC231_LIVE_FIXTURE_REF__ === s,
+      story: window.__HAPIL_STORY_RC51__?.currentNarrative?.(), readingBlocked: window.__HAPIL_READING_V31342__?.blocked,
+      modal: C.binding.modal.current, blocked: C.binding.blocked?.(), partyPaused: window.__HAPIL_PARTY_V31322__.status?.paused };
   });
+  console.log('RC231_INPUT_CLOCK', JSON.stringify({ profile, before, after }));
+  assert(after.partyIsControl && after.qaIsControl && after.fixtureIsControl, 'keyboard acts on the native party, control and RAF world');
   assert(after.time > before.time, 'native RAF simulation advances during keyboard input');
   assert(Math.hypot(after.x - before.x, after.y - before.y) > .1, 'trusted keyboard moves native host');
   assert(after.trusted.some(row => row.trusted), 'browser-delivered keyboard event is trusted');
@@ -520,10 +548,21 @@ async function liveLifecycle(role, mode) {
     if (page) {
       try { report.diagnostic = await page.evaluate(() => { const C = window.__HAPIL_CONTROLS_V31329__, s = C?.binding?.state?.current; return { phase: C?.binding?.phase,
         zone: s?.zone, hp: s?.hp, time: s?.time, modal: C?.binding?.modal?.current,
-        story: window.__HAPIL_STORY_RC51__?.isOpen?.(), readingBlocked: window.__HAPIL_READING_V31342__?.blocked,
+        story: window.__HAPIL_STORY_RC51__?.currentNarrative?.(), readingBlocked: window.__HAPIL_READING_V31342__?.blocked,
+        blocked: C?.binding?.blocked?.(), documentHidden: document.hidden,
+        orientationPaused: window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.(),
+        partyIsControl: window.__HAPIL_PARTY_V31322__?.state === s,
+        qaIsControl: window.__MONGSE_QA_STATE__ === s,
+        fixtureIsControl: window.__RC231_LIVE_FIXTURE_REF__ === s,
+        partyState: { zone: window.__HAPIL_PARTY_V31322__?.state?.zone, time: window.__HAPIL_PARTY_V31322__?.state?.time },
+        qaState: { zone: window.__MONGSE_QA_STATE__?.zone, time: window.__MONGSE_QA_STATE__?.time },
+        party: { role: window.__HAPIL_PARTY_V31322__?.status?.role, paused: window.__HAPIL_PARTY_V31322__?.status?.paused,
+          disconnected: window.__HAPIL_PARTY_V31322__?.status?.disconnected, inputBlocked: window.__HAPIL_PARTY_V31322__?.blocksNativeInput?.() },
+        waves: s?.spawnedWaves ? [...s.spawnedWaves] : null,
+        actors: s?.enemies?.slice(0, 12).map(a => ({ id: a.id, hp: a.hp })),
         innerPhase: s?.innerFinalRC133?.phase, body: document.body.innerText.slice(-1500) }; }); } catch {}
     }
-    persist(); console.error('RC231_BROWSER_FAILURE', JSON.stringify(report.failure)); process.exitCode = 1;
+    persist(); console.error('RC231_BROWSER_FAILURE', JSON.stringify({ ...report.failure, diagnostic: report.diagnostic ?? null })); process.exitCode = 1;
   } finally {
     await browser?.close(); await new Promise(resolve => server.close(resolve));
   }
