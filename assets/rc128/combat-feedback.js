@@ -244,8 +244,8 @@
    ctx.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
    ctx.filter='none';ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.shadowBlur=0;
    ctx.lineCap='round';ctx.lineJoin='round';
-   // Shake the composited picture by at most 1.3 CSS px. This does not move hitboxes.
-   if(!reduced()&&settings.shake!==false&&settings.screenShake!==false&&t<m.shakeUntil){
+   // Combat uses a fixed picture; retain the native flashes, cues and audio.
+   if(root.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)!==true&&!reduced()&&settings.shake!==false&&settings.screenShake!==false&&t<m.shakeUntil){
     const amp=m.shake*clamp((m.shakeUntil-t)/.085,0,1),dx=Math.sin(t*130)*amp,dy=Math.cos(t*107)*amp*.6;
     ctx.save();ctx.beginPath();ctx.rect(3,3,Math.max(0,width-6),Math.max(0,height-6));ctx.clip();ctx.drawImage(canvas,0,0,canvas.width,canvas.height,dx,dy,width,height);ctx.restore();
    }else m.shake=0;

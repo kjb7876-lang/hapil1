@@ -202,10 +202,12 @@ async function setViaNativeSlider(page, factor, profile) {
     await slider.focus();
     await slider.press('Home');
     for (let i=0; i<Math.round((factor-1)/.05); i++) await slider.press('ArrowRight');
+    const geometry=await page.evaluate(()=>({viewport:{width:innerWidth,height:innerHeight},base:window.__HAPIL_CAMERA_RC223__?.diagnostics?.().last?.base??null}));
+    const expected={factor,output:Math.round(expectedViewZoom(factor,geometry.base?.rc153Viewport??geometry.viewport,geometry.base)*100)+'%'};
     await page.waitForFunction(expected => {
       const a=window.__HAPIL_CAMERA_RC223__, el=document.querySelector('input[aria-label="전장 시야 범위"]');
-      return a?.factor?.()===expected && Number(el?.value)===expected && document.querySelector('.rc223-view-settings output')?.textContent===Math.round((1+(expected-1)*.25)*100)+'%';
-    }, factor, {timeout: 8000});
+      return a?.factor?.()===expected.factor && Number(el?.value)===expected.factor && document.querySelector('.rc223-view-settings output')?.textContent===expected.output;
+    }, expected, {timeout: 8000});
   } catch(error) {
     report.sliderFailure={profile,expectedFactor:factor,error:error.stack||String(error),state:await cameraSettingsState(page).catch(e=>({diagnosticError:String(e)}))};
     throw error;
@@ -231,21 +233,44 @@ async function cameraEvidence(page, factor) {
     const selectors=['.game-stage','.game-stage canvas','.topbar','.mission-tag','.minimap','.rc108-settings-trigger','.mobile-system-menu'];
     const css=Object.fromEntries(selectors.map(sel=>{const e=document.querySelector(sel);if(!e)return[sel,null];const b=e.getBoundingClientRect(),g=getComputedStyle(e);return[sel,{x:b.x,y:b.y,width:b.width,height:b.height,fontSize:g.fontSize,lineHeight:g.lineHeight,padding:g.padding,borderRadius:g.borderRadius}]}));
     const hitTarget=s?.target?{x:s.target.x,y:s.target.y}:null;
-    return {factor:A.factor(),snapshot:A.snapshot(),last,d,view:view&&{...view},state:s&&{zone:s.zone,x:s.x,y:s.y,hp:s.hp,time:s.time,hero:s.activeHeroId,target:hitTarget},playerCore:core&&{x:core.x,y:core.y},canvas:r&&{x:r.x,y:r.y,width:r.width,height:r.height,backing:[c.width,c.height]},css};
+    return {factor:A.factor(),snapshot:A.snapshot(),last,d,view:view&&{...view},layoutViewport:{width:innerWidth,height:innerHeight},state:s&&{zone:s.zone,x:s.x,y:s.y,hp:s.hp,time:s.time,hero:s.activeHeroId,target:hitTarget},playerCore:core&&{x:core.x,y:core.y},canvas:r&&{x:r.x,y:r.y,width:r.width,height:r.height,backing:[c.width,c.height]},css};
   });
+}
+
+// Independent test policy: compare the actual presentation to the authored
+// continuous aspect easing and authored-map floor. Runtime zoom outputs are
+// observations only; their geometry inputs supply this independent oracle.
+function expectedViewZoom(factor,viewport,baseCamera) {
+  assert(viewport&&Number.isFinite(viewport.width)&&viewport.width>0&&Number.isFinite(viewport.height)&&viewport.height>0,'camera expectation has a real layout viewport');
+  const nominal=1+(factor-1)*Math.min(.05,Math.max(0,3.3*viewport.height/viewport.width-1));
+  const mapWidth=baseCamera?.rc153MapWidth,viewWidth=baseCamera?.rc153View?.width,scale=baseCamera?.scale;
+  if(baseCamera?.rc153WholeBody!==true||!Number.isFinite(mapWidth)||mapWidth<=0||!Number.isFinite(viewWidth)||viewWidth<=0||!Number.isFinite(scale)||scale<=0)return nominal;
+  return Math.max(1,Math.min(nominal,mapWidth*scale/(.9*viewWidth)));
 }
 
 function assertCameraFormula(row, factor) {
   const {base,adjusted,anchor}=row.last;
   assert.equal(row.factor, factor);
-  const applied=1+(factor-1)*.25;
-  assert(Math.abs(row.last.appliedZoom-applied)<1e-9, 'view setting uses the documented gentle world zoom');
+  assert.equal(row.last.factor,factor,'actual final camera records the selected stored view factor');
+  const viewport=base.rc153Viewport??row.layoutViewport,
+    requested=expectedViewZoom(factor,viewport),applied=expectedViewZoom(factor,viewport,base);
+  assert(Math.abs(row.last.requestedZoom-requested)<1e-9, 'requested scenery zoom follows continuous aspect easing');
+  assert(Math.abs(row.last.appliedZoom-applied)<1e-9, 'effective scenery zoom respects the authored-map floor');
+  assert.equal(row.last.mapFloorLimited,applied<requested-1e-12,'map floor diagnostic identifies an actual restriction of the requested scenery zoom');
   assert(Math.abs(adjusted.scale - base.scale/applied) < 1e-9, 'final native view scale follows the eased range factor');
   assert(Math.abs(adjusted.x - (anchor.x+(base.x-anchor.x)/applied)) < 1e-7, 'final native camera x is anchored');
   assert(Math.abs(adjusted.y - (anchor.y+(base.y-anchor.y)/applied)) < 1e-7, 'final native camera y is anchored');
-  if(row.view) {
-    assert(Math.abs(anchor.x-(row.view.x+row.view.width/2))<1e-6, 'camera anchor is the native safe viewport center x');
-    assert(Math.abs(anchor.y-(row.view.y+row.view.height/2))<1e-6, 'camera anchor is the native safe viewport center y');
+  if(base.rc153WholeBody===true&&Number.isFinite(base.rc153MapWidth)&&base.rc153MapWidth>0&&Number.isFinite(base.rc153View?.width)&&base.rc153View.width>0) {
+    const baseCoverage=base.rc153MapWidth*base.scale/base.rc153View.width,
+      finalCoverage=base.rc153MapWidth*adjusted.scale/base.rc153View.width;
+    assert(Math.abs(row.last.baseMapCoverage-baseCoverage)<1e-9,'map floor diagnostics report the independently measured base coverage');
+    assert(finalCoverage>=Math.min(.9,baseCoverage)-1e-9,'optional scenery shrink preserves the ninety-percent floor or an already constrained full-body fit');
+  }
+  const fittedView=base.rc153View??row.view;
+  if(fittedView) {
+    assert([fittedView.x,fittedView.y,fittedView.width,fittedView.height].every(Number.isFinite)&&fittedView.width>0&&fittedView.height>0,'camera anchor has a valid fitted native viewport');
+    assert(Math.abs(anchor.x-(fittedView.x+fittedView.width/2))<1e-6, 'camera anchor is the fitted native safe viewport center x');
+    assert(Math.abs(anchor.y-(fittedView.y+fittedView.height/2))<1e-6, 'camera anchor is the fitted native safe viewport center y');
   }
 }
 
@@ -422,7 +447,7 @@ async function collisionEvidence(page) {
         bossContact=boss?V.enemyContact(s,boss,s.x,s.y,-5,6.75):null,d=window.__HAPIL_CAMERA_RC223__.diagnostics(),
         range=window.__HAPIL_RANGES_V31337__?.radius?.(s.activeHeroId)??null;
       if(!bitmap?.points?.length||!heroBody?.points?.length||!bossBody?.points?.length)throw Error('native Persona/player bitmap body probe missing at factor '+factor);
-      rows.push({factor,renderObservation:{source:'actual native game RAF + RC125 adaptive world render',appliedBefore:prior.applied,applied:rendered.applied,adaptiveFramesBefore:priorAdaptive?.frames??0,adaptiveFrames:adaptive.frames,last:rendered.last},bitmap:{points:bitmap.points,area:bitmap.area,path:bitmap.path},contact:{hit:contact.hit,heart:contact.heart,bitmap:contact.bitmap,bodyGap:contact.bodyGap,kind:contact.kind},heroBody:heroBody.points,bossBody:bossBody.points,bossContact,range,screenBodyScale:rendered.last.adjusted.scale,probeCallsBefore:before,probeCallsAfter:d.probeCameraCalls,lastProbeCamera:d.lastProbeCamera,baseCameraDepth:d.baseCameraDepth,hp:s.hp,simulationState:{time:s.time,x:s.x,y:s.y}});
+      rows.push({factor,layoutViewport:{width:innerWidth,height:innerHeight},renderObservation:{source:'actual native game RAF + RC125 adaptive world render',appliedBefore:prior.applied,applied:rendered.applied,adaptiveFramesBefore:priorAdaptive?.frames??0,adaptiveFrames:adaptive.frames,last:rendered.last},bitmap:{points:bitmap.points,area:bitmap.area,path:bitmap.path},contact:{hit:contact.hit,heart:contact.heart,bitmap:contact.bitmap,bodyGap:contact.bodyGap,kind:contact.kind},heroBody:heroBody.points,bossBody:bossBody.points,bossContact,range,screenBodyScale:rendered.last.adjusted.scale,probeCallsBefore:before,probeCallsAfter:d.probeCameraCalls,lastProbeCamera:d.lastProbeCamera,baseCameraDepth:d.baseCameraDepth,hp:s.hp,simulationState:{time:s.time,x:s.x,y:s.y}});
     }
     return {fixture:'actual HAPIL_INNER_FINAL_RC133 start/tick native Persona emission before pause; projectile position moved to current player for a deterministic contact probe; staged only',comparison:'real native adaptive RAF observation and native bitmap/contact probes at an identical simulation time and pose; actual settings UI plus native modal ref holds the world clock',baseState,zone:s.zone,phase:s.innerFinalRC133.phase,sourceId:q.sourceId,skill:q.rc133Skill,sprite:q.sprite,emittedProjectiles:emittedCount,rows,hpBefore:hp,hpAfter:s.hp,hitPointsUnchanged:s.hp===hp};
   });
@@ -433,7 +458,7 @@ async function collisionEvidence(page) {
     assert.equal(last.factor,row.factor,'native RAF recorded the selected final-render factor');
     assert(render.applied>render.appliedBefore,'native camera integration ran after the factor change');
     assert(render.adaptiveFrames>render.adaptiveFramesBefore,'RC125 adaptive world rendering advanced with the native game frame');
-    assert(Math.abs(last.adjusted.scale-last.base.scale/row.factor)<1e-9,'actual screen-render camera has the requested inverse-scale factor');
+    assertCameraFormula({factor:row.factor,last,layoutViewport:row.layoutViewport},row.factor);
     assert.equal(row.contact.bitmap,true,'actual contact response is derived from the decoded native bitmap at factor '+row.factor);
     assert.equal(row.contact.hit,true,'controlled native Persona projectile contacts the real native player body at factor '+row.factor);
     assert.equal(row.baseCameraDepth,0,'native contact leaves original-camera scope balanced at factor '+row.factor);
