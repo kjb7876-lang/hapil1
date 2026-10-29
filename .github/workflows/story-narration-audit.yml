@@ -10,6 +10,7 @@ on:
       - '.github/workflows/**'
       - 'qa/rc207/**'
       - 'tests/rc207-*'
+      - 'tests/rc86-samong-cosmic-smoke.cjs'
       - 'tests/rc158-*.cjs'
       - 'tests/rc161-*.cjs'
       - 'tests/rc162-*.cjs'
