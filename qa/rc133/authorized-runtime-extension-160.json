@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "base": "43f9b257199f3cb25d81bf0ef3fdc8243f8dbd81",
+  "baseTree": "ff02bb454f1d62b65945e0724e6c55382bfec6e5",
+  "sourceCommit": "e6b810b080326d507e78bc01159212fd8360c231",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "53493745c0c27cd17085bc2fba7addf595c7b0ad609c2a9c7ec8ee80f2d42074",
+  "files": [
+    {
+      "file": "assets/controller-v31406/hero-controls.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "94ab39b3e2cb89e50c5a01660c5e40ab5e5f4e92",
+        "file": "assets/controller-v31406/hero-controls.js"
+      },
+      "after": {
+        "file": "assets/controller-v31406/hero-controls.js",
+        "mode": "100644",
+        "sha256": "fb792df6526a511bfcf866436350bc26c04d3b51fb84fdecf163e4c786df1cac",
+        "gitBlob": "ba4b2ad38e98779a6a5b1e51c6eb7d39282eeff8"
+      },
+      "reason": "assets/controller-v31406/hero-controls.js: Keep active touch ownership when keyboard movement ends or the controller clears input."
+    },
+    {
+      "file": "assets/hapil-mobile-v31406.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "d9f59dc064d655115b71797b0d8985b7582c81f2",
+        "file": "assets/hapil-mobile-v31406.js"
+      },
+      "after": {
+        "file": "assets/hapil-mobile-v31406.js",
+        "mode": "100644",
+        "sha256": "42d42f79b192084775bae74ced39ed6fb50309218f77776280d38b4a4ba9e065",
+        "gitBlob": "cf0379e83ee92d80020badae797eb24872507bff"
+      },
+      "reason": "assets/hapil-mobile-v31406.js: Preserve touch movement ownership across release and cancellation of other input sources."
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "47aae637867cc83d6de522d95be33da31f041458",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "cf8dbf0de1e187db9e2fa0da20b06173d31dd553971a39cd150374d1f2b4780b",
+        "gitBlob": "cb498e3fc6a916ceff2965d88e0d978c4eea8a2c"
+      },
+      "reason": "assets/index-v31526.js: Preserve other touch ownership when the native pad releases its direction."
+    },
+    {
+      "file": "assets/rc111/mobile-auto.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b1e1900f917e68cb95fedd8ba0bcc1bc722cb991",
+        "file": "assets/rc111/mobile-auto.js"
+      },
+      "after": {
+        "file": "assets/rc111/mobile-auto.js",
+        "mode": "100644",
+        "sha256": "28aa7591f80da96b9b95284fefcabed04114acea1e9dbeb6c73a9ecc39aa32c0",
+        "gitBlob": "95398d81a1db87361b9b1deb6059ecaf51250576"
+      },
+      "reason": "assets/rc111/mobile-auto.js: Maintain separate keyboard and touch movement owners and release held movement safely."
+    },
+    {
+      "file": "assets/rc15/hero-controls.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f7bec424a2fa349c9320d4aa9589200b17e825d8",
+        "file": "assets/rc15/hero-controls.js"
+      },
+      "after": {
+        "file": "assets/rc15/hero-controls.js",
+        "mode": "100644",
+        "sha256": "c3a60379394dfb8b0e5716945e248b0f842eb7fd283b2dc57ae8d8839a343476",
+        "gitBlob": "d7c9580f5bf40b64f7511f3933a5555c01714a2c"
+      },
+      "reason": "assets/rc15/hero-controls.js: Keep active touch ownership when keyboard movement ends or the controller clears input."
+    },
+    {
+      "file": "assets/rc232/projectile-readability.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2f60ba785bdf75961ebe53b39a8313713b789d54",
+        "file": "assets/rc232/projectile-readability.js"
+      },
+      "after": {
+        "file": "assets/rc232/projectile-readability.js",
+        "mode": "100644",
+        "sha256": "c8b045f3e29b33fc071a447ae16b3f84190abaa40157ae2724afde8aaf77393d",
+        "gitBlob": "fee4ddf8df38578d7852cef40f11a186d1082492"
+      },
+      "reason": "assets/rc232/projectile-readability.js: Prevent repeated enhancement of canvas-backed projectile textures while preserving source opacity and contact geometry."
+    },
+    {
+      "file": "assets/rc88/danmaku-rpg.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "440741ac49de494dc348ac13e9e026d572ca6f0d",
+        "file": "assets/rc88/danmaku-rpg.js"
+      },
+      "after": {
+        "file": "assets/rc88/danmaku-rpg.js",
+        "mode": "100644",
+        "sha256": "79e3d2742d87514c133b846e8df2518313c8da021edac5b95e53f53dfb0eb0d3",
+        "gitBlob": "c47bb0a047177f23d3b7fba7e5c19f1788ec4054"
+      },
+      "reason": "assets/rc88/danmaku-rpg.js: Restore persisted awakening in the native single-ghost save path after the final battle is created."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "fd5d0c3019219e7c2fe25aa647306b86d4ed1b3c",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "638a13674a2cd67ecfea99cbb5c7d5e9c1e94e1a7b2fa669f5f381cde9e7da3d",
+        "gitBlob": "b432f4213f2e10ee79eb6ee8db8d386c45e76c2b"
+      },
+      "reason": "index.html: Cache-bust only the changed movement and projectile runtime modules."
+    }
+  ],
+  "targetProtectedRowsSha256": "655b2993a289c93b45ff48dd84f1e6f235b6381a3e0f62f305217c3979bb6bc3"
+}

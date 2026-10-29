@@ -38,19 +38,30 @@ const blinkStart = main.indexOf('function HAPIL_blinkVectorV31345');
 const blinkEnd = main.indexOf('\nfunction MONGSE_planAutoSkill', blinkStart);
 assert(blinkStart >= 0 && blinkEnd > blinkStart, 'directional blink vector helper is missing');
 const blinkWindow = {};
+blinkWindow.window = blinkWindow;
+vm.runInNewContext(read('assets/rc137/direction-input.js'), blinkWindow);
+blinkWindow.__HAPIL_DIRECTION_INPUT_RC137__.bind({project:(x,y)=>({x:640+(x-y)*27,y:(x+y)*13.5})});
 vm.runInNewContext(`${main.slice(blinkStart, blinkEnd)}\nthis.blink=HAPIL_blinkVectorV31345;`, blinkWindow, {filename: 'blink-vector.js'});
 const blink = blinkWindow.blink;
-const diagonalBlink = blink(new Set(['ArrowLeft', 'ArrowUp']), 1);
-assert(Math.abs(diagonalBlink.x + Math.SQRT1_2) < 1e-12 && Math.abs(diagonalBlink.y + Math.SQRT1_2) < 1e-12,
-  'diagonal directional blink is normalized');
-assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(), -1))), {x: -1, y: 0});
-assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowDown']), 1, {x: -1, y: 0}))), {x: 0, y: 1},
-  'directional keys take precedence over any automatic evade vector');
-assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowLeft','ArrowRight']), 1))), {x: 1, y: 0},
-  'opposite horizontal inputs cancel and fall back to facing instead of choosing one side');
-assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowUp','ArrowDown','ArrowLeft']), 1))), {x: -1, y: 0},
-  'opposite vertical inputs cancel without overriding the remaining horizontal direction');
-assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(), 1, {x: 0, y: -1}))), {x: 0, y: -1});
+// Project the world-space blink back to the screen independently: movement
+// and blink must follow the pressed screen direction for every heading.
+for(const [keys,x,y] of [
+ [['ArrowUp'],0,-1], [['ArrowDown'],0,1], [['ArrowLeft'],-1,0], [['ArrowRight'],1,0],
+ [['ArrowUp','ArrowLeft'],-1,-1], [['ArrowUp','ArrowRight'],1,-1],
+ [['ArrowDown','ArrowLeft'],-1,1], [['ArrowDown','ArrowRight'],1,1]
+]) {
+ const v=blink(new Set(keys),1,{x:-1,y:0}), sx=27*(v.x-v.y), sy=13.5*(v.x+v.y);
+ assert(Math.abs(Math.hypot(v.x,v.y)-1)<1e-12,'blink vector is normalized');
+ assert(Math.abs(sx*y-sy*x)<1e-9 && sx*x+sy*y>0, 'blink projects along screen heading '+keys);
+}
+assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowLeft','ArrowRight']), 1))), {x: 0, y: 0},
+  'opposite horizontal inputs cancel without an unintended blink');
+const leftWithOpposites=blink(new Set(['ArrowUp','ArrowDown','ArrowLeft']),1);
+const left=blink(new Set(['ArrowLeft']),1);
+assert.deepEqual(JSON.parse(JSON.stringify(leftWithOpposites)),JSON.parse(JSON.stringify(left)),
+  'opposite vertical inputs cancel without overriding remaining screen direction');
+assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(),1,{x:0,y:-1}))),{x:0,y:-1},'automatic vector applies only when there is no directional input');
+const facing=blink(new Set(),-1);assert(27*(facing.x-facing.y)<0 && Math.abs(facing.x+facing.y)<1e-12,'idle facing falls back to screen-left');
 const manualBlink = main.slice(main.indexOf('Xe = (0, l.useCallback)'), main.indexOf('}, [', main.indexOf('Xe = (0, l.useCallback)')));
 assert(manualBlink.includes('HAPIL_blinkVectorV31345'));
 assert(manualBlink.includes('t.combatModeV31329 === `full` && t.autoDodgeBlinkDispatchV31576 === true ? t.simpleDodgeVectorV31368 : null'));
@@ -141,7 +152,7 @@ const simpleWindow = {
     isCharging: () => false, role: () => ({range: 8}), safePoint: () => true},
   __HAPIL_CHANNEL_V31364__: {active: () => false},
   __HAPIL_ACTION_CONTRACT_V31406__: {decide: () => ({allowed: true})},
-  __HAPIL_MOVEMENT_V31336__: {statusLocked: () => false},
+  __HAPIL_MOVEMENT_V31336__: {statusLocked: () => false, active: () => false},
   __HAPIL_COMBAT_V31333__: {dangerContext: () => ({}), dangerAt: () => 0},
   __HAPIL_LASERS_V31330__: {danger: () => 0},
   __HAPIL_BOSSES_V31334__: {danger: () => 0}
@@ -242,7 +253,7 @@ const damageWindow = {
   __HAPIL_DEFENSE_V31356__: {blockDamage: () => false},
   __HAPIL_LOOP_V31365__: {beforeIncoming: () => false, onDamage() {}},
   __HAPIL_HEART_V31336__: {permit: () => true, packet: (_s, _a, _h, base) => base},
-  __HAPIL_COMBAT_CORE_V31401__: {mark(_s, _a, result, reason) {marks.push({result, reason});}, markIfUnset() {}},
+  __HAPIL_COMBAT_CORE_V31401__: {mark(_s, _a, result, reason) {marks.push({result, reason});}, markIfUnset() {}, finalDamage: (_s, _a, amount) => amount},
   __HAPIL_RAID_RC24__: {suppress: () => false, damageScale: () => 1, floorDamage: () => 0, afterHit() {}},
   __HAPIL_RANGES_V31337__: {defend: (_id, value) => value},
   __HAPIL_HELL_V31322__: {damageMultiplier: () => 1},
@@ -284,7 +295,7 @@ assert(main.includes('window.__HAPIL_CONTACT_V31336__?.stamp(s,a,h,{heart:heartT
 assert(main.includes('window.__HAPIL_CONTACT_V31336__?.prepareHost(o,e)'));
 
 const mainBundle = html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/);
-assert(mainBundle && Number(mainBundle[1]) >= 34601, 'main bundle cache key was not advanced for RC46');
-assert(html.includes('./assets/rc15/hero-controls.js?v=39601'), 'live hero controller cache key was not advanced');
+assert(mainBundle && Number(mainBundle[1]) === 23402, 'main bundle cache key was not advanced for RC46');
+assert(html.includes('./assets/rc15/hero-controls.js?v=39602'), 'live hero controller cache key was not advanced');
 
 console.log('PASS: legacy mode migration, nearest-target semi attacks and skills, directional blink, full-only auto dodge/progression, area/projectile/laser geometry, and actual incoming HP reduction.');

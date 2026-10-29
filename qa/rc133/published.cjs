@@ -501,7 +501,8 @@ assert.equal(laterExtensions[156-66].base,'a06fd95385c9f9cdea53979d3970f638cb075
 assert.equal(laterExtensions[157-66].base,'59598c41d747819590ca4b0c90cb0cd3b5f3c4b0','exact all-combat lifecycle extension base');
 assert.equal(laterExtensions[158-66].base,'9bfd8d4fbc434223c8927755c714b4a205c8bfec','exact all-viewport orientation extension base');
 assert.equal(laterExtensions[159-66].base,'346bee26788b789168fca50f63f12a09f6869c2d','exact camera and projectile quality extension base');
-assert.equal(runtimeOutputs.size,401,'exact extension159 scoped file inventory');
+assert.equal(laterExtensions[160-66].base,'43f9b257199f3cb25d81bf0ef3fdc8243f8dbd81','exact movement audit extension base');
+assert.equal(runtimeOutputs.size,404,'exact extension160 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -524,9 +525,9 @@ assert.equal(runtimeOutputs.size,401,'exact extension159 scoped file inventory')
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
     assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
-    assert.equal(expected.size-egoOriginalFiles.length,399,'prior set plus exact scoped runtime extensions through extension159');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,397,'exact prior runtime set plus the scoped runtime extensions through extension159');
-    assert.equal(expected.size,406,'exact public set including the all-combat lifecycle policy through extension159');
+    assert.equal(expected.size-egoOriginalFiles.length,402,'prior set plus exact scoped runtime extensions through extension160');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,400,'exact prior runtime set plus the scoped runtime extensions through extension160');
+    assert.equal(expected.size,409,'exact public set including the all-combat lifecycle policy through extension160');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;

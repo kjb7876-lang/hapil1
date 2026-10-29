@@ -1,8 +1,9 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const storage=new Map(),bridge={modeApi:{installed:true,mode:s=>s.gameModeV31346},serializeSave:()=>({}),normalizeSave:r=>({...r}),restoreEntry(){},restoreFinalBattle(){return false;},renderFrame(){return false;}};
-const window={__HAPIL_RC86_BRIDGE__:bridge,__HAPIL_DANMAKU_RPG_RC88__:{installed:true},dispatchEvent(){}};
-const c={window,localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))},Event:class{},setTimeout(){}};
+const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))};
+const window={localStorage,__HAPIL_RC86_BRIDGE__:bridge,__HAPIL_DANMAKU_RPG_RC88__:{installed:true},dispatchEvent(){}};
+const c={window,localStorage,Event:class{},setTimeout(){}};
 vm.createContext(c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);
 const api=window.__HAPIL_SAMONG_RC91__;
 const main=read('assets/index-v31526.js'),a=main.indexOf('function MONGSE_tickSevenSinHeroEffects('),b=main.indexOf('\nfunction MONGSE_clearSevenSinTransientState',a);
