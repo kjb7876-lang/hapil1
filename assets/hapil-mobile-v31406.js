@@ -23,7 +23,7 @@
  const enabled=()=>options.mode==='on'||options.mode==='auto'&&touch;
  const keyboard=k=>C()?.hasHeldLogical?.(k)===true;
  function owns(input,k){for(const r of pointers.values())if(r.input===input&&r.keys.has(k))return true;return false;}
- function refresh(input,k){if(!input)return;const current=input===C()?.binding?.input?.current;if(owns(input,k)||current&&keyboard(k)||window.__HAPIL_MOBILE_V31343__?.owns(input,k))input.add(k);else input.delete(k);}
+ function refresh(input,k){if(!input)return;const current=input===C()?.binding?.input?.current;if(owns(input,k)||current&&keyboard(k)||window.__HAPIL_MOBILE_V31343__?.owns(input,k)||window.__HAPIL_MOBILE_AUTO_V31311__?.owns(input,k))input.add(k);else input.delete(k);}
  function canInput(key){const b=C()?.binding,p=window.__HAPIL_PARTY_V31322__;return !!b&&b.phase==='game'&&b.state?.current?.hp>0&&!b.modal?.current&&!b.blocked?.()&&!document.hidden&&!window.__HAPIL_READING_V31342__?.blocked&&!window.__HAPIL_PATIENT_V31368__?.isOpen()&&!window.__HAPIL_RECORDS_V31365__?.isOpen?.()&&!window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()&&p?.blocksNativeInput?.()!==true;}
  function canMenu(){const b=C()?.binding;return !!b&&b.phase==='game'&&!b.modal?.current&&!document.hidden&&!window.__HAPIL_READING_V31342__?.blocked;}
  function persist(){try{localStorage.setItem(KEY,JSON.stringify(options));}catch{C()?.binding?.notify?.('모바일 설정을 저장하지 못했습니다. 현재 화면에는 적용됩니다.');}}

@@ -122222,7 +122222,7 @@ window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V3
   function state(input){let s=states.get(input);if(!s){s={input,pointers:new Map()};states.set(input,s);}return s;}
   function owns(input,key){const s=input&&states.get(input);return !!s&&Array.from(s.pointers.values()).some(p=>p.key===key);}
   function keyboardOwns(input,key){const c=controls();return c?.binding?.input?.current===input&&c.hasHeldLogical?.(key)===true;}
-  function refresh(s,key){if(owns(s.input,key)||keyboardOwns(s.input,key))s.input.add(key);else s.input.delete(key);}
+  function refresh(s,key){if(owns(s.input,key)||keyboardOwns(s.input,key)||window.__HAPIL_MOBILE_V31366__?.owns(s.input,key)||window.__HAPIL_MOBILE_AUTO_V31311__?.owns(s.input,key))s.input.add(key);else s.input.delete(key);}
   function release(s,id){const p=s.pointers.get(id);if(!p)return false;s.pointers.delete(id);refresh(s,p.key);if(!s.pointers.size)active.delete(s);
     try{if(p.target?.hasPointerCapture?.(id))p.target.releasePointerCapture?.(id);}catch{}
     return true;
@@ -122245,7 +122245,7 @@ window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V3
   window.addEventListener('orientationchange',reset);
   window.addEventListener('pagehide',reset);
   document.addEventListener('visibilitychange',reset);
-  window.__HAPIL_MOBILE_V31343__=Object.freeze({version:'3.13.43',down,up,leave,owns,clear,clearAll,
+  window.__HAPIL_MOBILE_V31343__=Object.freeze({version:'3.13.43',down,up,leave,owns,clear,clearAll,hasPointers:()=>active.size>0,
     snapshot:input=>Array.from(states.get(input)?.pointers??[],([pointerId,p])=>({pointerId,key:p.key}))});
 })();
 
