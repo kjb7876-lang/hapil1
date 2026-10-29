@@ -11,7 +11,7 @@ const slice = (start, end) => {
   return source.slice(a, b);
 };
 
-assert(Number(html.match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301,
+assert(Number(html.match(/index-v31526\.js\?v=(\d+)/)?.[1]) === 23402,
   'modified bundle must bypass the previous HTML cache');
 const poseRoute = slice('/* HAPIL FINAL RC5: canonical', '/* HAPIL FINAL RC6:');
 let imagePath = '', draws = 0, legacy = 0;
@@ -33,7 +33,7 @@ const route = new Function('window', 'MONGSE_queueImage', 'G', 'HAPIL_RC13_RENDE
 const motion = {kind: 'attack', direction: 'front', dx: 1, dy: 1, started: 1, until: 1.38};
 const selection = route.options({authoredTimeV31345: 1.13}, {id: 'slayer'}, motion, 'old.png');
 assert.equal(selection.canonicalHeroRC5.sheet, 'action');
-const ctx = {globalAlpha: 1, save() {}, restore() {}, translate() {},
+const ctx = {globalAlpha: 1, save() {}, restore() {}, translate() {}, rotate() {},
   beginPath(){},rect(){},clip(){},drawImage() {draws++;}};
 route.actor(ctx, {}, 'old.png', 12, 13, 66, selection);
 assert.equal(draws, 1, 'the real option/draw wrappers must render the down cleave');

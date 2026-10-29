@@ -557,6 +557,30 @@ function verify(rows, x, y, label) {
             JSON.stringify(fullAutoTouch),
         );
         row.fullAutoTouch = fullAutoTouch;
+        // Trusted battlefield drag and physical keyboard can share the same
+        // logical direction. Each release must preserve the remaining owner.
+        await page.keyboard.down("ArrowUp");
+        await page.keyboard.up("ArrowUp");
+        assert(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.input.current.has("ArrowUp")),
+          "full-auto drag survives keyboard release");
+        await page.keyboard.down("ArrowUp");
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchEnd",touchPoints:[]});
+        assert(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.input.current.has("ArrowUp")),
+          "keyboard direction survives full-auto drag release");
+        await page.keyboard.up("ArrowUp");
+        await page.keyboard.down("ArrowLeft");
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchStart",touchPoints:[{...drag,id:3}]});
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchMove",touchPoints:[{x:drag.x,y:drag.y-65,id:3}]});
+        assert(await page.evaluate(()=>{const input=window.__HAPIL_CONTROLS_V31329__.binding.input.current;return input.has("ArrowLeft")&&input.has("ArrowUp");}),
+          "full-auto drag preserves a different concurrently held keyboard direction");
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchEnd",touchPoints:[]});
+        assert(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.input.current.has("ArrowLeft")),
+          "full-auto drag release preserves different keyboard direction");
+        await page.keyboard.up("ArrowLeft");
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchStart",touchPoints:[{...drag,id:4}]});
+        await cdp.send("Input.dispatchTouchEvent", {type:"touchMove",touchPoints:[{x:drag.x,y:drag.y-65,id:4}]});
+        assert(await page.evaluate(()=>window.__HAPIL_MOBILE_AUTO_V31311__.metrics().held),"rotation starts with full-auto drag held");
+        row.fullAutoHybridOwnership = true;
         await cdp.send("Emulation.setDeviceMetricsOverride", {
           width: 844,
           height: 390,

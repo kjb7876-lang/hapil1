@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const main = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
-assert(html.includes('./assets/index-v31526.js?v=40806'),
+assert(html.includes('./assets/index-v31526.js?v=23402'),
   'the browser must load the RC77 game bundle');
 assert(main.includes('MONGSE_applyCheatCode = (0, l.useCallback)'),
   'the 777 progression handler must remain installed');
@@ -35,6 +35,7 @@ const context = {
   l: react,
   q: {jsx, jsxs: jsx},
   HAPIL_AutoBattleSettingsV31301: () => null,
+  HAPILCameraSettingsSectionRC223: () => null,
   N: {},
   window: {__HAPIL_MOBILE_V31366__: null}
 };
@@ -80,13 +81,16 @@ assert.equal(status?.props.children, '코드 승인 테스트', 'code response s
 const blinkStart = main.indexOf('function HAPIL_blinkVectorV31345');
 const blinkEnd = main.indexOf('\nfunction MONGSE_planAutoSkill', blinkStart);
 const blinkContext = {};
+blinkContext.window=blinkContext;
+vm.runInNewContext(fs.readFileSync(path.join(root,'assets/rc137/direction-input.js'),'utf8'),blinkContext);
+blinkContext.__HAPIL_DIRECTION_INPUT_RC137__.bind({project:(x,y)=>({x:640+(x-y)*27,y:(x+y)*13.5})});
 vm.runInNewContext(`${main.slice(blinkStart, blinkEnd)}\nthis.blink=HAPIL_blinkVectorV31345;`, blinkContext);
 const diagonal = blinkContext.blink(new Set(['ArrowUp', 'ArrowRight']), 1);
-assert(Math.abs(diagonal.x - Math.SQRT1_2) < 1e-12 &&
-  Math.abs(diagonal.y + Math.SQRT1_2) < 1e-12,
-  'directional diagonal blink should be normalized');
+const screenX=27*(diagonal.x-diagonal.y),screenY=13.5*(diagonal.x+diagonal.y);
+assert(Math.abs(Math.hypot(diagonal.x,diagonal.y)-1)<1e-12 && screenX>0 && screenY<0 && Math.abs(screenX+screenY)<1e-9,
+  'normalized diagonal blink projects to the pressed screen heading');
 assert.deepEqual(JSON.parse(JSON.stringify(blinkContext.blink(new Set(['ArrowLeft', 'ArrowRight']), -1))),
-  {x: -1, y: 0});
+  {x: 0, y: 0},'opposite directions cancel');
 assert(main.includes('function evasive(){return false;}'),
   'awakening-specific autonomous blink should not teleport the hero');
 assert(main.includes("control.effective(b.settings?.current)!=='full'"),
@@ -103,6 +107,7 @@ const wrapperEnd = main.indexOf(wrapperMarker, wrapperStart) + wrapperMarker.len
 assert(phaseStart >= 0 && phaseEnd > phaseStart && baseStart >= 0 && baseEnd > baseStart &&
   wrapperStart >= 0 && wrapperEnd > wrapperStart, 'live boss damage gate source was not found');
 const damageContext = {
+  window: {__HAPIL_COMBAT_CORE_V31401__: {nativeOutgoingAmount: (_s,_a,amount)=>amount, outgoingBudget: (_s,_a,amount)=>amount}},
   MONGSE_episodeBossPacing: () => false,
   MONGSE_isPersistentBossCastActive: () => false,
   MONGSE_episodeBossShowcaseState: () => ({ready: true}),
@@ -134,7 +139,7 @@ phaseBoss.hp = damageContext.damage(phaseWorld, phaseBoss, 100000);
 assert.equal(phaseBoss.currentPhase, 2, 'phase state should refresh immediately after health crosses a threshold');
 assert(phaseBoss.hp > 330, 'a same-window projectile burst should not skip into a later phase');
 
-assert(main.includes('tintShot(im,q.danmakuColorV31316??q.color)'),
+assert(main.includes('tintShot(im,q.danmakuColorV31316??q.color,q)'),
   'boss-colored jellybean art must be tinted by the owner color at draw time');
 assert(main.includes('ctx.lineCap=\'round\';ctx.lineJoin=\'round\''),
   'connected laser geometry should use rounded joined owner-colored strokes');

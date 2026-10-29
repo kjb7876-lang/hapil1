@@ -77,10 +77,13 @@
   if(!(width>0&&height>0)||width*height>MAX_PIXELS){stats.sourceFallbacks++;return image;}
   const key=styleKey(image,radius);
   if(failed.has(key))return image;
-  if(variants.has(key)||typeof root.requestIdleCallback!=='function')return picture(image,radius);
+  if(variants.has(key))return picture(image,radius);
   if(!pending.has(key)){
    pending.add(key);stats.idleStyles++;
-   root.requestIdleCallback(()=>{try{picture(image,radius);}finally{pending.delete(key);}},{timeout:500});
+   const prepare=()=>{try{picture(image,radius);}finally{pending.delete(key);}};
+   if(typeof root.requestIdleCallback==='function')root.requestIdleCallback(prepare,{timeout:500});
+   else if(typeof root.setTimeout==='function')root.setTimeout(prepare,0);
+   else prepare();
   }
   // A cold style never stalls or hides the first released native body. Its
   // original pixels and essential alpha draw immediately while RGB is cached.

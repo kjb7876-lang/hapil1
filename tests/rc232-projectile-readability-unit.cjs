@@ -86,6 +86,17 @@ function contrast(rgba,bg){let signal=0,luminanceSignal=0,count=0;for(let i=0;i<
  const warmed=render(idleImage,q('idle-source'),idleSettings,true,null);
  check(warmed.receipts.length===1&&warmed.receipts[0].styled&&R.metrics().pendingStyles===0,'next native body reuses completed idle raster');
  delete root.requestIdleCallback;
+ const fallbackImage=await loadImage(path.join(rootPath,imagePaths[1])),timers=[];
+ root.setTimeout=(callback,delay)=>{timers.push({callback,delay});return timers.length;};
+ const fallbackBefore=R.metrics();let fallbackCold;
+ for(let i=0;i<3;i++)fallbackCold=render(fallbackImage,q('timer-source'),idleSettings,true,null);
+ check(timers.length===1&&timers[0].delay===0&&R.metrics().pendingStyles===1,'without idle callbacks one timer prepares each source/style');
+ check(R.metrics().processedPixels===fallbackBefore.processedPixels&&R.metrics().cacheMisses===fallbackBefore.cacheMisses,'timer fallback does not process pixels in the combat frame');
+ check(fallbackCold.receipts.length===1&&!fallbackCold.receipts[0].styled&&fallbackCold.receipts[0].alpha>.85,'timer fallback immediately paints the native body');
+ timers[0].callback();
+ const fallbackWarm=render(fallbackImage,q('timer-source'),idleSettings,true,null);
+ check(fallbackWarm.receipts.length===1&&fallbackWarm.receipts[0].styled&&R.metrics().pendingStyles===0,'timer fallback uses the prepared raster in later frames');
+ delete root.setTimeout;
  const lifecycleSettings={skillFxOpacity:1,lowFx:true,reducedFlash:true};
  const terminal=render(lastImage,q('sprite',{projectileRemovalReason31215:'native-terminal'}),lifecycleSettings,true,null);
  check(terminal.receipts.length===0&&terminal.rgba.every((v,i)=>i%4!==3||v===0),'final RC71 bypass cannot resurrect a removed native body');

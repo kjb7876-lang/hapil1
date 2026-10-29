@@ -24,7 +24,7 @@
   const rows = v => Array.isArray(v) ? v : [];
   const live = a => a && n(a.hp)>0 && !a.visualOnly && (!a.protectedNarrativeTargetV31307||a.rc89CommandBody);
   let bridge, attempts=0;
-  const pictures=new Map(),wraithPictures=new WeakMap();
+  const pictures=new Map(),wraithPictures=new WeakMap(),legacyWaveRestarts=new WeakSet();
   function picture(path){
     if(!path||typeof Image==='undefined')return null;
     if(!pictures.has(path)){const image=new Image();image.src=path;pictures.set(path,image);}
@@ -394,6 +394,7 @@
       }else {
       // Version 1 stored one transient echo; restart the new six-body scene
       // rather than interpreting its single activeId as six simultaneous IDs.
+      legacyWaveRestarts.add(s);
       s.rc88Encounter.cosmicKills=[];
       s.enemies=s.enemies.filter(a=>!a.samongCosmicSummonV386);
       const battle=s.hapilFinalBattleV31300;
@@ -437,7 +438,21 @@
     bridge.restoreEntry=function(s,save,...args){const result=entry.call(this,s,save,...args);
       // The native loader restores the final clock after entry hooks. Use its saved epoch here.
       const clock=s.zone==='cult04'&&save?.hapilFinalBattleV31301?Math.max(0,n(save.hapilFinalBattleV31301.combatElapsedRC79)):undefined;
+      legacyWaveRestarts.delete(s);
       restore(s,save?.danmakuRpgRC88,clock,save?.hapilFinalBattleV31301?.boss?.maxHp);return result;};
+    // Native load restores the final battle after entry hooks. Reset its
+    // awakening flags only for the legacy wave that was restarted above.
+    if(typeof bridge.restoreFinalBattle==='function'){
+      const final=bridge.restoreFinalBattle;
+      bridge.restoreFinalBattle=function(s,...args){
+        const restart=legacyWaveRestarts.delete(s),result=final.call(this,s,...args);
+        if(restart&&result&&s.hapilFinalBattleV31300&&!s.hapilFinalBattleV31300.completed&&s.hapilFinalBattleV31300.stage>=7){
+          s.hapilFinalBattleV31300.awakeningPendingRC108=true;
+          s.hapilFinalBattleV31300.awakeningCommittedRC108=false;
+        }
+        return result;
+      };
+    }
     const loop=window.__HAPIL_LOOP_V31365__;
     window.__HAPIL_LOOP_V31365__=Object.freeze({...loop,
       afterHit(s,...args){loop.afterHit(s,...args);afterHit(s,...args);},
