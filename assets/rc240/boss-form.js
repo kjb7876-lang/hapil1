@@ -26,7 +26,7 @@
  if(root.__HAPIL_BOSS_FORM_RC240__)return;
  const VERSION='RC240-boss-form-1';
  const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,clamp=(v,a,b)=>v<a?a:v>b?b:v,TAU=Math.PI*2;
- const PART_HP=.08,PART_SHARE=.35,TRANSFORM_AT=.5,TRANSFORM_DUR=1.2,TITLE_DUR=1.8,POOL_CAP=160,POOL_CAP_MOBILE=96;
+ const FORM_BANNER_AT=.3,FORM_BANNER_DUR=1.8,PART_HP=.08,PART_SHARE=.35,TRANSFORM_AT=.5,TRANSFORM_DUR=1.2,TITLE_DUR=1.8,POOL_CAP=160,POOL_CAP_MOBILE=96;
  const WHITE_PEAK=.7,WHITE_PEAK_REDUCED=.2,RING_PEAK_REDUCED=.25,RETICLE_ARCS=3,GOLD='#c9a65a',INK='#0a0612';
  const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,villagerDraws:0,villagerDeaths:0,errors:0};
  let lastError=null;
@@ -156,7 +156,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   return cnt<=1?1:cnt===2?(r<=.5?2:1):(r<=.33?3:r<=.66?2:1);}
  function floorFor(b){const a=b.actor,c=b.cfg;if(!c)return 0;if(c.kind==='sins'){const ps=Array.isArray(a.phaseSprites)?a.phaseSprites:[];let i=ps.findIndex(p=>/_demon\b|_demon\./.test(String(p)));if(i<1)i=ps.length-1;return Math.max(1,i);}
   return c.kind==='floor'?Math.max(1,n(c.floor,2)):0;}
- function transform(s,b){b.stage=1;b.at=n(s.time);b.floor=floorFor(b);b.procedural=!b.cfg;metrics.transforms++;
+ function transform(s,b){b.stage=1;b.at=n(s.time);{const c=W(s).card;b.bannerAt=Math.max(b.at+FORM_BANNER_AT,c&&c.until>b.at?c.until+.1:-1);}b.floor=floorFor(b);b.procedural=!b.cfg;metrics.transforms++;
   burst(s,b.ax,b.ay,mobile()?18:36,2);
   try{const r=root.__HAPIL_DANMAKU_RC240__;if(typeof r?.cancelAll==='function'){r.cancelAll(s,'wipe',b.ax,b.ay);metrics.cancels++;}}catch(e){fail(e);}}
  function breakPart(s,b,p){p.broken=true;p.hp=0;metrics.breaks++;burst(s,p.sx,p.sy,mobile()?14:28,1);
@@ -175,6 +175,8 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    if(s.zone==='last302'&&typeof a.id==='string'&&a.id.startsWith('mb-last302')&&a.name!==LAST302_MIDBOSS){a.name=LAST302_MIDBOSS;metrics.renames++;}
    if(!owner(a))continue;const b=bossOf(s,a);placeBoss(b);
    if(b.stage===0&&(b.boss||b.cfg)&&n(a.hp)/Math.max(1,n(a.maxHp,1))<=TRANSFORM_AT)transform(s,b);}
+  // Queue: a second-form banner that has not started yet waits for the boss warning (STG feel) to clear.
+  {const t=n(s.time);for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!(t<=n(b.bannerAt,-1)+.02))continue;let wu=-1;try{wu=n(root.__HAPIL_STG_FEEL_RC240__?.warnUntil?.(s),-1);}catch(e){}if(wu>t)b.bannerAt=Math.max(b.bannerAt,wu+.1);}}
   if(seedTick++%30===0)seedCurrent();}
  function afterHit(s,target,raw,applied,source){
   if(enabledFlag&&source&&typeof source==='object'&&(source.heroId??source.heroId31213)==='michaela'&&source.actionKey==='A'){
@@ -272,6 +274,21 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   ctx.globalAlpha=.42*a;ctx.beginPath();ctx.rect(x0+cap,y0+3.2*k,pw-2*cap,.8*k);ctx.rect(x0+cap,y1-4*k,pw-2*cap,.8*k);ctx.fill();
   ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,x0+cap*.55,y0+L/2,3*k);dia(ctx,x1-cap*.55,y0+L/2,3*k);dia(ctx,x0+cap*.55,y1-L/2,3*k);dia(ctx,x1-cap*.55,y1-L/2,3*k);dia(ctx,cx,y0+L/2,4.2*k);dia(ctx,cx,y1-L/2,4.2*k);ctx.fill();}
  const easeOut=v=>1-Math.pow(1-clamp(v,0,1),3);
+ // Full-width letterbox band (fix round 2): stage title card and the second-form re-declaration. A dark
+ // band opening from the centre across the whole width, double gold rules, the name large; the title
+ // card also brings thin letterbox bars in from the top and bottom edges. k = px per 1280-wide unit.
+ const BAND={x0:0,bw:0,bh:0,cy:0};const R4=(ctx,x,y,w,h)=>{ctx.beginPath();ctx.rect(x,y,w,h);ctx.fill();};
+ function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars){a=clamp(n(a,0),0,1);const bh=(sub?78:68)*k,e=clamp(open,0,1),x0=cw/2*(1-e),bw=cw*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
+  // Paths, not fillRect: the white-out checks treat full-width fillRects as screen washes.
+  ctx.globalCompositeOperation='source-over';
+  if(bars){const lb=26*k*e;ctx.globalAlpha=.7*a;ctx.fillStyle='#030207';R4(ctx,0,0,cw,lb);R4(ctx,0,ch-lb,cw,lb);}
+  ctx.globalAlpha=.78*a;ctx.fillStyle='#07040c';R4(ctx,x0,y0,bw,bh);
+  ctx.globalAlpha=.35*a;R4(ctx,x0,y0-6*k,bw,6*k);R4(ctx,x0,y0+bh,bw,6*k);
+  ctx.fillStyle=GOLD;ctx.globalAlpha=.95*a;const L=Math.max(1,1.6*k);R4(ctx,x0,y0,bw,L);R4(ctx,x0,y0+bh-L,bw,L);ctx.globalAlpha=.45*a;R4(ctx,x0,y0+4*k,bw,Math.max(1,.8*k));R4(ctx,x0,y0+bh-5*k,bw,Math.max(1,.8*k));
+  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,cw/2,y0+L/2,5*k);dia(ctx,cw/2,y0+bh-L/2,5*k);ctx.fill();
+  ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`600 ${Math.round((sub?30:34)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
+  hudText(ctx,title,cw/2,sub?cy-12*k:cy+1*k);
+  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,cw/2,cy+22*k);}}
  // Flash envelope: fast rise (.04 s) then exponential decay; no flicker.
  function flashEnv(age){return age<0?0:age<.04?age/.04:Math.exp(-(age-.04)*4.5);}
  function render(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const w=worlds.get(s);if(!w)return;const t0=now();metrics.draws++;set=set??{};
@@ -282,8 +299,12 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    for(let i=0;i<w.list.length;i++){const b=w.list[i];const a=b.actor;if(!a||n(a.hp)<=0||!story(s))continue;
     // weak points: glow, HP arc and a slowly turning three-arc reticle (no cross)
     for(let j=0;j<b.parts.length;j++){const p=b.parts[j];if(p.broken)continue;const x=n(p.sx,b.ax),y=n(p.sy,b.ay),hit=t-p.flash<.08,pul=.85+.15*Math.sin(t*6+p.index*2);
-     ctx.globalCompositeOperation='lighter';ctx.globalAlpha=hit?1:.8*pul;if(partSprite)ctx.drawImage(partSprite,x-20,y-20,40,40);
-     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.9;ctx.lineWidth=2.5;ctx.strokeStyle=hit?'#ffffff':'#ffd25a';ctx.beginPath();ctx.arc(x,y,16,-Math.PI/2,-Math.PI/2+TAU*clamp(p.hp/Math.max(1,p.maxHp),0,1));ctx.stroke();
+     // Hollow outline glyph (fix round 2): dark-rimmed open diamond + HP arc, no glowing orb (orbs are bullets).
+     ctx.globalCompositeOperation='source-over';const R=(hit?14:12.5)*pul;ctx.lineJoin='miter';
+     ctx.beginPath();dia(ctx,x,y,R);ctx.globalAlpha=.9;ctx.lineWidth=4.5;ctx.strokeStyle=INK;ctx.stroke();ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle=hit?'#ffffff':'#ffd25a';ctx.stroke();
+     ctx.beginPath();dia(ctx,x,y,R*.38);ctx.lineWidth=1.4;ctx.strokeStyle=hit?'#ffffff':'#fff0c0';ctx.stroke();
+     const arcA=-Math.PI/2+TAU*clamp(p.hp/Math.max(1,p.maxHp),0,1);ctx.globalAlpha=.85;ctx.lineWidth=5;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(x,y,17.5,-Math.PI/2,arcA);ctx.stroke();
+     ctx.globalAlpha=.95;ctx.lineWidth=2.5;ctx.strokeStyle=hit?'#ffffff':'#ffd25a';ctx.beginPath();ctx.arc(x,y,17.5,-Math.PI/2,arcA);ctx.stroke();
      const rot=reduced?p.index:t*.9+p.index;ctx.globalAlpha=hit?.9:.5;ctx.lineWidth=1.3;ctx.strokeStyle=hit?'#ffffff':GOLD;
      for(let q=0;q<RETICLE_ARCS;q++){const a0=rot+q*TAU/RETICLE_ARCS;ctx.beginPath();ctx.arc(x,y,23,a0,a0+TAU/RETICLE_ARCS*.62);ctx.stroke();}}
     if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;
@@ -300,9 +321,8 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    const cv=ctx.canvas,cw=n(cv?.width,1280),ch=n(cv?.height,720),sk=cw/1280;
    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';
    if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r');}
-   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),bh=40*sk,by=ch*.66,font=`600 ${Math.round(21*sk)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.font=font;
-    const tw=n(ctx.measureText?.(c.text)?.width,c.text.length*20*sk),bw=clamp(tw+150*sk,300*sk,cw*.6)*(reduced?1:.35+.65*easeOut(age/.3));
-    ornPanel(ctx,cw/2,by+bh/2,bw,bh,a,sk);ctx.globalAlpha=a;ctx.fillStyle='#f3e6c8';ctx.textAlign='center';ctx.textBaseline='middle';hudText(ctx,c.text,cw/2,by+bh/2+1);}
+   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1);
+    band(ctx,cw,ch,ch*.4,sk,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',true);}
   }catch(e){fail(e);}finally{ctx.restore();}
   metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;}
  // Additive boss-centred radial flash (keeps contrast at the edges; never a flat grey wash). The gradient
@@ -329,6 +349,10 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o');d++;
    if(ringSprite){const R=40+Math.max(cw,ch)*.75*easeOut(u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.pow(1-u,1.5)*(reduced?RING_PEAK_REDUCED:.9);ctx.drawImage(ringSprite,cx-R,cy-R,2*R,2*R);
     const R2=R*.62;ctx.globalAlpha*=.6;ctx.drawImage(ringSprite,cx-R2,cy-R2,2*R2,2*R2);d++;}}
+  // Second form re-declared: a full-width band with the boss name, after the white-out peak.
+  for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;const age=t-n(b.bannerAt,b.at+FORM_BANNER_AT);if(!(age>=0&&age<FORM_BANNER_DUR))continue;
+   const a=clamp(Math.min(age/.2,(FORM_BANNER_DUR-age)/.35),0,1),k=clamp(n(cw,1280)/1280,.6,1.4)*(n(ch,720)<500?1.15:1);
+   band(ctx,n(cw,1280),n(ch,720),n(ch,720)*.3,k,a,reduced?1:easeOut(age/.25),String(b.actor.name??'보스'),'제2형태','#ffe3e6',false);d++;}
   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return d;}
  // Floor pass (under actors; STG feel calls it from the background seam): last302 villager contact
  // shadows and the second-form floor sigil (ellipses + six diamonds, never a cross).
@@ -398,12 +422,14 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   titleUntil(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?c.until:-1;},
   transformUntil(s){const w=s&&worlds.get(s);if(!w)return -1;const t=n(s.time);let u=-1;for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage>=1&&t>=b.at&&t<b.at+TRANSFORM_DUR&&b.at+TRANSFORM_DUR>u)u=b.at+TRANSFORM_DUR;}return u;},
   transforming(s){return api.transformUntil(s)>0;},
+  // Second-form banner window (the danmaku spell card waits behind it).
+  formBannerUntil(s){const w=s&&worlds.get(s);if(!w||!story(s))return -1;const t=n(s.time);let u=-1;for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;const e=n(b.bannerAt,b.at+FORM_BANNER_AT)+FORM_BANNER_DUR;if(t>=b.at&&t<e&&e>u)u=e;}return u;},
   drawOverlay,drawFloor,
   fixText,
   assets:()=>({heart:{...sheet.heart},sobok:{...sheet.sobok}}),
   metrics:()=>({...metrics,enabled:enabledFlag,installed,lastError,heartSheet:sheet.heart.state,sobokSheet:sheet.sobok.state}),
   __test:{rafStep,RETICLE_ARCS,drawOverlay,drawFloor,tick,afterHit,render,burst,seedImages,install,recheck,worlds,nativePhase,floorFor,story,
-   poolLive:s=>worlds.get(s)?.pool.live??0,FORMS,NEEDS_ART,ZONE_NAMES,CROSS_AUDIT,HEART,SOBOK,villager,PART_HP,PART_SHARE,TRANSFORM_AT,TRANSFORM_DUR,TITLE_DUR,POOL_CAP}};
+   poolLive:s=>worlds.get(s)?.pool.live??0,FORMS,NEEDS_ART,ZONE_NAMES,CROSS_AUDIT,HEART,SOBOK,villager,PART_HP,PART_SHARE,TRANSFORM_AT,TRANSFORM_DUR,TITLE_DUR,POOL_CAP,lastBand:()=>({...BAND})}};
  root.__HAPIL_BOSS_FORM_RC240__=api;
  let attempts=0;(function ready(){if(!install()&&++attempts<1200)root.setTimeout?.(ready,10);})();
 })(typeof window==='object'?window:globalThis);

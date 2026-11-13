@@ -56,7 +56,10 @@
  function itemPool(cap){return {cap,live:0,x:new Float32Array(cap),y:new Float32Array(cap),vx:new Float32Array(cap),vy:new Float32Array(cap),age:new Float32Array(cap),kind:new Uint8Array(cap),val:new Uint8Array(cap)};}
  function fresh(s,stock){return {zone:s.zone,level:0,points:0,stock:stock??STOCK_START,bombs:0,items:itemPool(ITEM_CAP),rng:(n(s.time)*977|0)^0x2545f491,
   fam:Array.from({length:FAM_MAX},(_,i)=>({x:NaN,y:NaN,cd:.3+i*.13,flash:-9,tx:new Float32Array(TRAIL),ty:new Float32Array(TRAIL),tn:0,ti:0,tAt:-9})),shots:Array.from({length:24},()=>({on:false,born:0,dur:.18,ax:0,ay:0,tx:0,ty:0,shape:'diamond'})),famWin:[],
-  tracked:new Map(),lastHitAt:-9,fbAt:null,presses:[],pressSeenAt:-9,inputAt:-9,bombReq:null,lastAutoAt:-99,fx:null,dWas:false,hist:{x:new Float32Array(32),y:new Float32Array(32),i:0,n:0},hx:640,hy:400};}
+  tracked:new Map(),lastHitAt:-9,fbAt:null,presses:[],pressSeenAt:-9,inputAt:-9,bombReq:null,lastAutoAt:-99,fx:null,deb:debrisPool(),dWas:false,hist:{x:new Float32Array(32),y:new Float32Array(32),i:0,n:0},hx:640,hy:400};}
+ // Bomb debris: pooled shards (fixed typed arrays, swap-remove; no per-frame allocation).
+ const DEB_CAP=48;
+ function debrisPool(){return {live:0,x:new Float32Array(DEB_CAP),y:new Float32Array(DEB_CAP),vx:new Float32Array(DEB_CAP),vy:new Float32Array(DEB_CAP),age:new Float32Array(DEB_CAP),life:new Float32Array(DEB_CAP)};}
  function W(s){let k=worlds.get(s);if(!k){k=fresh(s);worlds.set(s,k);}return k;}
  function rnd(k){k.rng=(Math.imul(k.rng^(k.rng>>>15),0x2c1b3c6d)+0x6d2b79f5)|0;return ((k.rng>>>0)%100000)/100000;}
  function levelOf(p){let L=0;for(let i=1;i<THRESH.length;i++)if(p>=THRESH[i])L=i;return L;}
@@ -108,7 +111,8 @@
  function famPos(s,k,i,cnt,hx,hy,hero){const t=n(s.time),f=flavour(hero);
   if(f==='orbit-orbs'){const a=t*2.4+i*TAU/Math.max(1,cnt);return [hx+Math.cos(a)*48,hy+Math.sin(a)*30];}
   if(f==='afterimage'){const H=k.hist,lag=Math.min(H.n-1,(i+1)*4);if(lag>0){const j=(H.i-1-lag+64)%32;return [H.x[j]-6*(i+1),H.y[j]];}}
-  const sl=SLOTS[i],bob=f==='heart-blossom'?Math.sin(t*3+i)*3:0;return [hx+sl[0],hy+sl[1]*(cnt<=2&&i<2?.85:1)+bob];}
+  // Each option circles its slot (radius ~7 px) so it reads as an orbiting option, not a flying bullet.
+  const sl=SLOTS[i],a=t*3.2+i*1.7,bob=f==='heart-blossom'?Math.sin(t*3+i)*3:0;return [hx+sl[0]+Math.cos(a)*7,hy+sl[1]*(cnt<=2&&i<2?.85:1)+Math.sin(a)*4.5+bob];}
  function stepFamiliars(s,k,m,dt,hx,hy){const cnt=Math.min(FAM_MAX,k.level),hero=s.activeHeroId,t=n(s.time);
   for(let i=0;i<FAM_MAX;i++){const F=k.fam[i];if(i>=cnt){F.x=NaN;continue;}const [gx,gy]=famPos(s,k,i,cnt,hx,hy,hero);
    if(!Number.isFinite(F.x)){F.x=hx;F.y=hy;F.tn=0;}const e=Math.min(1,dt*(flavour(hero)==='afterimage'?20:10));F.x+=(gx-F.x)*e;F.y+=(gy-F.y)*e;
@@ -145,9 +149,14 @@
   const aPow=n(FEEL()?.aStats?.(s)?.aPow);
   if(aPow>0){const list=(s.enemies??[]).filter(e=>valid(s,e)).sort((a,b)=>(b.boss?2:b.midboss?1:0)-(a.boss?2:a.midboss?1:0));let rows=0;
    for(const e of list){if(rows>=BOMB_TARGETS)break;let p=BOMB_MULT*aPow;if(e.boss||e.midboss)p=Math.min(p,BOMB_BOSS_CAP*Math.max(1,n(e.maxHp,1)));if(pushRow(s,e,p,'RC240_BOMB',palette(m).body,{rc240Bomb:true})){rows++;metrics.bombRows++;metrics.bombPower+=p;}}}
-  seen.bombs++;k.fx={at:t,x:hx,y:hy+42,rmax:m?.mobile||n(root.innerWidth,1280)<800||Math.min(n(root.innerWidth,1280),n(root.innerHeight,720))<500?BOMB_R.mobile:BOMB_R.pc};FEEL()?.duck?.(s,.25);play(s,'heavy','bomb',.5);play(s,'laser','bomb',.5);float(s,auto?'자동 폭탄':'폭탄',palette(m).body,.9);
+  const phone=!!(m?.mobile||n(root.innerWidth,1280)<800||Math.min(n(root.innerWidth,1280),n(root.innerHeight,720))<500);
+  seen.bombs++;k.fx={at:t,x:hx,y:hy+42,rmax:phone?BOMB_R.mobile:BOMB_R.pc,phone};spawnDebris(k,hx,hy+42,phone?22:30,phone);FEEL()?.duck?.(s,.25);play(s,'heavy','bomb',.5);play(s,'laser','bomb',.5);float(s,auto?'자동 폭탄':'폭탄',palette(m).body,.9);
   if(c+nc>0&&!set.reducedFlash)float(s,'탄 소거 +'+(c+nc),'#fff3b0',1);return true;}
 
+ function spawnDebris(k,x,y,cnt,phone){const D=k.deb;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;for(let j=0;j<cnt;j++){let i=D.live;if(i>=DEB_CAP)i=j%DEB_CAP;else D.live++;
+  const a=rnd(k)*TAU,v=(phone?260:380)*(.45+.55*rnd(k));D.x[i]=x;D.y[i]=y-8;D.vx[i]=Math.cos(a)*v;D.vy[i]=Math.sin(a)*v*.5-60*rnd(k);D.age[i]=0;D.life[i]=.45+.35*rnd(k);}}
+ function stepDebris(k,dt){const D=k.deb;for(let i=0;i<D.live;){D.age[i]+=dt;if(D.age[i]>=D.life[i]||!(Number.isFinite(D.x[i])&&Number.isFinite(D.y[i]))){const j=--D.live;if(i!==j){D.x[i]=D.x[j];D.y[i]=D.y[j];D.vx[i]=D.vx[j];D.vy[i]=D.vy[j];D.age[i]=D.age[j];D.life[i]=D.life[j];}continue;}
+  const f=Math.exp(-2.6*dt);D.vx[i]*=f;D.vy[i]=D.vy[i]*f+180*dt;D.x[i]+=D.vx[i]*dt;D.y[i]+=D.vy[i]*dt;i++;}}
  // ---------------------------------------------------------------- tick (called from STG feel at the end of every RC240 sim tick)
  function tick(s,dt,m){if(!on(s)||!m||!(dt>0))return;const k=W(s),t=n(s.time);metrics.ticks++;
   if(k.zone!==s.zone){reset(s,'zone');return;}
@@ -157,7 +166,7 @@
   watchNativeHits(s,k);watchDeaths(s,k);stepItems(s,k,dt,k.hx,k.hy);stepFamiliars(s,k,m,dt,k.hx,k.hy);
   if(k.bombReq){k.bombReq=null;bomb(s,k,m,false);}
   else if(k.stock>0&&fullAuto(s)&&t-k.lastAutoAt>=AUTO_BOMB_GAP&&t>=n(m.mercyUntil,-1)){let im=null;try{im=R()?.imminent?.(s,AUTO_HORIZON);}catch(e){fail(e);}if(im&&im.q?.rc240)bomb(s,k,m,true);}
-  if(k.fx&&t-k.fx.at>1)k.fx=null;}
+  stepDebris(k,dt);if(k.fx&&t-k.fx.at>1)k.fx=null;}
 
  // ---------------------------------------------------------------- input listeners (passive: never preventDefault, never add keys)
  function current(){try{return binding()?.state?.current??null;}catch(e){return null;}}
@@ -196,8 +205,10 @@
   ctx.globalCompositeOperation='lighter';ctx.fillStyle=T.body;
   for(let j=1;j<F.tn;j++){const q=(F.ti-1-j+TRAIL*2)%TRAIL,px=F.tx[q],py=F.ty[q];if(!(Number.isFinite(px)&&Number.isFinite(py)))continue;ctx.globalAlpha=.34*(1-j/TRAIL);ctx.beginPath();ctx.arc(px,py,(5.5-j)*r*.8,0,TAU);ctx.fill();}
   ctx.globalCompositeOperation='source-over';const body=f==='afterimage'?.72-.1*i:1;
-  famPath(ctx,f,x,y,r);ctx.globalAlpha=.9*body;ctx.lineJoin='round';ctx.lineWidth=3;ctx.strokeStyle=INK;ctx.stroke();ctx.globalAlpha=body;ctx.fillStyle=T.body;ctx.fill();
-  ctx.lineWidth=1;ctx.strokeStyle='rgba(255,255,255,.55)';ctx.stroke();
+  // Hollow outline glyph (fix round 2): dark rim + hero-colour outline + faint dark fill, never a solid
+  // bright body (solid bright shapes are the enemy-bullet language).
+  famPath(ctx,f,x,y,r);ctx.globalAlpha=.45*body;ctx.fillStyle=INK;ctx.fill();ctx.globalAlpha=.9*body;ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle=INK;ctx.stroke();
+  ctx.globalAlpha=body;ctx.lineWidth=2.2;ctx.strokeStyle=T.body;ctx.stroke();ctx.lineWidth=.8;ctx.strokeStyle='rgba(255,255,255,.6)';ctx.stroke();
   // detail: core / clock hands / inner heart
   ctx.fillStyle=T.core;ctx.globalAlpha=.95*body;
   if(f==='clock-clone'){ctx.strokeStyle=INK;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*2+i)*5*r,y+Math.sin(t*2+i)*5*r);ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*.4)*3.2*r,y+Math.sin(t*.4)*3.2*r);ctx.stroke();}
@@ -207,23 +218,35 @@
  function drawShots(ctx,k,pal,t){const SP=FEEL()?.shapes;let c=0;for(const b of k.shots){if(!b.on)continue;const u=(t-b.born)/b.dur;if(u<0||u>1)continue;const x=b.ax+(b.tx-b.ax)*u,y=b.ay+(b.ty-b.ay)*u;if(!(Number.isFinite(x)&&Number.isFinite(y)))continue;
   ctx.save();ctx.translate(x,y);if(!SP?.UPRIGHT?.[b.shape])ctx.rotate(Math.atan2(b.ty-b.ay,b.tx-b.ax));ctx.globalAlpha=.95;ctx.lineWidth=1.6;ctx.strokeStyle=INK;ctx.fillStyle=pal.body;
   if(SP?.shapePath)SP.shapePath(ctx,b.shape,5.2);else{ctx.beginPath();ctx.arc(0,0,3.5,0,TAU);}ctx.stroke();ctx.fill();ctx.restore();c++;}return c;}
- // Bomb: an isometric floor ring (2:1 ellipse) expanding from the hero's feet, soft-falloff sprite ring,
- // inner floor glow and dashed shimmer in the hero colour family.
+ // Bomb (fix round 2): a thick expanding shockwave on the floor (2:1 iso ellipse from the hero's feet,
+ // dark underlay + hero-colour band + soft sprite ring), a short filled flash and pooled debris shards.
+ // Thicker on phone; reducedFlash lowers the flash only (the shockwave stays).
  const BG={cx:0,cy:0,rx:0,ry:0,u:0,rmax:0};
  function bombGeomAt(k,t){const fx=k?.fx;if(!fx)return null;const u=(t-fx.at)/BOMB_DUR;if(!(u>=0&&u<1)||!(Number.isFinite(fx.x)&&Number.isFinite(fx.y)))return null;
   const r=30+n(fx.rmax,BOMB_R.pc)*(1-(1-u)*(1-u)*(1-u));BG.cx=fx.x;BG.cy=fx.y;BG.rx=r;BG.ry=r/2;BG.u=u;BG.rmax=n(fx.rmax,BOMB_R.pc);return BG;}
- function drawBomb(ctx,k,T,t,set){const g=bombGeomAt(k,t);if(!g)return 0;const q=!!set?.reducedFlash,f=1-g.u,F=FEEL();let d=0;
-  const rs=F?.ringSprite?.(T.body),gs=F?.glowSprite?.(T.body);ctx.globalCompositeOperation='lighter';
+ function drawBomb(ctx,k,T,t,set){const g=bombGeomAt(k,t);if(!g)return 0;const q=!!set?.reducedFlash,f=1-g.u,F=FEEL(),phone=!!k.fx.phone;let d=0;
+  const rs=F?.ringSprite?.(T.body),gs=F?.glowSprite?.(T.body);
+  // flash: a filled floor disc for the first ~.2 s
+  if(g.u<.3){const a=(q?.14:.55)*(1-g.u/.3);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=a;ctx.fillStyle=T.core;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx*.92,g.ry*.92,0,0,TAU);ctx.fill();}
+  ctx.globalCompositeOperation='lighter';
   if(gs){ctx.globalAlpha=(q?.16:.32)*f;ctx.drawImage(gs,g.cx-g.rx*.85,g.cy-g.ry*.85,g.rx*1.7,g.ry*1.7);d++;}
-  if(rs){ctx.globalAlpha=(q?.45:.95)*Math.pow(f,1.2);ctx.drawImage(rs,g.cx-g.rx,g.cy-g.ry,2*g.rx,2*g.ry);d++;}
-  else{ctx.globalAlpha=(q?.45:.8)*f;ctx.lineWidth=Math.max(1,10*f);ctx.strokeStyle=T.body;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx,g.ry,0,0,TAU);ctx.stroke();}
-  ctx.setLineDash?.(DASH);ctx.lineDashOffset=q?0:-t*140;ctx.lineWidth=1.5;
-  ctx.globalAlpha=.55*f;ctx.strokeStyle=T.core;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx*.8,g.ry*.8,0,0,TAU);ctx.stroke();
-  ctx.globalAlpha=.4*f;ctx.strokeStyle=T.body;ctx.lineDashOffset=q?0:t*90;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx*.6,g.ry*.6,0,0,TAU);ctx.stroke();ctx.setLineDash?.(NODASH);
+  // shockwave band
+  const L=(phone?18:12)*Math.pow(f,.6)+3;ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.75*f;ctx.lineWidth=L+4;ctx.strokeStyle=INK;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx,g.ry,0,0,TAU);ctx.stroke();
+  ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(q?.75:.95)*Math.pow(f,.8);ctx.lineWidth=L;ctx.strokeStyle=T.body;ctx.stroke();
+  ctx.globalAlpha=(q?.6:.9)*f;ctx.lineWidth=Math.max(1.5,L*.3);ctx.strokeStyle=T.core;ctx.stroke();
+  if(rs){ctx.globalAlpha=(q?.4:.8)*Math.pow(f,1.2);ctx.drawImage(rs,g.cx-g.rx*1.08,g.cy-g.ry*1.08,2.16*g.rx,2.16*g.ry);d++;}
+  ctx.setLineDash?.(DASH);ctx.lineDashOffset=q?0:-t*140;ctx.lineWidth=phone?2.5:1.8;
+  ctx.globalAlpha=.5*f;ctx.strokeStyle=T.core;ctx.beginPath();ctx.ellipse?.(g.cx,g.cy,g.rx*.72,g.ry*.72,0,0,TAU);ctx.stroke();ctx.setLineDash?.(NODASH);
   return d;}
+ function drawDebris(ctx,k,T,set){const D=k.deb;if(!D||!D.live)return 0;const q=!!set?.reducedFlash;ctx.globalCompositeOperation='lighter';ctx.lineCap='round';ctx.strokeStyle=T.body;ctx.lineWidth=k.fx?.phone?3:2.4;
+  ctx.beginPath();let c=0;for(let i=0;i<D.live;i++){const u=D.age[i]/D.life[i],x=D.x[i],y=D.y[i];if(!(Number.isFinite(x)&&Number.isFinite(y))||u>=1)continue;ctx.moveTo(x,y);ctx.lineTo(x-D.vx[i]*.05,y-D.vy[i]*.05);c++;}
+  ctx.globalAlpha=q?.6:.9;ctx.stroke();
+  ctx.globalCompositeOperation='source-over';ctx.fillStyle=T.core;ctx.globalAlpha=q?.55:.85;ctx.beginPath();for(let i=0;i<D.live;i++){const x=D.x[i],y=D.y[i],r=2.6*(1-D.age[i]/D.life[i])+.8;if(!(Number.isFinite(x)&&Number.isFinite(y)))continue;ctx.moveTo(x,y-r);ctx.lineTo(x+r*.7,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.7,y);ctx.closePath();}ctx.fill();
+  ctx.globalCompositeOperation='source-over';return c;}
  function draw(ctx,s,m,set){if(!on(s))return 0;const k=worlds.get(s);if(!k)return 0;const t=n(s.time),pal=palette(m),T=tone(s);let d=0;metrics.draws++;
   ctx.save();try{ctx.globalCompositeOperation='source-over';
    if(k.fx)d+=drawBomb(ctx,k,T,t,set);
+   if(k.deb.live)d+=drawDebris(ctx,k,T,set);
    for(let i=0;i<Math.min(FAM_MAX,k.level);i++){drawFamiliar(ctx,k.fam[i],i,flavour(s.activeHeroId),T,t,set);d++;}
    ctx.globalCompositeOperation='source-over';d+=drawShots(ctx,k,T,t);
    const P=k.items,sp=itemSprite(pal);ctx.globalAlpha=1;
@@ -231,41 +254,54 @@
     ctx.globalAlpha=P.kind[i]===1&&P.age[i]>SCATTER_LIFE-.6?(set?.reducedFlash?.6:(Math.floor(t*12)%2?.35:1)):1;
     if(sp){const w=sp.W*sc;ctx.drawImage(sp.c,x-w/2,y-w/2,w,w);}else{ctx.fillStyle=pal.body;ctx.fillRect(x-6,y-6,12,12);}d++;}
   }catch(e){fail(e);}finally{ctx.restore();}return d;}
- function washAlpha(set){return set?.reducedFlash?.06:.18;}
+ function washAlpha(set){return set?.reducedFlash?.05:.1;}
+ const WASH_DUR=.3,SWEEP_DUR=.5;
  // HUD: power pips (4) + bomb stock (2) beside the resonance bar. PC: bottom-left of the canvas, above
  // the native resonance strip; phone: just under the resonance bar, clear of the phase panel and controls.
  const HB=[0,0,0,0];
- function hudBox(w,h,mobile){if(mobile){HB[0]=8;HB[1]=78;HB[2]=112;HB[3]=16;}else{HB[0]=16;HB[1]=n(h,720)-30;HB[2]=124;HB[3]=18;}return HB;}
+ const PIP_R=Object.freeze({pc:6.5,mobile:6});
+ function hudBox(w,h,mobile){if(mobile){HB[0]=8;HB[1]=76;HB[2]=150;HB[3]=22;}else{HB[0]=16;HB[1]=n(h,720)-36;HB[2]=172;HB[3]=26;}return HB;}
  function drawHud(ctx,s,k,m,w,h,T){const mobile=!!m?.mobile||w<800||h<500,B=hudBox(w,h,mobile),x0=B[0],y0=B[1],bw=B[2],bh=B[3],cy=y0+bh/2;
   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.72;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(x0,y0,bw,bh);ctx.fill();
   ctx.globalAlpha=.9;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x0+4,y0,bw-8,1);ctx.fill();
-  const step=mobile?12:13,r=mobile?4:4.4;let x=x0+10;
+  const step=mobile?16:17,r=mobile?PIP_R.mobile:PIP_R.pc;let x=x0+12;
   for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x,cy-r);ctx.lineTo(x+r*.8,cy);ctx.lineTo(x,cy+r);ctx.lineTo(x-r*.8,cy);ctx.closePath();
-   if(i<k.level){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1;ctx.strokeStyle=INK;ctx.stroke();}else{ctx.globalAlpha=.7;ctx.lineWidth=1;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step;}
-  ctx.globalAlpha=.6;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x-2,y0+3,1,bh-6);ctx.fill();x+=step*.7;
+   if(i<k.level){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle=INK;ctx.stroke();}else{ctx.globalAlpha=.75;ctx.lineWidth=1.4;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step;}
+  ctx.globalAlpha=.6;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x-3,y0+4,1.2,bh-8);ctx.fill();x+=step*.75;
   for(let i=0;i<STOCK_MAX;i++){ctx.beginPath();ctx.arc(x,cy,r+.6,0,TAU);
    if(i<k.stock){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1.2;ctx.strokeStyle=INK;ctx.stroke();ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-1.2,cy-1.2,1.4,0,TAU);ctx.fill();}
    else{ctx.globalAlpha=.7;ctx.lineWidth=1;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step+2;}
   ctx.globalAlpha=1;}
  function drawScreen(ctx,s,m,set){if(!on(s))return;const k=worlds.get(s);if(!k)return;const v=U()?.screenSpace?.(ctx);if(!v)return;const T=tone(s);
-  if(k.fx){const u=(n(s.time)-k.fx.at)/.5;if(u>=0&&u<1){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=washAlpha(set)*(1-u);ctx.fillStyle=palette(m).dim;ctx.fillRect(0,0,v.w,v.h);ctx.globalAlpha=1;}}
+  if(k.fx){const u=(n(s.time)-k.fx.at)/WASH_DUR;if(u>=0&&u<1){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=washAlpha(set)*(1-u)*(1-u);ctx.fillStyle=T.body;ctx.fillRect(0,0,v.w,v.h);ctx.globalAlpha=1;}}
+  // Screen-wide shockwave sweep from the hero (CSS px, strokes only): the bomb reads at phone scale too.
+  if(k.fx){const u=(n(s.time)-k.fx.at)/SWEEP_DUR;if(u>=0&&u<1){let p=null;try{p=FEEL()?.toScreen?.(ctx,m,k.fx.x,k.fx.y-42,v.w,v.h);}catch(e){}const cx=p?p.x:v.w*.35,cy=p?p.y:v.h*.55,e=1-(1-u)*(1-u)*(1-u),f=1-u,ph=!!k.fx.phone||v.w<800;
+   const R=24+Math.hypot(Math.max(cx,v.w-cx),Math.max(cy,v.h-cy))*e,L=(ph?11:8)*f+2;ctx.globalCompositeOperation='source-over';ctx.lineCap='butt';
+   ctx.globalAlpha=.55*f;ctx.lineWidth=L+4;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.stroke();
+   ctx.globalAlpha=(set?.reducedFlash?.6:.9)*f;ctx.lineWidth=L;ctx.strokeStyle=T.body;ctx.stroke();ctx.globalAlpha=.8*f;ctx.lineWidth=Math.max(1.2,L*.3);ctx.strokeStyle=T.core;ctx.stroke();ctx.globalAlpha=1;}}
   drawHud(ctx,s,k,m,v.w,v.h,T);}
  // "x2" hint: a small DOM badge over the D / 공명 button while a bomb is in stock, until the player
  // has bombed twice this session. Not a button (pointer-events none); positioned every 300 ms.
- let badgeEl=null;
+ let badgeEl=null;const pulse={left:-1};
+ const TAP_ICON='url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1a1206" stroke-width="2.2" stroke-linecap="round"><path d="M9 21v-9a2 2 0 0 1 4 0v5l4 1v3"/><path d="M6 7a5 5 0 0 1 10 0"/><path d="M3 7a8 8 0 0 1 16 0"/></svg>')+'")';
  function findD(){const d=root.document;for(const sel of ['[data-mobile-action="D"]','[data-control-key="D"]']){let el=null;try{el=d?.querySelector?.(sel);}catch(e){}if(!el)continue;const r=el.getBoundingClientRect?.();if(r&&r.width>2&&r.height>2)return el;}return null;}
  function badge(){try{const d=root.document;if(!d?.createElement||!d.body)return;const s=current(),k=s&&on(s)?worlds.get(s):null,b=binding(),btn=k?findD():null;
    const show=!!(k&&btn&&k.stock>0&&seen.bombs<2&&!d.hidden&&(b?.phase===undefined||b.phase==='game')&&!b?.modal?.current&&!root.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.());
    if(!badgeEl){if(!show)return;const e=d.createElement('div');e.textContent='×2';e.setAttribute?.('aria-hidden','true');const st=e.style;st.position='fixed';st.pointerEvents='none';st.zIndex='2147483000';
-    st.font='bold 10px ui-monospace,Menlo,monospace';st.color='#ffe59a';st.background='rgba(8,5,12,.9)';st.border='1px solid '+GOLD;st.borderRadius='7px';st.padding='0 4px';st.lineHeight='13px';d.body.appendChild(e);badgeEl=e;}
-   if(!show){badgeEl.style.display='none';return;}const r=btn.getBoundingClientRect();badgeEl.style.display='block';badgeEl.style.left=Math.round(r.right-16)+'px';badgeEl.style.top=Math.round(r.top-7)+'px';}catch(e){fail(e);}}
+    // A double-tap glyph (finger + ripples) before "×2" on a gold pill, so it reads as "tap twice", not "2 in stock".
+    st.font='bold 10px ui-monospace,Menlo,monospace';st.color='#1a1206';st.backgroundColor='#ffd86a';st.backgroundImage=TAP_ICON;st.backgroundRepeat='no-repeat';st.backgroundPosition='3px 50%';st.backgroundSize='12px 12px';
+    st.border='1px solid #fff3c8';st.borderRadius='8px';st.padding='0 4px 0 17px';st.lineHeight='14px';st.transition='transform .14s ease-out,box-shadow .14s ease-out';st.transformOrigin='50% 50%';d.body.appendChild(e);badgeEl=e;}
+   if(!show){badgeEl.style.display='none';return;}const r=btn.getBoundingClientRect();badgeEl.style.display='block';badgeEl.style.left=Math.round(r.right-30)+'px';badgeEl.style.top=Math.round(r.top-9)+'px';
+   // One-time pulse the first time the hint shows this session (4 beats at the 300 ms tick), then steady.
+   if(pulse.left<0)pulse.left=8;if(pulse.left>0){pulse.left--;const up=pulse.left%2===1;badgeEl.style.transform=up?'scale(1.3)':'scale(1)';badgeEl.style.boxShadow=up?'0 0 0 3px rgba(255,216,106,.45)':'none';}
+   else{badgeEl.style.transform='scale(1)';badgeEl.style.boxShadow='none';}}catch(e){fail(e);}}
  try{if(root.document)root.setInterval?.(badge,300);}catch(e){}
 
  // ---------------------------------------------------------------- API
  const api={version:VERSION,tick,draw,drawScreen,onHit,reset,decorateAttack,rank,dropPower,notePress,
   metrics:()=>({...metrics,lastError}),
   state(s){if(!s||!on(s))return null;const k=worlds.get(s);if(!k)return null;return {level:k.level,points:k.points,stock:k.stock,bombs:k.bombs,items:k.items.live,familiars:Math.min(FAM_MAX,k.level),fx:!!k.fx};},
-  __test:{hudBox:(w,h,mobile)=>[...hudBox(w,h,mobile)],badge,seen,famSize:()=>FAM_SCALE*16,bombGeom:s=>{const k=s&&worlds.get(s);const g=k&&bombGeomAt(k,n(s.time));return g?{...g}:null;},THRESH,POWER_STEP,RANK_STEP,FAM_SHARE,ITEM_CAP,STOCK_START,STOCK_MAX,BOMB_MULT,BOMB_BOSS_CAP,TAP_GAP,FLAVOUR,flavour,shotShape,washAlpha,
+  __test:{hudBox:(w,h,mobile)=>[...hudBox(w,h,mobile)],badge,seen,PIP_R,WASH_DUR,debris:s=>{const k=s&&worlds.get(s);return k?{live:k.deb.live,cap:DEB_CAP}:null;},famSize:()=>FAM_SCALE*16,bombGeom:s=>{const k=s&&worlds.get(s);const g=k&&bombGeomAt(k,n(s.time));return g?{...g}:null;},THRESH,POWER_STEP,RANK_STEP,FAM_SHARE,ITEM_CAP,STOCK_START,STOCK_MAX,BOMB_MULT,BOMB_BOSS_CAP,TAP_GAP,FLAVOUR,flavour,shotShape,washAlpha,
    colors:m=>{const p=palette(m);return [p.body,p.edge,p.core,p.dim];},
    items:s=>{const k=s&&worlds.get(s);if(!k)return [];const P=k.items,o=[];for(let i=0;i<P.live;i++)o.push({x:P.x[i],y:P.y[i],kind:P.kind[i],val:P.val[i]});return o;},worlds}};
  Object.defineProperty(root,'__HAPIL_ARCADE_KIT_RC240__',{value:Object.freeze(api),configurable:true,writable:false,enumerable:false});

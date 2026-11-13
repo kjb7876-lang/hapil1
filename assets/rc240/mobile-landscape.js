@@ -14,7 +14,10 @@
  *   owns positions (its left/right mirror swap) this layer is inert; on
  *   hand-over it eases actors to the lines.
  * - Combat zoom: on landscape phones the RC153 whole-arena camera is scaled
- *   up (<= 1.45x of what the player saw), keeping the whole playable floor
+ *   up (1.15-1.30x of what the player saw; Envy's room <= 1.2; below 1.15
+ *   only where the whole floor cannot otherwise fit, e.g. notched screens;
+ *   painted floor-diamond corners kept 16 px inside where they fit; mob
+ *   stages centre the fighters vertically within the floor limits), keeping the whole playable floor
  *   inside the safe area and clear of the touch controls. It frames the fight
  *   (review round 1): far enemy foot <= 76% of the width (never > 85%), the
  *   hero-enemy midpoint as central as the floor allows, body frame 8% of the
@@ -37,12 +40,20 @@
   gapUnits:1.45+5,         // mob line follows hero x-y + 6.45 (174 logical px)
   lineRate:8,              // x-y units per second the mob line may rise
   settleRate:4,            // x-y units per second while easing after a hand-over
-  maxZoom:1.45,            // phone landscape combat zoom ceiling
+  maxZoom:1.3,             // phone landscape combat zoom ceiling (review round 2: 1.15-1.30)
+  minZoom:1.15,            // preferred floor; only the hard floor/control limits go below it
+  zoneZoomCap:Object.freeze({ep1b03:1.2}), // boss rooms whose boss + formation crowd the right edge (Envy)
+  floorMarginPx:16,        // CSS px between the painted floor-diamond corners and the frame ...
+  floorMarginMinPx:3,      // ... or at least this much when 16 px cannot hold at >= minZoom
+  floorArtPadG:24,         // painted platform diamond reaches ~24 G px past the radius-0 floor at its side corners (dist06/ep1a11, measured)
+  mobFloorBottomPx:4,      // mob stages: near floor edge only kept on screen (vertical centring wins)
+  bodyFallback:150,        // G px body height above the foot when no paint envelope is exposed
   zoomStep:.01,
   zoomEdgePx:4,            // CSS px between the floor and the safe-area edge
   zoomControlPadPx:4,      // CSS px kept clear around touch controls
   zoomFarTarget:.76,       // boss (or farthest mob) foot at <= 76% of the width ...
   zoomFarMax:.85,          // ... and never past 85%
+  zoomFarCorner:.78,       // far target while the floor-diamond corners keep their margin (not in capped rooms)
   zoomDrop:.08,            // vertical target lowered by 8% of the screen height
   zoomKeepLow:.6,          // dead zone: keep the framing while the far actor stays in [60%, 79%]
   zoomKeepHigh:.79,
@@ -51,8 +62,12 @@
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
   mobEdgePx:60,            // mob bodies kept this far inside the frame edge
   mobHalfFallback:40,      // G px half body when no paint envelope is exposed
-  bandEntry:.6,            // danger band: x-y units of the stronger entry stripe
-  bandAlpha:.07,bandEntryAlpha:.16,bandColor:'#ff5a3c',
+  bandAlpha:.12,           // danger band base fill ...
+  bandStripeAlpha:.18,     // ... plus iso stripes on top: 1-(.88*.82) = 28% where they lie
+  bandStripeWidth:.42,bandStripeGap:.62, // floor units, stripes along the floor y axis
+  bandDash:.55,bandDashGap:.35,bandDashAlpha:.5, // dashed boundary on x-y = -1.45
+  bandChevron:.5,bandChevronStep:2,bandChevronAlpha:.62, // iso chevrons pointing into the strip
+  bandColor:'#ff5a3c',bandEdgeColor:'#ff8a66',
   screenPxPerUnit:27,      // G(x,y).x = 640 + 27(x-y)
   gapLogicalPx:(1.45+5)*27,
   heroMaxScreenX:640-1.45*27,
@@ -296,6 +311,17 @@
   try{const B=root.__HAPIL_BITMAP_NATIVE_RC133__,A=R();if(typeof B?.paintEnvelope==='function')for(const a of s.enemies??[]){if(!a||!(a.hp>0)||a.visualOnly||!A?.hostile?.(a)||isBoss(a))continue;const e=B.paintEnvelope(s,a,false);if(!e||!finite(e.left)||!finite(e.right)||!finite(a.x)||!finite(a.y))continue;const g=640+27*(a.x-a.y),h=fz.sign>0?e.right-g:g-e.left;if(finite(h)&&h>half&&h<400)half=h;}}catch{}
   return half;
  }
+ // Vertical extent (G y) of the fighters: hero plus the framed enemy group
+ // (bosses when present, else mobs), feet to body tops. Fit time only.
+ function fighterBox(s,fz){
+  let top=Infinity,bottom=-Infinity;const A=R(),B=root.__HAPIL_BITMAP_NATIVE_RC133__,fb=POLICY.bodyFallback;
+  const add=(a,hero)=>{const x=a.x,y=a.y;if(!finite(x)||!finite(y))return;const g=13.5*(x+y);let t=g-fb,b=g+10;
+   try{const e=typeof B?.paintEnvelope==='function'?B.paintEnvelope(s,a,hero):null;if(e&&finite(e.top)&&finite(e.bottom)&&e.bottom>e.top&&e.bottom-e.top<600&&Math.abs(e.bottom-g)<200){t=e.top;b=Math.max(g,e.bottom);}}catch{}
+   if(t<top)top=t;if(b>bottom)bottom=b;};
+  add(s,true);
+  for(const a of s.enemies??[]){if(!a||!(a.hp>0)||a.visualOnly||a.friendly||!A?.hostile?.(a))continue;if(fz.boss!==isBoss(a))continue;add(a,false);}
+  return finite(top)&&finite(bottom)?{top,bottom}:null;
+ }
  // Fit zoom Z (relative to the native final view) and the framing offsets
  // for this base camera and fight. Hard limits: the whole playable floor
  // inside the safe area and clear of the touch controls, every body on
@@ -305,37 +331,77 @@
  // the aim wins; otherwise the least-zoomed feasible fit (less zoom is
  // preferred over losing the floor edge). The result is pre-compensated for
  // RC223's later optional shrink f (the player sees base.scale*Z/f).
- function fitZoom(s,base,f,fz,half){
+ // Review round 2: the painted floor diamond (radius-0 floor, side corners
+ // widened by floorArtPadG) keeps its corners floorMarginPx inside the frame
+ // (pass 3), else just inside (pass 2); when that cannot hold, the near
+ // (bottom) floor edge at least stays on screen (pass 1); the old
+ // playable-floor fit is the last resort (pass 0). Zoom is searched in
+ // [minZoom, cap] first and goes below minZoom only when nothing fits there.
+ // Mob stages centre the fighters' bounding box vertically (clamped by the floor).
+ function outerBounds(s){
+  let l=Infinity,r=-Infinity,t=Infinity,b=-Infinity;const add=poly=>{if(!poly?.length)return;for(const p of poly){const x=640+27*(p.x-p.y),y=13.5*(p.x+p.y);if(x<l)l=x;if(x>r)r=x;if(y<t)t=y;if(y>b)b=y;}};
+  add(D()?.polygon?.('all',0));
+  try{const FP=root.__HAPIL_FLOOR_PATCHES_RC227__;if(FP?.enabled?.(s))add(FP.polygon?.('all',0));}catch{}
+  return finite(l)&&finite(r)&&finite(t)&&finite(b)?{l,r,t,b}:null;
+ }
+ function fitZoom(s,base,f,fz,half,box){
+  const cap=fz.boss&&finite(POLICY.zoneZoomCap[s.zone])?Math.min(POLICY.maxZoom,POLICY.zoneZoomCap[s.zone]):POLICY.maxZoom;
+  const ob=outerBounds(s),capped=cap<POLICY.maxZoom;
+  // Zoom band first ([minZoom, cap], then below minZoom), but a fit that
+  // keeps the far enemy on target (<= 76%; 78% while the corners keep their
+  // margin) beats the band: the far aim, then the floor-diamond corner margin,
+  // then the vertical drop. A fit missing the far aim is the last resort.
+  const bands=[[cap,POLICY.minZoom],[POLICY.minZoom-POLICY.zoomStep,1]],passes=ob?[3,2,1,0]:[0];
+  // Passes are run lazily (fit time only): most fits stop in the first band.
+  const rs=bands.map(()=>passes.map(()=>undefined)),get=(b,i)=>rs[b][i]!==undefined?rs[b][i]:(rs[b][i]=fitPass(s,base,f,fz,half,box,ob,passes[i],bands[b][0],bands[b][1],capped));
+  const pick=keys=>{for(let b=0;b<rs.length;b++)for(const [i,key] of keys){const r=get(b,i)?.[key];if(r){r.pass=passes[i];return r;}}return null;};
+  const n=passes.length,aimKeys=[];for(let i=0;i<n;i++)aimKeys.push([i,'good'],[i,'aimed']);
+  const hit=pick(aimKeys);if(hit)return hit;
+  // No fit reaches the far aim: the one bringing the far enemy closest in.
+  let best=null;for(let b=0;b<rs.length;b++)for(let i=0;i<n;i++){const r=get(b,i)?.fallback;if(r&&(!best||r.farPct<best.farPct-1e-9)){r.pass=passes[i];best=r;}}
+  return best;
+ }
+ function fitPass(s,base,f,fz,half,box,ob,pass,hiZ,loZ,capped){
   const v=base.rc153View,k=v.k,vw=finite(base.rc153Viewport?.width)?base.rc153Viewport.width:Number(root.innerWidth),vh=finite(base.rc153Viewport?.height)?base.rc153Viewport.height:Number(root.innerHeight);
   if(!finite(vw)||!finite(vh)||vw<=vh)return null;
   const polys=floorPolygons(s);if(!polys.length)return null;
   const gx=[],gy=[];for(const poly of polys){const xs=[],ys=[];for(const p of poly){xs.push(640+27*(p.x-p.y));ys.push(13.5*(p.x+p.y));}gx.push(xs);gy.push(ys);}
   let gl=Infinity,gr=-Infinity,ft=Infinity,fb=-Infinity;for(let i=0;i<gx.length;i++)for(let j=0;j<gx[i].length;j++){gl=Math.min(gl,gx[i][j]);gr=Math.max(gr,gx[i][j]);ft=Math.min(ft,gy[i][j]);fb=Math.max(fb,gy[i][j]);}
+  // pass 3: corners floorMarginPx inside; 2: corners just inside; 1: near edge on screen; 0: playable floor only.
+  const corner=pass>=2,M=pass===3?POLICY.floorMarginPx:POLICY.floorMarginMinPx,mB=fz.boss||!box?POLICY.floorMarginPx:POLICY.mobFloorBottomPx,artPad=POLICY.floorArtPadG;
   let frame=null;try{frame=rc153Base?.framing?.(s);}catch{}
   if(frame&&finite(frame.top)&&finite(frame.bottom)&&frame.bottom>frame.top){ft=Math.min(ft,frame.top);fb=Math.max(fb,frame.bottom);}
   const E=POLICY.zoomEdgePx,pad=POLICY.zoomControlPadPx,sl=insets.left+E,sr=vw-insets.right-E,st=insets.top,sb=vh-insets.bottom,cx=(sl+sr)/2;
   const rects=controls.filter(c=>c.valid).map(c=>({left:c.left-pad,top:c.top-pad,right:c.right+pad,bottom:c.bottom+pad}));
   const cssX=gx.map(a=>a.map(()=>0)),cssY=gy.map(a=>a.map(()=>0));
   const sign=fz.sign,hasFar=finite(fz.efar),mid=finite(fz.hx)&&finite(fz.emid)?(fz.hx+fz.emid)/2:(gl+gr)/2;
-  const farT=POLICY.zoomFarTarget*vw,farMax=POLICY.zoomFarMax*vw,mobEdge=vw-insets.right-POLICY.mobEdgePx;
+  const farT=(corner&&!capped?POLICY.zoomFarCorner:POLICY.zoomFarTarget)*vw,farMax=POLICY.zoomFarMax*vw,mobEdge=vw-insets.right-POLICY.mobEdgePx;
   const along=c=>sign>0?c:vw-c; // css distance from the hero-side edge
   // The authored map image must keep covering the screen (RC154: >= 90%).
   let map=null;try{const m=root.__HAPIL_MAP_FORMAT_RC138__?.metrics?.()?.last;if(m&&m.zone===s.zone&&m.rect&&finite(m.rect.x)&&finite(m.rect.y)&&m.rect.width>0&&m.rect.height>0)map=m.rect;}catch{}
   const cover=(A,B,Sk)=>{if(!map)return 1;const l=Math.max(0,A+map.x*Sk),r=Math.min(vw,A+(map.x+map.width)*Sk),t=Math.max(0,B+map.y*Sk),b=Math.min(vh,B+(map.y+map.height)*Sk);return r>l&&b>t?(r-l)*(b-t)/(vw*vh):0;};
   let fallback=null,aimed=null;
-  for(let Z=POLICY.maxZoom;Z>1+1e-9;Z=Math.round((Z-POLICY.zoomStep)*1000)/1000){
+  for(let Z=hiZ;Z>=loZ-1e-9&&Z>1+1e-9;Z=Math.round((Z-POLICY.zoomStep)*1000)/1000){
    const S=base.scale*Z/f,Sk=S*k,h=(fb-ft)*Sk;
    if(h>sb-st)continue;
-   const lo=sl-gl*Sk,hi=sr-gr*Sk;if(lo>hi+1e-9)continue;
+   let lo=sl-gl*Sk,hi=sr-gr*Sk;
+   if(corner){lo=Math.max(lo,insets.left+M-(ob.l-artPad)*Sk);hi=Math.min(hi,vw-insets.right-M-(ob.r+artPad)*Sk);}
+   if(lo>hi+1e-9)continue;
    let A=Math.min(hi,Math.max(lo,cx-mid*Sk)); // css x = A + gx*Sk
    if(map){const mlo=vw-(map.x+map.width)*Sk,mhi=-map.x*Sk;if(A<mlo)A=Math.min(hi,mlo);else if(A>mhi)A=Math.max(lo,mhi);}
    const far=hasFar?along(A+fz.efar*Sk):-Infinity;
    if(far>farMax)continue;
    if(hasFar&&half>0&&along(A+fz.efar*Sk+sign*half*Sk)>along(sign>0?mobEdge:vw-mobEdge))continue;
-   const B0=(st+sb)/2-(ft+fb)/2*Sk,room=(sb-st-h)/2,Bt=B0+Math.min(room,POLICY.zoomDrop*vh); // css y = B + gy*Sk
+   const B0=(st+sb)/2-(ft+fb)/2*Sk,room=(sb-st-h)/2,mobs=!fz.boss&&!!box; // css y = B + gy*Sk
+   // Boss: body frame lowered by zoomDrop. Mob stage: fighters' box centred.
+   const Bt=mobs?(st+sb)/2-(box.top+box.bottom)/2*Sk:B0+Math.min(room,POLICY.zoomDrop*vh);
+   const oyLo=corner?st+M:-Infinity,oyHi=corner?sb-mB:pass===1?sb:Infinity;
    let B=NaN;
-   for(let o=0;o<=2*room+1e-9&&!finite(B);o+=2)for(let sgn=-1;sgn<=1;sgn+=2){
+   // Search outwards from the aim, nearest feasible first (covers the whole body-frame range).
+   const span=2*room+Math.abs(Bt-B0)+2;
+   for(let o=0;o<=span+1e-9&&!finite(B);o+=2)for(let sgn=-1;sgn<=1;sgn+=2){
     if(o===0&&sgn>0)break;const cand=Bt+sgn*o;if(cand<B0-room-1e-9||cand>B0+room+1e-9)continue;
+    if(ob&&(cand+ob.t*Sk<oyLo-1e-6||cand+ob.b*Sk>oyHi+1e-6))continue;
     let okFit=cover(A,cand,Sk)>=POLICY.zoomMapCover;
     for(let i=0;i<gx.length&&okFit;i++)for(let j=0;j<gx[i].length;j++){const x=A+gx[i][j]*Sk,y=cand+gy[i][j]*Sk;cssX[i][j]=x;cssY[i][j]=y;if(x<sl-1e-6||x>sr+1e-6||y<st-1e-6||y>sb+1e-6){okFit=false;break;}}
     for(let i=0;i<gx.length&&okFit;i++)for(const r of rects)if(polyHitsRect(cssX[i],cssY[i],gx[i].length,r)){okFit=false;break;}
@@ -344,11 +410,11 @@
    if(!finite(B))continue;
    const Xf=A/k+v.x,Yf=B/k+v.y,ax=v.x+v.width/2,ay=v.y+v.height/2;
    const out={Z,x:ax+(Xf-ax)*f,y:ay+(Yf-ay)*f,scale:base.scale*Z,A,B,Sk,vw,farPct:hasFar?far/vw:null,midPct:along(A+mid*Sk)/vw,dropPct:(B-B0)/vh,half};
-   const farOk=!hasFar||far<=farT+1e-9,dropOk=B-B0>=POLICY.zoomDrop*.75*vh-1e-6||B>=B0+room-1e-6;
-   if(farOk&&dropOk)return out;
+   const farOk=!hasFar||far<=farT+1e-9,dropOk=mobs||B-B0>=POLICY.zoomDrop*.75*vh-1e-6||B>=B0+room-1e-6;
+   if(farOk&&dropOk)return {good:out,aimed:null,fallback:null};
    if(farOk){if(!aimed)aimed=out;}else fallback=out; // keep lowering: less zoom over a lost aim
   }
-  return aimed??fallback;
+  return aimed||fallback?{good:null,aimed,fallback}:null;
  }
  // Per-world framing state. The fit runs only when an input changes: base
  // camera (RC153 re-fit on a phase/roster change), RC223 shrink, viewport,
@@ -390,10 +456,10 @@
  function refit(st,s,base,f,fz,ease){
   const t=s.time,shown=st.cam?current(st,s,t):null;
   let fit=null;const half=mobHalf(s,fz);
-  try{fit=fitZoom(s,base,f,fz,half);}catch(e){metrics.lastError=String(e?.message??e).slice(0,160);}
+  try{fit=fitZoom(s,base,f,fz,half,fighterBox(s,fz));}catch(e){metrics.lastError=String(e?.message??e).slice(0,160);}
   st.base=base;st.f=f;st.version=controlsVersion;st.hx=fz.hx;st.emid=fz.emid;st.efar=fz.efar;st.boss=fz.boss;st.driftT=NaN;metrics.reaims++;
   const okFit=fit&&finite(fit.x)&&finite(fit.y)&&finite(fit.scale)&&fit.scale>0;
-  if(okFit){metrics.zoomFits++;metrics.lastZoom=fit.Z;metrics.lastFrame={Z:fit.Z,farPct:fit.farPct,midPct:fit.midPct,dropPct:fit.dropPct};}else metrics.zoomRejected++;
+  if(okFit){metrics.zoomFits++;metrics.lastZoom=fit.Z;metrics.lastFrame={Z:fit.Z,farPct:fit.farPct,midPct:fit.midPct,dropPct:fit.dropPct,pass:fit.pass};}else metrics.zoomRejected++;
   const prev=st.cam;
   // Same framing as before (e.g. hero moved but the floor pins the view): keep the object.
   if(okFit&&prev&&prev!==st.base0&&Math.abs(prev.x-fit.x)<1e-6&&Math.abs(prev.y-fit.y)<1e-6&&Math.abs(prev.scale-fit.scale)<1e-9&&st.base0===base){st.fit=fit;return;}
@@ -443,27 +509,57 @@
   return current(st,s,t);
  }
  // ------------------------------------------------------------------ danger band
- // A faint floor band marks the RC223 danger strip (old hero line y-x = 1.45
- // up to the x < 19 centre line, on the playable floor) during stand-off
- // combat, on phone and PC. Drawn from the native FLOW.drawFloor call, which
- // runs in the world (camera) transform after the map and before the dim,
- // actors and bullets. Geometry is built once; each frame only replays it.
- const band={src:null,strip:null,entry:null};
+ // The RC223 danger strip (old hero line y-x = 1.45 up to the x < 19 centre
+ // line, on the playable floor) is painted as a floor band during stand-off
+ // combat, phone and PC. Review round 2: the old flat fill + entry column
+ // read as a screen-aligned red rectangle. Now it follows the iso grid: a
+ // faint base fill, stripes along the floor's y axis (combined ~28% where they
+ // lie), and a crisp boundary (dashes on the line plus iso chevrons pointing
+ // into the strip, arms along the floor axes). Everything is clipped to the
+ // walkable floor. Drawn from the native FLOW.drawFloor call (world/camera
+ // transform, after the map, before dim/actors/bullets). Geometry is built
+ // once into flat arrays; each frame replays four paths, no allocation.
+ const band={src:null,strip:null,stripes:null,dashes:null,chevrons:null};
  function clipPoly(pts,fn){const out=[];for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],va=fn(a),vb=fn(b);if(va>=-1e-10)out.push(a);if((va>=-1e-10)!==(vb>=-1e-10)){const t=va/(va-vb);out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});}}return out;}
  function toG(pts){const g=new Float64Array(pts.length*2);for(let i=0;i<pts.length;i++){g[i*2]=640+27*(pts[i].x-pts[i].y);g[i*2+1]=13.5*(pts[i].x+pts[i].y);}return g;}
+ function inConvex(q,poly){let sg=0;for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],c=(b.x-a.x)*(q.y-a.y)-(b.y-a.y)*(q.x-a.x);if(Math.abs(c)<1e-9)continue;const d=c>0?1:-1;if(!sg)sg=d;else if(d!==sg)return false;}return true;}
  function bandGeometry(){
   const poly=D()?.polygon?.('all',.8);if(!poly?.length)return false;if(band.src===poly)return !!band.strip;
   band.src=poly;const C=root.__HAPIL_LEFT_ZONE_RC223__?.policy?.centerX??19,start=-POLICY.heroLine;
-  const strip=clipPoly(clipPoly(poly,p=>(p.x-p.y)-start),p=>C-p.x),entry=clipPoly(strip,p=>start+POLICY.bandEntry-(p.x-p.y));
-  band.strip=strip.length>=3?toG(strip):null;band.entry=entry.length>=3?toG(entry):null;return !!band.strip;
+  const strip=clipPoly(clipPoly(poly,p=>(p.x-p.y)-start),p=>C-p.x);
+  band.strip=strip.length>=3?toG(strip):null;band.stripes=null;band.dashes=null;band.chevrons=null;
+  if(!band.strip)return false;
+  // Stripes: x in [c, c+w] every period, along the floor's y axis.
+  let x0=Infinity,x1=-Infinity;for(const p of strip){if(p.x<x0)x0=p.x;if(p.x>x1)x1=p.x;}
+  const stripes=[];for(let c=C-POLICY.bandStripeWidth-POLICY.bandStripeGap*.5;c>x0-POLICY.bandStripeWidth;c-=POLICY.bandStripeWidth+POLICY.bandStripeGap){
+   const q=clipPoly(clipPoly(strip,p=>p.x-c),p=>c+POLICY.bandStripeWidth-p.x);if(q.length>=3)stripes.push(toG(q));}
+  band.stripes=stripes.length?stripes:null;
+  // Boundary: the strip edge on x-y = start, from far (small x+y) to near.
+  let lo=Infinity,hi=-Infinity;for(const p of strip)if(Math.abs((p.x-p.y)-start)<1e-6){const t=p.x+p.y;if(t<lo)lo=t;if(t>hi)hi=t;}
+  if(finite(lo)&&hi-lo>.5){
+   const at=(u,d)=>({x:(u+d)/2,y:(u-d)/2}); // x+y = u, x-y = d
+   const dashes=[];for(let u=lo+.12;u<hi-.12;u+=POLICY.bandDash+POLICY.bandDashGap){const e=Math.min(hi-.12,u+POLICY.bandDash);if(e-u>.08)dashes.push(toG([at(u,start),at(e,start)]));}
+   band.dashes=dashes.length?dashes:null;
+   const a=POLICY.bandChevron,chev=[];
+   for(let u=lo+POLICY.bandChevronStep*.5;u<hi-a;u+=POLICY.bandChevronStep){
+    const T=at(u,start+a),A1={x:T.x-a,y:T.y},A2={x:T.x,y:T.y+a};
+    if(inConvex(T,strip)&&inConvex(A1,strip)&&inConvex(A2,strip))chev.push(toG([A1,T,A2]));
+   }
+   band.chevrons=chev.length?chev:null;
+  }
+  return true;
  }
  function tracePath(ctx,g){ctx.beginPath();ctx.moveTo(g[0],g[1]);for(let i=2;i<g.length;i+=2)ctx.lineTo(g[i],g[i+1]);ctx.closePath();}
+ function traceMany(ctx,list,close){ctx.beginPath();for(let k=0;k<list.length;k++){const g=list[k];ctx.moveTo(g[0],g[1]);for(let i=2;i<g.length;i+=2)ctx.lineTo(g[i],g[i+1]);if(close)ctx.closePath();}}
  function drawBand(ctx,s){
   if(!ctx||!s||typeof s!=='object'||rawMode(s)!=='standoff'||heroSide(s)!=='left'||!bandGeometry())return;
   ctx.save();
   try{ctx.globalCompositeOperation='source-over';ctx.fillStyle=POLICY.bandColor;
    ctx.globalAlpha=POLICY.bandAlpha;tracePath(ctx,band.strip);ctx.fill();
-   if(band.entry){ctx.globalAlpha=POLICY.bandEntryAlpha;tracePath(ctx,band.entry);ctx.fill();}
+   if(band.stripes){ctx.globalAlpha=POLICY.bandStripeAlpha;traceMany(ctx,band.stripes,true);ctx.fill();}
+   ctx.strokeStyle=POLICY.bandEdgeColor;ctx.lineCap='round';ctx.lineJoin='round';
+   if(band.dashes){ctx.globalAlpha=POLICY.bandDashAlpha;ctx.lineWidth=2.5;traceMany(ctx,band.dashes,false);ctx.stroke();}
+   if(band.chevrons){ctx.globalAlpha=POLICY.bandChevronAlpha;ctx.lineWidth=3.5;traceMany(ctx,band.chevrons,false);ctx.stroke();}
    metrics.bandDraws++;}
   finally{ctx.restore();}
  }

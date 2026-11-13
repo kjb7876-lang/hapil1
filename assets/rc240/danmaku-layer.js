@@ -37,7 +37,10 @@
   ['cyan','#2ee8ff','#0a6a80'],['blue','#4f7dff','#1a2c8a'],['violet','#b45cff','#4a1a85'],['magenta','#ff4fd8','#8a1470'],
   ['white','#f4f4ff','#6a6a8a'],['lime','#b6ff4a','#3f7a00'],['pink','#ff6fb5','#8a1a52'],['gold','#ffcf3a','#7a5200'],
   // Lava-map enemy bodies: magenta / violet with a white-hot core and a thin ember rim (4th field).
-  ['lavam','#ff3fb4','#7a0f4a','#ff8a3a'],['lavav','#b04cff','#3f1580','#ff8a3a']];
+  ['lavam','#ff3fb4','#7a0f4a','#ff8a3a'],['lavav','#b04cff','#3f1580','#ff8a3a'],
+  // Boss weapon palettes (R2): Balrog flame (deep orange-red, never pale gold) + ember crimson; Envy
+  // lilac glass + indigo shard. Formation-only hues, untouched by every family remap.
+  ['flame','#ff5a1a','#6e1400'],['ember','#e8162e','#560010'],['glass','#e2d8ff','#46378c'],['shard','#7a6cff','#231a7a']];
  const H={};HUES.forEach((h,i)=>H[h[0]]=i);
  const MODES=Object.freeze({
   STORY:{peakPc:[150,200,280],vs:1,vmin:55,vmax:120,vaim:130,dens:1.55,dmg:.04,mercy:1.5,clear:140,cap:.18,excl:160,lane:58},
@@ -147,7 +150,7 @@
  // rage (lava, hero side white-gold): white-hot cores in magenta/violet bodies with an ember rim, never
  // plain blue/cyan (off-theme on lava) nor gold/yellow/orange (hero). lucifer (gold boss, pale floor,
  // white-gold hero shot): crimson/violet/magenta, no gold, yellow or white bodies.
- const REMAP_SRC=Object.freeze({rage:{gold:'lavav',red:'lavam',orange:'lavam',yellow:'white',lime:'lavav',green:'lavav',pink:'lavam',blue:'lavam',cyan:'lavav',violet:'lavav',magenta:'lavam'},envy:{cyan:'magenta',green:'yellow',blue:'red',lime:'yellow'},
+ const REMAP_SRC=Object.freeze({rage:{gold:'lavav',red:'lavam',orange:'lavam',yellow:'white',lime:'lavav',green:'lavav',pink:'lavam',blue:'lavam',cyan:'lavav',violet:'lavav',magenta:'lavam'},envy:{cyan:'magenta',green:'violet',blue:'red',lime:'glass',yellow:'glass',gold:'violet',orange:'magenta'},
   greed:{cyan:'blue'},gluttony:{cyan:'blue'},obsession:{cyan:'blue'},order:{cyan:'blue'},petal:{cyan:'blue'},lucifer:{cyan:'violet',gold:'red',yellow:'magenta',orange:'magenta',white:'magenta',lime:'red',green:'violet',blue:'violet',pink:'magenta'}});
  const HERO_SIDE=Object.freeze({rage:'gold'});
  const HERO_PALETTE=Object.freeze({cyan:{key:'cyan',body:'#7ff6ff',edge:'#0b4f63',core:'#ffffff',dim:'#bff9ff',coin:['#c6f7ff','#5fe8ff','#ffffff']},gold:{key:'gold',body:'#ffe27a',edge:'#6b4300',core:'#fffbe8',dim:'#fff1b8',coin:['#e8e2cf','#ffd34d','#fff6cf']}});
@@ -174,10 +177,14 @@
  const RING=0;// muzzle ring radius (G px); 24 and 46 both pushed solvability cases over their margin, so off by default
  function layerPeriod(run,l,ctx,at){const aimed=l.kind==='fan'||l.kind==='decel';if(aimed)return l.period/clamp(ctx.dens,.2,1);
   const u=l.kind==='wall'?1:clamp(n(at,RAMP.t)/RAMP.t,0,1),ramp=RAMP.k0+(1-RAMP.k0)*u;return l.period*ramp/Math.max(.2,ctx.dens*n(run.spell.dens,1));}
- function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=sigStep(run,ctx,out);const thin=!!run.thin,keep=run.squeeze?-1:ctx.band===3?3:2;
+ function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=sigStep(run,ctx,out);
+  // While a weapon formation is traced and held (until its first release), spiral and bloom layers rest:
+  // their rotating arms and point-born rings read as clutter over the weapon; the other non-aimed layers
+  // thin a little less meanwhile, so the density stays where it was (R2).
+  const Sg=run.sig,up=!!(Sg&&Sg.active&&run.t-Sg.t0<Sg.rel),thin=!!run.thin,keep=run.squeeze?-1:(ctx.band===3||up)?3:2;
   for(let i=0;i<run.layers.length;i++){const l=run.layers[i];let guard=0;
    const aimedL=l.kind==='fan'||l.kind==='decel';
-   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if((ctx.soft&&(aimedL||k%5>keep))||(thin&&!aimedL&&k%5>keep)){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
+   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if((ctx.soft&&(aimedL||k%5>keep))||(thin&&!aimedL&&k%5>keep)||(up&&(l.kind==='spiral'||l.kind==='bloom'))){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
     const before=out.length;EMIT[l.kind](l.p,k,rng,ctx,out);for(let j=before;j<out.length;j++){const b=out[j];b.layer=i;b.pre=Math.max(0,run.t-run.next[i]);
      // Muzzle ring: bullets born on the boss point start on a ring around it (2:1 floor ellipse), so the
      // pattern opens from the boss's edge instead of knotting on its sprite.
@@ -223,8 +230,9 @@
  // no formation bullet is traced, swung or parked inside it, so the boss sprite and its HP bar
  // (just under the feet) stay readable. Ground-area formations (sound rings, hexagram) are laid on
  // the floor with the iso squash (2:1 ellipse); airborne weapons stay unsquashed.
- const BOSS_BOX=Object.freeze({w:50,up:90,down:130,m:8}),ISO_U=1.41,ISO_V=.72;
+ const BOSS_BOX=Object.freeze({w:50,up:90,down:130,m:8,col:24}),ISO_U=1.41,ISO_V=.72;
  const MOB_TY=[T.ORB,T.ORB,T.BIG,T.RICE,T.RICE,T.STAR];
+ const NO_COL=new Set(['strings','crescent']);
  const SIG_ACCENT=['cyan','magenta','violet','red','orange'];
  // Builder: G holds the phrase frame and writes into typed arrays (no allocation per bullet).
  function sigBuf(cap){const B={n:0,cap};for(const k of ['x','y','t','r','a','o','v','acc','vmin','lf','qx','qy','qw','q0'])B[k]=new Float32Array(cap);for(const k of ['ty','hu','st','fl','bo'])B[k]=new Uint8Array(cap);B.ord=new Uint16Array(cap);
@@ -268,8 +276,8 @@
   B.o[j]=wa(G,lo==null||!(lo===lo)?la:lo);B.fl[j]=rev?1:0;B.bo[j]=0;B.lf[j]=fade?B.r[j]+.35:G.life>0?G.life:0;
   B.qx[j]=G.cx+sx*G.pu*k;B.qy[j]=G.cy+sy*G.pv*k;B.qw[j]=phi!==0?G.w*sx*sy:0;B.q0[j]=G.ts;return j;}
  // Nominal width (along u) and height of each generator's silhouette, for the frame search.
- const DIM={blade:p=>p.cuts?[440,250]:p.split?[460,200]:[440,230],whip:()=>[480,200],mirror:()=>[190,256],strings:()=>[452,240],
-  coin:p=>p.v==='yoyo'?[360,220]:p.v==='gear'?[200,200]:p.v==='lamp'?[90,244]:[110,236],claw:()=>[300,240],jaw:()=>[300,214],wings:()=>[440,240],
+ const DIM={blade:p=>p.cuts?[440,250]:p.split?[460,200]:p.curl?[440,230]:[510,230],whip:()=>[480,200],mirror:()=>[236,236,140],strings:()=>[452,240],
+  coin:p=>p.v==='yoyo'?[360,220]:p.v==='gear'?[200,200]:p.v==='lamp'?[90,244]:[110,236],claw:()=>[300,240],jaw:()=>[300,214],wings:()=>[470,240],
   rings:p=>[300,180],crescent:()=>[390,250],sigil:p=>p.v==='eye'?[296,192]:[290,170],syringe:()=>[480,190]};
  // Afterimage cuts (l301: three parallel slashes, the last with its hilt) or one long diagonal
  // draw-cut (h103 iai). Each slash is a lens of NEEDLEs; the slashes part sideways and fan open.
@@ -289,9 +297,11 @@
    G.fadeLane=!p.curl;const L=p.curl?400:440,ph0=(p.swing??36)*DEG,a0=-(p.up??22)*DEG+(G.alt?ph0:0),phi=G.alt?-ph0:ph0,ca=Math.cos(a0),sa=Math.sin(a0),hu=-L/2*ca,hv=-L/2*sa,Td=.55,sg=phi>=0?1:-1,rel=a0+sg*58*DEG;
    swing(G,hu,hv,phi,.75,Td,L+34);
    const at=(s,w,t,ty,hue,st,o,spd)=>put(G,hu+ca*s-sa*w,hv+sa*s+ca*w,t,rel,spd,ty,hue,st,o);
-   // Hilt: BIG pommel, RICE grip along the axis, ring guard of tangential RICE (never a crossguard).
-   at(-34,0,0,T.BIG,G.h1,3,a0,60);at(-20,0,.03,T.RICE,G.h0,3,a0,60);at(-8,0,.04,T.RICE,G.h0,3,a0,60);
-   for(let q=0;q<6;q++){const a=TAU*q/6;at(8+15*Math.cos(a),15*Math.sin(a),.06,T.RICE,G.h1,4,a0+a+PI/2,60);}
+   // Hilt: BIG pommel, RICE grip along the axis; curl: ring guard. The broad sword gets a crescent guard
+   // cupping the blade root, its horns swept toward the tip (wider than the blade, never a straight bar).
+   at(-34,0,0,T.BIG,G.h1,3,a0,60);at(-20,0,.03,T.RICE,G.h1,3,a0,60);at(-8,0,.04,T.RICE,G.h1,3,a0,60);
+   if(p.curl)for(let q=0;q<6;q++){const a=TAU*q/6;at(8+15*Math.cos(a),15*Math.sin(a),.06,T.RICE,G.h1,4,a0+a+PI/2,60);}
+   else for(let q=0;q<6;q++){const w=-80+32*q,s=6+20*(w/80)*(w/80);at(s,w,.06,T.RICE,G.h1,4,a0+Math.atan2(1,40*w/6400),60);}
    const rest=Math.max(8,G.N-8);
    if(p.curl){const hook=Math.round(rest*.3),staff=rest-hook,s1=L-46;
     for(let i=0;i<staff;i++){const q=i/(staff-1),s=22+(s1-22)*q;at(s,0,Td*q*.8,i%3?T.DOT:T.ORB,i%2?G.h1:G.h0,0,a0,64+100*s/L);}
@@ -300,8 +310,8 @@
    // Broad tapered blade: two NEEDLE edges laid along their own slope converging on the tip (the back
    // edge licks like a flame), a RICE fuller down the middle. All leave at one speed (+-15%), so the
    // blade flies as a blade.
-   const E=Math.round(rest*.36),F=rest-2*E,hw=q=>40*(1-Math.pow(q,1.5))+3;
-   for(let e=-1;e<=1;e+=2)for(let i=0;i<E;i++){const q=i/(E-1),s=26+(L-26)*q,fl=e<0?1+.22*Math.sin(q*TAU*2.5):1,w=e*hw(q)*fl,sl=-e*60*Math.sqrt(q+.01)/(L-26);at(s,w,Td*q,T.NEEDLE,G.h0,e>0?0:1,a0+Math.atan(sl),70+26*s/L);}
+   const E=Math.round(rest*.36),F=rest-2*E,hw=q=>64*(1-Math.pow(q,1.3))+4;
+   for(let e=-1;e<=1;e+=2)for(let i=0;i<E;i++){const q=i/(E-1),s=26+(L-26)*q,fl=e<0?1+.16*Math.sin(q*TAU*2.5):1,w=e*hw(q)*fl,sl=-e*60*Math.sqrt(q+.01)/(L-26);at(s,w,Td*q,T.NEEDLE,G.h0,e>0?0:1,a0+Math.atan(sl),70+26*s/L);}
    for(let i=0;i<F;i++){const q=(i+.5)/F,s=44+(L*.78-44)*q;at(s,0,Td*q*.85,T.RICE,G.h1,2,a0,70+26*s/L);}},
   // Chain whip / flute line: a long tilted wave of alternating white and hue links from a BIG
   // handle, lashed out handle -> tip, held, cracked about the handle; every link flies off its crest.
@@ -318,22 +328,22 @@
     if(p.notes&&j%6===3)for(let q=1;q<=2;q++)put(G,u0+uu+6,v-8*q-3,Td*f,la,sp,q===2?T.STAR:T.RICE,G.h1,2,-PI/2);}
    const ue=Lw-14;path(ue);const ve=G.pv_,te=Math.atan2(G.pd_,1),le=Math.atan2(G.pc_*.2,1);put(G,u0+ue,ve,Td,le,84,T.BIG,G.h1,4,te);
    for(let q=0;q<5;q++){const a=te+q*TAU/5;put(G,u0+ue+Math.cos(a)*17,ve+Math.sin(a)*17,Td,le,84,T.NEEDLE,G.h0,5,a);}},
-  // Hand mirror: an irregular tall oval pane of RICE laid along its rim, a short RICE handle with a BIG
-  // pommel, five NEEDLE cracks from an off-centre impact (no two collinear, so never an X) and a few
-  // RICE shard triangles breaking off the chipped edge. It tilts on its handle, then the whole pane
-  // drifts at the hero while it shatters outward about the impact (coherent release).
-  mirror(G,p){const A=84,Bh=100,cv0=-14,Td=.75,ix=-20,iy=cv0-28,N=G.N;G.rfix=true;G.fadeLane=true;
-   const handle=N>=40?4:3,nSh=N>=45?3:2,rim=Math.min(34,Math.round(N*.46)),crk=Math.max(5,N-rim-handle-nSh*3-1),CR=[20,92,150,232,300],per=Math.max(1,Math.floor(crk/5));
-   swing(G,0,cv0+Bh+46,(p.tilt??10)*DEG,.5,Td+.42,2*Bh+60);
+  // Cracked mirror: an irregular ring of RICE shards (each tilted off the tangent, so the frame reads as
+  // broken glass, not a dashed line), five crack rows of NEEDLE shards from an off-centre impact out to
+  // the frame (no two collinear, so never an X; drawn with a crack line) and a few chips flaking off.
+  // Pivoting on its foot it tilts, then the whole pane drifts at the hero while it shatters outward
+  // about the impact (coherent release). The frame (st >= 16) draws no trail line.
+  mirror(G,p){const A=104,Bh=106,cv0=0,Td=.75,ix=-22,iy=-20,N=G.N;G.rfix=true;G.fadeLane=true;
+   const nSh=N>=45?3:2,rim=Math.min(42,Math.round(N*.46)),crk=Math.max(5,N-rim-1-nSh*2),CR=[20,92,150,232,300],per=Math.max(1,Math.floor(crk/5));
+   swing(G,0,cv0+Bh,(p.tilt??10)*DEG,.5,Td+.42,2*Bh+20);
    const go=(u,v,t,ty,hue,st,o)=>{coh(G,u,v,ix,iy,40,.3);put(G,u,v,t,G.fa,G.fs,ty,hue,st,o);};
-   const R=q=>1+.05*Math.sin(3*q+1)+.03*Math.sin(7*q+.4);
-   for(let i=0;i<rim;i++){const q=TAU*i/rim-PI/2,r=R(q);go(Math.cos(q)*A*r,cv0+Math.sin(q)*Bh*r,Td*i/rim,T.RICE,G.h0,0,Math.atan2(Math.cos(q)*Bh,-Math.sin(q)*A));}
-   for(let i=0;i<handle;i++){const last=i===handle-1;go(0,cv0+Bh+10+12*i,Td*.95,last?T.BIG:T.RICE,last?G.h1:G.h0,9,PI/2);}
-   go(ix,iy,Td,T.ORB,G.h1,10,0);
-   for(let k=0;k<CR.length;k++){const a=CR[k]*DEG;let len=8;while(len<400){const x=(ix+Math.cos(a)*len)/A,y=(iy-cv0+Math.sin(a)*len)/Bh;if(x*x+y*y>=.86)break;len+=4;}
-    for(let j=1;j<=per;j++){const q=j/(per+.35),b=a+(q>.55?(k%2?8:-8)*DEG:0);go(ix+Math.cos(b)*len*q,iy+Math.sin(b)*len*q,Td+.04*k+.22*j/per,T.NEEDLE,G.h1,1+k,b);}}
-   for(let k=0;k<nSh;k++){const q=-.55+.38*k,cu=Math.cos(q)*A*1.24,cvv=cv0+Math.sin(q)*Bh*1.2,rot=.7+1.3*k,rt=11;
-    for(let e=0;e<3;e++){const m=rot+PI/3+e*TAU/3;go(cu+Math.cos(m)*rt*.5,cvv+Math.sin(m)*rt*.5,Td+.22,T.RICE,G.h1,6+k,m+PI/2);}}},
+   const R=q=>1+.07*Math.sin(3*q+1)+.05*Math.sin(7*q+.4);
+   for(let i=0;i<rim;i++){const q=TAU*i/rim-PI/2,r=R(q)*(i%3===1?1.05:1);go(Math.cos(q)*A*r,cv0+Math.sin(q)*Bh*r,Td*i/rim,T.RICE,G.h0,16,Math.atan2(Math.cos(q)*Bh,-Math.sin(q)*A)+(i%2?.42:-.42));}
+   go(ix,iy,Td,T.ORB,G.h1,17,0);
+   for(let k=0;k<CR.length;k++){const a=CR[k]*DEG;let len=8;while(len<400){const x=(ix+Math.cos(a)*len)/A,y=(iy-cv0+Math.sin(a)*len)/Bh;if(x*x+y*y>=.9)break;len+=4;}
+    for(let j=1;j<=per;j++){const q=j/(per+.25),b=a+(q>.5?(k%2?9:-9)*DEG:0);go(ix+Math.cos(b)*len*q,iy+Math.sin(b)*len*q,Td+.04*k+.22*j/per,T.NEEDLE,G.h1,1+k,b);}}
+   for(let k=0;k<nSh;k++){const q=-.5+.42*k,rr=1.2,cu=Math.cos(q)*A*rr,cvv=cv0+Math.sin(q)*Bh*rr;
+    for(let e=0;e<2;e++)go(cu+Math.cos(q)*9*e,cvv+Math.sin(q)*9*e,Td+.22,T.RICE,G.h0,18+k,q+(e?.5:-.3));}},
   // Puppet strings / roots / neurons: a control bar above the boss's hand (ORB) with long lines
   // fanned down to the floor across the field; the bar sways, the lines snap at 55% and both halves
   // recoil along the line. branch: forked side twigs.
@@ -390,15 +400,18 @@
     put(G,u,v,Td*(side?1-s:s),la,Math.hypot(vy,fw),knife?T.NEEDLE:T.RICE,knife?G.h1:G.h0,side,Math.atan2(-v,-u));}
    G.life=0;const bite=ry/(vy*G.vs)*.75;G.rl=bite;
    for(let i=0;i<spit;i++){const s=spit>1?i/(spit-1):.5,la=(-42+84*s)*DEG;put(G,rx*.15+Math.cos(la)*14,Math.sin(la)*14,Td,la,58+22*((i*5)%3)/2,i%2?T.ORB:T.DOT,G.h1,2,la);}},
-  // Wings: from the shoulder (BIG + ORB), each wing a fan of feather lances; every feather is a tapered
-  // herringbone row (RICE barbs alternating either side of the shaft, angled back like vanes, narrowing
-  // to a NEEDLE point). Both wings flap toward the middle, then each feather flies along itself at
+  // Wings: from the shoulder (BIG + ORB) a wing arm runs out toward the hero; F feather lances hang off
+  // it, steep near the body and flatter toward the wing tip. A lance is a short dense row of RICE laid
+  // along its own direction (17-20 px apart, so it reads as one lance) ending in a crimson NEEDLE point
+  // (single rows: doubled roots walled the safe lane in DREAM b3); every bullet of a lance shares its orientation (no barbs, no zigzag) and no trail
+  // line joins them (st >= 16). Both wings flap toward the middle, then each lance flies along itself at
   // nearly one speed, so the wing spreads outward from the shoulder as a wing.
-  wings(G,p){G.fadeLane=true;G.rfix=true;const R=G.N>=90?4:2,W=430,u0=-W/2,Td=.75,per=Math.max(4,Math.floor((G.N-4)/(2*R)));
-   for(let side=-1;side<=1;side+=2){swing(G,u0,0,-side*14*DEG,.6,Td,W);coh(G,u0-10,side*6,u0,0,44,.26);put(G,u0-10,side*6,0,G.fa,G.fs,T.BIG,G.h1,8,0);coh(G,u0+4,side*10,u0,0,44,.26);put(G,u0+4,side*10,.02,G.fa,G.fs,T.ORB,G.h0,8,side*.6);
-    for(let r=0;r<R;r++){const la=side*((G.alt?3:4)+(R===4?5:11)*r)*DEG,Lf=W-40*r,cl=Math.cos(la),sl=Math.sin(la),st=(side>0?0:4)+r;
-     for(let j=1;j<=per;j++){const s=j/per,tipj=j>=per-1,bw=tipj?0:(12*(1-s)+2.5)*(j%2?1:-1),d=16+(Lf-16)*s,u=u0+cl*d-sl*bw,v=side*12+sl*d+cl*bw;
-      coh(G,u,v,u0,0,44,.26);put(G,u,v,Td*(.15*r/R+.85*s),G.fa,G.fs,tipj?T.NEEDLE:T.RICE,r%2?G.h1:G.h0,st,la+(tipj?0:(j%2?-1:1)*28*DEG));}}}},
+  wings(G,p){G.fadeLane=true;G.rfix=true;const W=430,u0=-W/2,Td=.75,M=Math.max(8,Math.floor((G.N-4)/2)),F=clamp(Math.round(M/7),2,6),per=Math.max(4,Math.floor(M/F)),K=per,P=0,arm=14*DEG,span=W-130;
+   for(let side=-1;side<=1;side+=2){swing(G,u0,0,-side*14*DEG,.6,Td,W);coh(G,u0-10,side*6,u0,0,44,.26);put(G,u0-10,side*6,0,G.fa,G.fs,T.BIG,G.h1,30,0);coh(G,u0+4,side*10,u0,0,44,.26);put(G,u0+4,side*10,.02,G.fa,G.fs,T.ORB,G.h0,30,side*.6);
+    for(let f=0;f<F;f++){const q=F>1?f/(F-1):1,a=40+span*q,ru=u0+Math.cos(arm)*a,rv=side*(10+Math.sin(arm)*a),th=(G.alt?18:22)+36*(1-q),la=side*th*DEG,cl=Math.cos(la),sl=Math.sin(la),Lf=94+22*q,st=16+(side>0?0:7)+f;
+     for(let j=1;j<=K;j++){const s=j/K,d=Lf*s,tipj=j===K,pair=j<=P,t=Td*(.6*q+.4*s);
+      for(let e=pair?-1:0;e<=(pair?1:0);e+=2){const bw=pair?e*(4.5*(1-(j-1)/Math.max(1,P))+3):0,u=ru+cl*d-sl*bw,v=rv+sl*d+cl*bw;
+       coh(G,u,v,u0,0,44,.26);put(G,u,v,t,G.fa,G.fs,tipj?T.NEEDLE:T.RICE,tipj?G.h1:G.h0,st,la);if(!pair)break;}}}}},
   // Sound: concentric arcs (ORB/DOT nodes) pulse out from the boss on a beat (bell / choir / drum);
   // notes adds note heads on stems. Held, then every arc expands as a ring.
   rings(G,p){G.iso=true;const R=G.band===3?4:3,beat=p.beat||.26,r0=R===4?70:80,dr=R===4?42:50,u0=-(r0+dr*(R-1))/2-20,Td=(R-1)*beat+.12;swing(G,0,0,0,0,Td,1);
@@ -448,13 +461,14 @@
    G.noLane=false;}
  };
  // Boss -> weapon. Evidence is quoted from the bundle (assets/index-v31526.js) or the canon text.
- const WG=(g,p,ev)=>Object.freeze({g,p:Object.freeze(p||{}),ev});
+ // c: the boss's own formation palette [edge/body hue, accent hue] (R2); without it the spell-derived default.
+ const WG=(g,p,ev,c)=>Object.freeze({g,p:Object.freeze(p||{}),ev,c:c?Object.freeze(c):null});
  const WEAPON_ROWS=[
   ['dist00-boss','뿌리의 문지기',[WG('strings',{branch:true,k:6},'actor sprite demon_tree_root_seraph.png; signature "검은 뿌리 봉인"')],true,'body (roots)'],
-  ['dist06-boss','발록 · 지옥의 문지기',[WG('blade',{},'deck flame-sword-cone; canon "발록이 검을 휘두르자"'),WG('whip',{A:88,lam:130},'projectile balrog_chain_whip_wave.webp')],false,'flame sword + chain whip'],
-  ['a11-boss','루시퍼 · 가면 벗은 초천사',[WG('wings',{six:true},'projectile lucifer_feather_lance.webp; deck wing-feather-pairs / six-wing')],false,'feather wings (lances)'],
+  ['dist06-boss','발록 · 지옥의 문지기',[WG('blade',{},'deck flame-sword-cone; canon "발록이 검을 휘두르자"',['flame','ember']),WG('whip',{A:88,lam:130},'projectile balrog_chain_whip_wave.webp',['flame','ember'])],false,'flame sword + chain whip'],
+  ['a11-boss','루시퍼 · 가면 벗은 초천사',[WG('wings',{six:true},'projectile lucifer_feather_lance.webp; deck wing-feather-pairs / six-wing',['violet','red'])],false,'feather wings (lances)'],
   ['b02-boss','나태에 잠식된 남자',[WG('syringe',{},'major memory_command_syringe.webp; deck falling-clutter')],true,'signature attack (syringe major)'],
-  ['b03-boss','호텔 부매니저 · 레비아탄',[WG('mirror',{},'projectile envy_mirror_shard.webp; deck mirror-fan; zone 금이 간 안경')],false,'cracked mirror'],
+  ['b03-boss','호텔 부매니저 · 레비아탄',[WG('mirror',{},'projectile envy_mirror_shard.webp; deck mirror-fan; zone 금이 간 안경',['glass','shard'])],false,'cracked mirror'],
   ['b04-boss','탐식의 귀 베엘제붑',[WG('jaw',{},'projectile gluttony_maw_wave.webp; phase "칼을 든 총주방장"; canon "식칼과 프라이팬을 마구 던졌다"')],false,'maw + kitchen knives'],
   ['b05-boss','붉은 하이힐의 서윤',[WG('strings',{k:5},'deck puppet-thread-pairs; rule 인형실 장력; phase "조종하는 인간 꼭두각시"')],false,'puppet threads'],
   ['b06-boss','총지배인 · 맘몬',[WG('coin',{v:'coin'},'projectile greed_coin_saw.webp; deck coin-ricochet')],false,'coins'],
@@ -500,26 +514,32 @@
  // (full size and full extent preferred, centre >= 130 px in front of the boss). It is spread over the 1.3 s
  // pre-window (SIG.perStep candidates per step, so no frame hitches) and stops early once a
  // full-size frame keeps >= 95%; the phrase is then built once more against the hero's position.
- const FR_DY=[0,-1,1,-.5,.5],FR_S=[1,.85],FR_D=[80,140,30,200],ALT=new Set(['blade','whip','claw','crescent','strings','syringe','wings']),SEARCH_PER_STEP=3;
+ const FR_DY=[0,-1,1,-.5,.5],FR_S=[1,.85],FR_D=[-2,58,-52,118],ALT=new Set(['blade','whip','claw','crescent','strings','syringe','wings']),SEARCH_PER_STEP=3;
  function buildSig(G,gen,p){const B=G.buf;B.n=0;G.off=0;G.lane=0;G.flip=0;G.w=0;G.td=0;G.ts=SIG.armed;G.rl=0;G.phi=0;G.pu=0;G.pv=0;G.life=0;G.noLane=false;G.rfix=false;G.mirrorOK=false;G.fadeLane=false;G.iso=false;try{gen(G,p);}catch(err){B.n=0;}
   // The trace starts at once: the first bullet appears at t=0 (SIG.armed counts from there).
   let t0=1e9;for(let j=0;j<B.n;j++)if(B.t[j]<t0)t0=B.t[j];if(t0>0&&t0<1e9)for(let j=0;j<B.n;j++)B.t[j]-=t0;return B.n;}
  function frameAt(G,ctx,dim,c){const alts=c.alts,al=c.i%alts,r1=(c.i/alts)|0,sy=r1%2?1:-1,r2=(r1/2)|0,yi=r2%FR_DY.length,r3=(r2/FR_DY.length)|0,di=r3%FR_D.length,si=(r3/FR_D.length)|0;
   const mid=(FIELD.y0+FIELD.y1)/2,room=FIELD.y1-FIELD.y0-20,s=FR_S[si],slack=Math.max(0,(room-dim[1]*s)/2);
-  G.s=s;G.sy=sy;G.alt=al;G.cx=ctx.bx+G.sx*Math.max(130,dim[0]*s/2+FR_D[di]);G.cy=mid+FR_DY[yi]*slack;return si*1e3+di*100+Math.abs(FR_DY[yi]);}
- function prepG(run,ctx,G,t0){const S=run.sig;G.buf=S.buf;G.sx=ctx.dir>1?-1:1;G.hx=ctx.hx;G.hy=ctx.hy;G.vs=ctx.vs;G.vcap=Math.min(SIG.vcap,ctx.vmax*1.05);G.N=sigCount(ctx);G.band=ctx.band;G.mob=!!ctx.mobile;G.t0=t0;G.ySafe=ctx.ySafeAt;
+  // Anchored in front of the boss sprite (R2): the near edge sits FR_D past the sprite column (body box
+  // half width + BOSS_BOX.col), so the boss shows through; dim[2] pushes small shapes toward mid-field.
+  G.s=s;G.sy=sy;G.alt=al;G.cx=ctx.bx+G.sx*Math.max(130,n(G.bw,58)+BOSS_BOX.col+dim[0]*s/2+FR_D[di]+n(dim[2],0)*s);G.cy=mid+FR_DY[yi]*slack;return si*1e3+di*100+Math.abs(FR_DY[yi]);}
+ function prepG(run,ctx,G,t0,e){const S=run.sig;G.buf=S.buf;G.sx=ctx.dir>1?-1:1;G.hx=ctx.hx;G.hy=ctx.hy;G.vs=ctx.vs;G.vcap=Math.min(SIG.vcap,ctx.vmax*1.05);G.N=sigCount(ctx);G.band=ctx.band;G.mob=!!ctx.mobile;G.t0=t0;G.ySafe=ctx.ySafeAt;
   G.gapHalf=(ctx.lane*Math.max(.85,ctx.gapMul))/2+4;G.excl2=(ctx.excl+12)*(ctx.excl+12);
   // The box grows with the boss's sprite scale (ctx.bscale; 1 in the headless suites): width and height
   // above the feet scale, the HP-bar margin under the feet does not.
   const bs=clamp(n(ctx.bscale,1),1,2.2),bw=BOSS_BOX.w*bs+BOSS_BOX.m,up=(BOSS_BOX.up+100)*bs-100+BOSS_BOX.m;
-  G.bx0=ctx.bx-bw;G.bx1=ctx.bx+bw;G.by0=ctx.by-up;G.by1=ctx.by+BOSS_BOX.down+BOSS_BOX.m;
+  // The sprite column is BOSS_BOX.col wider than the body box: formations keep that clear too (R2).
+  const col=e&&NO_COL.has(e.g)?0:BOSS_BOX.col;// the puppet bar is held in the boss's hand; the scythe's snath reaches back to it
+  G.bw=bw;G.bx0=ctx.bx-bw-col;G.bx1=ctx.bx+bw+col;G.by0=ctx.by-up;G.by1=ctx.by+BOSS_BOX.down+BOSS_BOX.m;
   // Weapon edge in white (reads apart from the curtain on every map); the accent is the first of
   // SIG_ACCENT the spell's curtain does not use, so the weapon never melts into a same-hue curtain.
-  const pal=run.spell.hues;G.h0=H.white;G.h1=H.violet;for(const k of SIG_ACCENT)if(!pal.includes(k)&&k!==run.spell.circle){G.h1=H[k];break;}}
+  const pal=run.spell.hues;G.h0=H.white;G.h1=H.violet;for(const k of SIG_ACCENT)if(!pal.includes(k)&&k!==run.spell.circle){G.h1=H[k];break;}
+  // A boss with its own palette (Balrog flame, Lucifer lances, Envy glass) uses it on every spell.
+  const c=e&&e.c;if(c&&H[c[0]]!=null&&H[c[1]]!=null){G.h0=H[c[0]];G.h1=H[c[1]];}}
  // Evaluates up to `max` more candidates for the upcoming phrase k; returns true when done.
  function searchSig(run,ctx,max){const S=run.sig,C=S.srch,e=S.list[(S.order+S.k)%S.list.length],gen=GEN[e.g],G=S.G;if(!gen)return true;
   if(C.k!==S.k){C.k=S.k;C.i=0;C.best=-1e9;C.bi=0;C.done=false;C.alts=ALT.has(e.g)?2:1;C.total=FR_S.length*FR_D.length*FR_DY.length*2*C.alts;}
-  if(C.done)return true;prepG(run,ctx,G,S.beats[S.k]??run.t);const dim=DIM[e.g](e.p);
+  if(C.done)return true;prepG(run,ctx,G,S.beats[S.k]??run.t,e);const dim=DIM[e.g](e.p);
   for(let q=0;q<max&&C.i<C.total;q++,C.i++){const tag=frameAt(G,ctx,dim,C),kept=buildSig(G,gen,e.p),si=tag>=1e3,di=((tag%1e3)/100)|0;
    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;const B=S.buf;for(let j=0;j<B.n;j++){const x=B.x[j],y=B.y[j];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
    const ext=B.n?Math.min(1,Math.hypot(x1-x0,y1-y0)/Math.hypot(dim[0],dim[1])):0,sc=kept*(si?1:1.12)*(di===3?.94:di===2?.96:di?.97:1)+.4*G.N*ext-(tag%100);if(sc>C.best){C.best=sc;C.bi=C.i;}if(!si&&kept>=G.N*.95){C.i=C.total;break;}}
@@ -527,8 +547,8 @@
  function startPhrase(run,ctx){const S=run.sig,e=S.list[(S.order+S.k)%S.list.length],B=S.buf,G=S.G,gen=GEN[e.g];
   if(!gen){S.k++;return;}
   if(S.srch.k!==S.k)searchSig(run,ctx,8);// no pre-window (e.g. a phrase at the very start): a short search
-  const C=S.srch,dim=DIM[e.g](e.p);S.k++;prepG(run,ctx,G,run.t);const i=C.i;C.i=C.bi;frameAt(G,ctx,dim,C);C.i=i;buildSig(G,gen,e.p);
-  let end=0;for(let j=0;j<B.n;j++){B.ord[j]=j;if(B.r[j]>end)end=B.r[j];}
+  const C=S.srch,dim=DIM[e.g](e.p);S.k++;prepG(run,ctx,G,run.t,e);const i=C.i;C.i=C.bi;frameAt(G,ctx,dim,C);C.i=i;buildSig(G,gen,e.p);
+  let end=0,rel=1e9;for(let j=0;j<B.n;j++){B.ord[j]=j;if(B.r[j]>end)end=B.r[j];if(B.r[j]<rel)rel=B.r[j];}S.rel=B.n?rel:0;
   for(let i=1;i<B.n;i++){const v=B.ord[i],tv=B.t[v];let j=i-1;while(j>=0&&B.t[B.ord[j]]>tv){B.ord[j+1]=B.ord[j];j--;}B.ord[j+1]=v;}
   S.active=B.n>0;S.t0=run.t;S.cur=0;S.end=end+.5;S.phrases++;S.last={g:e.g,v:e.p.v||'',n:B.n,off:G.off,lane:G.lane,flip:G.flip,N:G.N,s:G.s,sy:G.sy,cx:Math.round(G.cx),cy:Math.round(G.cy)};}
  // Emits this frame's share of the active phrase into out (reused spec objects, no allocation).
@@ -561,6 +581,7 @@
   pool.vx[i]=Math.cos(b.ang)*spd+b.gvx;pool.vy[i]=Math.sin(b.ang)*spd+b.gvy;pool.dir[i]=Math.atan2(pool.vy[i],pool.vx[i]);
   if(ctx.spawnLog){const d=Math.sqrt(dx*dx+dy*dy);if(d<ctx.spawnLog.minDist)ctx.spawnLog.minDist=d;}
   return true;}
+ const SPLIT_R=10;
  // Advance all bullets by h seconds of travel; stage effects push child specs into out.
  function stepPool(pool,h,ctx,out,removed){
   for(let i=pool.live-1;i>=0;i--){
@@ -575,7 +596,8 @@
      const dx=x-ctx.hx,dy=y-ctx.hy;if(dx*dx+dy*dy>=ctx.excl*ctx.excl*(Number.isFinite(center)?1:.6)){
       const fan=Number.isFinite(center),base=fan?center:(ctx.seed%31)*.2+age;
       for(let j=0;j<cnt;j++){let a,v=sp;if(fan){a=center+(j-(cnt-1)/2)*(rose/Math.max(1,cnt-1));}else{a=base+j*TAU/cnt;if(rose>0)v=sp*(.45+.85*Math.abs(Math.cos(rose*(a-base))));}
-       out.push(spec(x,y,a,v,ty,hu,{life:12}));}}
+       // Born on a 10 px ring around the burst point, so the ring opens as a ring (no swirl knot).
+       out.push(spec(x+Math.cos(a)*SPLIT_R,y+Math.sin(a)*SPLIT_R,a,v,ty,hu,{life:12}));}}
      if(removed)removed.push(x,y,pool.hue[i],pool.type[i]);poolRemove(pool,i);continue;}
    }
    let spd=pool.spd[i]+pool.acc[i]*h;if(spd<pool.vmin[i])spd=pool.vmin[i];if(spd>pool.vmax[i])spd=pool.vmax[i];pool.spd[i]=spd;
@@ -813,6 +835,9 @@
    fillerOn=(gap||tail)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold&&!spawnHold;
    m.bridgeTail=tail;m.volleyQuiet=why==='cast';}
   if(!fillerOn&&m.tele?.length&&(s.time<m.mercyUntil||!a)){m.tele.length=0;m.bridgeSerial=null;}// a dropped bridge may be queued again
+  // A volley telegraphed in the declaration gap that the spell start cut off would otherwise sit frozen
+  // on screen (an aim line that never fires) for the whole spell: drop it (bridge volleys keep theirs).
+  else if(!fillerOn&&m.tele?.length&&m.run&&!m.bridgeTail&&!(m.declLeft>0))m.tele.length=0;
   const guard=s.time<n(m.spawnGuardUntil,-1);
   const mz=a?muzzle(a):m.lastMuzzle??{x:1071,y:425};m.lastMuzzle=mz;
   // Hold during major casts / locks / lasers; resume .4 s later; long hold winds the spell down.
@@ -882,12 +907,15 @@
  function rgb(hex){const v=parseInt(hex.slice(1),16);return [v>>16&255,v>>8&255,v&255];}
  function mix(hex,hex2,t){const a=rgb(hex),b=rgb(hex2);return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')';}
  function rgba(hex,a){const c=rgb(hex);return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';}
- function bodyPaint(g,type,hue,frame,mobile){const [,base,shade,rim]=HUES[hue];const ow=mobile?2:1.3;const rimS=()=>{if(!rim)return;const a=g.globalAlpha;g.strokeStyle=rim;g.lineWidth=.9;g.globalAlpha=.85;g.stroke();g.globalAlpha=a;g.strokeStyle='rgba(7,4,13,.92)';};
+ // R2: elongated bodies get a 2 px (phone 2.6) dark outline so they read over hero beams; BIG orbs a
+ // 3.8 px (phone 4.4) dark rim, a wider white core and a softer halo that starts outside the rim, so
+ // they stay crisp discs at phone scale instead of soft blobs.
+ function bodyPaint(g,type,hue,frame,mobile){const [,base,shade,rim]=HUES[hue];const ow=mobile?2.6:2;const rimS=()=>{if(!rim)return;const a=g.globalAlpha;g.strokeStyle=rim;g.lineWidth=.9;g.globalAlpha=.85;g.stroke();g.globalAlpha=a;g.strokeStyle='rgba(7,4,13,.92)';};
   const grad=(r,core)=>{const G=g.createRadialGradient(0,0,0,0,0,r);G.addColorStop(0,'#ffffff');G.addColorStop(clamp(core/r*1.05,0,1),'#ffffff');G.addColorStop(clamp(core/r*1.3,0,1),mix(base,'#ffffff',.55));G.addColorStop(.72,base);G.addColorStop(1,mix(shade,'#000000',.1));return G;};
   g.fillStyle='rgba(7,4,13,.92)';g.strokeStyle='rgba(7,4,13,.92)';
-  if(type===T.DOT||type===T.ORB||type===T.BIG){const core=HIT[type],body=[6.5,10.5,19][type],out=[8,12.3,21.5][type]+(mobile?.6:0),halo=HALO[type];
+  if(type===T.DOT||type===T.ORB||type===T.BIG){const big=type===T.BIG,core=big?9:HIT[type],body=[6.5,10.5,19][type],out=big?body+(mobile?4.4:3.8):[8,12.3][type]+(mobile?.6:0),halo=HALO[type];
    // Baked soft halo (source-over): reads as glow on the dimmed field without an extra draw call.
-   const HG=g.createRadialGradient(0,0,out*.9,0,0,halo);HG.addColorStop(0,rgba(base,.55));HG.addColorStop(.45,rgba(base,.2));HG.addColorStop(1,rgba(base,0));g.fillStyle=HG;g.beginPath();g.arc(0,0,halo,0,TAU);g.fill();
+   const HG=g.createRadialGradient(0,0,big?out:out*.9,0,0,halo);HG.addColorStop(0,rgba(base,big?.32:.55));HG.addColorStop(.45,rgba(base,big?.12:.2));HG.addColorStop(1,rgba(base,0));g.fillStyle=HG;g.beginPath();g.arc(0,0,halo,0,TAU);g.fill();
    g.fillStyle='rgba(7,4,13,.92)';g.beginPath();g.arc(0,0,out,0,TAU);g.fill();if(rim){g.beginPath();g.arc(0,0,out-.25,0,TAU);rimS();}g.fillStyle=grad(body,core);g.beginPath();g.arc(0,0,body,0,TAU);g.fill();
    g.strokeStyle=mix(base,'#ffffff',.3);g.lineWidth=.8;g.beginPath();g.arc(0,0,core*1.12,0,TAU);g.stroke();
    g.fillStyle='rgba(255,255,255,.9)';g.beginPath();g.arc(-.3*core,-.35*core,.35*core,0,TAU);g.fill();return;}
@@ -927,18 +955,39 @@
  const THIN=Object.freeze({w:60,up:100,down:142,a:.3});
  function thinBox(m){const z=m.lastMuzzle;if(!m.owner||!z||!Number.isFinite(z.x)||!Number.isFinite(z.y)){m.tb0=1e9;m.tb1=-1e9;return;}const bs=clamp(n(m.bscale,1),1,2.2);m.tb0=z.x-THIN.w*bs;m.tb1=z.x+THIN.w*bs;m.tb2=z.y-((THIN.up+100)*bs-100);m.tb3=z.y+THIN.down;}
  function thinned(P,i,m){const x=P.x[i],y=P.y[i];return x>m.tb0&&x<m.tb1&&y>m.tb2&&y<m.tb3&&!(P.flags[i]&(F_AIMED|F_FAST|F_SIG));}
- function drawBullets(ctx,s,m,set){const P=m.pool,N=P.live;if(!N)return 0;ensureAtlas(ctx);let draws=0;const t=s.time,mobile=m.mobile,low=!!set?.lowFx,quiet=!!set?.reducedFlash;thinBox(m);
+ // Walkable floor (R2): the arena floor polygon (the same source mobile-landscape.js frames with) in
+ // G px, re-projected only when its vertices change. Bullets ride FLOOR.lift px above the floor; past
+ // its edge (over furniture, beyond the platform) they fade with distance down to FLOOR.min, and the
+ // formation trail / swing arc are clipped to it. No polygon: nothing changes.
+ const FLOOR=Object.freeze({lift:42,fade:40,min:.3,max:48});
+ const floorC={ok:false,n:0,rx:new Float64Array(FLOOR.max),ry:new Float64Array(FLOOR.max),x:new Float64Array(FLOOR.max),y:new Float64Array(FLOOR.max),x0:0,x1:0,y0:0,y1:0};
+ function floorPoly(){let poly=null;try{poly=root.__HAPIL_PERSONA_DUEL_RC134__?.polygon?.('all',.8);}catch(e){}
+  const N=(poly&&poly.length)|0;if(N<3||N>FLOOR.max){floorC.ok=false;return false;}
+  let same=N===floorC.n;for(let i=0;same&&i<N;i++){const q=poly[i];if(!q||q.x!==floorC.rx[i]||q.y!==floorC.ry[i])same=false;}
+  if(same)return floorC.ok;
+  floorC.n=N;floorC.ok=true;floorC.x0=floorC.y0=1e9;floorC.x1=floorC.y1=-1e9;
+  for(let i=0;i<N;i++){const q=poly[i],tx=n(q&&q.x,NaN),ty=n(q&&q.y,NaN);floorC.rx[i]=q?q.x:NaN;floorC.ry[i]=q?q.y:NaN;const P=tx===tx&&ty===ty?project(tx,ty):null;
+   if(!P||!Number.isFinite(P.x)||!Number.isFinite(P.y)){floorC.ok=false;return false;}floorC.x[i]=P.x;floorC.y[i]=P.y;
+   if(P.x<floorC.x0)floorC.x0=P.x;if(P.x>floorC.x1)floorC.x1=P.x;if(P.y<floorC.y0)floorC.y0=P.y;if(P.y>floorC.y1)floorC.y1=P.y;}
+  return true;}
+ function floorFade(x,y){const F=floorC,X=x,Y=y+FLOOR.lift,N=F.n;let inside=false;
+  if(X>=F.x0&&X<=F.x1&&Y>=F.y0&&Y<=F.y1)for(let i=0,j=N-1;i<N;j=i++){const yi=F.y[i],yj=F.y[j];if((yi>Y)!==(yj>Y)&&X<(F.x[j]-F.x[i])*(Y-yi)/(yj-yi)+F.x[i])inside=!inside;}
+  if(inside)return 1;let d2=1e18;
+  for(let i=0,j=N-1;i<N;j=i++){const ax=F.x[j],ay=F.y[j],dx=F.x[i]-ax,dy=F.y[i]-ay,L=dx*dx+dy*dy;let u=L>1e-9?((X-ax)*dx+(Y-ay)*dy)/L:0;u=u<0?0:u>1?1:u;const qx=ax+dx*u-X,qy=ay+dy*u-Y,q=qx*qx+qy*qy;if(q<d2)d2=q;}
+  return clamp(1-Math.sqrt(d2)/FLOOR.fade,FLOOR.min,1);}
+ function floorClip(ctx){const F=floorC;ctx.beginPath();ctx.moveTo(F.x[0],F.y[0]-FLOOR.lift);for(let i=1;i<F.n;i++)ctx.lineTo(F.x[i],F.y[i]-FLOOR.lift);ctx.closePath();ctx.clip();}
+ function drawBullets(ctx,s,m,set){const P=m.pool,N=P.live;if(!N)return 0;ensureAtlas(ctx);let draws=0;const t=s.time,mobile=m.mobile,low=!!set?.lowFx,quiet=!!set?.reducedFlash;thinBox(m);const fl=floorPoly();
   // Glow pass ('lighter').
   const gA=.55*Math.min(1,Math.sqrt(140/Math.max(140,N)))*fxOpacity(set)*(low?.35/.55:1)*(quiet?.6:1);
   if(gA>.01){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=gA;
    // Glow budget <= 45% of bullets: large/medium first, small dots only with leftover budget.
    let budget=Math.floor(N*.45)+4;
    for(let pass=0;pass<2&&budget>0;pass++)for(let i=0;i<N&&budget>0;i++){const ty=P.type[i]|0;if((ty===T.DOT)!==(pass===1))continue;if(low&&ty!==T.BIG)continue;if(mobile&&!(ty===T.ORB||ty===T.BIG))continue;if(ty===T.DOT&&N>250)continue;
-    if(thinned(P,i,m))continue;const g=glowSprite(P.hue[i]|0);if(!g)continue;const r=GLOW[ty]*(P.age[i]<.14?1.4:1);ctx.drawImage(g.c,P.x[i]-r,P.y[i]-r,2*r,2*r);draws++;budget--;}}
+    if(thinned(P,i,m)||(fl&&floorFade(P.x[i],P.y[i])<.6))continue;const g=glowSprite(P.hue[i]|0);if(!g)continue;const r=GLOW[ty]*(P.age[i]<.14?1.4:1);ctx.drawImage(g.c,P.x[i]-r,P.y[i]-r,2*r,2*r);draws++;budget--;}}
   // Body pass (source-over, honest cores).
   ctx.globalCompositeOperation='source-over';let alpha=-1;const bloom=mobile?.18:.14;
   for(const ty of DRAW_ORDER)for(let i=0;i<N;i++){if((P.type[i]|0)!==ty)continue;const sp=bodySprite(ty,P.hue[i]|0,mobile);if(!sp)continue;
-   const age=P.age[i];let a=edgeAlpha(P.x[i],P.y[i])*(thinned(P,i,m)?THIN.a:1),sc=1;if(age<bloom){const u=age/bloom,e=1-(1-u)*(1-u)*(1-u);sc=1.8-.8*e;a*=e;}
+   const age=P.age[i];let a=edgeAlpha(P.x[i],P.y[i])*(thinned(P,i,m)?THIN.a:1)*(fl?floorFade(P.x[i],P.y[i]):1),sc=1;if(age<bloom){const u=age/bloom,e=1-(1-u)*(1-u)*(1-u);sc=1.8-.8*e;a*=e;}
    if(a!==alpha){ctx.globalAlpha=a;alpha=a;}
    let f=0;if(sp.fr>1){f=ty===T.STAR?(quiet?0:Math.floor(((t*2+i*.37)%(TAU/5))/(TAU/5)*sp.fr)%sp.fr):Math.round(((P.dir[i]%TAU+TAU)%TAU)/TAU*sp.fr)%sp.fr;}
    const w=sp.cell*sc;ctx.drawImage(sp.c,f*sp.px,0,sp.px,sp.px,P.x[i]-w/2,P.y[i]-w/2,w,w);draws++;}
@@ -961,8 +1010,9 @@
   const B=m.banner,F=m.flash,hitAge=s.time-m.hitAt;if(!B&&!F&&!(hitAge>=0&&hitAge<.35))return;
   ctx.save();try{const v=screenSpace(ctx);if(!v)return;const {w,h}=v;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.direction='ltr';if('letterSpacing' in ctx)ctx.letterSpacing='0px';if('wordSpacing' in ctx)ctx.wordSpacing='0px';
    if(hitAge>=0&&hitAge<.35){const a=(set?.reducedFlash?.18:.35)*(1-hitAge/.35);const G=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.35,w/2,h/2,Math.max(w,h)*.7);G.addColorStop(0,'rgba(255,30,60,0)');G.addColorStop(1,'rgba(255,30,60,'+a.toFixed(3)+')');ctx.globalAlpha=1;ctx.fillStyle=G;ctx.fillRect(0,0,w,h);}
-   if(F&&!set?.reducedFlash){const u=(s.time-F.at)/F.dur;if(u>=0&&u<1){ctx.globalAlpha=F.peak*(1-u)*fxOpacity(set);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);}}
-   if(B){bossScreenBox(ctx,m,w,h);drawBanner(ctx,s,m,set,B,w,h);}
+   const hold=presHold(s);// presentation queue: title -> warning -> second-form banner -> spell card
+   if(F&&!set?.reducedFlash&&hold!==2){const u=(s.time-F.at)/F.dur;if(u>=0&&u<1){ctx.globalAlpha=F.peak*(1-u)*fxOpacity(set);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);}}
+   if(B){bossScreenBox(ctx,m,w,h);drawBanner(ctx,s,m,set,B,w,h,hold>0);}
   }finally{ctx.restore();}}
  // The world pass hides canvas text while combat info is compact (V31317
  // presentation context). The spell banner is HUD chrome like RC129's HUD, so it
@@ -973,11 +1023,20 @@
  // when it would cover the boss on screen (m.bossScr, CSS px), it moves to the top centre for the rest
  // of that spell. It never outlives its boss.
  const NAME_FONT=' "Noto Serif KR",system-ui,sans-serif';
- function drawBanner(ctx,s,m,set,B,w,h){const age=s.time-B.born,mobile=m.mobile||w<800,hue=HUES[B.hue]?.[1]??'#b45cff';
+ // Presentation queue (fix round 2): 2 = boss warning up, 1 = stage title card or second-form banner up,
+ // 0 = free. The spell card waits behind any of them (never shares the top-centre slot, never truncated).
+ function presHold(s){const t=n(s.time);try{const F=root.__HAPIL_STG_FEEL_RC240__;if(F&&typeof F.warningActive==='function'&&F.warningActive(s)===true)return 2;}catch(e){}
+  try{const B=root.__HAPIL_BOSS_FORM_RC240__;if(B){const tu=typeof B.titleUntil==='function'?n(B.titleUntil(s),-1):-1,fu=typeof B.formBannerUntil==='function'?n(B.formBannerUntil(s),-1):-1;if(tu>t||fu>t)return 1;}}catch(e){}return 0;}
+ function drawBanner(ctx,s,m,set,B,w,h,held){const mobile=m.mobile||w<800,hue=HUES[B.hue]?.[1]??'#b45cff',t=s.time;
   if(m.owner&&!(n(m.owner.hp)>0)){m.banner=null;return;}
-  if(B.result&&s.time-B.resultAt>(B.result==='capture'?1.2:.8)&&!m.run){m.banner=null;return;}
-  const ease=u=>1-Math.pow(1-clamp(u,0,1),3);let big=1;if(age>1.52)big=1-ease((age-1.52)/.35);
-  const mw=t=>n(ctx.measureText?.(t)?.width,0);
+  if(B.result&&t-B.resultAt>(B.result==='capture'?1.2:.8)&&!m.run){m.banner=null;return;}
+  // The spell result goes to the STG-feel callout lane (hero side), never under the card.
+  if(B.result&&!B.resultPosted){B.resultPosted=true;let ok=false;try{ok=root.__HAPIL_STG_FEEL_RC240__?.callout?.(s,B.result==='capture'?'주문 격파!  공명 +'+Math.round(n(B.award)):'보너스 실패',B.result==='capture'?'#ffe59a':'#9a9ab0',B.result==='capture'?1.3:.9,'big')===true;}catch(e){}B.resultLocal=!ok;}
+  // Held: a card not shown yet restarts its intro when it is first shown; a shown card fades back in.
+  B.held=!!held;if(held){if(!B.shown)B.born=t;B.wasHeld=true;return;}
+  if(B.wasHeld&&B.shown)B.fadeAt=t;B.wasHeld=false;B.shown=true;const A=B.fadeAt!=null?clamp((t-B.fadeAt)/.25,0,1):1;
+  const age=t-B.born,ease=u=>1-Math.pow(1-clamp(u,0,1),3);let big=1;if(age>1.52)big=1-ease((age-1.52)/.35);
+  const mw=q=>n(ctx.measureText?.(q)?.width,0);
   ctx.font=(mobile?'9px':'10px')+' system-ui,sans-serif';const bw=mw('보너스 +00.0')||50;
   ctx.font=(mobile?'14px':'18px')+' ui-monospace,Menlo,monospace';const tw=Math.max(bw,mw('00.0')||40);
   const gap=mobile?10:14,colW=tw+gap+10,padL=mobile?18:26,maxW=Math.max(160,Math.min(w-(mobile?12:32),w*(mobile?.62:.5)));
@@ -990,19 +1049,21 @@
   let y=(h*.24)*big+(mobile?74:62)*(1-big),x0=(w-Math.max(cardW,w*.6))*big+(w-16-cardW)*(1-big),x1=w-16*(1-big);
   const S=m.bossScr;if(!B.top&&m.bossScrOk&&S){const yT=y-stripH/2;if(x0<S[2]&&x1>S[0]&&yT<S[3]&&yT+stripH>S[1])B.top=true;}
   if(B.top){x0=(w-cardW)/2;x1=x0+cardW;y=(mobile?22:46)+stripH/2;}
-  const yT=y-stripH/2,x=x0+(1-slide)*(w-x0);
-  ctx.globalAlpha=1;const G=ctx.createLinearGradient(x,0,x1,0);G.addColorStop(0,'rgba(6,4,14,0)');G.addColorStop(.14,'rgba(6,4,14,.8)');G.addColorStop(1,'rgba(6,4,14,.86)');
-  ctx.fillStyle=G;ctx.fillRect(x,yT,x1-x,stripH);ctx.fillStyle=hue;ctx.globalAlpha=.9;ctx.fillRect(x+(x1-x)*.1,yT,(x1-x)*.9,1);ctx.fillRect(x+(x1-x)*.1,yT+stripH-1,(x1-x)*.9,1);
-  ctx.textBaseline='middle';ctx.textAlign='right';const right=x1-10;
-  const rem=n(B.remaining),timer=rem.toFixed(1);ctx.globalAlpha=1;ctx.font=(mobile?'9px':'10px')+' system-ui,sans-serif';
+  // The whole card (text included) slides in from the right; the name is fitted to the settled card,
+  // so a sliding card never cuts its name.
+  const off=(1-slide)*(w-x0),yT=y-stripH/2,x=x0+off,xr=x1+off;
+  ctx.globalAlpha=A;const G=ctx.createLinearGradient(x,0,xr,0);G.addColorStop(0,'rgba(6,4,14,0)');G.addColorStop(.14,'rgba(6,4,14,.8)');G.addColorStop(1,'rgba(6,4,14,.86)');
+  ctx.fillStyle=G;ctx.fillRect(x,yT,xr-x,stripH);ctx.fillStyle=hue;ctx.globalAlpha=.9*A;ctx.fillRect(x+(xr-x)*.1,yT,(xr-x)*.9,1);ctx.fillRect(x+(xr-x)*.1,yT+stripH-1,(xr-x)*.9,1);
+  ctx.textBaseline='middle';ctx.textAlign='right';const right=xr-10;
+  const rem=n(B.remaining),timer=rem.toFixed(1);ctx.globalAlpha=A;ctx.font=(mobile?'9px':'10px')+' system-ui,sans-serif';
   const bonus=B.bonus*(1-.75*clamp(n(B.elapsedAtEnd)/Math.max(1,B.duration),0,1)),btxt=m.spellHit?'보너스 실패':'보너스 +'+bonus.toFixed(1);
   ctx.fillStyle=m.spellHit?'#8a8aa0':'#ffe59a';hudText(ctx,btxt,right,yT+stripH*.76);
   ctx.font=(mobile?'14px':'18px')+' ui-monospace,Menlo,monospace';
   ctx.fillStyle=rem<3&&!(set?.reducedFlash)?'#ff6a6a':'#f2f4ff';if(rem>0||m.run)hudText(ctx,timer,right,yT+stripH*.34);// no "0.0" once the spell is over
   const tx=right-tw-gap,room=Math.max(40,tx-x-padL*.5);
-  ctx.fillStyle='#ffffff';ctx.globalAlpha=.72;ctx.font=(mobile?'9px':'11px')+' system-ui,"Noto Serif KR",sans-serif';hudText(ctx,fitText(ctx,bossLine,room),tx,yT+stripH*.27);
-  ctx.globalAlpha=1;ctx.font='bold '+fs+'px'+NAME_FONT;ctx.fillStyle='#ffffff';hudText(ctx,fitText(ctx,B.name,room),tx,yT+stripH*.68);
-  if(B.result&&s.time-B.resultAt<(B.result==='capture'?1.2:.8)){const u=(s.time-B.resultAt)/(B.result==='capture'?1.2:.8);ctx.globalAlpha=1-u*u;ctx.textAlign='center';
+  ctx.fillStyle='#ffffff';ctx.globalAlpha=.72*A;ctx.font=(mobile?'9px':'11px')+' system-ui,"Noto Serif KR",sans-serif';hudText(ctx,fitText(ctx,bossLine,room),tx,yT+stripH*.27);
+  ctx.globalAlpha=A;ctx.font='bold '+fs+'px'+NAME_FONT;ctx.fillStyle='#ffffff';hudText(ctx,fitText(ctx,B.name,room),tx,yT+stripH*.68);
+  if(B.resultLocal&&B.result&&t-B.resultAt<(B.result==='capture'?1.2:.8)){const u=(t-B.resultAt)/(B.result==='capture'?1.2:.8);ctx.globalAlpha=1-u*u;ctx.textAlign='center';
    ctx.font='bold '+(mobile?'20px':'28px')+NAME_FONT;ctx.fillStyle=B.result==='capture'?'#ffe59a':'#9a9ab0';
    let cy=h*.36;try{const v=root.__HAPIL_STG_FEEL_RC240__?.calloutY?.(w,h,mobile);if(Number.isFinite(v))cy=v;}catch(e){}
    hudText(ctx,B.result==='capture'?'주문 격파!  공명 +'+Math.round(n(B.award)):'보너스 실패',w/2,cy);}}
@@ -1017,8 +1078,10 @@
    // Thick, high-contrast, pulsing: a dark underlay, the hue line and a white core, sized in CSS px
    // (m.kc = CSS px per G px), so a phone shows ~3 px, never a hairline.
    const kc=clamp(n(m.kc,1),.2,4),pulse=set?.reducedFlash?1:.5+.5*Math.sin(t*TAU*5+v.bi),wc=(m.mobile?3.6:2.9)*(.85+.3*pulse);
-   ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.lineTo(ex,ey);
-   ctx.lineWidth=(wc+2.6)/kc;ctx.strokeStyle='rgba(6,3,12,.85)';ctx.globalAlpha=(.3+.45*u)*op;ctx.stroke();
+   ctx.lineCap='round';ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.lineTo(ex,ey);
+   // Soft additive glow (R2): a wide, faint hue stroke under the line, pulsing with it.
+   if(!set?.lowFx){ctx.globalCompositeOperation='lighter';ctx.lineWidth=wc*3.4/kc;ctx.strokeStyle=col;ctx.globalAlpha=clamp((.12+.2*u)*op*(.7+.3*pulse),0,.45);ctx.stroke();}
+   ctx.globalCompositeOperation='source-over';ctx.lineWidth=(wc+2.6)/kc;ctx.strokeStyle='rgba(6,3,12,.85)';ctx.globalAlpha=(.3+.45*u)*op;ctx.stroke();
    ctx.lineWidth=wc/kc;ctx.strokeStyle=col;ctx.globalAlpha=clamp((.5+.45*u)*op*(.75+.25*pulse),0,1);ctx.stroke();
    ctx.lineWidth=Math.max(.7,wc*.34)/kc;ctx.strokeStyle='#ffffff';ctx.globalAlpha=(.25+.55*u)*op;ctx.stroke();
    const g=glowSprite(v.hue|0);if(g){const r=8+18*u;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=clamp((.45+.55*u)*op,0,1);ctx.drawImage(g.c,v.x-r,v.y-r,2*r,2*r);d++;}}
@@ -1032,20 +1095,23 @@
    if(inner&&!low&&!m.mobile){ctx.save();ctx.rotate(-t*.6*.72);ctx.drawImage(inner.c,-80,-80,160,160);ctx.restore();}
   }finally{ctx.restore();}}
  function drawDim(ctx,s,m,set){const a=m.dim;if(a<.01)return;if(root.__HAPIL_RC95_NATIVE__?.locked?.(s)===true)return;const cv=ctx.canvas;if(!cv)return;const dimA=m.dimLevel*a;
-  ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.fillStyle='rgba(4,6,16,'+dimA.toFixed(3)+')';ctx.fillRect(0,0,cv.width,cv.height);
+  // R2: a multiply darken (keeps hue and chroma; the same on PC and phone) with a faint cool cast,
+  // plus at most .2 desaturation on PC (half the old .4; phone keeps none, so both read alike).
+  ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;const k=1-dimA;ctx.globalCompositeOperation='multiply';
+   ctx.fillStyle='rgb('+Math.round(255*k*.95)+','+Math.round(255*k*.97)+','+Math.round(255*Math.min(1,k*1.04))+')';ctx.fillRect(0,0,cv.width,cv.height);ctx.globalCompositeOperation='source-over';
    const v=!set?.lowFx&&vignetteSprite();if(v){ctx.globalAlpha=clamp(dimA/.45,0,1);ctx.drawImage(v.c,0,0,cv.width,cv.height);}
-   if(!set?.lowFx&&!m.mobile){ctx.globalCompositeOperation='saturation';ctx.globalAlpha=.4*a;ctx.fillStyle='#808080';ctx.fillRect(0,0,cv.width,cv.height);}
+   if(!set?.lowFx&&!m.mobile){ctx.globalCompositeOperation='saturation';ctx.globalAlpha=.2*a;ctx.fillStyle='#808080';ctx.fillRect(0,0,cv.width,cv.height);}
   }finally{ctx.restore();}}
  // Swing trail: thin strokes through the parked bullets of each stroke, under the bullets,
  // fading out as the formation releases. Strokes only (no images, no per-bullet state).
  function drawSigTrail(ctx,s,m,set){const run=m.run,S=run&&run.sig;if(!S||!S.active||!S.buf.n)return;const B=S.buf,pt=run.t-S.t0;if(!(pt>=0)||!Number.isFinite(pt))return;
   let rel=1e9;for(let j=0;j<B.n;j++){const m0=B.qw[j]!==0?B.q0[j]:B.r[j];if(m0<rel)rel=m0;}/* fades once the weapon starts to move */const fade=clamp(1-(pt-rel)/.35,0,1);if(fade<=0)return;
-  const op=fxOpacity(set)*(set?.lowFx?.5:1)*fade,remap=m.ctx&&m.ctx.remap;if(op<.02)return;ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.lineJoin='round';
+  const op=fxOpacity(set)*(set?.lowFx?.5:1)*fade,remap=m.ctx&&m.ctx.remap;if(op<.02)return;const kc=clamp(n(m.kc,1),.2,4);// widths in CSS px (R2: the phone trail was ~1.9 px)ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.lineJoin='round';
   for(let sid=0;sid<16;sid++){let hue=-1,open=false,px=0,py=0;
    for(let pass=0;pass<2;pass++){ctx.beginPath();open=false;
     for(let j=0;j<B.n;j++){if(B.st[j]!==sid||B.t[j]>pt)continue;const x=B.x[j],y=B.y[j];if(!(x===x&&y===y))continue;if(hue<0)hue=remap?remap[B.hu[j]]:B.hu[j];
      if(!open||Math.abs(x-px)+Math.abs(y-py)>70){ctx.moveTo(x,y);open=true;}else ctx.lineTo(x,y);px=x;py=y;}
-    if(hue<0)break;if(pass===0){ctx.strokeStyle='rgba(7,4,13,.7)';ctx.lineWidth=m.mobile?7:6;ctx.globalAlpha=.6*op;}else{ctx.strokeStyle=HUES[hue|0]?.[1]??'#ffffff';ctx.lineWidth=m.mobile?3:2.5;ctx.globalAlpha=.75*op;}ctx.stroke();}}
+    if(hue<0)break;if(pass===0){ctx.strokeStyle='rgba(7,4,13,.7)';ctx.lineWidth=(m.mobile?6.5:5.5)/kc;ctx.globalAlpha=.6*op;}else{ctx.strokeStyle=HUES[hue|0]?.[1]??'#ffffff';ctx.lineWidth=(m.mobile?3:2.4)/kc;ctx.globalAlpha=.75*op;}ctx.stroke();}}
   ctx.globalAlpha=1;}
  // Swing arc: while a formation swings, fading arcs (strokes only) trace the path its far end has swept
  // about the pivot, and fade out over .45 s once it releases. Up to three pivots (wings: one per side).
@@ -1083,7 +1149,7 @@
   // World transform, kept for the screen pass (card vs boss box) and CSS-px line widths.
   try{const M=ctx.getTransform?.();if(M&&Number.isFinite(M.a+M.b+M.c+M.d+M.e+M.f)){const W=m.wm??=new Float64Array(6);W[0]=M.a;W[1]=M.b;W[2]=M.c;W[3]=M.d;W[4]=M.e;W[5]=M.f;m.wmOk=true;m.kc=(Math.hypot(M.a,M.b)||1)/cssRatio(ctx);}}catch(e){}
   // Layering: decoration (sparks, telegraphs) and hero-side visuals under the bullets; bullets on top.
-  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;drawSigTrail(ctx,s,m,set);ctx.globalAlpha=1;drawSwingArc(ctx,s,m,set);ctx.globalAlpha=1;drawNative(ctx,s,m,set);ctx.globalAlpha=1;
+  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;if(m.run&&m.run.sig&&m.run.sig.active){const clip=typeof ctx.clip==='function'&&floorPoly();if(clip)ctx.save();try{if(clip)floorClip(ctx);drawSigTrail(ctx,s,m,set);ctx.globalAlpha=1;drawSwingArc(ctx,s,m,set);}finally{if(clip)ctx.restore();}}ctx.globalAlpha=1;drawNative(ctx,s,m,set);ctx.globalAlpha=1;
    const fd=hook('draw');if(fd){ctx.save();try{draws+=n(fd.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set));}catch(e){fail(e);}finally{ctx.restore();}}
    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;draws+=drawBullets(ctx,s,m,set);
    drawHitFx(ctx,s,m,set);drawFocus(ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}
@@ -1180,7 +1246,7 @@
   world:s=>(s&&worlds.get(s))||null,
   util:Object.freeze({heroPalette,HERO_SIDE,REMAP,screenSpace,hudText,fitText,project,heart,muzzle,fullAuto,dActive,gmode,settingsNow,fxOpacity,FIELD,HUES,T,HIT}),
   __test:{SPELLS,FAMILY_SPELLS,MODES,FIELD,CULL,HIT,T,HUES,HERO_V,HEART_R,DENSITY,LIVE_CAP,createPool,makeRun,runStep,makeCtx,frameCtx,spawn,stepPool,sweptDist,safeY,peakFor,spellFor,familyOf,headless,mulberry32,hash,
-   simTick:(s,dt)=>simTick(s,dt),drawLayer:(c,s,set)=>drawLayer(c,s,set),dangerAt,imminent,governor,install,recheck,worlds,mem:s=>worlds.get(s),injectSettings,
+   simTick:(s,dt)=>simTick(s,dt),bodyPaint,drawDim,floorFade,floorPoly,drawLayer:(c,s,set)=>drawLayer(c,s,set),dangerAt,imminent,governor,install,recheck,worlds,mem:s=>worlds.get(s),injectSettings,
    getGov:()=>gov,setGov:v=>{gov=v;},seams,drawScreen,drawBanner,wrapFeedback,volleyPlan,VOLLEY,TELE_MIN,REMAP,HERO_SIDE,heroPalette,titleFilter,fitText,WEAPON_GENS:GEN,BOSS_WEAPONS,WEAPON_ROWS,MB_NAMES,FAMILY_WEAPON,weaponFor,SIG,F_SIG,sigCount,makeSig,sigStep}};
  root.__HAPIL_DANMAKU_RC240__=api;
  let attempts=0;(function ready(){if(!install()&&++attempts<1200)root.setTimeout?.(ready,10);})();

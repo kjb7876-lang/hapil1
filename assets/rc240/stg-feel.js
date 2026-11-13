@@ -40,7 +40,7 @@
   score:0,chain:0,chainUntil:-1,maxChain:0,mult:1,collected:0,grazes:0,
   charge:{on:false,start:0,extra:0,t2Sounded:false,cdUntil:-1,cdDur:1,released:-9},duckUntil:-1,aPow:0,aSeen:new WeakSet(),aWin:[],tameWin:[],autoAt:-1,
   beams:[],bolts:[],sparks:[],impacts:[],awakeWas:false,warned:new Set(),warn:null,fight:null,tally:null,kill:null,
-  calls:Array.from({length:CALL_N},()=>({text:'',color:'#ffffff',at:-99,dur:0,drawn:-1})),ev:{at:-1,reason:'',n:0,coins:0,big:false},sounds:{},lastHx:640,lastHy:400};}
+  calls:Array.from({length:CALL_N},()=>({text:'',color:'#ffffff',at:-99,dur:0,drawn:-1,big:false})),ev:{at:-1,reason:'',n:0,coins:0,big:false},sounds:{},lastHx:640,lastHy:400};}
  function F(s){let f=worlds.get(s);if(!f){f=fresh(s);worlds.set(s,f);}return f;}
  function reset(s,reason){kitCall('reset',s,reason);const f=worlds.get(s);if(!f)return;const keep=f.warned;const g=fresh(s);if(reason!=='zone')g.warned=keep;worlds.set(s,g);}
  function rnd(f){f.rng=(Math.imul(f.rng^(f.rng>>>15),0x2c1b3c6d)+0x6d2b79f5)|0;return ((f.rng>>>0)%100000)/100000;}
@@ -67,10 +67,13 @@
  function duck(s,sec=DUCK){if(!active()||!s)return;const f=F(s),t=n(s.time);f.duckUntil=Math.max(f.duckUntil,t+clamp(n(sec,DUCK),0,1));}
  // Callouts: RC240 announcements are drawn in a screen band clear of the hero/boss boxes and the
  // native debuff labels (no native world floats over the hero). Fixed ring of CALL_N slots.
- function callout(s,text,color,duration=.9){if(!active()||!s||typeof text!=='string')return false;const f=F(s),t=n(s.time);let k=f.calls[0];
-  for(let i=1;i<CALL_N;i++)if(f.calls[i].at<k.at)k=f.calls[i];k.text=text;k.color=typeof color==='string'?color:'#ffffff';k.at=t;k.dur=clamp(n(duration,.9),.3,3);return true;}
+ // Fix round 2: the band sits in the hero-side lane (x = calloutX), out of the top-centre presentation
+ // column (score, spell card, warning). size 'big' is the spell result line.
+ function callout(s,text,color,duration=.9,size){if(!active()||!s||typeof text!=='string')return false;const f=F(s),t=n(s.time);let k=f.calls[0];
+  for(let i=1;i<CALL_N;i++)if(f.calls[i].at<k.at)k=f.calls[i];k.text=text;k.color=typeof color==='string'?color:'#ffffff';k.at=t;k.dur=clamp(n(duration,.9),.3,3);k.big=size==='big';return true;}
  const float=callout;
  function calloutY(w,h,mobile){return mobile?108:Math.max(120,n(h,720)*.22);}
+ function calloutX(w,mobile){return n(w,1280)*(mobile?.3:.25);}
  function lowFx(set){return !!set?.lowFx;}
  // Hero colour family (RC128 hero colour); a hero colour inside the enemy magenta band swaps to its accent.
  const TONES=new Map(),TONE0=Object.freeze({key:'tone0',body:'#ffe27a',core:'#ffffff',edge:'#2b2018',ring:'#9ff3ff'});
@@ -319,7 +322,8 @@
   if(f.kill)draws+=drawKill(ctx,f,t,set);
   if(f.impacts.length)draws+=drawImpacts(ctx,f,t,heroTone(s));
   ctx.globalCompositeOperation='source-over';drawBolts(ctx,f,t);
-  if(m)drawHeartRing(ctx,s,m,set,hx,hy,t);
+  // The screen pass draws the ring above native art when it can place it; the world ring is the fallback.
+  if(m&&!(t-n(f.ringScreenAt,-9)<.2&&t>=n(f.ringScreenAt,-9)))drawHeartRing(ctx,s,m,set,hx,hy,t);
   ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
   metrics.draws++;metrics.drawImages=draws;metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;return draws;}
 
@@ -354,36 +358,70 @@
    y=C.top?(cm?22:46)+sh/2:h*.24*bg+(cm?74:62)*(1-bg),yT=y-sh/2,yB=y+sh/2;
    if(cy-ph/2<yB&&cy+ph/2>yT){const up=yT-ph/2-6,dn=yB+ph/2+6;cy=(!mobile&&up>=ph/2+4)?up:(dn+ph/2<=h*.5?dn:Math.max(ph/2+4,up));}}
   WB[0]=cx;WB[1]=n(cy,84);WB[2]=pw;WB[3]=ph;return WB;}
+ // Warning edge vignette (fix round 2): dark, slightly red, source-over only, so blacks never lift.
+ // Radial gradients cached per ctx/size (no per-frame allocation, no image draws in the HUD pass).
+ const VIG={edge:'rgba(34,0,8,.66)',mid:'rgba(20,0,6,.2)',g:null,ctx:null,w:0,h:0};
+ function vignette(ctx,w,h){if(VIG.g&&VIG.ctx===ctx&&VIG.w===w&&VIG.h===h)return VIG.g;if(typeof ctx.createRadialGradient!=='function')return null;
+  const R=Math.hypot(w,h)/2,G=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.3,w/2,h/2,R);G.addColorStop(0,'rgba(0,0,0,0)');G.addColorStop(.45,VIG.mid);G.addColorStop(1,VIG.edge);
+  VIG.g=G;VIG.ctx=ctx;VIG.w=w;VIG.h=h;return G;}
+ // Dark separation disc under the screen-pass heart ring (dims native labels / whip art right at the core).
+ const DISC={g:null,ctx:null};
+ function disc(ctx){if(DISC.g&&DISC.ctx===ctx)return DISC.g;if(typeof ctx.createRadialGradient!=='function')return null;const G=ctx.createRadialGradient(0,0,0,0,0,34);
+  G.addColorStop(0,'rgba(6,3,12,.8)');G.addColorStop(.45,'rgba(6,3,12,.55)');G.addColorStop(1,'rgba(6,3,12,0)');DISC.g=G;DISC.ctx=ctx;return G;}
+ // World (G px) -> CSS px through the world transform the danmaku world pass saved (m.wm, device px).
+ const SP={x:0,y:0};
+ function toScreen(ctx,m,x,y,w,h){const M=m?.wm,cv=ctx.canvas;if(!M||!m.wmOk||!cv||!(cv.width>0)||!(cv.height>0))return null;const X=(M[0]*x+M[2]*y+M[4])*w/cv.width,Y=(M[1]*x+M[3]*y+M[5])*h/cv.height;if(!(X===X&&Y===Y))return null;SP.x=X;SP.y=Y;return SP;}
  function screenFeel(ctx,s,m,set,f,w,h,t,u){const mobile=!!m?.mobile||w<800||h<500,txt=(a,x,y)=>u.hudText(ctx,a,x,y),quiet=!!set?.reducedFlash;
   ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.textBaseline='middle';ctx.direction='ltr';
-  // Score + chain (top centre, clear of RC129's left box and the RC240 banner on the right); compact one line on phones.
-  if(f.score>0||f.chain>=5){ctx.textAlign='center';const cx=w*.5,y0=mobile?12:16;
-   if(!mobile){ctx.globalAlpha=.92;ctx.font='bold 13px ui-monospace,Menlo,monospace';ctx.fillStyle='#000000';txt('점수 '+fmt(f.score),cx+1,y0+1);ctx.fillStyle='#f6f0ff';txt('점수 '+fmt(f.score),cx,y0);
-    if(f.chain>=5){ctx.globalAlpha=.9;ctx.font='bold 12px ui-monospace,Menlo,monospace';const line='연쇄 '+f.chain+' ×'+f.mult.toFixed(1);ctx.fillStyle='#000000';txt(line,cx+1,y0+17);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(line,cx,y0+16);}}
-   else{const line=f.chain>=10?'점수 '+fmt(f.score)+' · 연쇄 '+f.chain+' ×'+f.mult.toFixed(1):'점수 '+fmt(f.score);ctx.globalAlpha=.9;ctx.font='bold 11px ui-monospace,Menlo,monospace';
-    ctx.fillStyle='#000000';txt(line,cx+1,y0+1);ctx.fillStyle=f.mult>=2&&f.chain>=10?'#ffd34d':'#f6f0ff';txt(line,cx,y0);}}
-  // Kill beat: a short additive flash, then a dark hold before the tally slides in.
-  const K=f.kill;if(K){const age=t-K.at;if(age>=0&&age<.12){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(quiet?.18:.42)*(1-age/.12);ctx.fillStyle='#fff3d8';ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();ctx.globalCompositeOperation='source-over';}
-   else if(age>=.12&&age<.7){ctx.globalAlpha=.28*(1-(age-.12)/.58);ctx.fillStyle='#05030a';ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}}
-  // Boss warning: ornamented band in the upper third, after the stage title card.
-  let bandBottom=-1;const Wn=f.warn;if(Wn){const age=t-Wn.at;if(age>=0&&age<Wn.dur){const fade=Math.min(1,age/.18)*Math.min(1,(Wn.dur-age)/.3),B=warnBox(w,h,mobile,Wn.big,m,t),cx=B[0],cy=(Wn.cy=Wn.cy==null||age<.02?B[1]:Wn.cy+(B[1]-Wn.cy)*.2),pw0=B[2],ph=B[3],pw=pw0*(quiet?1:.3+.7*ease3(age/.28));
-    ornPanel(ctx,cx,cy,pw,ph,fade,GOLD);bandBottom=cy+ph/2;const ty=Wn.big?cy-ph*.16:cy;ctx.textAlign='center';ctx.lineJoin='round';
+  // Score + chain: top right (PC) / left of the settings button (phone), out of the top-centre presentation column.
+  if(f.score>0||f.chain>=5){ctx.textAlign='right';const rx=mobile?w-58:w-24,y0=mobile?14:18;
+   if(!mobile){ctx.globalAlpha=.92;ctx.font='bold 13px ui-monospace,Menlo,monospace';ctx.fillStyle='#000000';txt('점수 '+fmt(f.score),rx+1,y0+1);ctx.fillStyle='#f6f0ff';txt('점수 '+fmt(f.score),rx,y0);
+    if(f.chain>=5){ctx.globalAlpha=.9;ctx.font='bold 12px ui-monospace,Menlo,monospace';const line='연쇄 '+f.chain+' ×'+f.mult.toFixed(1);ctx.fillStyle='#000000';txt(line,rx+1,y0+17);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(line,rx,y0+16);}}
+   else{ctx.globalAlpha=.9;ctx.font='bold 11px ui-monospace,Menlo,monospace';const line='점수 '+fmt(f.score);ctx.fillStyle='#000000';txt(line,rx+1,y0+1);ctx.fillStyle='#f6f0ff';txt(line,rx,y0);
+    if(f.chain>=10){const l2='연쇄 '+f.chain+' ×'+f.mult.toFixed(1);ctx.font='bold 10px ui-monospace,Menlo,monospace';ctx.fillStyle='#000000';txt(l2,rx+1,y0+14);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(l2,rx,y0+13);}}}
+  // Kill beat: a short additive flash, a spotlight dim held on the boss (reads as a hit-stop), then
+  // two thick rings and rays from the boss in screen space; the tally comes after.
+  const K=f.kill;if(K){const age=t-K.at;let bx=w*.68,by=h*.42;const p=toScreen(ctx,m,K.x,K.y,w,h);if(p){bx=clamp(p.x,0,w);by=clamp(p.y,0,h);}
+   if(age>=0&&age<.12){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(quiet?.18:.42)*(1-age/.12);ctx.fillStyle='#fff3d8';ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();ctx.globalCompositeOperation='source-over';}
+   if(age>=.06&&age<.8){const v=age<.5?1:1-(age-.5)/.3,G=ctx.createRadialGradient?.(bx,by,40,bx,by,Math.max(w,h)*.8);if(G){G.addColorStop(0,'rgba(5,3,10,0)');G.addColorStop(.25,'rgba(5,3,10,.32)');G.addColorStop(1,'rgba(5,3,10,.55)');ctx.globalAlpha=v;ctx.fillStyle=G;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}}
+   if(age>=0&&age<.9){const Rm=mobile?Math.max(w,h)*.42:Math.max(w,h)*.36;ctx.lineCap='round';
+    for(let j=0;j<2;j++){const a=age-j*.12;if(a<0)continue;const v=a/.65;if(v>=1)continue;const R=24+Rm*ease3(v),lw=(mobile?8:10)*(1-v)+2;
+     ctx.globalAlpha=.7*(1-v);ctx.lineWidth=lw+3;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(bx,by,R,0,TAU);ctx.stroke();
+     ctx.globalAlpha=(quiet?.6:.95)*(1-v);ctx.lineWidth=lw;ctx.strokeStyle=j?'#ffd27a':'#fff3c8';ctx.beginPath();ctx.arc(bx,by,R,0,TAU);ctx.stroke();}
+    const v=clamp(age/.5,0,1);if(v<1){ctx.globalAlpha=(quiet?.35:.6)*(1-v);ctx.strokeStyle='#ffe59a';ctx.lineWidth=(mobile?2.5:3)*(1-v)+1;ctx.beginPath();
+     for(let j=0;j<12;j++){const ang=j*TAU/12+.2,L0=30+Rm*.9*ease3(v),L1=L0*.55;ctx.moveTo(bx+Math.cos(ang)*L1,by+Math.sin(ang)*L1);ctx.lineTo(bx+Math.cos(ang)*L0,by+Math.sin(ang)*L0);}ctx.stroke();}}}
+  // Boss warning: dark red edge vignette + ornamented band in the upper third, after the stage title card.
+  // The spell card is held by the danmaku layer while it is up, so the band takes the free slot.
+  const Wn=f.warn;if(Wn){const age=t-Wn.at;if(age>=0&&age<Wn.dur){const fade=Math.min(1,age/.18)*Math.min(1,(Wn.dur-age)/.3);
+    const vg=vignette(ctx,w,h);if(vg){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=fade*(quiet?.75:.6+.4*(.5+.5*Math.sin(age*TAU*1.2)));ctx.fillStyle=vg;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}
+    const B=warnBox(w,h,mobile,Wn.big,m?.banner&&!m.banner.held?m:null,t),cx=B[0],cy=(Wn.cy=Wn.cy==null||age<.02?B[1]:Wn.cy+(B[1]-Wn.cy)*.2),pw0=B[2],ph=B[3],pw=pw0*(quiet?1:.3+.7*ease3(age/.28));
+    ornPanel(ctx,cx,cy,pw,ph,fade,GOLD);const ty=Wn.big?cy-ph*.16:cy;ctx.textAlign='center';ctx.lineJoin='round';
     ctx.font='bold '+(Wn.big?(mobile?17:24):(mobile?13:17))+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.globalAlpha=fade;ctx.lineWidth=3;ctx.strokeStyle=INK;const title=Wn.big?'경고 · 거대 반응 접근':'경고 · 반응 접근';
     hudStroke(ctx,title,cx,ty);ctx.fillStyle='#ff5a62';txt(title,cx,ty);
     if(Wn.name&&Wn.big){ctx.font=(mobile?11:14)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.fillStyle='#efe2c4';ctx.globalAlpha=.92*fade;txt(u.fitText?u.fitText(ctx,Wn.name,pw*.8):Wn.name,cx,cy+ph*.27);}}}
-  // Callouts: stacked in the same band (below the warning when it is up), clear of actors and debuff labels.
-  let cy=bandBottom>0?bandBottom+(mobile?12:16):calloutY(w,h,mobile),row=0;ctx.textAlign='center';ctx.lineJoin='round';
+  // Callouts: the hero-side lane (left), in the upper band, clear of the centre column and debuff labels.
+  const lx=calloutX(w,mobile);let row=0;ctx.textAlign='center';ctx.lineJoin='round';const cy=calloutY(w,h,mobile);
   for(let pass=0;pass<CALL_N;pass++){let k=null;for(let i=0;i<CALL_N;i++){const c=f.calls[i],age=t-c.at;if(age<0||age>=c.dur||c.drawn===t)continue;if(!k||c.at>k.at)k=c;}if(!k)break;k.drawn=t;
-   const age=t-k.at,a=Math.min(1,age/.1)*Math.min(1,(k.dur-age)/.25),y=cy+row*(mobile?16:20)-(quiet?0:6*Math.min(1,age/.3));ctx.font='bold '+(mobile?13:16)+'px "Noto Serif KR","Nanum Myeongjo",serif';
-   ctx.globalAlpha=a;ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,k.text,w/2,y);ctx.fillStyle=k.color;txt(k.text,w/2,y);row++;}
+   const age=t-k.at,a=Math.min(1,age/.1)*Math.min(1,(k.dur-age)/.25),fz=k.big?(mobile?16:21):(mobile?13:16),y=cy+row*(mobile?17:21)+(k.big?2:0)-(quiet?0:6*Math.min(1,age/.3));ctx.font='bold '+fz+'px "Noto Serif KR","Nanum Myeongjo",serif';
+   ctx.globalAlpha=a;ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,k.text,lx,y);ctx.fillStyle=k.color;txt(k.text,lx,y);row+=k.big?1.3:1;}
   for(let i=0;i<CALL_N;i++)f.calls[i].drawn=-1;
-  // Result tally: slides in after the kill beat; ornamented panel; zero rows were dropped at creation.
+  // Heart ring above everything native (debuff labels, whip / lance art): screen pass, hero colour, dark disc.
+  if(m&&!(f.kill&&t-f.kill.at<.12)&&!(titleUntil(s)>t)){const R=heartRing(s,m,set,n(m.hx,f.lastHx),n(m.hy,f.lastHy),t);const p=R.on?toScreen(ctx,m,n(m.hx,f.lastHx),n(m.hy,f.lastHy),w,h):null;
+   if(p){f.ringScreenAt=t;const X=p.x,Y=p.y,r=(mobile?9:10)+(R.r-8.5),T=heroTone(s),dc=disc(ctx);ctx.globalCompositeOperation='source-over';ctx.lineCap='butt';
+    if(dc){ctx.globalAlpha=.85;ctx.save();ctx.translate(X,Y);ctx.fillStyle=dc;ctx.beginPath();ctx.arc(0,0,34,0,TAU);ctx.fill();ctx.restore();}
+    ctx.globalAlpha=.95;ctx.lineWidth=5;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
+    ctx.globalAlpha=R.alpha;ctx.lineWidth=2.4;ctx.strokeStyle=T.body;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
+    ctx.globalAlpha=.9;ctx.lineWidth=1;ctx.strokeStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,r-2.2,0,TAU);ctx.stroke();
+    ctx.globalAlpha=1;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,mobile?2.2:2.4,0,TAU);ctx.fill();
+    if(R.near>.02){ctx.globalAlpha=.8*R.near;ctx.lineWidth=1.6;ctx.strokeStyle=T.ring;ctx.beginPath();ctx.arc(X,Y,r+5,0,TAU);ctx.stroke();}}}
+  // Result tally: after the kill beat, centred, larger, counting up; zero rows were dropped at creation.
   const T=f.tally;if(T){const age=t-T.at;if(age>=TALLY_LIFE)f.tally=null;else if(age>=0&&!modalOpen(s)&&T.rows){const k=clamp(age/1.2,0,1),fade=Math.min(1,age/.2)*Math.min(1,(TALLY_LIFE-age)/.4);
-   const pw=mobile?196:250,lh=mobile?14:18,ph=lh*(T.rows.length+1)+18,slide=quiet?0:(1-ease3(age/.35))*(pw+30),x0=w-pw-(mobile?14:28)+slide,y0=Math.max(mobile?56:64,h*.42-ph/2);
-   ornPanel(ctx,x0+pw/2,y0+ph/2,pw,ph,fade,GOLD);
-   ctx.globalAlpha=fade;ctx.textAlign='center';ctx.font='bold '+(mobile?12:15)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.fillStyle='#ffe59a';txt('격파 결산',x0+pw/2,y0+lh*.5+9);
-   ctx.font=(mobile?10:12)+'px system-ui,sans-serif';for(let i=0;i<T.rows.length;i++){const r=T.rows[i],y=y0+lh*(i+1.5)+9,v=r[1]==='time'?r[2].toFixed(1)+'s':r[1]==='frac'?Math.round(r[2])+'/'+Math.round(T.spells):r[1]==='plus'?'+'+fmt(r[2]*k):fmt(r[2]*k);
-    ctx.textAlign='left';ctx.fillStyle='#c9c4d8';txt(r[0],x0+16,y);ctx.textAlign='right';ctx.fillStyle='#ffffff';txt(v,x0+pw-16,y);}}}}
+   const pw=mobile?Math.min(300,w*.46):Math.min(420,w*.36),lh=mobile?18:26,ph=lh*(T.rows.length+1)+(mobile?20:28),rise=quiet?0:(1-ease3(age/.3))*14,x0=(w-pw)/2,y0=Math.max(mobile?44:60,h*(mobile?.3:.36)-ph/2)+rise,cx=w/2;
+   ctx.globalAlpha=.35*fade;ctx.fillStyle='#05030a';ctx.beginPath();ctx.rect(0,y0-10,w,ph+20);ctx.fill();
+   ornPanel(ctx,cx,y0+ph/2,pw,ph,fade,GOLD);
+   ctx.globalAlpha=fade;ctx.textAlign='center';ctx.font='bold '+(mobile?17:24)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,'격파 결산',cx,y0+lh*.5+10);ctx.fillStyle='#ffe59a';txt('격파 결산',cx,y0+lh*.5+10);
+   ctx.font=(mobile?13:17)+'px system-ui,sans-serif';const pad=mobile?18:28;for(let i=0;i<T.rows.length;i++){const r=T.rows[i],y=y0+lh*(i+1.5)+(mobile?10:14),v=r[1]==='time'?(r[2]*k).toFixed(1)+'s':r[1]==='frac'?Math.round(r[2]*k)+'/'+Math.round(T.spells):r[1]==='plus'?'+'+fmt(r[2]*k):fmt(r[2]*k);
+    ctx.textAlign='left';ctx.fillStyle='#c9c4d8';txt(r[0],x0+pad,y);ctx.textAlign='right';ctx.fillStyle=r[1]==='plus'?'#ffe59a':'#ffffff';txt(v,x0+pw-pad,y);}}}}
 
  // ---------------------------------------------------------------- flow streaks (background, before RC240 dim)
  const STREAK_SEEDS=[];for(let i=0;i<28;i++){const a=Math.sin(i*12.9898)*43758.5453,b=Math.sin(i*78.233)*12345.678,c=Math.sin(i*39.425)*24680.135;STREAK_SEEDS.push({y:a-Math.floor(a),v:b-Math.floor(b),l:c-Math.floor(c),g:i%3});}
@@ -402,7 +440,8 @@
 
  // ---------------------------------------------------------------- API
  const api={version:VERSION,tick,draw,drawScreen,drawBackground,onCancel,onGraze,onSpellEnd,onHit,onOwner,reset,
-  play,duck,heartImpact,callout,calloutY,warningActive,warnUntil,killBeat,heroTone,glowSprite,ringSprite,ornPanel,
+  play,duck,heartImpact,callout,calloutY,calloutX,
+  toScreen:(ctx,m,x,y,w,h)=>{const p=toScreen(ctx,m,x,y,w,h);return p?{x:p.x,y:p.y}:null;},warningActive,warnUntil,killBeat,heroTone,glowSprite,ringSprite,ornPanel,
   impacts:s=>worlds.get(s)?.impacts.length??0,
   assets:()=>({hit6:hit.state,loads:hit.loads}),
   dropCoins(s,x,y,count=1){if(!active()||!s||!(Number.isFinite(x)&&Number.isFinite(y)))return 0;const f=F(s);let c=0;const N=clamp(Math.floor(n(count,0)),0,24);for(let j=0;j<N;j++)if(spawnCoin(f,x+(j%3-1)*6,y-(j/3|0)*5,1))c++;return c;},
@@ -414,7 +453,7 @@
   metrics:()=>({...metrics,lastError}),
   state(s){const f=s&&worlds.get(s);if(!f)return null;return {score:f.score,chain:f.chain,maxChain:f.maxChain,mult:f.mult,coins:f.coins.live,cap:f.capNow,collected:f.collected,grazes:f.grazes,aPow:f.aPow,
    charging:f.charge.on,bolts:f.bolts.length,cdUntil:f.charge.cdUntil,beams:f.beams.length,warn:f.warn?{...f.warn}:null,tally:f.tally?{...f.tally}:null,fight:f.fight?{...f.fight}:null};},
-  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite,HIT6,KILL_BEAT,warnBox,heartRing:(s,m,set)=>{const f=worlds.get(s);const h=heartRing(s,m,set??{},n(m?.hx,f?.lastHx??640),n(m?.hy,f?.lastHy??400),n(s.time));return {...h};},
+  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite,HIT6,KILL_BEAT,warnBox,warnVignette:()=>({edge:VIG.edge,mid:VIG.mid}),toScreen,heartRing:(s,m,set)=>{const f=worlds.get(s);const h=heartRing(s,m,set??{},n(m?.hx,f?.lastHx??640),n(m?.hy,f?.lastHy??400),n(s.time));return {...h};},
    beamRows:s=>(worlds.get(s)?.beams??[]).map(b=>({ax:b.ax,ay:b.ay,tx:b.tx,ty:b.ty,color:b.color,hasT:b.hasT})),impactRows:s=>[...(worlds.get(s)?.impacts??[])]}};
  Object.defineProperty(root,'__HAPIL_STG_FEEL_RC240__',{value:Object.freeze(api),configurable:true,writable:false,enumerable:false});
 })(typeof window==='object'?window:globalThis);
