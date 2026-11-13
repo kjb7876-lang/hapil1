@@ -14,9 +14,13 @@
  const COIN_CAP={pc:256,mobile:96,lowFx:64},COIN_VALUE=[10,50,500],COIN_SIZE=[12,12,18];
  const CHAIN_WINDOW=1.2,MULT_CAP=4,T1=.7,T2=1.5,CD1=2,CD2=3.5,AUTO_EVERY=7;
  const TAME_SHARE=.2,TAME_SHARE_AUTO=.1,TAME_WINDOW=30;
- const CANCEL_RULES={capture:{every:3,max:48,kind:1},'spell-end':{every:6,max:24,kind:0},serial:{every:6,max:24,kind:0},owner:{every:2,max:64,kind:1},wipe:{every:3,max:40,kind:0},api:{every:3,max:40,kind:0}};
- // Gain tiers (player hit > shot/charge > boss > hit-confirm > enemy bullet > mobs); RC240 adds no enemy-bullet or mob sounds.
- const GAIN=Object.freeze({charge:.3,shot:.26,ready:.2,boss:.18,confirm:.12});
+ const CANCEL_RULES={bomb:{every:2,max:48,kind:1},capture:{every:3,max:48,kind:1},'spell-end':{every:6,max:24,kind:0},serial:{every:6,max:24,kind:0},owner:{every:2,max:64,kind:1},wipe:{every:3,max:40,kind:0},api:{every:3,max:40,kind:0}};
+ // Gain tiers (player hit > shot/charge/bomb > boss > hit-confirm > enemy bullet > mobs); RC240 adds no enemy-bullet or mob sounds.
+ // pickup/familiar sit in the hit-confirm band, below confirm. Bomb or a player hit ducks every tier below 'shot' for .25 s.
+ const GAIN=Object.freeze({bomb:.34,charge:.3,shot:.26,ready:.2,boss:.18,confirm:.12,pickup:.08,familiar:.06});
+ const DUCKED=Object.freeze({boss:1,confirm:1,pickup:1,familiar:1}),DUCK=.25,GAIN_MAX=.35;
+ const KIT=()=>root.__HAPIL_ARCADE_KIT_RC240__;
+ function kitCall(name,...a){const k=KIT();if(!k||typeof k[name]!=='function')return undefined;try{return k[name](...a);}catch(e){fail(e);}return undefined;}
  const AUDIO={arcane:'./audio/rc22/arcane.wav',laser:'./audio/rc22/laser.wav',shot:'./audio/rc22/shot.wav',heavy:'./audio/rc22/heavy.wav',guard:'./audio/rc22/guard.wav'};
  const metrics={ticks:0,coinsSpawned:0,coinsCollected:0,coinsDropped:0,strikes:0,tamePower:0,aPower:0,beams:0,beamCuts:0,wipes:0,warnings:0,tallies:0,sounds:0,draws:0,drawImages:0,drawMs:0,streakStrokes:0,errors:0};
  let lastError=null;
@@ -27,10 +31,10 @@
  function coinPool(cap){return {cap,live:0,x:new Float32Array(cap),y:new Float32Array(cap),vx:new Float32Array(cap),vy:new Float32Array(cap),age:new Float32Array(cap),kind:new Uint8Array(cap),id:new Uint16Array(cap)};}
  function fresh(s){return {zone:s.zone,coins:coinPool(COIN_CAP.pc),capNow:COIN_CAP.pc,serial:0,rng:(n(s.time)*1e3|0)^0x5f3759df,
   score:0,chain:0,chainUntil:-1,maxChain:0,mult:1,collected:0,grazes:0,
-  charge:{on:false,start:0,extra:0,t2Sounded:false,cdUntil:-1,cdDur:1,released:-9},aPow:0,aSeen:new WeakSet(),aWin:[],tameWin:[],autoAt:-1,
+  charge:{on:false,start:0,extra:0,t2Sounded:false,cdUntil:-1,cdDur:1,released:-9},duckUntil:-1,aPow:0,aSeen:new WeakSet(),aWin:[],tameWin:[],autoAt:-1,
   beams:[],bolts:[],sparks:[],awakeWas:false,warned:new Set(),warn:null,fight:null,tally:null,ev:{at:-1,reason:'',n:0,coins:0,big:false},sounds:{},lastHx:640,lastHy:400};}
  function F(s){let f=worlds.get(s);if(!f){f=fresh(s);worlds.set(s,f);}return f;}
- function reset(s,reason){const f=worlds.get(s);if(!f)return;const keep=f.warned;const g=fresh(s);if(reason!=='zone')g.warned=keep;worlds.set(s,g);}
+ function reset(s,reason){kitCall('reset',s,reason);const f=worlds.get(s);if(!f)return;const keep=f.warned;const g=fresh(s);if(reason!=='zone')g.warned=keep;worlds.set(s,g);}
  function rnd(f){f.rng=(Math.imul(f.rng^(f.rng>>>15),0x2c1b3c6d)+0x6d2b79f5)|0;return ((f.rng>>>0)%100000)/100000;}
  function active(){const r=R();return !!(r&&r.installed&&r.enabled?.());}
 
@@ -47,10 +51,12 @@
  function heroColor(s){const h=root.__HAPIL_FEEDBACK_RC128__?.heroes?.[s.activeHeroId];const c=h?.color;return typeof c==='string'&&/^#[0-9a-f]{6}$/i.test(c)?c:'#9ff3ff';}
  function valid(s,a){return !!a&&(s.enemies??[]).includes(a)&&a.hp>0&&!a.visualOnly&&!a.friendly&&!a.neutral&&!a.ally&&!a.canonAlly&&!a.canonAllyV31217&&!a.canonicalAllyV31217&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307&&!a.protectedNarrativeTargetV31238&&n(a.invulnerableUntil)<=s.time&&root.__HAPIL_COMBAT_V31343__?.validTarget?.(s,a)!==false;}
  const recent=[];// sim-time starts of our last plays: at most 2 overlapping within 120 ms
- function sound(f,s,key,gain,cd=.12){const set=settingsOf();if(set.sound===false||!(n(set.sfxVolume,1)>0))return false;const b=binding();if(b?.state?.current!==s||typeof b.actions?.sound!=='function')return false;
-  const g=clamp(n(gain,0),0,1),c=clamp(n(cd,.12),.02,2);if(!(g>0)||!AUDIO[key])return false;
-  const t=n(s.time),w=t*1000;while(recent.length&&(w-recent[0]>120||w<recent[0]))recent.shift();if(t-n(f.sounds[key],-99)<c)return false;if(recent.length>=2)return false;
+ function sound(f,s,key,gain,cd=.12,tier=''){const set=settingsOf();if(set.sound===false||!(n(set.sfxVolume,1)>0))return false;const b=binding();if(b?.state?.current!==s||typeof b.actions?.sound!=='function')return false;
+  const g=clamp(n(gain,0),0,GAIN_MAX),c=clamp(n(cd,.12),.02,2);if(!(g>0)||!AUDIO[key])return false;
+  const t=n(s.time),w=t*1000;if(DUCKED[tier]&&t<f.duckUntil&&t>=f.duckUntil-1)return false;while(recent.length&&(w-recent[0]>120||w<recent[0]))recent.shift();if(t-n(f.sounds[key],-99)<c)return false;if(recent.length>=2)return false;
   f.sounds[key]=t;recent.push(w);try{b.actions.sound(AUDIO[key],g,c);metrics.sounds++;return true;}catch(e){fail(e);return false;}}
+ function play(s,key,tier,cd){if(!active()||!s||!(tier in GAIN))return false;return sound(F(s),s,key,GAIN[tier],cd??.12,tier);}
+ function duck(s,sec=DUCK){if(!active()||!s)return;const f=F(s),t=n(s.time);f.duckUntil=Math.max(f.duckUntil,t+clamp(n(sec,DUCK),0,1));}
  function float(s,text,color,duration=.9){try{(s.floatTexts??=[]).push({id:s.fxSerial=(n(s.fxSerial)+1),x:s.x,y:s.y,born:s.time,duration,text,color,rc240:true});}catch(e){}}
  function lowFx(set){return !!set?.lowFx;}
 
@@ -65,7 +71,7 @@
   const sp=60+80*rnd(f),sg=rnd(f)<.5?-1:1;P.x[i]=x;P.y[i]=y;P.vx[i]=sg*sp*(.35+.65*rnd(f));P.vy[i]=-(40+80*rnd(f));P.age[i]=0;P.kind[i]=kind;P.id[i]=(f.serial++)&0xffff;
   metrics.coinsSpawned++;if(f.fight)f.fight.coinsOut++;return true;}
  function collect(f,s,i){const P=f.coins,k=P.kind[i],t=n(s.time);chainStep(f,t);const d=addScore(f,COIN_VALUE[k]);f.collected++;metrics.coinsCollected++;if(f.fight){f.fight.coins++;}
-  if(f.chain%50===0)sound(f,s,'guard',GAIN.confirm,.25);
+  if(f.chain%50===0)sound(f,s,'guard',GAIN.confirm,.25,'confirm');
   const last=--P.live;if(i!==last){P.x[i]=P.x[last];P.y[i]=P.y[last];P.vx[i]=P.vx[last];P.vy[i]=P.vy[last];P.age[i]=P.age[last];P.kind[i]=P.kind[last];P.id[i]=P.id[last];}return d;}
  function stepCoins(f,s,dt,hx,hy){const P=f.coins;
   for(let i=P.live-1;i>=0;i--){const age=P.age[i]+dt;P.age[i]=age;
@@ -85,17 +91,17 @@
  function onGraze(s,x,y){if(!active())return;const f=F(s),t=n(s.time);chainStep(f,t);addScore(f,50);f.grazes++;if(f.fight)f.fight.grazes++;
   if(f.charge.on)f.charge.extra=Math.min(.4,f.charge.extra+.08);}
  function onSpellEnd(s,r){if(!active())return;const f=F(s);if(!f.fight||r?.midboss||String(r?.ownerId)!==String(f.fight.ownerId))return;if(r.result){f.fight.spells++;if(r.result==='capture')f.fight.captured++;}}
- function onHit(s){if(!active())return;const f=F(s);f.chain=0;f.chainUntil=-1;f.mult=1;if(f.charge.on){f.charge.on=false;f.charge.extra=0;}if(f.fight)f.fight.hits++;}
+ function onHit(s){if(!active())return;const f=F(s);f.duckUntil=Math.max(f.duckUntil,n(s.time)+DUCK);kitCall('onHit',s);f.chain=0;f.chainUntil=-1;f.mult=1;if(f.charge.on){f.charge.on=false;f.charge.extra=0;}if(f.fight)f.fight.hits++;}
  function onOwner(s,m,a){if(!active()||!a)return;const f=F(s),t=n(s.time),key=String(s.zone)+'|'+String(a.id);
   f.lastOwner=a;if(!f.fight||String(f.fight.ownerId)!==String(a.id))f.fight={ownerId:a.id,boss:!!a.boss,name:String(a.name??'보스'),start:t,spells:0,captured:0,grazes:0,maxChain:0,coins:0,coinsOut:0,score0:f.score,hits:0};
   if(f.warned.has(key))return;f.warned.add(key);const big=!!a.boss;f.warn={at:t,dur:big?2.2:1.2,name:String(a.name??''),big};metrics.warnings++;
-  if(m)m.warnHoldUntil=t+(big?1:.5);sound(f,s,'heavy',big?GAIN.boss:GAIN.boss*.7,.5);}
+  if(m)m.warnHoldUntil=t+(big?1:.5);sound(f,s,'heavy',big?GAIN.boss:GAIN.boss*.7,.5,'boss');}
 
  // ---------------------------------------------------------------- charge shot
  function eligible(s,f,m){const a=m?.owner;return !!a&&a.hp>0&&!(n(s.awakeningUntil)>s.time)&&!dOn(s)&&!guest(s)&&s.time>=f.charge.cdUntil;}
  function observeA(s,f){const rows=s.pendingStrikes;if(!Array.isArray(rows))return;const t=n(s.time);
   for(const r of rows){if(!r||typeof r!=='object'||f.aSeen.has(r))continue;f.aSeen.add(r);
-   if(r.actionKey==='A'&&r.heroId===s.activeHeroId&&!r.shmupEchoV31365&&!r.rc240TameTier&&Number.isFinite(r.power)&&r.power>0){f.aPow=f.aPow>0?f.aPow*.75+r.power*.25:r.power;f.aWin.push({t,p:r.power});metrics.aPower+=r.power;}}
+   if(r.actionKey==='A'&&r.heroId===s.activeHeroId&&!r.shmupEchoV31365&&!r.rc240TameTier&&Number.isFinite(r.power)&&r.power>0){const p=Number.isFinite(r.rc240BasePower)&&r.rc240BasePower>0?r.rc240BasePower:r.power;f.aPow=f.aPow>0?f.aPow*.75+p*.25:p;f.aWin.push({t,p});metrics.aPower+=p;}}
   while(f.aWin.length&&t-f.aWin[0].t>TAME_WINDOW)f.aWin.shift();while(f.tameWin.length&&t-f.tameWin[0].t>TAME_WINDOW)f.tameWin.shift();}
  function tameRoom(f,auto){let a=0,b=0;for(const r of f.aWin)a+=r.p;for(const r of f.tameWin)b+=r.p;return Math.max(0,a*(auto?TAME_SHARE_AUTO:TAME_SHARE)-b);}
  function pushStrike(s,f,a,power,tier,color){if(!Array.isArray(s.pendingStrikes)||s.pendingStrikes.length>=96||!(power>=1))return false;
@@ -151,7 +157,8 @@
    if(dead&&fg.boss&&!fg.tallied){fg.tallied=true;const nohit=fg.hits===0?100000:0;f.score+=nohit;
     f.tally={at:t,time:t-fg.start,spells:fg.spells,captured:fg.captured,grazes:fg.grazes,maxChain:fg.maxChain,coins:fg.coins+(f.coins.live|0),gained:f.score-fg.score0,nohit,name:fg.name};metrics.tallies++;}
    if(dead||!e)f.fight=null;}
-  f.defeatedWas=!!s.bossDefeated;}
+  f.defeatedWas=!!s.bossDefeated;
+  kitCall('tick',s,dt,m);}
 
  // ---------------------------------------------------------------- sprites
  const sprites=[];
@@ -166,13 +173,16 @@
   sprites[id]={c,W};return sprites[id];}
 
  // ---------------------------------------------------------------- hero bolt shapes (keyed by rc225 SHOTS identity)
- const SHAPE_BY_SHOT=Object.freeze({'winged-bolt':'heart','ricochet-cross':'cross','time-orb':'orb','piercing-lance':'lance','sigil-spear':'lance','blade-fan':'blade','fan-blade':'blade','triple-needle':'needle','glitch-wave':'glitch','rapid-fire':'capsule'});
- function boltShape(heroId){if(heroId==='michaela')return 'heart';const id=root.__HAPIL_SHOOTER_RC225__?.SHOTS?.[heroId];return SHAPE_BY_SHOT[id]??'diamond';}
- // Path in local space, unit size r, pointing +x. Heart and cross stay upright (never rotated).
+ const SHAPE_BY_SHOT=Object.freeze({'winged-bolt':'heart','ricochet-cross':'hexagram','time-orb':'orb','piercing-lance':'lance','sigil-spear':'lance','blade-fan':'blade','fan-blade':'blade','triple-needle':'needle','glitch-wave':'glitch','rapid-fire':'capsule'});
+ // Static copy of rc225 shot profiles for when RC225 is absent; the live module exposes them as shotProfiles.
+ const HERO_SHOT=Object.freeze({hwando:'blade-fan',seoha:'time-orb',rian:'ricochet-cross',ion:'piercing-lance',neon:'glitch-wave',michaela:'winged-bolt',lauren:'sigil-spear',hunter:'triple-needle',slayer:'fan-blade',gunner:'rapid-fire'});
+ function boltShape(heroId){if(heroId==='michaela')return 'heart';const S=root.__HAPIL_SHOOTER_RC225__;const id=S?.SHOTS?.[heroId]??S?.shotProfiles?.[heroId]??HERO_SHOT[heroId];return SHAPE_BY_SHOT[id]??'diamond';}
+ const UPRIGHT=Object.freeze({heart:1,hexagram:1});
+ // Path in local space, unit size r, pointing +x. Heart and hexagram stay upright (never rotated); no shot is cross-shaped.
  function shapePath(ctx,shape,r){ctx.beginPath();
   switch(shape){
    case 'heart':ctx.moveTo(0,r*.9);ctx.bezierCurveTo?.(-r*1.3,-r*.1,-r*.6,-r*1.1,0,-r*.35);ctx.bezierCurveTo?.(r*.6,-r*1.1,r*1.3,-r*.1,0,r*.9);break;
-   case 'cross':{const a=r*.32,b=r;ctx.moveTo(-a,-b);ctx.lineTo(a,-b);ctx.lineTo(a,-a);ctx.lineTo(b*.8,-a);ctx.lineTo(b*.8,a);ctx.lineTo(a,a);ctx.lineTo(a,b);ctx.lineTo(-a,b);ctx.lineTo(-a,a);ctx.lineTo(-b*.8,a);ctx.lineTo(-b*.8,-a);ctx.lineTo(-a,-a);break;}
+   case 'hexagram':{const R0=r*1.05;for(const o of [-Math.PI/2,Math.PI/2]){for(let k=0;k<3;k++){const a=o+k*TAU/3,x=Math.cos(a)*R0,y=Math.sin(a)*R0;if(k===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.closePath();}break;}
    case 'orb':ctx.arc(0,0,r*.75,0,TAU);break;
    case 'lance':ctx.moveTo(r*1.8,0);ctx.lineTo(0,r*.32);ctx.lineTo(-r*1.2,0);ctx.lineTo(0,-r*.32);break;
    case 'blade':ctx.moveTo(r*1.1,0);ctx.lineTo(-r*.7,r*.9);ctx.lineTo(-r*.2,0);ctx.lineTo(-r*.7,-r*.9);break;
@@ -183,12 +193,12 @@
   ctx.closePath();}
  function drawBolts(ctx,f,t){let k=0;for(const b of f.bolts){const u=(t-b.born)/b.dur;if(u<0||u>1)continue;const e=1-(1-u)*(1-u);
    const dx=b.tx-b.ax,dy=b.ty-b.ay,L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L,arc=Math.sin(u*Math.PI)*b.off;const x=b.ax+dx*e+nx*arc,y=b.ay+dy*e+ny*arc;if(!(Number.isFinite(x)&&Number.isFinite(y)))continue;
-   const upright=b.shape==='heart'||b.shape==='cross';ctx.save();ctx.translate(x,y);if(!upright)ctx.rotate(Math.atan2(dy,dx));
+   const upright=!!UPRIGHT[b.shape];ctx.save();ctx.translate(x,y);if(!upright)ctx.rotate(Math.atan2(dy,dx));
    ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle=b.pal.edge;ctx.fillStyle=b.pal.body;shapePath(ctx,b.shape,b.size);ctx.stroke();ctx.fill();
    ctx.fillStyle=b.pal.core;shapePath(ctx,b.shape,b.size*.42);ctx.fill();ctx.restore();k++;}return k;}
 
  // ---------------------------------------------------------------- draw (world space, under the bullets)
- function draw(ctx,s,m,set){if(!active())return 0;const f=worlds.get(s);if(!f)return 0;const t0=now(),t=n(s.time);let draws=0;
+ function draw(ctx,s,m,set){if(!active())return 0;const kd=kitCall('draw',ctx,s,m,set);const f=worlds.get(s);if(!f)return n(kd);const t0=now(),t=n(s.time);let draws=n(kd);
   const P=f.coins;
   if(P.live){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
    const pal=palette(m);for(let i=0;i<P.live;i++){const k=P.kind[i],sp=coinSprite(k,pal);if(!(Number.isFinite(P.x[i])&&Number.isFinite(P.y[i])))continue;const sx=Math.max(.18,Math.abs(Math.cos(8*t+P.id[i])));
@@ -214,7 +224,7 @@
  // ---------------------------------------------------------------- screen HUD: score/chain, warning, tally
  function fmt(v){return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
  function modalOpen(s){return !!(s.modal||s.requiredScene||s.requiredSceneV31238||s.cutscene||s.dialogue||s.paused);}
- function drawScreen(ctx,s,m,set){if(!active())return;const f=worlds.get(s);if(!f)return;const u=U();if(!u?.screenSpace)return;const t=n(s.time);
+ function drawScreen(ctx,s,m,set){if(!active())return;const u=U();if(!u?.screenSpace)return;ctx.save();try{kitCall('drawScreen',ctx,s,m,set);}finally{ctx.restore();}const f=worlds.get(s);if(!f)return;const t=n(s.time);
   const show=f.score>0||f.fight||f.warn||f.tally;if(!show)return;
   const v=u.screenSpace(ctx);if(!v)return;const {w,h}=v,mobile=!!m?.mobile||w<800,txt=(a,x,y)=>u.hudText(ctx,a,x,y);
   ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.textBaseline='middle';ctx.direction='ltr';
@@ -252,9 +262,16 @@
 
  // ---------------------------------------------------------------- API
  const api={version:VERSION,tick,draw,drawScreen,drawBackground,onCancel,onGraze,onSpellEnd,onHit,onOwner,reset,
+  play,duck,
+  dropCoins(s,x,y,count=1){if(!active()||!s||!(Number.isFinite(x)&&Number.isFinite(y)))return 0;const f=F(s);let c=0;const N=clamp(Math.floor(n(count,0)),0,24);for(let j=0;j<N;j++)if(spawnCoin(f,x+(j%3-1)*6,y-(j/3|0)*5,1))c++;return c;},
+  dropPower(s,x,y,count=1){if(!active()||!s)return 0;return n(kitCall('dropPower',s,x,y,count));},
+  aStats(s){const f=s&&worlds.get(s);if(!f)return {aPow:0,aSum:0};let a=0;for(const r of f.aWin)a+=r.p;return {aPow:f.aPow,aSum:a};},
+  rank(s){if(!active()||!s)return 1;const v=kitCall('rank',s);return Number.isFinite(v)?v:1;},
+  decorateAttack(s,before){if(!active()||!s)return;kitCall('decorateAttack',s,before);},
+  valid:(s,a)=>valid(s,a),palette,shapes:Object.freeze({boltShape,shapePath,UPRIGHT}),
   metrics:()=>({...metrics,lastError}),
   state(s){const f=s&&worlds.get(s);if(!f)return null;return {score:f.score,chain:f.chain,maxChain:f.maxChain,mult:f.mult,coins:f.coins.live,cap:f.capNow,collected:f.collected,grazes:f.grazes,aPow:f.aPow,
    charging:f.charge.on,bolts:f.bolts.length,cdUntil:f.charge.cdUntil,beams:f.beams.length,warn:f.warn?{...f.warn}:null,tally:f.tally?{...f.tally}:null,fight:f.fight?{...f.fight}:null};},
-  __test:{boltShape,SHAPE_BY_SHOT,GAIN,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite}};
+  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite}};
  Object.defineProperty(root,'__HAPIL_STG_FEEL_RC240__',{value:Object.freeze(api),configurable:true,writable:false,enumerable:false});
 })(typeof window==='object'?window:globalThis);

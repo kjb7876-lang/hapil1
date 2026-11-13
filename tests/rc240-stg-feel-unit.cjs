@@ -224,10 +224,10 @@ test('draw discipline: one drawImage per coin, streaks <= 3 strokes', () => {
   const c3 = { drawImage: 0 }; env.feel.drawScreen(stubCtx(c3), s, m, {}); assert.strictEqual(c3.drawImage, 0);
 });
 
-test('hero-keyed bolts (michaela heart, upright cross), separated palette, gain tiers, NaN-safe draw/audio', () => {
+test('hero-keyed bolts (michaela heart, upright hexagram), separated palette, gain tiers, NaN-safe draw/audio', () => {
   const { env, s } = arena(); const X = env.feel.__test;
   env.sb.__HAPIL_SHOOTER_RC225__ = { SHOTS: { rian: 'ricochet-cross', ion: 'piercing-lance', michaela: 'winged-bolt' } };
-  assert.strictEqual(X.boltShape('michaela'), 'heart'); assert.strictEqual(X.boltShape('rian'), 'cross'); assert.strictEqual(X.boltShape('ion'), 'lance'); assert.strictEqual(X.boltShape('nobody'), 'diamond');
+  assert.strictEqual(X.boltShape('michaela'), 'heart'); assert.strictEqual(X.boltShape('rian'), 'hexagram', 'user 2026-11-13: hexagram replaces cross'); for (const v of Object.values(X.SHAPE_BY_SHOT)) assert.ok(!/cross/.test(v), 'no cross shape key: ' + v); assert.strictEqual(X.boltShape('ion'), 'lance'); assert.strictEqual(X.boltShape('nobody'), 'diamond');
   const G = X.GAIN; assert.ok(G.charge > G.boss && G.shot > G.boss && G.ready > G.boss && G.boss > G.confirm && G.charge <= .35, 'gain ordering');
   // Upright shapes never rotate.
   s.activeHeroId = 'michaela'; const nat = makeNative(s); nat.step = (o => () => { for (const r of s.pendingStrikes) if (r.actionKey === 'A') r.heroId = 'michaela'; o(); })(nat.step);

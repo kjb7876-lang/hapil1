@@ -409,15 +409,16 @@
   let travel=1;try{travel=n(root.__HAPIL_SAMONG_RC91__?.incomingFactor?.(s),1);}catch(e){}travel=clamp(travel,.25,2);
   const auto=fullAuto(s,set),mode=gmode(s);
   const native=(s.hostileProjectiles??[]).reduce((c,q)=>c+(q&&n(q.damage)>0&&!q.friendly&&!q.reflected&&!q.visualOnly?1:0),0);
-  if(m.run){const key=[mode,m.runBand,mobile,auto,densityKey,lowFx,m.lite,m.midboss,Math.round(gov*20)].join('|');
-   if(!m.ctx||m.ctxKey!==key||m.ctx.seed!==m.run.seed){m.ctx=makeCtx({remap:REMAP[m.family]||null,mode,band:m.runBand,mobile,auto,setting:DENSITY[densityKey],gov,lite:m.lite&&!m.midboss,midboss:m.midboss,seed:m.run.seed,liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.ctxKey=key;}}
+  const rank=clamp(n(callHook('rank',s),1),1,1.2);
+  if(m.run){const key=[mode,m.runBand,mobile,auto,densityKey,lowFx,m.lite,m.midboss,Math.round(gov*20),rank].join('|');
+   if(!m.ctx||m.ctxKey!==key||m.ctx.seed!==m.run.seed){m.ctx=makeCtx({remap:REMAP[m.family]||null,mode,band:m.runBand,mobile,auto,setting:DENSITY[densityKey]*rank,gov,lite:m.lite&&!m.midboss,midboss:m.midboss,seed:m.run.seed,liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.ctxKey=key;}}
   const ctx=m.ctx??makeCtx({mode,band:1,mobile,auto});m.ctx=ctx;ctx.travel=travel;
   // Volley stream: fast telegraphed aimed shots between spells and through declaration gaps.
   let fctx=null,fillerOn=false;
   if(a){const band=ph?.band??1,fam=familyOf(a);
    if(String(m.fillerOwner)!==String(a.id)){m.fillerOwner=a.id;m.tele=[];m.vNext=s.time+.6;m.vK=0;}
-   const fkey=[mode,band,mobile,auto,densityKey,lowFx,!a.boss,fam,Math.round(gov*20)].join('|');
-   if(!m.fctx||m.fctxKey!==fkey){m.fctx=makeCtx({remap:REMAP[fam]||null,mode,band,mobile,auto,setting:DENSITY[densityKey],gov,midboss:!a.boss,seed:hash(a.id,'volley'),liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.fctxKey=fkey;}
+   const fkey=[mode,band,mobile,auto,densityKey,lowFx,!a.boss,fam,Math.round(gov*20),rank].join('|');
+   if(!m.fctx||m.fctxKey!==fkey){m.fctx=makeCtx({remap:REMAP[fam]||null,mode,band,mobile,auto,setting:DENSITY[densityKey]*rank,gov,midboss:!a.boss,seed:hash(a.id,'volley'),liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.fctxKey=fkey;}
    fctx=m.fctx;fctx.travel=travel;
    const why=(!m.run||m.declLeft>0)?heldByCast(s,a,true):'';
    fillerOn=(!m.run||m.declLeft>0)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold;
@@ -632,7 +633,7 @@
  function rafLoop(t){try{if(governor.last)governor.sample(t-governor.last,(metrics.lastDrawMs??0)+(metrics.bgMs??0),t);governor.last=t;}catch(e){}root.requestAnimationFrame?.(rafLoop);}
 
  // ---------------------------------------------------------------- seams
- const seams={tick:null,draw:null,danger:null,grammarDraw:null,background:null,imminent:null,lasers:null,grammar:null,loop:null,feedback:null};
+ const seams={tick:null,draw:null,danger:null,grammarDraw:null,background:null,imminent:null,decorate:null,lasers:null,grammar:null,loop:null,feedback:null};
  let inTick=false,inLaserDraw=false,inDanger=false;
  function wrapLasers(){const L=root.__HAPIL_LASERS_V31330__;if(!L||typeof L.tick!=='function')return false;
   if(L.tick!==seams.tick){const base=L.tick;const fn=function(s,dt,...rest){if(inTick)return base.call(this,s,dt,...rest);inTick=true;let r;try{r=base.call(this,s,dt,...rest);}finally{try{simTick(s,dt);}catch(e){fail(e);}finally{inTick=false;}}return r;};
@@ -642,19 +643,23 @@
   if(typeof L.danger==='function'&&L.danger!==seams.danger){const base=L.danger;const fn=function(s,p,look,...rest){if(inDanger)return base.call(this,s,p,look,...rest);inDanger=true;try{const v=base.call(this,s,p,look,...rest);try{return n(v)+dangerAt(s,p,look??.36);}catch(e){fail(e);return v;}}finally{inDanger=false;}};
    fn.rc240=true;L.danger=fn;seams.danger=fn;}
   seams.lasers=L;return true;}
- let inGrammar=false,inBackground=false;
+ let inGrammar=false,inBackground=false,inDecorate=false;
  function wrapGrammar(){const g=root.__HAPIL_GRAMMAR_V31365__;if(!g?.installed||typeof g.draw!=='function')return false;if(g.draw===seams.grammarDraw)return true;
   const base=g.draw;const draw=function(ctx,s,set,...rest){if(inGrammar)return base.call(this,ctx,s,set,...rest);inGrammar=true;let r;try{r=base.call(this,ctx,s,set,...rest);}finally{try{drawLayer(ctx,s,set??{});}catch(e){fail(e);}finally{inGrammar=false;}}return r;};
   const next={...g,draw};for(const k of Object.getOwnPropertyNames(g))if(!(k in next))Object.defineProperty(next,k,Object.getOwnPropertyDescriptor(g,k));
   Object.defineProperty(next,'rc240Wrapped',{value:true});root.__HAPIL_GRAMMAR_V31365__=Object.freeze(next);seams.grammarDraw=draw;seams.grammar=root.__HAPIL_GRAMMAR_V31365__;metrics.rewraps++;return true;}
  function wrapLoop(){const lp=root.__HAPIL_LOOP_V31365__;if(!lp||typeof lp.background!=='function'||typeof lp.imminent!=='function')return false;
-  if(lp.background===seams.background&&lp.imminent===seams.imminent)return true;
+  const needBg=!(lp.background===seams.background&&lp.imminent===seams.imminent),needDec=typeof lp.decorateAttack==='function'&&lp.decorateAttack!==seams.decorate;
+  if(!needBg&&!needDec)return true;
   const bg=lp.background,im=lp.imminent;
   const background=function(ctx,s,rect,...rest){if(inBackground)return bg.call(this,ctx,s,rect,...rest);inBackground=true;let r;try{r=bg.call(this,ctx,s,rect,...rest);}finally{try{const m=enabledFlag&&s&&worlds.get(s);if(m){const set=settingsNow(),t0=now(),fb=hook('drawBackground');if(fb){ctx.save();try{fb.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}}drawDim(ctx,s,m,set);metrics.bgMs=metrics.bgMs*.9+(now()-t0)*.1;}}catch(e){fail(e);}finally{inBackground=false;}}return r;};
   const imminentFn=function(s,h,...rest){const r=im.call(this,s,h,...rest);if(r)return r;try{return imminent(s,h)??r;}catch(e){fail(e);return r;}};
-  const next={...lp,background,imminent:imminentFn};
+  // decorateAttack runs synchronously right after native A rows are queued (B:53060):
+  // the STG feel/arcade kit scales new rows there (power level). Base always runs first.
+  const dec=lp.decorateAttack,decorateAttack=needDec?function(s,before,...rest){if(inDecorate)return dec.call(this,s,before,...rest);inDecorate=true;let r;try{r=dec.call(this,s,before,...rest);}finally{try{if(enabledFlag&&s)callHook('decorateAttack',s,before);}catch(e){fail(e);}finally{inDecorate=false;}}return r;}:lp.decorateAttack;
+  const next={...lp,background:needBg?background:lp.background,imminent:needBg?imminentFn:lp.imminent};if(typeof decorateAttack==='function')next.decorateAttack=decorateAttack;
   for(const k of Object.getOwnPropertyNames(lp))if(!(k in next))Object.defineProperty(next,k,Object.getOwnPropertyDescriptor(lp,k));
-  Object.defineProperty(next,'rc240Wrapped',{value:true});root.__HAPIL_LOOP_V31365__=Object.freeze(next);seams.background=background;seams.imminent=imminentFn;seams.loop=root.__HAPIL_LOOP_V31365__;metrics.rewraps++;return true;}
+  if(!Object.prototype.hasOwnProperty.call(next,'rc240Wrapped'))Object.defineProperty(next,'rc240Wrapped',{value:true});root.__HAPIL_LOOP_V31365__=Object.freeze(next);if(needBg){seams.background=background;seams.imminent=imminentFn;}if(needDec)seams.decorate=decorateAttack;seams.loop=root.__HAPIL_LOOP_V31365__;metrics.rewraps++;return true;}
  // Hides RC129's top-left spell title/timer line while the RC240 banner owns that information.
  let inFeedback=false;
  function titleFilter(title){const full=String(title)+'  |  ';return t=>{t=String(t);if(t.startsWith(full))return true;if(t.endsWith('…')){const p=t.slice(0,-1);return p.length>=Math.min(4,full.length)&&(p.length<=full.length?full.startsWith(p):p.startsWith(full));}return false;};}
@@ -703,6 +708,7 @@
   cancelAll(s,reason='wipe',x,y){const m=enabledFlag&&s&&worlds.get(s);if(!m)return 0;return cancelAll(s,m,settingsNow(),String(reason),x,y);},
   cancelNear(s,x,y,r,reason='wipe'){const m=enabledFlag&&s&&worlds.get(s);if(!m)return 0;return cancelNear(s,m,settingsNow(),n(x),n(y),Math.max(0,n(r)),String(reason));},
   live(s){const m=s&&worlds.get(s);return m?m.pool.live:0;},
+  imminent(s,h=.2){if(!enabledFlag||!s)return null;try{return imminent(s,h);}catch(e){fail(e);return null;}},
   world:s=>(s&&worlds.get(s))||null,
   util:Object.freeze({heroPalette,HERO_SIDE,REMAP,screenSpace,hudText,fitText,project,heart,muzzle,fullAuto,dActive,gmode,settingsNow,fxOpacity,FIELD,HUES,T,HIT}),
   __test:{SPELLS,FAMILY_SPELLS,MODES,FIELD,CULL,HIT,T,HUES,HERO_V,HEART_R,DENSITY,LIVE_CAP,createPool,makeRun,runStep,makeCtx,frameCtx,spawn,stepPool,sweptDist,safeY,peakFor,spellFor,familyOf,headless,mulberry32,hash,
