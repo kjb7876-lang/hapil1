@@ -109,7 +109,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   try{const P=root.CanvasRenderingContext2D?.prototype;if(P&&!P.fillText?.rc240BossForm){for(const k of ['fillText','strokeText']){const base=P[k];if(typeof base!=='function')continue;
     const fn=function(t,...r){return base.call(this,enabledFlag&&typeof t==='string'&&t.indexOf('십자')>=0?fixText(t):t,...r);};fn.rc240BossForm=true;P[k]=fn;}}}catch(e){fail(e);}
   try{const d=root.document,MO=root.MutationObserver;if(!d?.body||typeof MO!=='function')return;
-   const fixNode=node=>{if(!enabledFlag||!node)return;if(node.nodeType===3){const v=node.nodeValue;if(v&&v.indexOf('십자')>=0){node.nodeValue=fixText(v);metrics.renames++;}return;}
+   const fixNode=node=>{if(!enabledFlag||!node)return;if(node.nodeType===3){const v=node.nodeValue;if(v&&v.indexOf('십자')>=0){const f=fixText(v);if(f!==v){node.nodeValue=f;metrics.renames++;}}return;}
     if(node.nodeType===1&&(node.textContent??'').indexOf('십자')>=0){const w=d.createTreeWalker(node,4);let x;while((x=w.nextNode()))fixNode(x);}};
    fixNode(d.body);
    new MO(list=>{for(const m of list){if(m.type==='characterData')fixNode(m.target);else for(const a of m.addedNodes)fixNode(a);}}).observe(d.body,{subtree:true,childList:true,characterData:true});}catch(e){fail(e);}}
