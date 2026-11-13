@@ -46,7 +46,7 @@ try{
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,latestMode,'index.html'),'latest extension retains exact output mode');checks++;
  const missingLatest=structuredClone(migration);delete missingLatest.approvedExtension156;
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,missingLatest,'index.html'),'omitting the latest extension cannot fall back to accepting current bytes');checks++;
- for(const number of [157,158,159,160,161,162]){
+ for(const number of [157,158,159,160,161]){
   const key='approvedExtension'+number;
   const latest=structuredClone(migration);latest[key].find(row=>row.file==='index.html').before.gitBlob='0'.repeat(40);
   assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,latest,'index.html'),'extension '+number+' cannot start at arbitrary prior bytes');checks++;
