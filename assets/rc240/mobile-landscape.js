@@ -59,6 +59,8 @@
   zoomKeepHigh:.79,
   zoomDriftSeconds:.75,    // a shift must persist this long before a re-aim
   zoomEaseSeconds:.6,      // re-aims are eased over this much game time
+  resizeNudgePx:2,         // a viewport change this small (CSS px) is a nudge, not a new layout ...
+  resizeScaleStep:.009,    // ... and moves the world-to-CSS scale by at most 0.9% (RC233: < 1% per pixel)
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
   mobEdgePx:60,            // mob bodies kept this far inside the frame edge
   mobHalfFallback:40,      // G px half body when no paint envelope is exposed
@@ -453,10 +455,28 @@
  const wall=()=>{try{const n=root.performance?.now?.();return finite(n)?n:0;}catch{return 0;}};
  // RC153 hands out a fresh rc153View copy on every re-fit: compare values.
  function sameView(a,b){return a===b||!!a&&!!b&&a.x===b.x&&a.y===b.y&&a.width===b.width&&a.height===b.height&&a.k===b.k;}
- function refit(st,s,base,f,fz,ease){
+ // A viewport nudge (one or two CSS px, e.g. browser chrome or a visual
+ // viewport tweak) must not make the world jump: the corner passes and zoom
+ // bands can flip on one pixel. The world-to-CSS scale then moves toward the
+ // fresh fit by at most resizeScaleStep per nudge (identity when that lands at
+ // or below 1x), at the nearest feasible pass; the fresh fit only when none is.
+ const cssOf=(c,f)=>c&&finite(c.scale)&&finite(c.rc153View?.k)?c.scale*c.rc153View.k/f:NaN;
+ function nudgeFit(s,base,f,fz,half,box,fresh,prevCss){
+  const unit=base.scale*base.rc153View.k/f;if(!finite(prevCss)||!finite(unit)||unit<=0)return fresh;
+  const want=fresh?fresh.Z:1,r=want*unit/prevCss,step=POLICY.resizeScaleStep;
+  if(Math.abs(r-1)<=step)return fresh;
+  const Z=prevCss*(r>1?1+step:1-step)/unit;
+  if(!(Z>1+1e-9))return null; // identity camera
+  const cap=fz.boss&&finite(POLICY.zoneZoomCap[s.zone])?Math.min(POLICY.maxZoom,POLICY.zoneZoomCap[s.zone]):POLICY.maxZoom;
+  if(Z>cap+1e-9)return fresh;
+  const ob=outerBounds(s),passes=ob?[3,2,1,0]:[0];
+  for(const p of passes){const r2=fitPass(s,base,f,fz,half,box,ob,p,Z,Z,cap<POLICY.maxZoom),hit=r2&&(r2.good||r2.aimed||r2.fallback);if(hit){hit.pass=p;hit.nudged=true;return hit;}}
+  return fresh;
+ }
+ function refit(st,s,base,f,fz,ease,nudge){
   const t=s.time,shown=st.cam?current(st,s,t):null;
   let fit=null;const half=mobHalf(s,fz);
-  try{fit=fitZoom(s,base,f,fz,half,fighterBox(s,fz));}catch(e){metrics.lastError=String(e?.message??e).slice(0,160);}
+  try{const box=fighterBox(s,fz);fit=fitZoom(s,base,f,fz,half,box);if(nudge&&shown)fit=nudgeFit(s,base,f,fz,half,box,fit,cssOf(shown,st.f));}catch(e){metrics.lastError=String(e?.message??e).slice(0,160);}
   st.base=base;st.f=f;st.version=controlsVersion;st.hx=fz.hx;st.emid=fz.emid;st.efar=fz.efar;st.boss=fz.boss;st.driftT=NaN;metrics.reaims++;
   const okFit=fit&&finite(fit.x)&&finite(fit.y)&&finite(fit.scale)&&fit.scale>0;
   if(okFit){metrics.zoomFits++;metrics.lastZoom=fit.Z;metrics.lastFrame={Z:fit.Z,farPct:fit.farPct,midPct:fit.midPct,dropPct:fit.dropPct,pass:fit.pass};}else metrics.zoomRejected++;
@@ -490,8 +510,9 @@
   const f=rc223Shrink(base),vw=Number(root.innerWidth),vh=Number(root.innerHeight),t=s.time;
   let st=aims.get(s);
   if(!st||st.zone!==s.zone||st.vw!==vw||st.vh!==vh){
+   const nudge=!!st&&st.zone===s.zone&&Math.abs(st.vw-vw)<=POLICY.resizeNudgePx&&Math.abs(st.vh-vh)<=POLICY.resizeNudgePx;
    if(!st){st={zone:null,vw:0,vh:0,base:null,base0:null,f:1,version:-1,cam:null,fit:null,hx:NaN,emid:NaN,efar:NaN,boss:false,driftT:NaN,checkT:NaN,easing:false,easeT0:NaN,easeWall:0,base0Prev:null,fromX:0,fromY:0,fromScale:1,fromZ:1,bufA:null,bufB:null,buf:null,bufT:NaN,flip:false};aims.set(s,st);}
-   st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false);
+   st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false,nudge);
   }else if(st.f!==f||st.version!==controlsVersion){
    // Layout inputs (touch controls, insets, RC223 view setting) can change
    // while paused: snap so the new constraints hold at once.
