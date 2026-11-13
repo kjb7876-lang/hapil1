@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "base": "320f9246279cb3b8a0bff324e33d54fd444ced9d",
+  "baseTree": "a64334677e68b1b901b24a9c72851772c51ba576",
+  "sourceCommit": "3c0c23cc043a0db2c0769a4d8de1daf32bdfef3f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "a844214104eade621bffc11573166b186e7ac4845559b833039f1a643bbb5060",
+  "files": [
+    {
+      "file": "assets/rc240/arcade-kit.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "87e3be96b7e50cbde1d3e12b1c35f722feb17f38",
+        "file": "assets/rc240/arcade-kit.js"
+      },
+      "after": {
+        "file": "assets/rc240/arcade-kit.js",
+        "mode": "100644",
+        "sha256": "4ce8c82b111892943f3ffaf7c29e6e33fa2e5096b75aa1876816686fa4febf96",
+        "gitBlob": "b3e2c10a9925077425898e7803d47b571b1235ef"
+      },
+      "reason": "assets/rc240/arcade-kit.js: Bomb shockwave with flash and pooled debris, orbiting hollow familiars, double-tap hint glyph with a one-time pulse (review round 2)."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "fbfd0b3a1cb48faf5b74b052dc4477a49b6daee9",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "dce49f9ff798c393ba308a7172c8457817777b3c1aa8f85451df662e262d6def",
+        "gitBlob": "519aa77a417b2184e59553e173711368fcf1c670"
+      },
+      "reason": "assets/rc240/boss-form.js: Second form re-declared with a full-width banner after the white-out peak, hollow weak-point glyphs, banner queued behind the boss warning (review round 2)."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "30c6c21abb1b6fc0e5bfa7297035314994229642",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "514f24a64d56b126956d4f6da9b0fb360190afee037af5f87b685e256c66d47c",
+        "gitBlob": "1ab5861cd1ca99ddc27f35baa5c06e98fd7c437a"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: Per-boss weapon palettes apart from the hero gold, Lucifer lance rows, formations in front of the boss, spirals retired under a formation, dark bullet outlines, multiply spell dim, soft telegraphs, off-floor fade, spell card behind the presentation queue (review round 2)."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1ce13e8e35dad37b86b8e5216e3d88fa1632cc5c",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "efeb37fe38a46b42e34e697779d618d574fac8a4fa62a62eb79067564275204a",
+        "gitBlob": "b9bdf0da9b2c5c0c452b56836dd42e43a8d1451a"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: Phone combat zoom 1.15-1.30 (Envy room <= 1.2) with painted floor corners kept inside, mob stages centred vertically, iso-striped chevron-edged danger band (review round 2)."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "8a5b7c47014b50fd4dcebe0f670945531d0c84fa",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "6f7a2ee0fd4f36c33f7476b390a932583b111d5f19c47c3ce185fbd607be7796",
+        "gitBlob": "994e3bb2b69e4a74dd2034eaf918c11aefe34a6c"
+      },
+      "reason": "assets/rc240/stg-feel.js: One presentation queue, full-width title band, red edge warning vignette, kill beat rings, score and callouts out of the centre column, heart ring above native art (review round 2)."
+    }
+  ],
+  "targetProtectedRowsSha256": "82a98c7d36d0ec770d2b0deda72b45f3f0af962218ce67c95b72cbaaf696f747"
+}
