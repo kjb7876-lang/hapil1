@@ -14,8 +14,9 @@ const ok=(c,m)=>{assert.ok(c,m);checks++;};
 const eq=(a,b,m)=>{assert.equal(a,b,m);checks++;};
 const near=(a,b,eps,m)=>{assert.ok(Math.abs(a-b)<=eps,`${m}: ${a} vs ${b}`);checks++;};
 
-function makeDom({touch=true,coarse=true,screen={width:375,height:812},inner={width:812,height:375},orientation='supported'}={}){
- const classes=new Set(),listeners={},docListeners={},timers=[],intervals=[],styles=[];
+const PHONE_RECTS={'.hm-movement':{left:6,top:293,right:82,bottom:369},'.hm-actions':{left:650,top:321,right:806,bottom:369},'#hapil-mobile-controls-v31366 [data-mobile-action="F"]':{left:766,top:275,right:806,bottom:315},'.rc108-settings-trigger':{left:768,top:4,right:808,bottom:44}};
+function makeDom({touch=true,coarse=true,screen={width:375,height:812},inner={width:812,height:375},orientation='supported',insets={left:0,right:0,top:0,bottom:0},rects=PHONE_RECTS}={}){
+ const classes=new Set(touch?['hapil-touch-v31366']:[]),listeners={},docListeners={},timers=[],intervals=[],styles=[];
  const lockCalls=[];
  const el=(tag)=>({tagName:tag.toUpperCase(),id:'',textContent:'',children:[],attrs:{},setAttribute(k,v){this.attrs[k]=String(v);},appendChild(c){this.children.push(c);if(c.tagName==='STYLE')styles.push(c);return c;}});
  const head=el('head'),body=el('body');
@@ -23,12 +24,15 @@ function makeDom({touch=true,coarse=true,screen={width:375,height:812},inner={wi
   readyState:'complete',head,body,fullscreenElement:null,
   documentElement:{classList:{add:(...c)=>c.forEach(x=>classes.add(x)),remove:(...c)=>c.forEach(x=>classes.delete(x)),toggle:(c,on)=>{if(on===undefined)on=!classes.has(c);on?classes.add(c):classes.delete(c);return on;},contains:c=>classes.has(c)}},
   createElement:el,getElementById:id=>styles.find(s=>s.id===id)??null,
+  querySelector:sel=>{const r=rects?.[sel];return r?{getBoundingClientRect:()=>({...r,x:r.left,y:r.top,width:r.right-r.left,height:r.bottom-r.top})}:null;},
   addEventListener:(t,f)=>{(docListeners[t]??=[]).push(f);},removeEventListener(){}
  };
  const win={
   document,innerWidth:inner.width,innerHeight:inner.height,
   navigator:{maxTouchPoints:touch?5:0,userAgent:touch?'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)':'Mozilla/5.0 (X11; Linux x86_64)'},
   screen:{width:screen.width,height:screen.height,orientation:orientation==='none'?undefined:{type:'landscape-primary',lock:orientation==='supported'?(o=>{lockCalls.push(o);return Promise.resolve();}):(o=>{lockCalls.push(o);return Promise.reject(new Error('NotSupportedError'));})}},
+  getComputedStyle:()=>({getPropertyValue:k=>{const m=/^--rc154-safe-(left|right|top|bottom)$/.exec(k);return m?(insets[m[1]]??0)+'px':'';}}),
+  __HAPIL_MOBILE_V31366__:{enabled:()=>touch},
   matchMedia:q=>({matches:/pointer:\s*coarse/.test(q)?coarse:/hover:\s*none/.test(q)?coarse:false,addEventListener(){},removeEventListener(){}}),
   addEventListener:(t,f)=>{(listeners[t]??=[]).push(f);},removeEventListener(){},
   setTimeout:(f,ms)=>{timers.push(f);return timers.length;},clearTimeout(){},setInterval:(f)=>{intervals.push(f);return 1000+intervals.length;},clearInterval(){},
@@ -47,6 +51,13 @@ function loadGame(dom,{withLeftZone=true}={}){
  const R=root.__HAPIL_BATTLE_ARENA_RC138__,D=root.__HAPIL_PERSONA_DUEL_RC134__;
  R.bind({combat:['ep1b03','dist06','cult04'],clear:s=>!(s?.enemies??[]).some(a=>a?.hp>0)});
  root.__HAPIL_INNER_FINAL_RC133__={encounter:s=>s?.personaTestRC240===true};
+ // RC153 public surface (combat-layout.js): measured 812x375 fit of the real
+ // game (frame = floor + painted bodies, G-space; base = RC153 camera()).
+ const baseCam={x:10.876310171993168,y:-99.28622978306726,scale:.9830057653562606,battleArenaRC138:true,rc153WholeBody:true,
+  rc153View:{x:-139.52,y:0,width:1559.04,height:720,k:.5208333333333334},rc153Viewport:{width:812,height:375},rc153MapWidth:1584};
+ const layoutCalls={camera:0,position:0};
+ root.__HAPIL_COMBAT_LAYOUT_RC153__=Object.freeze({policy:{},boss:a=>!!(a?.boss||a?.midboss),position:(a,q)=>{layoutCalls.position++;return q;},
+  framing:()=>({left:-59.24,right:1328.68,top:219.19,bottom:728.14}),camera:(st,view,slot)=>{layoutCalls.camera++;return R.enabled(st)?baseCam:null;},scatter(){},bind(){}});
  const frames=[];
  root.__HAPIL_CONTROLS_V31329__={binding:{state:{current:null},phase:'game'},frameStart(s,dt){frames.push(dt);return 'native';}};
  if(withLeftZone){
@@ -61,7 +72,7 @@ function loadGame(dom,{withLeftZone=true}={}){
  }
  vm.runInContext(SCRIPT,root,{filename:'assets/rc240/mobile-landscape.js'});
  dom.runTimers(2);
- return {root,R,D,frames,API:root.__HAPIL_MOBILE_LANDSCAPE_RC240__};
+ return {root,R,D,frames,baseCam,layoutCalls,API:root.__HAPIL_MOBILE_LANDSCAPE_RC240__};
 }
 function world(extra={}){
  return {zone:'ep1b03',time:100,hp:240,maxHp:240,x:12,y:24,gameModeV31346:'STORY',enemies:[],...extra};
@@ -74,10 +85,13 @@ const d=p=>p.x-p.y;
  const dom=makeDom();const {root,API,R}=loadGame(dom);
  ok(API&&API.installed(),'RC240 mobile landscape layer installs once its seams exist');
  eq(API.policy.heroLine,1.45,'hero zone keeps the native RC138 left line (y-x >= 1.45)');
- eq(API.policy.enemyLine,5,'enemy zone starts at x-y >= 5');
+ eq(API.policy.enemyLine,5,'enemy zone starts at x-y >= 5 while the hero is home');
+ near(API.policy.enemyLineMax,(965-640)/27,1e-9,'dynamic enemy line is capped at screen x 965');
+ near(API.policy.gapUnits,6.45,1e-9,'gap kept from the hero position is 6.45 x-y units (174 px)');
  near(API.policy.gapLogicalPx,(1.45+5)*27,1e-9,'documented stand-off gap in logical px');
  ok(root.__HAPIL_FLOOR_PATCHES_RC227__.rc240StandoffRC240===true,'floor patch seam is wrapped');
- ok(root.__HAPIL_LEFT_ZONE_NATIVE_RC223__.rc240StandoffRC240===true,'left-zone seam is wrapped');
+ ok(root.__HAPIL_LEFT_ZONE_NATIVE_RC223__.rc240StandoffRC240!==true,'RC223 left-zone seam is NOT wrapped (danger strip keeps working)');
+ ok(root.__HAPIL_COMBAT_LAYOUT_RC153__.rc240StandoffRC240===true,'RC153 layout seam (camera/position) is wrapped');
  ok(typeof root.__HAPIL_FLOOR_PATCHES_RC227__.surface==='object','wrapped floor patches keep their public surface');
  ok(root.__HAPIL_LEFT_ZONE_NATIVE_RC223__.installed===true&&typeof root.__HAPIL_LEFT_ZONE_NATIVE_RC223__.factors==='function','wrapped left-zone keeps its public surface');
  // idempotent: running the script again does not double wrap
@@ -106,13 +120,12 @@ for(const mode of ['STORY','DREAM']){
  a.x=19.4;ok(d(a)>=API.policy.enemyLine-1e-9&&Number.isFinite(a.y),mode+': direct property writes are clamped too');
  const bx=b.x,by=b.y;b.x=b.x+.1;
  ok(Math.abs(b.x-(bx+.1))<1e-9&&b.y===by,mode+': moves deep inside the enemy zone are untouched');
- // hero cannot step into the enemy half through the RC223 extension
+ // RC223 danger strip keeps working exactly as before (tests/rc223-left-zone-browser.cjs:265)
  const LZ=root.__HAPIL_LEFT_ZONE_NATIVE_RC223__;
- ok(LZ.allowed(s,s,{x:18,y:17},.8)===false,mode+': RC223 extension point across the centre is no longer admitted');
- ok(LZ.canMove(s,s,{x:18,y:17},.8)===false,mode+': hero cannot move into the enemy half');
+ ok(LZ.allowed(s,s,{x:15,y:14},.8)===true&&LZ.canMove(s,s,{x:15,y:14},.8)===true,mode+': RC223 strip point {15,14} is still admitted');
  ok(LZ.allowed(s,s,{x:12,y:24},.8)===true,mode+': normal hero floor still admitted');
- s.x=17.5;s.y=17.6; // hero setter goes through the guard
- ok(s.y-s.x>=API.policy.heroLine-1e-9,mode+': hero write across the line is clamped to the hero zone ('+(s.y-s.x).toFixed(3)+')');
+ s.x=17.5;s.y=16; // hero walks into the strip through the guard
+ near(s.x-s.y,1.5,1e-9,mode+': hero may enter the RC223 strip (RC240 does not clamp the hero)');
  // frameStart chain still calls native
  eq(root.__HAPIL_CONTROLS_V31329__.frameStart(s,.016),'native',mode+': frameStart chain preserved');
  ok(frames.length===1,'native frameStart ran once');
@@ -198,21 +211,67 @@ for(const mode of ['STORY','DREAM']){
  void D;
 }
 
-// ---------------------------------------------------------------- hero already across the line (e.g. old save): eased out
+// ---------------------------------------------------------------- dynamic enemy line follows the hero into the strip
 {
  const dom=makeDom();const {R,API}=loadGame(dom);
- const s=world({x:18,y:16.2});s.enemies=[enemy('b',27,12)];
- // hero stands in the old RC223 extension when RC240 first sees the world
+ const s=world();const mob=enemy('mob',22.5,16.5),boss=enemy('boss',22.5,15.5,{boss:true});s.enemies=[mob,boss];
  R.enforce(s);
- const start=s.y-s.x;
- API.step(s,.016);
- ok(s.y-s.x<API.policy.heroLine-.5,'hero is not teleported on first sight ('+(s.y-s.x).toFixed(3)+')');
- let prev=s.y-s.x,maxStep=0;
- for(let i=0;i<200;i++){API.step(s,.016);s.time+=.016;const now=s.y-s.x;maxStep=Math.max(maxStep,Math.abs(now-prev));ok(now>=prev-1e-9,'hero retreat is monotonic');prev=now;}
- ok(maxStep<=API.policy.settleRate*.016+1e-6,'hero retreat is eased');
- ok(prev>=API.policy.heroLine-1e-6,'hero ends inside the hero zone ('+prev.toFixed(3)+' from '+start.toFixed(3)+')');
- // and cannot walk back in
- s.x=18.5;s.y=17;ok(s.y-s.x>=API.policy.heroLine-1e-9,'hero cannot re-enter the enemy half');
+ near(API.snapshot(s).enemyLine,5,1e-9,'hero home: enemy line at 5');
+ const bossD0=d(boss);ok(bossD0>=5-1e-9,'boss admitted behind the base line');
+ // hero walks deep into the RC223 strip: x-y = 5.6 (screen x 791)
+ s.x=17.8;s.y=12.2;near(s.x-s.y,5.6,1e-9,'hero is in the strip');
+ const target=Math.min(API.policy.enemyLineMax,5.6+API.policy.gapUnits);
+ let prev=d(mob),maxStep=0;
+ for(let i=0;i<150;i++){API.step(s,.016);s.time+=.016;const now=d(mob);ok(Number.isFinite(now),'finite');maxStep=Math.max(maxStep,now-prev);ok(now>=prev-1e-9,'mob retreat is monotonic');prev=now;}
+ ok(maxStep<=API.policy.lineRate*.016+1e-6,'line rises eased ('+maxStep.toFixed(4)+' units/frame)');
+ near(API.snapshot(s).enemyLine,target,1e-6,'line settles at min(hero + gap, cap)');
+ ok(d(mob)>=target-1e-6,'mob keeps the 174 px gap from the hero in the strip ('+d(mob).toFixed(3)+')');
+ near(d(boss),bossD0,1e-9,'boss is not moved by the dynamic line');
+ ok(R.applyPosition(mob,{x:20,y:16}),'mob write accepted by guard');ok(d(mob)>=target-1e-6,'mob cannot walk back into the gap');
+ // deepest strip point: cap holds
+ s.x=18.9;s.y=7.7;for(let i=0;i<120;i++){API.step(s,.016);s.time+=.016;}
+ near(API.snapshot(s).enemyLine,API.policy.enemyLineMax,1e-6,'line capped at screen x 965');
+ ok(d(mob)>=API.policy.enemyLineMax-1e-6,'mob held at the cap');
+ // hero goes home: line drops at once; nobody is pulled
+ s.x=12;s.y=24;const mx=mob.x;API.step(s,.016);s.time+=.016;
+ near(API.snapshot(s).enemyLine,5,1e-9,'hero home again: line back to 5');ok(mob.x===mx,'lowering the line moves nobody');
+ ok(R.applyPosition(mob,{x:21,y:15.5}),'write');near(d(mob),5.5,1e-9,'mob may advance again once the hero retreats');
+}
+
+// ---------------------------------------------------------------- phone landscape combat zoom
+const floorCss=(D,cam)=>D.polygon('all',.8).map(p=>{const gx=640+27*(p.x-p.y),gy=13.5*(p.x+p.y),v=cam.rc153View;return{x:(cam.x+gx*cam.scale-v.x)*v.k,y:(cam.y+gy*cam.scale-v.y)*v.k};});
+const inRect=(p,r)=>p.x>r.left&&p.x<r.right&&p.y>r.top&&p.y<r.bottom;
+function edgeHits(pts,r){for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];for(let t=0;t<=1;t+=.02)if(inRect({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},r))return true;}return false;}
+for(const [label,insets,minZoom] of [['no notch',{left:0,right:0,top:0,bottom:0},1.25],['iPhone notch',{left:50,right:50,top:0,bottom:21},1.1]]){
+ const rects=insets.left?{'.hm-movement':{left:56,top:272,right:132,bottom:348},'.hm-actions':{left:600,top:300,right:756,bottom:348},'#hapil-mobile-controls-v31366 [data-mobile-action="F"]':{left:716,top:254,right:756,bottom:294},'.rc108-settings-trigger':{left:718,top:4,right:758,bottom:44}}:PHONE_RECTS;
+ const dom=makeDom({insets,rects});const {R,D,root,API,baseCam}=loadGame(dom);
+ const s=world();s.enemies=[enemy('m',26,12)];R.enforce(s);
+ const L=root.__HAPIL_COMBAT_LAYOUT_RC153__,view={x:-139.52,y:0,width:1559.04,height:720,k:.5208333333333334};
+ const cam=L.camera(s,view);
+ ok(cam&&cam!==baseCam,label+': combat camera is zoomed on a landscape phone');
+ const z=cam.scale/baseCam.scale;
+ ok(z>=minZoom&&z<=API.policy.maxZoom+1e-9,label+': zoom '+z.toFixed(3)+' within ['+minZoom+', '+API.policy.maxZoom+']');
+ ok(L.camera(s,view)===cam,label+': same zoomed object on repeat (no per-frame allocation)');
+ ok(cam.rc153View===baseCam.rc153View&&cam.rc153WholeBody===true&&cam.rc240ZoomRC240===z,label+': fit metadata preserved, zoom recorded');
+ const pts=floorCss(D,cam),vw=812,vh=375;
+ ok(pts.every(p=>p.x>=insets.left+4-1e-6&&p.x<=vw-insets.right-4+1e-6&&p.y>=insets.top&&p.y<=vh-insets.bottom),label+': whole playable floor (both zones + RC223 strip) stays inside the safe area');
+ for(const [sel,r] of Object.entries(rects))ok(!edgeHits(pts,r)&&!['left','right'].some(()=>false),label+': floor clear of '+sel);
+ const frameTop=(cam.y+219.19*cam.scale)*view.k,frameBottom=(cam.y+728.14*cam.scale)*view.k;
+ ok(frameTop>=insets.top-1e-6&&frameBottom<=vh-insets.bottom+1e-6,label+': bodies standing on the floor stay vertically on screen');
+ const centreX=pts.reduce((a,p)=>a+p.x,0)/pts.length;near(centreX,(insets.left+vw-insets.right)/2,12,label+': floor centred so the hero zone is the left third and the enemy zone the right');
+ ok(L.camera(s,view,'hero')===baseCam,label+': split/slot cameras are untouched');
+ API.setZoomEnabled(false);ok(L.camera(s,view)===baseCam,label+': zoom can be switched off (identity camera)');API.setZoomEnabled(true);ok(L.camera(s,view)===cam,label+': and back on');
+ const persona=world({zone:'cult04',personaTestRC240:true,innerFinalRC133:{duelSwap:false}});
+ ok(L.camera(persona,view)===baseCam,label+': Persona duel keeps its camera');
+}
+{
+ const desk=makeDom({touch:false,coarse:false,screen:{width:1920,height:1080},inner:{width:1280,height:720}});const {R,root,baseCam}=loadGame(desk);
+ const s=world();s.enemies=[enemy('m',26,12)];R.enforce(s);
+ ok(root.__HAPIL_COMBAT_LAYOUT_RC153__.camera(s,{x:0,y:0,width:1280,height:720,k:1})===baseCam,'desktop: camera object returned unchanged (identity)');
+ const port=makeDom({inner:{width:375,height:812}});const P=loadGame(port);const s2=world();s2.enemies=[enemy('m',26,12)];P.R.enforce(s2);
+ ok(P.root.__HAPIL_COMBAT_LAYOUT_RC153__.camera(s2,{})===P.baseCam,'portrait phone: no zoom (RC152 gate owns portrait)');
+ const bad=makeDom();const B=loadGame(bad);const s3=world();s3.enemies=[enemy('m',26,12)];B.R.enforce(s3);B.baseCam.scale=NaN;
+ ok(B.root.__HAPIL_COMBAT_LAYOUT_RC153__.camera(s3,{})===B.baseCam,'non-finite base camera passes through');
 }
 
 // ---------------------------------------------------------------- device: phone, tablet, desktop, orientation lock
