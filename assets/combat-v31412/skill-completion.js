@@ -26,19 +26,45 @@
   const idOf = (v) => String(v?.id ?? v?.sourceId ?? '');
 
   const castFieldMatch = new Map();
+  const FIXED_CAST_FIELDS = Object.freeze(['skillCastLockUntilV31412','attackAt','attackImpactAt','activePatternUntil','atomicCastUntil31210','castVisualUntil31210','telekineticUntil','cosmicPoseUntilV31318','laserCastUntilV31332','finaleCastUntilV31334','skillCastEndAt']);
+  const CAST_LISTS = Object.freeze(['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318','bossLaserCastsV31330','pendingHits','impactQueue','hostileProjectiles']);
+  // Every runtime field name that matches the cast pattern. These are always
+  // read live, so a key added after this task's enumeration is never missed.
+  const KNOWN_CAST_FIELDS = Object.freeze(['castUntil','castVisualUntil','riftEndAt','skillCastEndAt','spatialRiftUntil','telekineticUntil','MONGSE_riftEndAt','MONGSE_telekineticEndAt']);
+  const castFieldPattern = /(?:cast|beam|pose|telekinetic|rift).*(?:until|endat)$/i;
+  const enumerable = Object.prototype.propertyIsEnumerable;
+  // Large actors are dictionary-mode objects; enumerating ~200 keys dominated
+  // repeated phase reads. Cache only the matching key NAMES per actor for one
+  // synchronous task and one clock value; values are always read live.
+  const castKeyNames = new WeakMap();
+  let castTask = 0, castTaskOpen = false;
+  function castFieldNames(state, actor) {
+    if (!castTaskOpen) { castTaskOpen = true; Promise.resolve().then(() => { castTaskOpen = false; castTask++; }); }
+    const time = state?.time;
+    let entry = castKeyNames.get(actor);
+    if (entry && entry.task === castTask && entry.state === state && Object.is(entry.time, time)) return entry.keys;
+    const keys = [];
+    for (const key in actor) {
+      let matches = castFieldMatch.get(key);
+      if (matches === undefined) { matches = castFieldPattern.test(key); castFieldMatch.set(key, matches); }
+      if (matches && Object.hasOwn(actor, key) && !KNOWN_CAST_FIELDS.includes(key)) keys.push(key);
+    }
+    entry = { task: castTask, state, time, keys };
+    castKeyNames.set(actor, entry);
+    return keys;
+  }
   function castUntil(state, actor) {
     const t = finite(state?.time ?? now);let until=0;
     const accept=value=>{const n=finite(value);if(n>t&&n<t+30&&n>until)until=n;};
-    for(const key of ['skillCastLockUntilV31412','attackAt','attackImpactAt','activePatternUntil','atomicCastUntil31210','castVisualUntil31210','telekineticUntil','cosmicPoseUntilV31318','laserCastUntilV31332','finaleCastUntilV31334','skillCastEndAt'])accept(actor?.[key]);
+    for(const key of FIXED_CAST_FIELDS)accept(actor?.[key]);
     // Read live values: cast admission/phase locks may change within a tick.
-    // Memoize only key classification, avoiding entries/map/filter allocation.
-    for(const key in actor??{}) {
-      let matches=castFieldMatch.get(key);
-      if(matches===undefined){matches=/(?:cast|beam|pose|telekinetic|rift).*(?:until|endat)$/i.test(key);castFieldMatch.set(key,matches);}
-      if(matches&&Object.hasOwn(actor,key))accept(actor[key]);
+    // Equivalent to accepting every own enumerable key matching the pattern.
+    if(actor!=null&&(typeof actor==='object'||typeof actor==='function')){
+      for(const key of KNOWN_CAST_FIELDS)if(enumerable.call(actor,key))accept(actor[key]);
+      for(const key of castFieldNames(state,actor))if(enumerable.call(actor,key))accept(actor[key]);
     }
     const actorId=idOf(actor);
-    for(const key of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318','bossLaserCastsV31330','pendingHits','impactQueue','hostileProjectiles'])for(const cast of state?.[key]??[]) {
+    for(const key of CAST_LISTS)for(const cast of state?.[key]??[]) {
       if(String(cast?.sourceId??cast?.ownerId??cast?.ownerIdV31331??'')!==actorId||cast?.damageSuppressedV31226||cast?.projectileRemovalReason31215)continue;
       accept(Math.max(finite(cast.endAt),finite(cast.end),finite(cast.at),finite(cast.impactAt),finite(cast.motionReleaseAt31219),finite(cast.interruptProtectedUntil31210),finite(cast.fireAt)+finite(cast.activeSeconds)));
     }
