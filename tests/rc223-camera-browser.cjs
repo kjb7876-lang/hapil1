@@ -28,7 +28,7 @@ if (expectedSha) assert.equal(appSha, expectedSha, 'served application checkout 
 
 const BASELINE = Object.freeze({
   'assets/rc104/combat-viewport.js': 'f0ceb60d7699cb4bb8ee061dd3ed84a3c86c2c50cf3a653d07881f3f01d61ae7',
-  'assets/rc133/bitmap-contact.js': '1ac7539f225c434844f474edcdd9b3cea996d6d980fc238c24ecc12c6294468c',
+  'assets/rc133/bitmap-contact.js': '4150686c7229fc5689983460cd59e05b1d6975d1e13f1e24151f04fdb6c736de',
   'assets/rc133/native-install.js.txt': '32209ba098045ecba87a305ddf75f79dbe0c0b22ad47e53b519662e6a05df2be',
   'qa/rc133/authorized-runtime-extension-147.json': 'f3a0e8f84194033748be278288a5149d521acd1005e1093c27f6770132578d73'
 });
