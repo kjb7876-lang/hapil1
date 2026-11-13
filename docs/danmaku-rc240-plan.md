@@ -113,3 +113,8 @@
 리뷰 1·2차 수정(탄막·연출·모바일 담당)을 런타임 다섯 모듈에 반영했다. 2단 변신 화이트아웃은 STG feel 화면 패스의 마지막에서 그려 RC240의 모든 탄·편대·배너·HUD 위에 온다(`tests/rc240-review-order-unit.cjs`).
 폰에서는 네이티브 모바일 기본값이 `reducedFlash`를 켜므로 화이트아웃 최대치가 0.2로 낮다(접근성 설정이라 바꾸지 않음).
 검증: `tests/rc240-review-{danmaku,feel,mobile,order}-unit.cjs`, `tools/rc240d-build-extension.cjs --check`.
+
+## 모달 중 카메라 고정 (확장 165)
+
+리뷰 수정의 폰 줌 재조준 이징이 모달(대화, QA 캡처 게이트, RC233 카메라 포즈 고정)로 게임 시계가 멈춘 동안에도 진행되어, RC233 품질 브라우저의 "고정 카메라" 검사(드리프트 ≤ 1e-7)가 0.0116으로 실패했다.
+모달 중 재적합은 즉시 적용하고, 진행 중이던 이징은 모달이 열리면 끝낸다. 검증: `tests/rc240-review-camera-unit.cjs`(수정 전 실패), `tests/rc233-quality-browser.cjs`(드리프트 0).
