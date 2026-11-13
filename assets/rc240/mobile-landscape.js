@@ -368,8 +368,12 @@
   if(far<Math.min(POLICY.zoomKeepLow,fp-.16)&&fit.Z<POLICY.maxZoom-1e-9)return 0;
   return 1;
  }
+ // The game clock is stopped: native pause or an open modal (dialogue, QA
+ // capture gate, RC233 camera-pose fixture). The camera then holds still.
+ function held(s){if(s?.paused===true)return true;try{const b=root.__HAPIL_CONTROLS_V31329__?.binding;return !!b?.modal?.current&&(b.state?.current==null||b.state.current===s);}catch{return false;}}
  function current(st,s,t){
   if(!st.easing)return st.cam;
+  if(held(s)){st.easing=false;return st.cam;}
   let u=finite(t)&&finite(st.easeT0)?(t-st.easeT0)/POLICY.zoomEaseSeconds:1;
   // A clock that stops mid-ease (pause, modal) must not freeze the camera
   // half-way: after 0.5 s of real time without game time, finish.
@@ -396,8 +400,8 @@
   const cam=okFit?{...base,x:fit.x,y:fit.y,scale:fit.scale,rc240ZoomRC240:fit.Z}:base;
   st.base0Prev=st.base0;st.fit=okFit?fit:null;st.base0=base;st.cam=cam;
   // Ease only between two zoomed framings while the game clock runs; a
-  // paused world (or a change from/to the identity camera) snaps.
-  if(ease&&shown&&shown!==st.base0Prev&&cam!==base&&finite(shown.rc240ZoomRC240)&&s.paused!==true&&sameView(shown.rc153View,base.rc153View)&&finite(t)){
+  // paused or modal-held world (or a change from/to the identity camera) snaps.
+  if(ease&&shown&&shown!==st.base0Prev&&cam!==base&&finite(shown.rc240ZoomRC240)&&!held(s)&&sameView(shown.rc153View,base.rc153View)&&finite(t)){
    st.fromX=shown.x;st.fromY=shown.y;st.fromScale=shown.scale;st.fromZ=shown.rc240ZoomRC240;st.easeT0=t;st.easeWall=wall();st.easing=true;st.bufT=NaN;st.buf=null;
    st.bufA={...cam};st.bufB={...cam};
   }else st.easing=false;
