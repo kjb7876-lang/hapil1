@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "2b09ab860c491672ceb2cf1d8d9efca135753f71",
+  "baseTree": "0dbb4d93cb8e5e75bfbad68c1f90b17d7bbccec2",
+  "sourceCommit": "d04f84917a0b3f9d619943827b9113d74400c377",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "dd78e353a537969d4757c515b4b24e0e0237510624adab9510a2750442046241",
+  "files": [
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f8aadbb62be15b3cf6410e8d1e2a0376c78a9ea7",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "085785419caea209daf7dfe37ae256afea3dbdbf622a524b533c6d1ca2d484f2",
+        "gitBlob": "4736889471682d53222fd500fdc936dfdba97c11"
+      },
+      "reason": "assets/rc240/boss-form.js: Write cross-text fixes back to the DOM only when the text changes, so the MutationObserver cannot re-trigger itself on text that keeps 십자 (ep1b08 telegraph hang)."
+    }
+  ],
+  "targetProtectedRowsSha256": "17f9520cb61e232107e4d909e1865d0c09da42c79046278db31209db45625092"
+}

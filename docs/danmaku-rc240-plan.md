@@ -100,3 +100,10 @@
 | `last302-house-b-tiled.webp` | CX-0071BV 16A_r2 (기와집 B) | HOLD 7.92 | 627x425, 하단 중앙 | 넣지 않음 | 스크린샷 합성 결과 밤 배경에 낮 조명의 집이 튀고, 맵 그림에 이미 같은 자리 가옥이 있어 제외 |
 
 남은 그림: 소복 처녀 hit4 / death8, 2단 변신 본체, 가면 루시퍼 (`NEEDS_ART`).
+
+## 텍스트 관찰자 수정 (확장 163)
+
+헤드리스 소크에서 ep1b08 보스전 진입 2~3초 뒤 페이지가 멈췄다. 원인은 1라운드 boss-form의 십자가→육망성 DOM 관찰자다.
+`십자`를 담았지만 `fixText`가 바꾸지 않는 문구(ep1b08 경고 "십자 광역 · 교차선 밖으로 이동하세요")에도 `nodeValue`를 다시 써서,
+같은 값을 써도 생기는 characterData 기록이 관찰자를 끝없이 다시 불렀다. 이제 바뀐 경우에만 쓴다.
+검증: `tests/rc240-text-observer-unit.cjs` (수정 전 실패, 수정 후 통과), `tools/rc240c-build-extension.cjs --check`.
