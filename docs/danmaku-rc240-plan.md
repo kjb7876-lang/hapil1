@@ -107,3 +107,9 @@
 `십자`를 담았지만 `fixText`가 바꾸지 않는 문구(ep1b08 경고 "십자 광역 · 교차선 밖으로 이동하세요")에도 `nodeValue`를 다시 써서,
 같은 값을 써도 생기는 characterData 기록이 관찰자를 끝없이 다시 불렀다. 이제 바뀐 경우에만 쓴다.
 검증: `tests/rc240-text-observer-unit.cjs` (수정 전 실패, 수정 후 통과), `tools/rc240c-build-extension.cjs --check`.
+
+## 리뷰 수정 (확장 164)
+
+리뷰 1·2차 수정(탄막·연출·모바일 담당)을 런타임 다섯 모듈에 반영했다. 2단 변신 화이트아웃은 STG feel 화면 패스의 마지막에서 그려 RC240의 모든 탄·편대·배너·HUD 위에 온다(`tests/rc240-review-order-unit.cjs`).
+폰에서는 네이티브 모바일 기본값이 `reducedFlash`를 켜므로 화이트아웃 최대치가 0.2로 낮다(접근성 설정이라 바꾸지 않음).
+검증: `tests/rc240-review-{danmaku,feel,mobile,order}-unit.cjs`, `tools/rc240d-build-extension.cjs --check`.

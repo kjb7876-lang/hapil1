@@ -148,7 +148,7 @@ async function transformCheck(page,tag){
     check(S.nSteadyBreaks===0,tag+': settled mob gap = min(hero+174, 965)',{steady:S.steady,breaks:S.steadyBreaks});
     check(S.snapshot.mode==='standoff',tag+': stand-off active in '+fixture.mode);
     report.zoom[tag]={zoom:L.zoom,applied:L.applied,heroHeight:L.bodies.find(b=>b.id==='hero')?(L.bodies.find(b=>b.id==='hero').b-L.bodies.find(b=>b.id==='hero').t):null,heroMaxX:S.heroMaxX,mobMinX:S.mobMinX,bossMinX:S.bossMinX};
-    check(L.zoom>=(fixture.name==='dream-boss'?1.15:1.25)&&L.zoom<=1.45,tag+': phone landscape combat zoom applied',{zoom:L.zoom});
+    check(L.zoom>=(fixture.name==='dream-boss'?1.1:1.15)&&L.zoom<=1.45,tag+': phone landscape combat zoom applied',{zoom:L.zoom});
     const xs=L.all.map(p=>p.x),ys=L.all.map(p=>p.y);
     check(Math.min(...xs)>=0&&Math.max(...xs)<=L.vw&&Math.min(...ys)>=0&&Math.max(...ys)<=L.vh,tag+': whole playable floor on screen',{l:Math.min(...xs),r:Math.max(...xs),t:Math.min(...ys),b:Math.max(...ys)});
     const it=L.items;

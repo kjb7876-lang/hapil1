@@ -242,7 +242,9 @@ for(const mode of ['STORY','DREAM']){
 const floorCss=(D,cam)=>D.polygon('all',.8).map(p=>{const gx=640+27*(p.x-p.y),gy=13.5*(p.x+p.y),v=cam.rc153View;return{x:(cam.x+gx*cam.scale-v.x)*v.k,y:(cam.y+gy*cam.scale-v.y)*v.k};});
 const inRect=(p,r)=>p.x>r.left&&p.x<r.right&&p.y>r.top&&p.y<r.bottom;
 function edgeHits(pts,r){for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];for(let t=0;t<=1;t+=.02)if(inRect({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},r))return true;}return false;}
-for(const [label,insets,minZoom] of [['no notch',{left:0,right:0,top:0,bottom:0},1.25],['iPhone notch',{left:50,right:50,top:0,bottom:21},1.1]]){
+// RC240 review round 1: the zoom now frames the fight (far enemy <= 76% of the
+// width, body frame 8% lower) and prefers less zoom over losing the floor edge.
+for(const [label,insets,minZoom] of [['no notch',{left:0,right:0,top:0,bottom:0},1.15],['iPhone notch',{left:50,right:50,top:0,bottom:21},1.05]]){
  const rects=insets.left?{'.hm-movement':{left:56,top:272,right:132,bottom:348},'.hm-actions':{left:600,top:300,right:756,bottom:348},'#hapil-mobile-controls-v31366 [data-mobile-action="F"]':{left:716,top:254,right:756,bottom:294},'.rc108-settings-trigger':{left:718,top:4,right:758,bottom:44}}:PHONE_RECTS;
  const dom=makeDom({insets,rects});const {R,D,root,API,baseCam}=loadGame(dom);
  const s=world();s.enemies=[enemy('m',26,12)];R.enforce(s);
@@ -258,7 +260,7 @@ for(const [label,insets,minZoom] of [['no notch',{left:0,right:0,top:0,bottom:0}
  for(const [sel,r] of Object.entries(rects))ok(!edgeHits(pts,r)&&!['left','right'].some(()=>false),label+': floor clear of '+sel);
  const frameTop=(cam.y+219.19*cam.scale)*view.k,frameBottom=(cam.y+728.14*cam.scale)*view.k;
  ok(frameTop>=insets.top-1e-6&&frameBottom<=vh-insets.bottom+1e-6,label+': bodies standing on the floor stay vertically on screen');
- const centreX=pts.reduce((a,p)=>a+p.x,0)/pts.length;near(centreX,(insets.left+vw-insets.right)/2,12,label+': floor centred so the hero zone is the left third and the enemy zone the right');
+ const centreX=pts.reduce((a,p)=>a+p.x,0)/pts.length;near(centreX,(insets.left+vw-insets.right)/2,40,label+': floor near the centre (shifted towards the hero edge to frame the fight) so the hero zone is the left and the enemy zone the right');
  ok(L.camera(s,view,'hero')===baseCam,label+': split/slot cameras are untouched');
  API.setZoomEnabled(false);ok(L.camera(s,view)===baseCam,label+': zoom can be switched off (identity camera)');API.setZoomEnabled(true);ok(L.camera(s,view)===cam,label+': and back on');
  const persona=world({zone:'cult04',personaTestRC240:true,innerFinalRC133:{duelSwap:false}});
