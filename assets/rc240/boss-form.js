@@ -27,7 +27,7 @@
  const VERSION='RC240-boss-form-1';
  const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,clamp=(v,a,b)=>v<a?a:v>b?b:v,TAU=Math.PI*2;
  const PART_HP=.08,PART_SHARE=.35,TRANSFORM_AT=.5,TRANSFORM_DUR=1.2,TITLE_DUR=1.8,POOL_CAP=160,POOL_CAP_MOBILE=96;
- const WHITE_PEAK=.55,WHITE_PEAK_REDUCED=.18;
+ const WHITE_PEAK=.7,WHITE_PEAK_REDUCED=.2,RING_PEAK_REDUCED=.25,RETICLE_ARCS=3,GOLD='#c9a65a',INK='#0a0612';
  const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,villagerDraws:0,villagerDeaths:0,errors:0};
  let lastError=null;
  function fail(e){metrics.errors++;lastError=String(e&&e.stack||e).slice(0,300);if(metrics.errors<=3)root.console?.warn?.('RC240 boss-form',e);}
@@ -246,45 +246,101 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  let seedTick=0;function seedCurrent(){try{seedImages(binding()?.cache?.current);}catch(e){fail(e);}}
 
  // ---------------------------------------------------------------- render
- let partSprite=null,auraSprite=null,crackSprite=null;
- function sprites(){if(partSprite!==null)return;partSprite=canvas(64,64);auraSprite=canvas(256,256);crackSprite=canvas(160,200);
+ // Sprites baked once: weak-point glow, second-form halo (hollow), tint, cracks, soft spark (no blocky
+ // fillRect particles), soft contact shadow and the transition shock ring (soft falloff).
+ let partSprite=null,auraSprite=null,crackSprite=null,tintSprite=null,sparkSprites=null,shadowSprite=null,ringSprite=null;
+ function sprites(){if(partSprite!==null)return;partSprite=canvas(64,64);auraSprite=canvas(256,256);crackSprite=canvas(160,200);tintSprite=canvas(128,128);shadowSprite=canvas(64,32);ringSprite=canvas(256,256);sparkSprites=[canvas(16,16),canvas(16,16),canvas(16,16)];
   try{let g=partSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(32,32,2,32,32,30);gr.addColorStop(0,'#ffffff');gr.addColorStop(.35,'#ffe27a');gr.addColorStop(.7,'rgba(255,90,60,.55)');gr.addColorStop(1,'rgba(255,60,40,0)');g.fillStyle=gr;g.beginPath();g.arc(32,32,30,0,TAU);g.fill();g.lineWidth=2;g.strokeStyle='#fff6c8';g.beginPath();g.arc(32,32,11,0,TAU);g.stroke();}
-   g=auraSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(128,128,10,128,128,126);gr.addColorStop(0,'rgba(255,40,80,.55)');gr.addColorStop(.5,'rgba(140,20,90,.3)');gr.addColorStop(1,'rgba(40,0,40,0)');g.fillStyle=gr;g.beginPath();g.arc(128,128,126,0,TAU);g.fill();}
-   g=crackSprite?.getContext?.('2d');if(g){g.strokeStyle='#ffe3f0';g.lineWidth=2.2;g.lineCap='round';const seeds=[[80,40,1],[60,90,-1],[100,120,1],[70,150,-1]];
-    for(const [x,y,d] of seeds){g.beginPath();g.moveTo(x,y);g.lineTo(x+14*d,y+16);g.lineTo(x+4*d,y+30);g.lineTo(x+20*d,y+44);g.moveTo(x+14*d,y+16);g.lineTo(x+30*d,y+20);g.stroke();}}}catch(e){fail(e);}}
+   g=auraSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(128,128,10,128,128,126);gr.addColorStop(0,'rgba(255,40,80,0)');gr.addColorStop(.45,'rgba(200,30,90,.08)');gr.addColorStop(.72,'rgba(255,60,90,.45)');gr.addColorStop(.86,'rgba(150,30,160,.25)');gr.addColorStop(1,'rgba(40,0,40,0)');g.fillStyle=gr;g.beginPath();g.arc(128,128,126,0,TAU);g.fill();}
+   g=tintSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(64,64,4,64,64,62);gr.addColorStop(0,'rgba(190,20,60,.55)');gr.addColorStop(.6,'rgba(120,10,70,.25)');gr.addColorStop(1,'rgba(60,0,40,0)');g.fillStyle=gr;g.beginPath();g.arc(64,64,62,0,TAU);g.fill();}
+   g=crackSprite?.getContext?.('2d');if(g){g.lineCap='round';const seeds=[[80,40,1],[60,90,-1],[100,120,1],[70,150,-1]];
+    for(const [lw,col] of [[5,'rgba(255,70,90,.45)'],[2.2,'#ffe3f0']]){g.strokeStyle=col;g.lineWidth=lw;for(const [x,y,d] of seeds){g.beginPath();g.moveTo(x,y);g.lineTo(x+14*d,y+16);g.lineTo(x+4*d,y+30);g.lineTo(x+20*d,y+44);g.moveTo(x+14*d,y+16);g.lineTo(x+30*d,y+20);g.stroke();}}}
+   g=shadowSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(32,32,2,32,32,32);gr.addColorStop(0,'rgba(4,2,8,.92)');gr.addColorStop(.55,'rgba(4,2,8,.62)');gr.addColorStop(1,'rgba(6,3,10,0)');g.setTransform?.(1,0,0,.5,0,0);g.fillStyle=gr;g.beginPath();g.arc(32,32,32,0,TAU);g.fill();}
+   g=ringSprite?.getContext?.('2d');if(g){const gr=g.createRadialGradient(128,128,0,128,128,128);gr.addColorStop(0,'rgba(255,220,240,0)');gr.addColorStop(.6,'rgba(255,200,230,0)');gr.addColorStop(.8,'rgba(255,170,215,.4)');gr.addColorStop(.88,'rgba(255,250,252,.95)');gr.addColorStop(.94,'rgba(255,170,215,.35)');gr.addColorStop(1,'rgba(255,170,215,0)');g.fillStyle=gr;g.fillRect(0,0,256,256);}
+   const SC=['#ffffff','#ffe27a','#ffc4e4'];for(let i=0;i<3;i++){g=sparkSprites[i]?.getContext?.('2d');if(g){const gr=g.createRadialGradient(8,8,0,8,8,8);gr.addColorStop(0,'#ffffff');gr.addColorStop(.35,SC[i]);gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,16,16);}}}catch(e){fail(e);}}
  const overlayImages=new Map();
  function overlayImage(path){const cache=binding()?.cache?.current;let im=cache?.[path]??overlayImages.get(path);if(!im&&typeof root.Image==='function'){im=new root.Image();im.src=path;overlayImages.set(path,im);}return im&&im.complete&&im.naturalWidth>0?im:null;}
  // The battle base renders inside a no-text presentation context (bundle B:37126) that
  // shadows ctx.fillText; the one-line stage title is the brief's allowed exception.
  function hudText(ctx,t,x,y){const f=Object.getPrototypeOf(ctx)?.fillText;if(typeof f==='function')f.call(ctx,t,x,y);else ctx.fillText?.(t,x,y);}
+ function dia(ctx,x,y,r){ctx.moveTo(x,y-r);ctx.lineTo(x+r*.8,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r*.8,y);ctx.closePath();}
+ // Same ornament as the STG-feel warning (dark panel, soft ends, double gold rule, end diamonds, centre jewel).
+ function ornPanel(ctx,cx,cy,pw,ph,a,k){if(!(a>0)||!(pw>4))return;const x0=cx-pw/2,x1=cx+pw/2,y0=cy-ph/2,y1=cy+ph/2,cap=Math.min(36*k,pw*.14),cw=cap/3;
+  ctx.fillStyle='#08050c';ctx.globalAlpha=.8*a;ctx.beginPath();ctx.rect(x0+cap,y0,pw-2*cap,ph);ctx.fill();
+  for(let i=0;i<3;i++){ctx.globalAlpha=(.6-.2*i)*a;ctx.beginPath();ctx.rect(x0+cap-cw*(i+1),y0,cw,ph);ctx.rect(x1-cap+cw*i,y0,cw,ph);ctx.fill();}
+  ctx.fillStyle=GOLD;ctx.globalAlpha=.95*a;const L=Math.max(1,1.2*k);ctx.beginPath();ctx.rect(x0+cap*.55,y0,pw-cap*1.1,L);ctx.rect(x0+cap*.55,y1-L,pw-cap*1.1,L);ctx.fill();
+  ctx.globalAlpha=.42*a;ctx.beginPath();ctx.rect(x0+cap,y0+3.2*k,pw-2*cap,.8*k);ctx.rect(x0+cap,y1-4*k,pw-2*cap,.8*k);ctx.fill();
+  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,x0+cap*.55,y0+L/2,3*k);dia(ctx,x1-cap*.55,y0+L/2,3*k);dia(ctx,x0+cap*.55,y1-L/2,3*k);dia(ctx,x1-cap*.55,y1-L/2,3*k);dia(ctx,cx,y0+L/2,4.2*k);dia(ctx,cx,y1-L/2,4.2*k);ctx.fill();}
+ const easeOut=v=>1-Math.pow(1-clamp(v,0,1),3);
+ // Flash envelope: fast rise (.04 s) then exponential decay; no flicker.
+ function flashEnv(age){return age<0?0:age<.04?age/.04:Math.exp(-(age-.04)*4.5);}
  function render(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const w=worlds.get(s);if(!w)return;const t0=now();metrics.draws++;set=set??{};
-  const t=n(s.time),reduced=!!set.reducedFlash,low=!!set.lowFx;sprites();let white=0;
+  const t=n(s.time),reduced=!!set.reducedFlash,low=!!set.lowFx;sprites();let white=0,wb=null;
+  // Boss screen position in device px for the above-HUD overlay (read only while transforming).
+  let M=null;
   ctx.save();try{
    for(let i=0;i<w.list.length;i++){const b=w.list[i];const a=b.actor;if(!a||n(a.hp)<=0||!story(s))continue;
-    // weak points
+    // weak points: glow, HP arc and a slowly turning three-arc reticle (no cross)
     for(let j=0;j<b.parts.length;j++){const p=b.parts[j];if(p.broken)continue;const x=n(p.sx,b.ax),y=n(p.sy,b.ay),hit=t-p.flash<.08,pul=.85+.15*Math.sin(t*6+p.index*2);
      ctx.globalCompositeOperation='lighter';ctx.globalAlpha=hit?1:.8*pul;if(partSprite)ctx.drawImage(partSprite,x-20,y-20,40,40);
-     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.9;ctx.lineWidth=2.5;ctx.strokeStyle=hit?'#ffffff':'#ffd25a';ctx.beginPath();ctx.arc(x,y,16,-Math.PI/2,-Math.PI/2+TAU*clamp(p.hp/Math.max(1,p.maxHp),0,1));ctx.stroke();}
-    if(b.stage<1)continue;const u=(t-b.at)/TRANSFORM_DUR;
-    if(u>=0&&u<1){// shockwave ring + overlay art + white-out pulse
-     const R=40+460*u;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(1-u)*(reduced?.4:.9);ctx.lineWidth=Math.max(1,10*(1-u));ctx.strokeStyle='#fff3fa';ctx.beginPath();ctx.arc(b.ax,b.ay+40,R,0,TAU);ctx.stroke();
+     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.9;ctx.lineWidth=2.5;ctx.strokeStyle=hit?'#ffffff':'#ffd25a';ctx.beginPath();ctx.arc(x,y,16,-Math.PI/2,-Math.PI/2+TAU*clamp(p.hp/Math.max(1,p.maxHp),0,1));ctx.stroke();
+     const rot=reduced?p.index:t*.9+p.index;ctx.globalAlpha=hit?.9:.5;ctx.lineWidth=1.3;ctx.strokeStyle=hit?'#ffffff':GOLD;
+     for(let q=0;q<RETICLE_ARCS;q++){const a0=rot+q*TAU/RETICLE_ARCS;ctx.beginPath();ctx.arc(x,y,23,a0,a0+TAU/RETICLE_ARCS*.62);ctx.stroke();}}
+    if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;
+    if(u>=0&&u<1){if(!M&&typeof ctx.getTransform==='function'){try{M=ctx.getTransform();}catch(e){M=null;}}
+     if(M){b.dx=M.a*b.ax+M.c*b.ay+M.e;b.dy=M.b*b.ax+M.d*b.ay+M.f;}else{b.dx=b.ax;b.dy=b.ay;}b.dOk=Number.isFinite(b.dx)&&Number.isFinite(b.dy);
      const ov=b.cfg?.overlay?overlayImage(b.cfg.overlay):null;if(ov){const h=260,wd=h*ov.naturalWidth/Math.max(1,ov.naturalHeight);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=clamp(Math.sin(Math.PI*u)*1.4,0,1);ctx.drawImage(ov,b.ax-wd/2,b.ay+120-h,wd,h);}
-     if(u<.4)white=Math.max(white,Math.sin(Math.PI*u/.4));}
-    if(b.procedural&&u>=0){const k=clamp(u*2,0,1),pul=.75+.25*Math.sin(t*3.2);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(reduced?.5:.85)*k*pul;if(auraSprite)ctx.drawImage(auraSprite,b.ax-130,b.ay-120,260,280);
-     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.9*k;if(crackSprite)ctx.drawImage(crackSprite,b.ax-80,b.ay-90,160,200);
-     ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.32*k;ctx.fillStyle='#b0306a';ctx.beginPath();ctx.ellipse?.(b.ax,b.ay+20,62,108,0,0,TAU);ctx.fill();}}
-   // particles
-   const P=w.pool;if(P.live){ctx.globalCompositeOperation='lighter';for(let i=0;i<P.live;i++){const f=1-P.age[i]/P.life[i];ctx.globalAlpha=clamp(f,0,1);ctx.fillStyle=P.hue[i]===1?'#ffe27a':P.hue[i]===2?'#ffd6f0':'#ffffff';const r=2+3*f;ctx.fillRect(P.x[i]-r,P.y[i]-r,r*2,r*2);}}
-   // screen space: white-out and title card
+     const e=flashEnv(age);if(e>white){white=e;wb=b;}}
+    // Persistent second form (art or no art): hollow halo, orbiting shards; no-art bosses also get tint and glowing cracks.
+    if(age>=0){const k=clamp((u-.25)/.5,0,1);if(k>0)drawSecondForm(ctx,b,t,k,reduced,low);}}
+   // particles: soft additive sprites (the old fillRect squares read as blocky white glitches)
+   const P=w.pool;if(P.live&&sparkSprites){ctx.globalCompositeOperation='lighter';for(let i=0;i<P.live;i++){const f=1-P.age[i]/P.life[i],im=sparkSprites[P.hue[i]===1?1:P.hue[i]===2?2:0];if(!im||!(Number.isFinite(P.x[i])&&Number.isFinite(P.y[i])))continue;
+     ctx.globalAlpha=clamp(f,0,1);const r=4+7*f;ctx.drawImage(im,P.x[i]-r,P.y[i]-r,r*2,r*2);}}
+   // screen space: white-out fallback (only when the above-HUD overlay is not running) and title card
    const cv=ctx.canvas,cw=n(cv?.width,1280),ch=n(cv?.height,720),sk=cw/1280;
    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';
-   if(white>0){ctx.globalAlpha=clamp(white*(reduced?WHITE_PEAK_REDUCED:WHITE_PEAK),0,1);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,cw,ch);}
-   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),bw=cw*.62,bh=34*sk,bx=(cw-bw)/2,by=ch*.66;
-    ctx.globalAlpha=.62*a;ctx.fillStyle='#0b0612';ctx.fillRect(bx,by,bw,bh);
-    ctx.globalAlpha=.9*a;ctx.fillStyle='#e8c46a';ctx.fillRect(bx+bw*.1,by,bw*.8,Math.max(1,1.5*sk));ctx.fillRect(bx+bw*.1,by+bh-Math.max(1,1.5*sk),bw*.8,Math.max(1,1.5*sk));
-    ctx.globalAlpha=a;ctx.fillStyle='#fff7e6';ctx.font=`600 ${Math.round(20*sk)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.textAlign='center';ctx.textBaseline='middle';hudText(ctx,c.text,cw/2,by+bh/2+1);}
+   if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r');}
+   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),bh=40*sk,by=ch*.66,font=`600 ${Math.round(21*sk)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.font=font;
+    const tw=n(ctx.measureText?.(c.text)?.width,c.text.length*20*sk),bw=clamp(tw+150*sk,300*sk,cw*.6)*(reduced?1:.35+.65*easeOut(age/.3));
+    ornPanel(ctx,cw/2,by+bh/2,bw,bh,a,sk);ctx.globalAlpha=a;ctx.fillStyle='#f3e6c8';ctx.textAlign='center';ctx.textBaseline='middle';hudText(ctx,c.text,cw/2,by+bh/2+1);}
   }catch(e){fail(e);}finally{ctx.restore();}
   metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;}
+ // Additive boss-centred radial flash (keeps contrast at the edges; never a flat grey wash). The gradient
+ // is rebuilt only when the centre / radius moves (cache per path: 'r' render fallback, 'o' overlay).
+ function drawFlash(ctx,w,b,env,reduced,cx,cy,cw,ch,path){const R=Math.max(cw,ch)*(ch<500||cw<900?1.25:.95),key=path==='o'?'fo':'fr',c=w[key];
+  let G=c&&c.ctx===ctx&&Math.abs(c.x-cx)<4&&Math.abs(c.y-cy)<4&&Math.abs(c.r-R)<4?c.g:null;
+  if(!G&&typeof ctx.createRadialGradient==='function'){G=ctx.createRadialGradient(cx,cy,0,cx,cy,R);G.addColorStop(0,'rgba(255,250,252,1)');G.addColorStop(.12,'rgba(255,228,242,.75)');G.addColorStop(.38,'rgba(255,190,225,.28)');G.addColorStop(.7,'rgba(200,140,220,.07)');G.addColorStop(1,'rgba(200,140,220,0)');w[key]={ctx,x:cx,y:cy,r:R,g:G};}
+  if(!G)return;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=clamp(env*(reduced?WHITE_PEAK_REDUCED:WHITE_PEAK),0,1);ctx.fillStyle=G;ctx.fillRect(0,0,cw,ch);ctx.globalCompositeOperation='source-over';}
+ function drawSecondForm(ctx,b,t,k,reduced,low){const x=b.ax,y=b.ay;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;
+  const pul=reduced?1:.85+.15*Math.sin(t*1.7);ctx.globalCompositeOperation='lighter';
+  if(auraSprite){ctx.globalAlpha=Math.min(1,.85*k*pul);ctx.drawImage(auraSprite,x-135,y-150,270,320);}
+  if(b.procedural){if(tintSprite){ctx.globalAlpha=.5*k;ctx.drawImage(tintSprite,x-80,y-110,160,240);}if(crackSprite){ctx.globalAlpha=.75*k*pul;ctx.drawImage(crackSprite,x-80,y-90,160,200);}}
+  // five ember shards orbiting the body on a tilted ellipse
+  ctx.globalCompositeOperation='source-over';const N=low?3:5;
+  for(let i=0;i<N;i++){const a=(reduced?.25:t*.7)+i*TAU/N,sx=x+Math.cos(a)*96,sy=y+10+Math.sin(a)*30+(reduced?0:Math.sin(t*2+i)*4),hh=13+3*(i%2);
+   ctx.globalAlpha=.9*k;ctx.fillStyle='#1a0710';ctx.beginPath();ctx.moveTo(sx,sy-hh);ctx.lineTo(sx+4.5,sy);ctx.lineTo(sx,sy+hh*.6);ctx.lineTo(sx-4.5,sy);ctx.closePath();ctx.fill();
+   ctx.lineWidth=1.4;ctx.strokeStyle='#ff5a6a';ctx.stroke();ctx.globalAlpha=.8*k;ctx.strokeStyle='#ffd8c8';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(sx,sy-hh*.7);ctx.lineTo(sx,sy+hh*.3);ctx.stroke();}}
+ // Above-HUD overlay, drawn by STG feel at the end of its screen pass (CSS px). Marks itself live so
+ // render() skips its own under-HUD fallback flash.
+ function drawOverlay(ctx,s,set,cw,ch){if(!enabledFlag||!ctx||!s)return 0;const w=worlds.get(s);if(!w||!story(s))return 0;const t=n(s.time);w.overlayT=t;set=set??{};sprites();
+  const cv=ctx.canvas,kx=n(cv?.width,cw)/Math.max(1,n(cw,1280)),ky=n(cv?.height,ch)/Math.max(1,n(ch,720)),reduced=!!set.reducedFlash;let d=0;
+  for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;if(!(u>=0&&u<1))continue;
+   const cx=b.dOk?b.dx/kx:cw/2,cy=b.dOk?b.dy/ky:ch*.4;if(!(Number.isFinite(cx)&&Number.isFinite(cy)))continue;
+   drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o');d++;
+   if(ringSprite){const R=40+Math.max(cw,ch)*.75*easeOut(u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.pow(1-u,1.5)*(reduced?RING_PEAK_REDUCED:.9);ctx.drawImage(ringSprite,cx-R,cy-R,2*R,2*R);
+    const R2=R*.62;ctx.globalAlpha*=.6;ctx.drawImage(ringSprite,cx-R2,cy-R2,2*R2,2*R2);d++;}}
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return d;}
+ // Floor pass (under actors; STG feel calls it from the background seam): last302 villager contact
+ // shadows and the second-form floor sigil (ellipses + six diamonds, never a cross).
+ const FP={x:0,y:0};
+ function drawFloor(ctx,s,set){if(!enabledFlag||!ctx||!s||!story(s))return 0;sprites();const t=n(s.time),reduced=!!set?.reducedFlash;let v=0;const list=s.enemies;
+  if(s.zone===SOBOK.zone&&Array.isArray(list)&&shadowSprite){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+   for(let i=0;i<list.length;i++){const a=list[i];if(!a||!(n(a.hp)>0)||!villager(a)||!project(n(a.x,NaN),n(a.y,NaN),FP))continue;ctx.drawImage(shadowSprite,FP.x-42,FP.y-15,84,28);v++;}}
+  const w=worlds.get(s);if(w)for(let i=0;i<w.list.length;i++){const b=w.list[i],a=b.actor;if(b.stage<1||!a||!(n(a.hp)>0)||!project(n(a.x,NaN),n(a.y,NaN),FP))continue;
+   const k=clamp((t-b.at)/TRANSFORM_DUR,0,1),rot=reduced?0:t*.35;ctx.globalCompositeOperation='lighter';ctx.lineWidth=2;ctx.strokeStyle='#d0304c';
+   ctx.globalAlpha=.5*k;ctx.beginPath();ctx.ellipse?.(FP.x,FP.y,118,59,0,0,TAU);ctx.stroke();ctx.globalAlpha=.32*k;ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse?.(FP.x,FP.y,92,46,0,0,TAU);ctx.stroke();
+   ctx.fillStyle='#ff7a5a';ctx.globalAlpha=.6*k;ctx.beginPath();for(let j=0;j<6;j++){const q=rot+j*TAU/6,px=FP.x+Math.cos(q)*118,py=FP.y+Math.sin(q)*59;dia(ctx,px,py,5);}ctx.fill();}
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return v;}
 
  // ---------------------------------------------------------------- seams
  const seams={afterHit:null,render:null,loop:null,sprite:null};let inHit=false,inRender=false,inSprite=false;
@@ -318,7 +374,9 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   fn.rc240BossForm=true;try{B.phaseSprite=fn;}catch(e){fail(e);return false;}seams.sprite=fn;metrics.rewraps++;return true;}
  function depsReady(){const lp=root.__HAPIL_LOOP_V31365__,B=root.__HAPIL_RC86_BRIDGE__;return !!(lp&&typeof lp.afterHit==='function'&&typeof lp.render==='function'&&B&&typeof B.project==='function'&&'phaseSprite' in B);}
  function recheck(){if(!installed)return;try{wrapLoop();wrapSprite();seedCurrent();}catch(e){fail(e);}}
- function rafLoop(){try{const s=currentState();if(s&&enabledFlag){const w=worlds.get(s),t=n(s.time);const dt=w?t-w.lastT:0;tick(s,dt);const w2=worlds.get(s);if(w2)w2.lastT=t;}}catch(e){fail(e);}
+ // Portrait gate (RC152) pauses the game: nothing here ticks while it is up.
+ function rafStep(s){if(!s||!enabledFlag)return;try{if(root.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.()===true)return;}catch(e){}const w=worlds.get(s),t=n(s.time);const dt=w?t-w.lastT:0;tick(s,dt);const w2=worlds.get(s);if(w2)w2.lastT=t;}
+ function rafLoop(){try{rafStep(currentState());}catch(e){fail(e);}
   try{root.requestAnimationFrame(rafLoop);}catch(e){}}
  function install(){if(installed)return true;if(!depsReady())return false;
   try{if(!wrapLoop()||!wrapSprite())return false;}catch(e){fail(e);return false;}
@@ -336,10 +394,15 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   parts(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);return b?b.parts.map(p=>({index:p.index,hp:p.hp,maxHp:p.maxHp,broken:p.broken,sx:n(p.sx,b.ax),sy:n(p.sy,b.ay)})):[];},
   form(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);if(!b)return null;const u=n(s.time)-b.at;return {stage:b.stage,at:b.at,transforming:b.stage>=1&&u>=0&&u<TRANSFORM_DUR,procedural:b.procedural,floor:b.floor,art:b.cfg?(b.cfg.final??b.cfg.transition??b.cfg.overlay??'native-phase'):null};},
   titleCard(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?{...c}:null;},
+  // Accessors for other owners (no allocation): title card end, second-form transition window.
+  titleUntil(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?c.until:-1;},
+  transformUntil(s){const w=s&&worlds.get(s);if(!w)return -1;const t=n(s.time);let u=-1;for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage>=1&&t>=b.at&&t<b.at+TRANSFORM_DUR&&b.at+TRANSFORM_DUR>u)u=b.at+TRANSFORM_DUR;}return u;},
+  transforming(s){return api.transformUntil(s)>0;},
+  drawOverlay,drawFloor,
   fixText,
   assets:()=>({heart:{...sheet.heart},sobok:{...sheet.sobok}}),
   metrics:()=>({...metrics,enabled:enabledFlag,installed,lastError,heartSheet:sheet.heart.state,sobokSheet:sheet.sobok.state}),
-  __test:{tick,afterHit,render,burst,seedImages,install,recheck,worlds,nativePhase,floorFor,story,
+  __test:{rafStep,RETICLE_ARCS,drawOverlay,drawFloor,tick,afterHit,render,burst,seedImages,install,recheck,worlds,nativePhase,floorFor,story,
    poolLive:s=>worlds.get(s)?.pool.live??0,FORMS,NEEDS_ART,ZONE_NAMES,CROSS_AUDIT,HEART,SOBOK,villager,PART_HP,PART_SHARE,TRANSFORM_AT,TRANSFORM_DUR,TITLE_DUR,POOL_CAP}};
  root.__HAPIL_BOSS_FORM_RC240__=api;
  let attempts=0;(function ready(){if(!install()&&++attempts<1200)root.setTimeout?.(ready,10);})();

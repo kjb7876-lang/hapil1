@@ -35,7 +35,9 @@
  const HUES=[
   ['red','#ff3048','#8a0f22'],['orange','#ff8a1c','#8c3d00'],['yellow','#ffe03a','#8a6a00'],['green','#40ff8c','#0d7a3c'],
   ['cyan','#2ee8ff','#0a6a80'],['blue','#4f7dff','#1a2c8a'],['violet','#b45cff','#4a1a85'],['magenta','#ff4fd8','#8a1470'],
-  ['white','#f4f4ff','#6a6a8a'],['lime','#b6ff4a','#3f7a00'],['pink','#ff6fb5','#8a1a52'],['gold','#ffcf3a','#7a5200']];
+  ['white','#f4f4ff','#6a6a8a'],['lime','#b6ff4a','#3f7a00'],['pink','#ff6fb5','#8a1a52'],['gold','#ffcf3a','#7a5200'],
+  // Lava-map enemy bodies: magenta / violet with a white-hot core and a thin ember rim (4th field).
+  ['lavam','#ff3fb4','#7a0f4a','#ff8a3a'],['lavav','#b04cff','#3f1580','#ff8a3a']];
  const H={};HUES.forEach((h,i)=>H[h[0]]=i);
  const MODES=Object.freeze({
   STORY:{peakPc:[150,200,280],vs:1,vmin:55,vmax:120,vaim:130,dens:1.55,dmg:.04,mercy:1.5,clear:140,cap:.18,excl:160,lane:58},
@@ -142,8 +144,11 @@
  // Enemy palettes per family. Hero-side visuals (charge shot, coins) own one colour
  // family per map that enemy bullets never use: cyan on warm/violet maps, white-gold
  // on the cool lava map (rage), where enemy gold/yellow are folded to white/violet.
- const REMAP_SRC=Object.freeze({rage:{gold:'violet',red:'violet',orange:'cyan',yellow:'white',lime:'cyan',green:'blue',pink:'violet'},envy:{cyan:'magenta',green:'yellow',blue:'red',lime:'yellow'},
-  greed:{cyan:'blue'},gluttony:{cyan:'blue'},obsession:{cyan:'blue'},order:{cyan:'blue'},petal:{cyan:'blue'},lucifer:{cyan:'blue'}});
+ // rage (lava, hero side white-gold): white-hot cores in magenta/violet bodies with an ember rim, never
+ // plain blue/cyan (off-theme on lava) nor gold/yellow/orange (hero). lucifer (gold boss, pale floor,
+ // white-gold hero shot): crimson/violet/magenta, no gold, yellow or white bodies.
+ const REMAP_SRC=Object.freeze({rage:{gold:'lavav',red:'lavam',orange:'lavam',yellow:'white',lime:'lavav',green:'lavav',pink:'lavam',blue:'lavam',cyan:'lavav',violet:'lavav',magenta:'lavam'},envy:{cyan:'magenta',green:'yellow',blue:'red',lime:'yellow'},
+  greed:{cyan:'blue'},gluttony:{cyan:'blue'},obsession:{cyan:'blue'},order:{cyan:'blue'},petal:{cyan:'blue'},lucifer:{cyan:'violet',gold:'red',yellow:'magenta',orange:'magenta',white:'magenta',lime:'red',green:'violet',blue:'violet',pink:'magenta'}});
  const HERO_SIDE=Object.freeze({rage:'gold'});
  const HERO_PALETTE=Object.freeze({cyan:{key:'cyan',body:'#7ff6ff',edge:'#0b4f63',core:'#ffffff',dim:'#bff9ff',coin:['#c6f7ff','#5fe8ff','#ffffff']},gold:{key:'gold',body:'#ffe27a',edge:'#6b4300',core:'#fffbe8',dim:'#fff1b8',coin:['#e8e2cf','#ffd34d','#fff6cf']}});
  function heroPalette(family){return HERO_PALETTE[HERO_SIDE[family]??'cyan'];}
@@ -166,13 +171,17 @@
   const emitEnd=n(o.emitEnd,1e9);
   return {spell,band,lite:!!o.lite,seed:n(o.seed,0)>>>0,t:0,layers,next:layers.map(l=>n(l.start,0)),beats:layers.map(()=>0),emitEnd,sig:o.weapon?makeSig(o.weapon,o,emitEnd<1e8?emitEnd:11.4):null,thin:false};}
  const RAMP=Object.freeze({t:2.4,k0:.45});
+ const RING=0;// muzzle ring radius (G px); 24 and 46 both pushed solvability cases over their margin, so off by default
  function layerPeriod(run,l,ctx,at){const aimed=l.kind==='fan'||l.kind==='decel';if(aimed)return l.period/clamp(ctx.dens,.2,1);
   const u=l.kind==='wall'?1:clamp(n(at,RAMP.t)/RAMP.t,0,1),ramp=RAMP.k0+(1-RAMP.k0)*u;return l.period*ramp/Math.max(.2,ctx.dens*n(run.spell.dens,1));}
  function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=sigStep(run,ctx,out);const thin=!!run.thin,keep=run.squeeze?-1:ctx.band===3?3:2;
   for(let i=0;i<run.layers.length;i++){const l=run.layers[i];let guard=0;
    const aimedL=l.kind==='fan'||l.kind==='decel';
    while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if((ctx.soft&&(aimedL||k%5>keep))||(thin&&!aimedL&&k%5>keep)){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
-    const before=out.length;EMIT[l.kind](l.p,k,rng,ctx,out);for(let j=before;j<out.length;j++){out[j].layer=i;out[j].pre=Math.max(0,run.t-run.next[i]);}c+=out.length-before;
+    const before=out.length;EMIT[l.kind](l.p,k,rng,ctx,out);for(let j=before;j<out.length;j++){const b=out[j];b.layer=i;b.pre=Math.max(0,run.t-run.next[i]);
+     // Muzzle ring: bullets born on the boss point start on a ring around it (2:1 floor ellipse), so the
+     // pattern opens from the boss's edge instead of knotting on its sprite.
+     if(ctx.ring>0&&b.x===ctx.bx&&b.y===ctx.by){const a=b.spd>0?b.ang:Math.atan2(b.gvy,b.gvx);b.x+=Math.cos(a)*ctx.ring;b.y+=Math.sin(a)*ctx.ring*.6;}}c+=out.length-before;
     run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);}}
   return c;}
 
@@ -210,6 +219,11 @@
  // fixed beats; around a phrase the spell's non-aimed layers thin to the soft-hold ratio.
  const F_SIG=32,DEG=PI/180;
  const SIG=Object.freeze({base:[56,72,104],mode:{STORY:1,HELL:1.05,DREAM:1.1},max:120,cap:168,beats:[.24,.62],pre:1.3,hold:.5,armed:1.3,vcap:190,swingV:185,minLeft:3.2});
+ // Boss body box (G px, relative to the muzzle, which sits 100 px above the feet) plus a margin:
+ // no formation bullet is traced, swung or parked inside it, so the boss sprite and its HP bar
+ // (just under the feet) stay readable. Ground-area formations (sound rings, hexagram) are laid on
+ // the floor with the iso squash (2:1 ellipse); airborne weapons stay unsquashed.
+ const BOSS_BOX=Object.freeze({w:50,up:90,down:130,m:8}),ISO_U=1.41,ISO_V=.72;
  const MOB_TY=[T.ORB,T.ORB,T.BIG,T.RICE,T.RICE,T.STAR];
  const SIG_ACCENT=['cyan','magenta','violet','red','orange'];
  // Builder: G holds the phrase frame and writes into typed arrays (no allocation per bullet).
@@ -226,28 +240,37 @@
  // Final local position of (u,v) after the current swing -> G.fu, G.fv.
  function fin(G,u,v){const c=Math.cos(G.phi),s=Math.sin(G.phi),du=u-G.pu,dv=v-G.pv;G.fu=G.pu+du*c-dv*s;G.fv=G.pv+du*s+dv*c;}
  function out(x,y){return !(y>=FIELD.y0-14&&y<=FIELD.y1+14&&x>=CULL.x0+20&&x<=CULL.x1-20);}
- function bad(G,x,y){const dx=x-G.hx,dy=y-G.hy;return out(x,y)||dx*dx+dy*dy<G.excl2;}
+ function inBox(G,x,y){return x>G.bx0&&x<G.bx1&&y>G.by0&&y<G.by1;}
+ function bad(G,x,y){const dx=x-G.hx,dy=y-G.hy;return out(x,y)||dx*dx+dy*dy<G.excl2||inBox(G,x,y);}
+ // Coherent release (rfix generators): every bullet keeps the same drift toward the hero plus a slow
+ // self-similar expansion about (cu,cv), both taken in the swung pose, so the silhouette translates
+ // and grows instead of scattering (it stays recognisable well past .4 s of travel). -> G.fa, G.fs.
+ function coh(G,u,v,cu,cv,drift,k){fin(G,cu,cv);const ccu=G.fu,ccv=G.fv;fin(G,u,v);const vx=drift+k*(G.fu-ccu),vy=k*(G.fv-ccv);G.fa=Math.atan2(vy,vx);G.fs=Math.hypot(vx,vy);}
  // Adds one bullet at local (u,v), traced at phrase time t (<= the trace end), oriented lo. After
  // the swing it leaves at local angle la (given in the traced pose; it turns with the swing unless
  // G.rfix) and spd (STORY px/s, mode-scaled, capped). Rejected (counted) when its start, swing or
  // end lies outside the band or inside the heart exclusion, or its release crosses the safe lane.
  function laneHit(G,x,y,ang,vel,r){const c=Math.cos(ang),dx=G.hx-x;if(!(c*dx>0&&Math.abs(c)>.12&&vel>1))return false;const tt=dx/(c*vel);if(tt>=7)return false;return Math.abs(y+Math.sin(ang)*vel*tt-G.ySafe(G.t0+r+tt))<G.gapHalf;}
  function put(G,u,v,t,la,spd,type,hue,st,lo,acc,flags){const B=G.buf;if(B.n>=B.cap)return -1;
+  // Iso: positions and sprite orientation lie on the floor; the release opens a little steeper than
+  // authored (the squashed arcs are flatter, so their bullets must part vertically faster).
+  if(G.iso){u*=ISO_U;v*=ISO_V;la=Math.atan2(Math.sin(la)*1.25,Math.cos(la));if(lo!=null&&lo===lo)lo=Math.atan2(Math.sin(lo)*ISO_V,Math.cos(lo)*ISO_U);}
   const k=G.s,sx=G.sx,sy=G.sy,x=G.cx+sx*u*k,y=G.cy+sy*v*k;if(!(x===x&&y===y&&la===la)){G.off++;return -1;}
   const phi=G.phi,du=u-G.pu,dv=v-G.pv;let fx=x,fy=y;
-  if(phi!==0)for(let q=1;q<=3;q++){const a=phi*q/3,c=Math.cos(a),s=Math.sin(a);fx=G.cx+sx*(G.pu+du*c-dv*s)*k;fy=G.cy+sy*(G.pv+du*s+dv*c)*k;if(q<3&&out(fx,fy)){G.off++;return -1;}}
-  if(bad(G,x,y)||out(fx,fy)){G.off++;return -1;}
+  if(phi!==0)for(let q=1;q<=3;q++){const a=phi*q/3,c=Math.cos(a),s=Math.sin(a);fx=G.cx+sx*(G.pu+du*c-dv*s)*k;fy=G.cy+sy*(G.pv+du*s+dv*c)*k;if(q<3&&(out(fx,fy)||inBox(G,fx,fy))){G.off++;return -1;}}
+  if(bad(G,x,y)||out(fx,fy)||inBox(G,fx,fy)){G.off++;return -1;}
   let ang=wa(G,la+(G.rfix?0:phi));const r=G.ts+G.td+G.rl,vel=clamp(n(spd)*G.vs,-G.vcap,G.vcap),ac=n(acc)*G.vs,rev=(flags|0)&F_REVERSE;
   // Safe lane: a release whose ray would cross the lane at the hero's column is left out; for the
   // whip (G.mirrorOK: links already fly up or down off their crest) it is mirrored instead.
-  if(!rev&&!G.noLane&&laneHit(G,fx,fy,ang,vel,r)){if(!G.mirrorOK){G.lane++;return -1;}ang=-ang;if(laneHit(G,fx,fy,ang,vel,r)){G.lane++;return -1;}G.flip++;}
+  // fadeLane generators keep such a bullet in the silhouette and let it dissolve .35 s after release.
+  let fade=false;if(!rev&&!G.noLane&&laneHit(G,fx,fy,ang,vel,r)){if(G.fadeLane){fade=true;G.lane++;}else{if(!G.mirrorOK){G.lane++;return -1;}ang=-ang;if(laneHit(G,fx,fy,ang,vel,r)){G.lane++;return -1;}G.flip++;}}
   const j=B.n++;B.x[j]=x;B.y[j]=y;B.t[j]=n(t);B.r[j]=Math.max(r,n(t)+.12);B.a[j]=ang;B.v[j]=vel;B.acc[j]=ac;B.vmin[j]=rev?-G.vcap*.9:0;B.ty[j]=G.mob?MOB_TY[type]:type;B.hu[j]=hue;B.st[j]=st;
-  B.o[j]=wa(G,lo==null||!(lo===lo)?la:lo);B.fl[j]=rev?1:0;B.bo[j]=0;B.lf[j]=G.life>0?G.life:0;
+  B.o[j]=wa(G,lo==null||!(lo===lo)?la:lo);B.fl[j]=rev?1:0;B.bo[j]=0;B.lf[j]=fade?B.r[j]+.35:G.life>0?G.life:0;
   B.qx[j]=G.cx+sx*G.pu*k;B.qy[j]=G.cy+sy*G.pv*k;B.qw[j]=phi!==0?G.w*sx*sy:0;B.q0[j]=G.ts;return j;}
  // Nominal width (along u) and height of each generator's silhouette, for the frame search.
- const DIM={blade:p=>p.cuts?[440,250]:p.split?[460,200]:[440,230],whip:()=>[480,200],mirror:()=>[160,240],strings:()=>[440,240],
+ const DIM={blade:p=>p.cuts?[440,250]:p.split?[460,200]:[440,230],whip:()=>[480,200],mirror:()=>[190,256],strings:()=>[452,240],
   coin:p=>p.v==='yoyo'?[360,220]:p.v==='gear'?[200,200]:p.v==='lamp'?[90,244]:[110,236],claw:()=>[300,240],jaw:()=>[300,214],wings:()=>[440,240],
-  rings:p=>[210,240],crescent:()=>[390,250],sigil:p=>p.v==='eye'?[350,176]:[196,226],syringe:()=>[480,190]};
+  rings:p=>[300,180],crescent:()=>[390,250],sigil:p=>p.v==='eye'?[296,192]:[290,170],syringe:()=>[480,190]};
  // Afterimage cuts (l301: three parallel slashes, the last with its hilt) or one long diagonal
  // draw-cut (h103 iai). Each slash is a lens of NEEDLEs; the slashes part sideways and fan open.
  function slash(G,p){const K=p.split?1:(p.cuts||3),Ls=p.split?460:410,tilt=(p.split?22:14)*DEG,gap=p.split?0:66,th=p.split?17:12,hilt=7,per=Math.max(6,Math.floor((G.N-hilt)/K)),Td=p.split?.42:.6,dt=Td/K;
@@ -263,50 +286,62 @@
   // blade with a spell-hue fuller. Traced hilt to tip, held raised, swung about the hilt; then its
   // bullets fly off the swing, faster toward the tip so the line opens. curl: shepherd's crook.
   blade(G,p){if(p.cuts||p.split)return slash(G,p);
-   const L=p.curl?400:440,ph0=(p.swing??36)*DEG,a0=-(p.up??22)*DEG+(G.alt?ph0:0),phi=G.alt?-ph0:ph0,ca=Math.cos(a0),sa=Math.sin(a0),hu=-L/2*ca,hv=-L/2*sa,Td=.55,sg=phi>=0?1:-1,rel=a0+sg*58*DEG;
+   G.fadeLane=!p.curl;const L=p.curl?400:440,ph0=(p.swing??36)*DEG,a0=-(p.up??22)*DEG+(G.alt?ph0:0),phi=G.alt?-ph0:ph0,ca=Math.cos(a0),sa=Math.sin(a0),hu=-L/2*ca,hv=-L/2*sa,Td=.55,sg=phi>=0?1:-1,rel=a0+sg*58*DEG;
    swing(G,hu,hv,phi,.75,Td,L+34);
    const at=(s,w,t,ty,hue,st,o,spd)=>put(G,hu+ca*s-sa*w,hv+sa*s+ca*w,t,rel,spd,ty,hue,st,o);
-   at(-30,0,0,T.BIG,G.h1,3,a0,60);at(-15,0,.03,T.ORB,G.h0,3,a0,60);
-   for(let q=0;q<6;q++){const a=TAU*q/6;at(6+13*Math.cos(a),13*Math.sin(a),.06,T.ORB,G.h1,4,a0+a,60);}
+   // Hilt: BIG pommel, RICE grip along the axis, ring guard of tangential RICE (never a crossguard).
+   at(-34,0,0,T.BIG,G.h1,3,a0,60);at(-20,0,.03,T.RICE,G.h0,3,a0,60);at(-8,0,.04,T.RICE,G.h0,3,a0,60);
+   for(let q=0;q<6;q++){const a=TAU*q/6;at(8+15*Math.cos(a),15*Math.sin(a),.06,T.RICE,G.h1,4,a0+a+PI/2,60);}
    const rest=Math.max(8,G.N-8);
    if(p.curl){const hook=Math.round(rest*.3),staff=rest-hook,s1=L-46;
     for(let i=0;i<staff;i++){const q=i/(staff-1),s=22+(s1-22)*q;at(s,0,Td*q*.8,i%3?T.DOT:T.ORB,i%2?G.h1:G.h0,0,a0,64+100*s/L);}
     for(let i=0;i<hook;i++){const q=PI*1.15*i/(hook-1),s=s1+26*Math.sin(q),w=-sg*(26-26*Math.cos(q));at(s,w,Td*(.8+.2*i/hook),T.ORB,G.h0,1,a0+q,64+100*s/L);}
     return;}
-   const E=Math.round(rest*.36),F=rest-2*E;
-   for(let e=-1;e<=1;e+=2)for(let i=0;i<E;i++){const q=i/(E-1),s=26+(L-26)*q,w=e*18*(1-Math.pow(q,1.7));at(s,w,Td*q,T.NEEDLE,G.h0,e>0?0:1,a0,64+100*s/L);}
-   for(let i=0;i<F;i++){const q=(i+.5)/F,s=44+(L*.8-44)*q;at(s,0,Td*q*.85,i%3?T.DOT:T.ORB,G.h1,2,a0,64+100*s/L);}},
+   // Broad tapered blade: two NEEDLE edges laid along their own slope converging on the tip (the back
+   // edge licks like a flame), a RICE fuller down the middle. All leave at one speed (+-15%), so the
+   // blade flies as a blade.
+   const E=Math.round(rest*.36),F=rest-2*E,hw=q=>40*(1-Math.pow(q,1.5))+3;
+   for(let e=-1;e<=1;e+=2)for(let i=0;i<E;i++){const q=i/(E-1),s=26+(L-26)*q,fl=e<0?1+.22*Math.sin(q*TAU*2.5):1,w=e*hw(q)*fl,sl=-e*60*Math.sqrt(q+.01)/(L-26);at(s,w,Td*q,T.NEEDLE,G.h0,e>0?0:1,a0+Math.atan(sl),70+26*s/L);}
+   for(let i=0;i<F;i++){const q=(i+.5)/F,s=44+(L*.78-44)*q;at(s,0,Td*q*.85,T.RICE,G.h1,2,a0,70+26*s/L);}},
   // Chain whip / flute line: a long tilted wave of alternating white and hue links from a BIG
   // handle, lashed out handle -> tip, held, cracked about the handle; every link flies off its crest.
-  whip(G,p){G.mirrorOK=true;const Lw=460,A=p.A??86,lam=p.lam??150,tilt=p.tilt??.16,Td=.7,u0=-Lw/2,v0=-tilt*Lw/2-6;
+  whip(G,p){G.fadeLane=true;const Lw=460,A=p.A??86,lam=p.lam??150,tilt=p.tilt??.16,Td=.7,u0=-Lw/2,v0=-tilt*Lw/2-6;
    swing(G,u0,v0,(G.alt?-1:1)*(p.crack??22)*DEG,.6,Td,Lw+20);
-   put(G,u0-16,v0,0,PI,40,T.BIG,G.h1,3,0);put(G,u0-2,v0,0,PI,40,T.ORB,G.h0,3,0);
-   const per=Math.max(10,G.N-2-(p.notes?Math.floor(G.N/9)*2:0));
-   // Links sit on a phase grid that includes every crest (k per wavelength, k a multiple of 4), so
-   // a sparse mobile whip keeps its full height.
-   const kq=Math.max(4,4*Math.round(lam*(per-1)/(Lw-18)/4)),step=lam/kq,last=Math.min(per+2,Math.floor((Lw-18)/step));
-   for(let j=0;j<=last;j++){const f=j/last,uu=18+step*j,env=Math.pow(f,.5)*.7+.3,w=TAU*(uu-18)/lam,v=v0+A*env*Math.sin(w)+tilt*uu,dv=A*env*Math.cos(w)*TAU/lam+tilt,cr=Math.sin(w)>=0?1:-1;
-    const head=p.notes&&j%6===3,type=head?T.ORB:j%3===0?T.ORB:T.DOT,la=Math.atan2(cr*(.3+.6*f),1),sp=60+38*f;
-    put(G,u0+uu,v,Td*f,la,sp,type,(j>>1)%2?G.h1:G.h0,0,Math.atan2(dv,1));
-    if(head)for(let q=1;q<=2;q++)put(G,u0+uu+6,v-7*q-2,Td*f,la,sp,q===2?T.STAR:T.DOT,G.h1,2,-PI/2);}},
-  // Mirror pane: a tall hollow frame of RICE along its edges with ORB corners, five cracks from an
-  // off-centre impact (no two collinear, so never an X); it tilts, then the shards fly off the impact.
-  mirror(G,p){const W=150,Hh=230,P=Math.round(G.N*.55),K=Math.max(5,G.N-P-4),Td=.75,ix=-W*.1,iy=-Hh*.12,per=2*(W+Hh);
-   swing(G,0,0,(p.tilt??10)*DEG,.5,Td+.25,150);
-   const shard=(u,v,t,ty,hue,st,o)=>{const d=Math.hypot(u-ix,v-iy);put(G,u,v,t,Math.atan2(v-iy,u-ix),44+.5*d,ty,hue,st,o);};
-   for(let i=0;i<P;i++){const s=per*(i+.5)/P;let u,v,o;if(s<W){u=-W/2+s;v=-Hh/2;o=0;}else if(s<W+Hh){u=W/2;v=-Hh/2+(s-W);o=PI/2;}else if(s<2*W+Hh){u=W/2-(s-W-Hh);v=Hh/2;o=0;}else{u=-W/2;v=Hh/2-(s-2*W-Hh);o=PI/2;}shard(u,v,Td*i/P,T.RICE,G.h0,0,o);}
-   for(let c=0;c<4;c++)shard(c%2?W/2:-W/2,c<2?-Hh/2:Hh/2,Td,T.ORB,G.h1,5,0);
-   const cr=[15,88,152,226,302],seg=Math.max(1,Math.floor(K/cr.length));
-   for(let k=0;k<cr.length;k++){const a=cr[k]*DEG,len=Math.min(Math.abs((Hh/2)/Math.sin(a)||1e9),Math.abs((W/2)/Math.cos(a)||1e9))*.9;
-    for(let j=1;j<=seg;j++){const rr=len*j/seg;shard(ix+Math.cos(a)*rr,iy+Math.sin(a)*rr,Td+.05*k,j===seg?T.STAR:T.DOT,G.h1,1+k,a);}}},
+   put(G,u0-16,v0,0,PI,40,T.BIG,G.h1,3,0);put(G,u0-2,v0,0,PI,40,T.RICE,G.h0,3,0);
+   // Linked chain: face-on links (two parallel RICE = an oval) alternate with edge-on links (one NEEDLE),
+   // all laid along the chain's tangent on a decaying wave; a weighted tip (BIG + five spikes) ends it.
+   const tip=6,notes=p.notes?Math.floor(G.N/9)*2:0,links=Math.max(6,Math.floor(Math.max(9,G.N-2-tip-notes)*2/3));
+   const path=uu=>{const f=uu/Lw,env=Math.pow(f,.5)*.7+.3,w=TAU*(uu-18)/lam;G.pv_=v0+A*env*Math.sin(w)+tilt*uu;G.pd_=A*env*Math.cos(w)*TAU/lam+tilt;G.pc_=Math.sin(w)>=0?1:-1;};
+   for(let j=0;j<links;j++){const f=(j+.5)/links,uu=18+(Lw-46)*f;path(uu);const v=G.pv_,ta=Math.atan2(G.pd_,1),la=Math.atan2(G.pc_*.2,1),sp=70+14*f;
+    if(j%2===0){for(let sd=-1;sd<=1;sd+=2)put(G,u0+uu-Math.sin(ta)*5.5*sd,v+Math.cos(ta)*5.5*sd,Td*f,la,sp,T.RICE,G.h0,0,ta);}
+    else put(G,u0+uu,v,Td*f,la,sp,T.NEEDLE,G.h1,0,ta);
+    if(p.notes&&j%6===3)for(let q=1;q<=2;q++)put(G,u0+uu+6,v-8*q-3,Td*f,la,sp,q===2?T.STAR:T.RICE,G.h1,2,-PI/2);}
+   const ue=Lw-14;path(ue);const ve=G.pv_,te=Math.atan2(G.pd_,1),le=Math.atan2(G.pc_*.2,1);put(G,u0+ue,ve,Td,le,84,T.BIG,G.h1,4,te);
+   for(let q=0;q<5;q++){const a=te+q*TAU/5;put(G,u0+ue+Math.cos(a)*17,ve+Math.sin(a)*17,Td,le,84,T.NEEDLE,G.h0,5,a);}},
+  // Hand mirror: an irregular tall oval pane of RICE laid along its rim, a short RICE handle with a BIG
+  // pommel, five NEEDLE cracks from an off-centre impact (no two collinear, so never an X) and a few
+  // RICE shard triangles breaking off the chipped edge. It tilts on its handle, then the whole pane
+  // drifts at the hero while it shatters outward about the impact (coherent release).
+  mirror(G,p){const A=84,Bh=100,cv0=-14,Td=.75,ix=-20,iy=cv0-28,N=G.N;G.rfix=true;G.fadeLane=true;
+   const handle=N>=40?4:3,nSh=N>=45?3:2,rim=Math.min(34,Math.round(N*.46)),crk=Math.max(5,N-rim-handle-nSh*3-1),CR=[20,92,150,232,300],per=Math.max(1,Math.floor(crk/5));
+   swing(G,0,cv0+Bh+46,(p.tilt??10)*DEG,.5,Td+.42,2*Bh+60);
+   const go=(u,v,t,ty,hue,st,o)=>{coh(G,u,v,ix,iy,40,.3);put(G,u,v,t,G.fa,G.fs,ty,hue,st,o);};
+   const R=q=>1+.05*Math.sin(3*q+1)+.03*Math.sin(7*q+.4);
+   for(let i=0;i<rim;i++){const q=TAU*i/rim-PI/2,r=R(q);go(Math.cos(q)*A*r,cv0+Math.sin(q)*Bh*r,Td*i/rim,T.RICE,G.h0,0,Math.atan2(Math.cos(q)*Bh,-Math.sin(q)*A));}
+   for(let i=0;i<handle;i++){const last=i===handle-1;go(0,cv0+Bh+10+12*i,Td*.95,last?T.BIG:T.RICE,last?G.h1:G.h0,9,PI/2);}
+   go(ix,iy,Td,T.ORB,G.h1,10,0);
+   for(let k=0;k<CR.length;k++){const a=CR[k]*DEG;let len=8;while(len<400){const x=(ix+Math.cos(a)*len)/A,y=(iy-cv0+Math.sin(a)*len)/Bh;if(x*x+y*y>=.86)break;len+=4;}
+    for(let j=1;j<=per;j++){const q=j/(per+.35),b=a+(q>.55?(k%2?8:-8)*DEG:0);go(ix+Math.cos(b)*len*q,iy+Math.sin(b)*len*q,Td+.04*k+.22*j/per,T.NEEDLE,G.h1,1+k,b);}}
+   for(let k=0;k<nSh;k++){const q=-.55+.38*k,cu=Math.cos(q)*A*1.24,cvv=cv0+Math.sin(q)*Bh*1.2,rot=.7+1.3*k,rt=11;
+    for(let e=0;e<3;e++){const m=rot+PI/3+e*TAU/3;go(cu+Math.cos(m)*rt*.5,cvv+Math.sin(m)*rt*.5,Td+.22,T.RICE,G.h1,6+k,m+PI/2);}}},
   // Puppet strings / roots / neurons: a control bar above the boss's hand (ORB) with long lines
   // fanned down to the floor across the field; the bar sways, the lines snap at 55% and both halves
   // recoil along the line. branch: forked side twigs.
-  strings(G,p){const W=440,Hh=240,K=p.k||5,bw=120,Td=.8,twig=p.branch?Math.round(G.N*.2/K):0,bar=6,per=Math.max(5,Math.floor((G.N-bar)/K)-twig);
+  strings(G,p){const W=452,Hh=240,K=p.k||5,bw=120,Td=.8,twig=p.branch?Math.round(G.N*.2/K):0,bar=6,per=Math.max(5,Math.floor((G.N-bar)/K)-twig);
    swing(G,-W/2+bw/2,-Hh/2,(G.alt?-1:1)*(p.sway??12)*DEG,.6,Td+.03*K+.05,W+20);
    for(let i=0;i<bar;i++)put(G,-W/2+bw*i/(bar-1),-Hh/2,0,PI/2,46,T.ORB,i%2?G.h0:G.h1,7,0);
    for(let k=0;k<K;k++){const ax=-W/2+bw*(k+.5)/K,ay=-Hh/2+4,ex=-W/2+150+(W-150)*(k+1)/K,ey=Hh/2-((k*2)%3)*34,dx=ex-ax,dy=ey-ay,a=Math.atan2(dy,dx);
-    for(let j=0;j<per;j++){const s=(j+1)/per,away=s>=.55?a:a+PI;put(G,ax+dx*s,ay+dy*s,Td*s+k*.03,away,40+150*Math.abs(s-.55),j===per-1?T.ORB:j%4===0?T.ORB:T.DOT,k%2?G.h1:G.h0,k,a);}
+    for(let j=0;j<per;j++){const s=(j+1)/per,away=s>=.55?a:a+PI;put(G,ax+dx*s,ay+dy*s,Td*s+k*.03,away,40+150*Math.abs(s-.55),j===per-1?T.ORB:j%3===0?T.NEEDLE:T.RICE,k%2?G.h1:G.h0,k,a);}
     for(let q=0;q<twig;q++){const half=Math.max(1,Math.floor(twig/2)),sd=q<half?1:-1,s0=q<half?.45:.75,ii=q%half,ta=a+sd*36*DEG,rr=14+16*ii;
      put(G,ax+dx*s0+Math.cos(ta)*rr,ay+dy*s0+Math.sin(ta)*rr,Td*s0+.05,ta,56+20*ii,T.DOT,G.h1,8+(k%7),ta);}}},
   // Coins (white ORB rims that stand apart from a gold curtain, square hole of four hue RICE sides) stacked on a bulging arc, a yoyo pair on its
@@ -355,21 +390,20 @@
     put(G,u,v,Td*(side?1-s:s),la,Math.hypot(vy,fw),knife?T.NEEDLE:T.RICE,knife?G.h1:G.h0,side,Math.atan2(-v,-u));}
    G.life=0;const bite=ry/(vy*G.vs)*.75;G.rl=bite;
    for(let i=0;i<spit;i++){const s=spit>1?i/(spit-1):.5,la=(-42+84*s)*DEG;put(G,rx*.15+Math.cos(la)*14,Math.sin(la)*14,Td,la,58+22*((i*5)%3)/2,i%2?T.ORB:T.DOT,G.h1,2,la);}},
-  // Wings: from the shoulder, each wing is a fan of long RICE feathers with ORB tips, an ORB leading
-  // edge and a scalloped DOT trailing edge joining the tips; both wings flap toward the middle, then
-  // every feather launches as a lance along itself, opened outward.
-  wings(G,p){const pairs=G.band===3&&p.six?2:1,R=4,W=430,u0=-W/2,Td=.75,scal=2*pairs*(R-1)+2,per=Math.max(3,Math.floor((G.N-scal)/(2*pairs*R)));
-   for(let side=-1;side<=1;side+=2){swing(G,u0,0,-side*14*DEG,.6,Td+.08*(pairs-1),W);put(G,u0-8,side*8,0,PI+side*.6,50,T.BIG,G.h1,8,0);
-    for(let w=0;w<pairs;w++){const sv=side*(6+w*8);let tu=0,tv=0;
-     for(let r=0;r<R;r++){const la=side*(G.alt?2+8*r+w*5:4+6*r+w*5)*DEG,Lf=(W-(G.alt?34:44)*r)*(1-.16*w),cl=Math.cos(la),sl=Math.sin(la);
-      for(let j=1;j<=per;j++){const s=j/per,u=u0+cl*Lf*s,v=sv+sl*Lf*s,ty=j===per?T.ORB:r===0&&j%2===0?T.ORB:T.RICE;
-       put(G,u,v,Td*(.2*r/R+.8*s)+w*.08,la+side*8*DEG,62+40*s,ty,(w+r)%2?G.h1:G.h0,w*2+(side>0?1:0),la);}
-      const nu=u0+cl*Lf,nv=sv+sl*Lf;if(r>0)put(G,(tu+nu)/2-10,(tv+nv)/2,Td,la+side*12*DEG,70,T.DOT,G.h1,8+w,null);tu=nu;tv=nv;}}}},
+  // Wings: from the shoulder (BIG + ORB), each wing a fan of feather lances; every feather is a tapered
+  // herringbone row (RICE barbs alternating either side of the shaft, angled back like vanes, narrowing
+  // to a NEEDLE point). Both wings flap toward the middle, then each feather flies along itself at
+  // nearly one speed, so the wing spreads outward from the shoulder as a wing.
+  wings(G,p){G.fadeLane=true;G.rfix=true;const R=G.N>=90?4:2,W=430,u0=-W/2,Td=.75,per=Math.max(4,Math.floor((G.N-4)/(2*R)));
+   for(let side=-1;side<=1;side+=2){swing(G,u0,0,-side*14*DEG,.6,Td,W);coh(G,u0-10,side*6,u0,0,44,.26);put(G,u0-10,side*6,0,G.fa,G.fs,T.BIG,G.h1,8,0);coh(G,u0+4,side*10,u0,0,44,.26);put(G,u0+4,side*10,.02,G.fa,G.fs,T.ORB,G.h0,8,side*.6);
+    for(let r=0;r<R;r++){const la=side*((G.alt?3:4)+(R===4?5:11)*r)*DEG,Lf=W-40*r,cl=Math.cos(la),sl=Math.sin(la),st=(side>0?0:4)+r;
+     for(let j=1;j<=per;j++){const s=j/per,tipj=j>=per-1,bw=tipj?0:(12*(1-s)+2.5)*(j%2?1:-1),d=16+(Lf-16)*s,u=u0+cl*d-sl*bw,v=side*12+sl*d+cl*bw;
+      coh(G,u,v,u0,0,44,.26);put(G,u,v,Td*(.15*r/R+.85*s),G.fa,G.fs,tipj?T.NEEDLE:T.RICE,r%2?G.h1:G.h0,st,la+(tipj?0:(j%2?-1:1)*28*DEG));}}}},
   // Sound: concentric arcs (ORB/DOT nodes) pulse out from the boss on a beat (bell / choir / drum);
   // notes adds note heads on stems. Held, then every arc expands as a ring.
-  rings(G,p){const R=G.band===3?4:3,beat=p.beat||.26,r0=R===4?70:80,dr=R===4?42:50,u0=-(r0+dr*(R-1))/2-20,Td=(R-1)*beat+.12;swing(G,0,0,0,0,Td,1);
-   const rsum=R*r0+dr*R*(R-1)/2;for(let k=0;k<R;k++){const rad=r0+dr*k,span=Math.min(62*DEG,Math.asin(Math.min(1,118/rad))),pk=Math.max(5,Math.floor(G.N*rad/rsum)),cnt=p.notes?Math.round(pk*.7):pk,ang=i=>-span+2*span*i/Math.max(1,cnt-1);
-    for(let i=0;i<cnt;i++){const a=ang(i);put(G,u0+Math.cos(a)*rad,Math.sin(a)*rad,k*beat,a,64+4*k,i%2?T.DOT:T.ORB,k%2?G.h1:G.h0,k,a+PI/2);}
+  rings(G,p){G.iso=true;const R=G.band===3?4:3,beat=p.beat||.26,r0=R===4?70:80,dr=R===4?42:50,u0=-(r0+dr*(R-1))/2-20,Td=(R-1)*beat+.12;swing(G,0,0,0,0,Td,1);
+   const rsum=R*r0+dr*R*(R-1)/2;for(let k=0;k<R;k++){const rad=r0+dr*k,span=Math.min(62*DEG,Math.asin(Math.min(1,124/rad))),pk=Math.max(5,Math.floor(G.N*rad/rsum)),cnt=p.notes?Math.round(pk*.7):pk,ang=i=>-span+2*span*i/Math.max(1,cnt-1);
+    for(let i=0;i<cnt;i++){const a=ang(i);put(G,u0+Math.cos(a)*rad,Math.sin(a)*rad,k*beat,a,70+4*k,i%3===1?T.ORB:T.RICE,k%2?G.h1:G.h0,k,a+PI/2);}
     if(p.notes){const heads=Math.floor((pk-cnt)/3),step=Math.max(1,Math.floor(cnt/Math.max(1,heads)));for(let q=0,i=Math.floor(step/2);q<heads;q++,i+=step){const a=ang(Math.min(cnt-1,i)),u=u0+Math.cos(a)*rad,v=Math.sin(a)*rad;
      for(let z=1;z<=3;z++)put(G,u+5,v-6*z,k*beat,a,64+4*k,z===3?T.STAR:T.DOT,G.h1,4+k,-PI/2);}}}},
   // Crescent blade (time crescent / harvest scythe): a large tilted crescent, RICE outer edge and
@@ -378,24 +412,24 @@
   crescent(G,p){const Ro=262,th=52,c0=120*DEG,sp=57*DEG,snath=p.scythe?Math.round(G.N*.2):0,No=Math.round((G.N-snath)*.56),Ni=G.N-snath-No,Td=.62;
    let u0=1e9,u1=-1e9,v0=1e9,v1=-1e9;for(let i=0;i<=16;i++){const a=c0-sp+2*sp*i/16,x=Ro*Math.cos(a),y=Ro*Math.sin(a);u0=Math.min(u0,x);u1=Math.max(u1,x);v0=Math.min(v0,y);v1=Math.max(v1,y);}
    const ou=-(u0+u1)/2,ov=-(v0+v1)/2;swing(G,0,0,(G.alt?24:-24)*DEG,.6,Td,Ro+(snath?60:0));G.rfix=true;
-   const P=(u,v,t,ty,hue,st,o)=>{fin(G,u,v);put(G,u,v,t,Math.atan2(G.fv/240,1),ty===T.DOT?82:96,ty,hue,st,o);};
+   const P=(u,v,t,ty,hue,st,o)=>{fin(G,u,v);put(G,u,v,t,Math.atan2(G.fv/240,1),ty===T.NEEDLE||ty===T.DOT?82:96,ty,hue,st,o);};
    for(let i=0;i<No;i++){const a=c0-sp+2*sp*i/(No-1);P(ou+Math.cos(a)*Ro,ov+Math.sin(a)*Ro,Td*i/(No-1),T.RICE,G.h0,0,a+PI/2);}
-   for(let i=0;i<Ni;i++){const q=(i+.5)/Ni,a=c0-sp+2*sp*q,rr=Ro-th*Math.sin(PI*q);P(ou+Math.cos(a)*rr,ov+Math.sin(a)*rr,Td*q,T.DOT,G.h1,1,a+PI/2);}
+   for(let i=0;i<Ni;i++){const q=(i+.5)/Ni,a=c0-sp+2*sp*q,rr=Ro-th*Math.sin(PI*q);P(ou+Math.cos(a)*rr,ov+Math.sin(a)*rr,Td*q,T.NEEDLE,G.h1,1,a+PI/2);}
    const ha=c0+sp,hx=ou+Math.cos(ha)*Ro,hy=ov+Math.sin(ha)*Ro;for(let j=0;j<snath;j++){const s=(j+1)/snath;P(hx+210*s,hy+24*s,Td,j%3?T.DOT:T.ORB,G.h1,2,0);}},
   // Sigils drawn line by line: a hexagram (two interleaved triangles, the canon replacement for
   // every cross) with BIG vertices, turned a twelfth, or a sleepless eye (RICE lids, ORB iris, BIG
   // pupil). Released by self-similar expansion; the iris travels toward the hero.
   sigil(G,p){const Td=.9;
-   if(p.v==='eye'){const hw=175,hh=86,cR=(hw*hw+hh*hh)/(2*hh),iris=10,lid=Math.max(12,G.N-iris-3);swing(G,0,0,0,0,Td,1);
+   if(p.v==='eye'){const hw=148,hh=94,cR=(hw*hw+hh*hh)/(2*hh),iris=10,lid=Math.max(12,G.N-iris-3);swing(G,0,0,0,0,Td,1);
     for(let i=0;i<lid;i++){const side=i%2?1:-1,s=Math.floor(i/2)/Math.max(1,Math.ceil(lid/2)-1),xx=-hw+2*hw*s,yy=side*(Math.sqrt(Math.max(0,cR*cR-xx*xx))-(cR-hh)),d=Math.hypot(xx,yy);
      put(G,xx,yy,Td*.6*Math.abs(s-.5)*2,Math.atan2(yy,xx),26+70*d/hw,T.RICE,G.h0,side>0?1:0,Math.atan2(side*-xx,cR));}
     const aim=unwa(G,Math.atan2(G.hy-G.cy,G.hx-G.cx));G.noLane=true;
     for(let i=0;i<iris;i++){const q=TAU*i/iris;put(G,Math.cos(q)*40,Math.sin(q)*40,Td,aim,92,T.ORB,G.h1,2,q);}
     put(G,0,0,Td,aim,92,T.BIG,G.h0,3,0);put(G,-14,0,Td,aim,92,T.DOT,G.h1,3,0);put(G,14,0,Td,aim,92,T.DOT,G.h1,3,0);G.noLane=false;return;}
-   const R=112;swing(G,0,0,30*DEG,.6,Td,R);const per=Math.max(3,Math.floor((G.N-6)/6));
+   G.iso=true;const R=116;swing(G,0,0,0,0,Td,1);const per=Math.max(3,Math.floor((G.N-6)/6));
    for(let e=0;e<6;e++){const tri=e%2,k=Math.floor(e/2),a0=(tri?90:-90)+k*120,a1=a0+120,x0=Math.cos(a0*DEG)*R,y0=Math.sin(a0*DEG)*R,x1=Math.cos(a1*DEG)*R,y1=Math.sin(a1*DEG)*R;
     put(G,x0,y0,Td*e/6,a0*DEG,26+70,T.BIG,tri?G.h1:G.h0,tri,0);
-    for(let j=1;j<=per;j++){const s=j/(per+1),u=x0+(x1-x0)*s,v=y0+(y1-y0)*s,d=Math.hypot(u,v);put(G,u,v,Td*(e+s)/6,Math.atan2(v,u),26+70*d/R,j%3?T.DOT:T.ORB,tri?G.h1:G.h0,tri,Math.atan2(y1-y0,x1-x0));}}},
+    for(let j=1;j<=per;j++){const s=j/(per+1),u=x0+(x1-x0)*s,v=y0+(y1-y0)*s,d=Math.hypot(u,v);put(G,u,v,Td*(e+s)/6,Math.atan2(v,u),26+70*d/R,j%3?T.RICE:T.ORB,tri?G.h1:G.h0,tri,Math.atan2(y1-y0,x1-x0));}}},
   // Syringe: thumb plate (ORB), rod, hollow RICE barrel with hue liquid and graduation ticks, cone
   // and a long NEEDLE, laid tilted toward the hero (16-30 deg so it spans the band; or tilted 34 deg away when the hero stands close), held, then the
   // whole body thrusts along its axis (a positional sidestep).
@@ -466,8 +500,8 @@
  // (full size and full extent preferred, centre >= 130 px in front of the boss). It is spread over the 1.3 s
  // pre-window (SIG.perStep candidates per step, so no frame hitches) and stops early once a
  // full-size frame keeps >= 95%; the phrase is then built once more against the hero's position.
- const FR_DY=[0,-1,1,-.5,.5],FR_S=[1,.85],FR_D=[80,140,30],ALT=new Set(['blade','whip','claw','crescent','strings','syringe','wings']),SEARCH_PER_STEP=3;
- function buildSig(G,gen,p){const B=G.buf;B.n=0;G.off=0;G.lane=0;G.flip=0;G.w=0;G.td=0;G.ts=SIG.armed;G.rl=0;G.phi=0;G.pu=0;G.pv=0;G.life=0;G.noLane=false;G.rfix=false;G.mirrorOK=false;try{gen(G,p);}catch(err){B.n=0;}
+ const FR_DY=[0,-1,1,-.5,.5],FR_S=[1,.85],FR_D=[80,140,30,200],ALT=new Set(['blade','whip','claw','crescent','strings','syringe','wings']),SEARCH_PER_STEP=3;
+ function buildSig(G,gen,p){const B=G.buf;B.n=0;G.off=0;G.lane=0;G.flip=0;G.w=0;G.td=0;G.ts=SIG.armed;G.rl=0;G.phi=0;G.pu=0;G.pv=0;G.life=0;G.noLane=false;G.rfix=false;G.mirrorOK=false;G.fadeLane=false;G.iso=false;try{gen(G,p);}catch(err){B.n=0;}
   // The trace starts at once: the first bullet appears at t=0 (SIG.armed counts from there).
   let t0=1e9;for(let j=0;j<B.n;j++)if(B.t[j]<t0)t0=B.t[j];if(t0>0&&t0<1e9)for(let j=0;j<B.n;j++)B.t[j]-=t0;return B.n;}
  function frameAt(G,ctx,dim,c){const alts=c.alts,al=c.i%alts,r1=(c.i/alts)|0,sy=r1%2?1:-1,r2=(r1/2)|0,yi=r2%FR_DY.length,r3=(r2/FR_DY.length)|0,di=r3%FR_D.length,si=(r3/FR_D.length)|0;
@@ -475,6 +509,10 @@
   G.s=s;G.sy=sy;G.alt=al;G.cx=ctx.bx+G.sx*Math.max(130,dim[0]*s/2+FR_D[di]);G.cy=mid+FR_DY[yi]*slack;return si*1e3+di*100+Math.abs(FR_DY[yi]);}
  function prepG(run,ctx,G,t0){const S=run.sig;G.buf=S.buf;G.sx=ctx.dir>1?-1:1;G.hx=ctx.hx;G.hy=ctx.hy;G.vs=ctx.vs;G.vcap=Math.min(SIG.vcap,ctx.vmax*1.05);G.N=sigCount(ctx);G.band=ctx.band;G.mob=!!ctx.mobile;G.t0=t0;G.ySafe=ctx.ySafeAt;
   G.gapHalf=(ctx.lane*Math.max(.85,ctx.gapMul))/2+4;G.excl2=(ctx.excl+12)*(ctx.excl+12);
+  // The box grows with the boss's sprite scale (ctx.bscale; 1 in the headless suites): width and height
+  // above the feet scale, the HP-bar margin under the feet does not.
+  const bs=clamp(n(ctx.bscale,1),1,2.2),bw=BOSS_BOX.w*bs+BOSS_BOX.m,up=(BOSS_BOX.up+100)*bs-100+BOSS_BOX.m;
+  G.bx0=ctx.bx-bw;G.bx1=ctx.bx+bw;G.by0=ctx.by-up;G.by1=ctx.by+BOSS_BOX.down+BOSS_BOX.m;
   // Weapon edge in white (reads apart from the curtain on every map); the accent is the first of
   // SIG_ACCENT the spell's curtain does not use, so the weapon never melts into a same-hue curtain.
   const pal=run.spell.hues;G.h0=H.white;G.h1=H.violet;for(const k of SIG_ACCENT)if(!pal.includes(k)&&k!==run.spell.circle){G.h1=H[k];break;}}
@@ -484,7 +522,7 @@
   if(C.done)return true;prepG(run,ctx,G,S.beats[S.k]??run.t);const dim=DIM[e.g](e.p);
   for(let q=0;q<max&&C.i<C.total;q++,C.i++){const tag=frameAt(G,ctx,dim,C),kept=buildSig(G,gen,e.p),si=tag>=1e3,di=((tag%1e3)/100)|0;
    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;const B=S.buf;for(let j=0;j<B.n;j++){const x=B.x[j],y=B.y[j];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
-   const ext=B.n?Math.min(1,Math.hypot(x1-x0,y1-y0)/Math.hypot(dim[0],dim[1])):0,sc=kept*(si?1:1.12)*(di===2?.95:di?.97:1)+.4*G.N*ext-(tag%100);if(sc>C.best){C.best=sc;C.bi=C.i;}if(!si&&kept>=G.N*.95){C.i=C.total;break;}}
+   const ext=B.n?Math.min(1,Math.hypot(x1-x0,y1-y0)/Math.hypot(dim[0],dim[1])):0,sc=kept*(si?1:1.12)*(di===3?.94:di===2?.96:di?.97:1)+.4*G.N*ext-(tag%100);if(sc>C.best){C.best=sc;C.bi=C.i;}if(!si&&kept>=G.N*.95){C.i=C.total;break;}}
   if(C.i>=C.total)C.done=true;S.buf.n=0;return C.done;}
  function startPhrase(run,ctx){const S=run.sig,e=S.list[(S.order+S.k)%S.list.length],B=S.buf,G=S.G,gen=GEN[e.g];
   if(!gen){S.k++;return;}
@@ -565,7 +603,7 @@
   budget=Math.min(budget,o.liveCap??(mobile?LIVE_CAP.mobile:LIVE_CAP.pc));
   const seed=n(o.seed,0)>>>0,sigScale=reduceMul(mobile,auto)*clamp(setting,.6,1.3)*clamp(gov,.35,1)*(o.midboss?.5:1)*(o.lite?.8:1);
   return {mode:modeKey(o.mode),band,mobile,auto,vs,sigScale,vmin:M.vmin,vmax:M.vmax*(o.midboss?.9:1),vaim:M.vaim,dens,budget:Math.floor(budget),peak:Math.floor(budget),
-   remap:o.remap||null,excl:M.excl+(mobile?30:0),gapMul:band===3?.85:band===2?.93:1,lane:M.lane+(mobile?12:0)+(auto?20:0),seed,dir:PI,phi:PI,gapHalf:0,
+   remap:o.remap||null,ring:n(o.ring,RING),bscale:1,excl:M.excl+(mobile?30:0),gapMul:band===3?.85:band===2?.93:1,lane:M.lane+(mobile?12:0)+(auto?20:0),seed,dir:PI,phi:PI,gapHalf:0,
    bx:1071,by:425,hx:520,hy:520,ax:520,ay:520,beatT:0,travel:1,excluded:0,ySafeAt:t=>safeY(t,seed),spawnLog:null};}
  function frameCtx(ctx,bx,by,hx,hy,ax,ay,t){ctx.bx=bx;ctx.by=by;ctx.hx=hx;ctx.hy=hy;ctx.ax=ax;ctx.ay=ay;ctx.dir=hx<bx?PI:0;
   const ys=safeY(t,ctx.seed),dist=Math.max(60,Math.hypot(hx-bx,ys-by));ctx.phi=Math.atan2(ys-by,hx-bx);ctx.gapHalf=Math.atan2(ctx.lane/2+6,dist)*Math.max(.85,ctx.gapMul);return ctx;}
@@ -713,6 +751,15 @@
 
  // ---------------------------------------------------------------- simulation tick
  const scratch=[],removedScratch=[];
+ // Boss warning window from the STG feel module: warnUntil(s) when it offers one (no allocation),
+ // else its state() polled at most every .25 s. m.warnEnd = warning end + .1 s, m.warnDeclAt = start + 1 s.
+ function warnPoll(s,m){const t=s.time;
+  if(hook('warnUntil')){const v=n(callHook('warnUntil',s),-1),act=hook('warningActive')?callHook('warningActive',s)===true:v>t;
+   if(act&&v>0){m.warnEnd=v+.1;if(!(n(m.warnDeclAt,-1)>=v-1.25))m.warnDeclAt=v-1.2;}else if(!(n(m.warnEnd,-1)>t))m.warnEnd=-1;return;}
+  if(!hook('state'))return;if(t-n(m.warnPollAt,-9)<.25&&t>=n(m.warnPollAt,-9))return;m.warnPollAt=t;
+  const st=callHook('state',s),w=st&&st.warn;if(w&&Number.isFinite(w.at)){m.warnEnd=w.at+Math.max(0,n(w.dur,0))+.1;m.warnDeclAt=w.at+1;}else if(!(n(m.warnEnd,-1)>t)){m.warnEnd=-1;}}
+ // Second-form transformation (boss-form module): no new spell is declared under its white-out.
+ function formBusy(s,a){try{const B=root.__HAPIL_BOSS_FORM_RC240__;if(!B)return false;if(typeof B.transforming==='function')return B.transforming(s)===true;const f=B.form?.(s,a.id);return !!(f&&f.transforming);}catch(e){return false;}}
  function simTick(s,dt){
   if(!enabledFlag||!s)return;const m=mem(s),set=settingsNow();
   if(m.zone!==s.zone){resetWorld(s,m,'zone');}
@@ -725,17 +772,20 @@
   const mobile=m.mobile,lowFx=!!set.lowFx;
   // Owner & phase.
   const list=owners(s),a=list[0]??null;
-  if(m.ownerId!=null&&(!a||String(a.id)!==String(m.ownerId))){if(m.run)endSpell(s,m,set,'owner');m.ownerId=null;m.serial=null;}
+  if(m.ownerId!=null&&(!a||String(a.id)!==String(m.ownerId))){if(m.run)endSpell(s,m,set,'owner');m.ownerId=null;m.serial=null;if(!a)m.banner=null;}// boss dead or gone: the card goes at once
   if(!a&&m.pool.live&&m.fillerOwner!=null)cancelAll(s,m,set,'owner',m.lastMuzzle?.x,m.lastMuzzle?.y);
   if(!a){m.tele=[];m.fillerOwner=null;}
   if(a&&String(m.feelOwner)!==String(a.id)){m.feelOwner=a.id;callHook('onOwner',s,m,a);}
   let ph=null;if(a)ph=phaseOf(s,m,a,dt);
-  const warnHold=s.time<n(m.warnHoldUntil,-1);
+  // Beat order: the spell may be declared 1 s into the boss warning (m.warnHoldUntil, set by the
+  // STG feel module), but nothing spawns (spell, formation, volley) until the warning has cleared.
+  // The warning is read from the feel module itself, so a world reset cannot drop the hold.
+  warnPoll(s,m);const warnHold=s.time<Math.max(n(m.warnHoldUntil,-1),n(m.warnDeclAt,-1)),spawnHold=s.time<n(m.warnEnd,-1);
   if(ph&&ph.serial!==m.serial&&m.run)endSpell(s,m,set,m.lastPhase?.stage==='active'||m.lastPhase?.stage==='draining'?'spell-end':'serial');
   // The curtain keeps drifting through RC129's drain (the boss finishing its cast) and is
   // cancelled together with RC129's own clear when the rest begins.
   if(ph&&ph.stage==='rest'&&m.run){if(m.banner)m.banner.elapsedAtEnd=m.lastPhase?.elapsed;endSpell(s,m,set,'spell-end');m.serial=ph.serial;}
-  if(ph&&ph.stage==='active'&&ph.serial!==m.serial&&!warnHold)beginSpell(s,m,a,ph,set);
+  if(ph&&ph.stage==='active'&&ph.serial!==m.serial&&!warnHold&&!formBusy(s,a))beginSpell(s,m,a,ph,set);
   if(ph&&m.banner){m.banner.remaining=ph.remaining;m.banner.elapsedAtEnd=ph.elapsed;}
   m.lastPhase=ph;m.owner=a;
   // Frame constants.
@@ -749,6 +799,8 @@
   if(m.run){const key=[mode,m.runBand,mobile,auto,densityKey,lowFx,m.lite,m.midboss,Math.round(gov*20),rank].join('|');
    if(!m.ctx||m.ctxKey!==key||m.ctx.seed!==m.run.seed){m.ctx=makeCtx({remap:REMAP[m.family]||null,mode,band:m.runBand,mobile,auto,setting:DENSITY[densityKey]*rank,gov,lite:m.lite&&!m.midboss,midboss:m.midboss,seed:m.run.seed,liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.ctxKey=key;}}
   const ctx=m.ctx??makeCtx({mode,band:1,mobile,auto});m.ctx=ctx;ctx.travel=travel;
+  // Sprite scale of the boss (dist06 balrog 1.32): its body box for formations and curtain thinning.
+  m.bscale=a?Math.pow(clamp(n(a.scale,1),1,1.6),1.6):1;ctx.bscale=m.bscale;
   // Volley stream: fast telegraphed aimed shots between spells and through declaration gaps.
   let fctx=null,fillerOn=false;
   if(a){const band=ph?.band??1,fam=familyOf(a);
@@ -758,7 +810,7 @@
    fctx=m.fctx;fctx.travel=travel;
    const tail=!!m.run&&!m.midboss&&!!ph&&ph.serial===m.serial&&(ph.stage==='draining'||(ph.stage==='active'&&n(ph.remaining,9)<=BRIDGE.lead));
    const gap=!m.run||m.declLeft>0,why=(gap||tail)?heldByCast(s,a,true):'';
-   fillerOn=(gap||tail)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold;
+   fillerOn=(gap||tail)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold&&!spawnHold;
    m.bridgeTail=tail;m.volleyQuiet=why==='cast';}
   if(!fillerOn&&m.tele?.length&&(s.time<m.mercyUntil||!a)){m.tele.length=0;m.bridgeSerial=null;}// a dropped bridge may be queued again
   const guard=s.time<n(m.spawnGuardUntil,-1);
@@ -775,7 +827,7 @@
    const sharedCap=Math.max(ctx.peak*.85,ctx.peak-1.5*native);ctx.budget=Math.floor(Math.min(ctx.peak,sharedCap));
    const baseExcl=ctx.excl;if(guard)ctx.excl=Math.max(baseExcl,160);
    scratch.length=0;let ectx=ctx;
-   const inDecl=m.run&&m.declLeft>0;if(inDecl)m.declLeft-=h;ctx.live=m.pool.live;if(m.run&&(!inDecl||m.declOverlap||m.decl-m.declLeft>BRIDGE.freshDecl)&&!held&&!m.winding&&!warnHold){runStep(m.run,h,ctx,scratch);const S=m.run.sig;if(S&&S.phrases>(m.sigSeen|0)){metrics.sigPhrases+=S.phrases-(m.sigSeen|0);m.sigSeen=S.phrases;metrics.sigLast=S.last?S.last.g:null;}}
+   const inDecl=m.run&&m.declLeft>0;if(inDecl)m.declLeft-=h;ctx.live=m.pool.live;if(m.run&&(!inDecl||m.declOverlap||m.decl-m.declLeft>BRIDGE.freshDecl)&&!held&&!m.winding&&!warnHold&&!spawnHold){runStep(m.run,h,ctx,scratch);const S=m.run.sig;if(S&&S.phrases>(m.sigSeen|0)){metrics.sigPhrases+=S.phrases-(m.sigSeen|0);m.sigSeen=S.phrases;metrics.sigLast=S.last?S.last.g:null;}}
    if(fillerOn&&fctx){const st=s.time;frameCtx(fctx,mz.x,mz.y,H0.x,H0.y,past.x,past.y,0);const fe=fctx.excl;if(guard)fctx.excl=Math.max(fe,160);
     fctx.budget=Math.floor(Math.min(fctx.peak,Math.max(fctx.peak*.85,fctx.peak-1.5*native)));
     const bridge=(m.bridgeTail||(!m.run&&st-n(m.lastEndAt,-1e9)<.25))&&m.bridgeSerial!==m.serial,tcap=bridge?(m.volleyQuiet?2:BRIDGE.n):m.volleyQuiet?1:2;if(bridge)m.bridgeSerial=m.serial;
@@ -830,24 +882,24 @@
  function rgb(hex){const v=parseInt(hex.slice(1),16);return [v>>16&255,v>>8&255,v&255];}
  function mix(hex,hex2,t){const a=rgb(hex),b=rgb(hex2);return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')';}
  function rgba(hex,a){const c=rgb(hex);return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';}
- function bodyPaint(g,type,hue,frame,mobile){const [,base,shade]=HUES[hue];const ow=mobile?2:1.3;
+ function bodyPaint(g,type,hue,frame,mobile){const [,base,shade,rim]=HUES[hue];const ow=mobile?2:1.3;const rimS=()=>{if(!rim)return;const a=g.globalAlpha;g.strokeStyle=rim;g.lineWidth=.9;g.globalAlpha=.85;g.stroke();g.globalAlpha=a;g.strokeStyle='rgba(7,4,13,.92)';};
   const grad=(r,core)=>{const G=g.createRadialGradient(0,0,0,0,0,r);G.addColorStop(0,'#ffffff');G.addColorStop(clamp(core/r*1.05,0,1),'#ffffff');G.addColorStop(clamp(core/r*1.3,0,1),mix(base,'#ffffff',.55));G.addColorStop(.72,base);G.addColorStop(1,mix(shade,'#000000',.1));return G;};
   g.fillStyle='rgba(7,4,13,.92)';g.strokeStyle='rgba(7,4,13,.92)';
   if(type===T.DOT||type===T.ORB||type===T.BIG){const core=HIT[type],body=[6.5,10.5,19][type],out=[8,12.3,21.5][type]+(mobile?.6:0),halo=HALO[type];
    // Baked soft halo (source-over): reads as glow on the dimmed field without an extra draw call.
    const HG=g.createRadialGradient(0,0,out*.9,0,0,halo);HG.addColorStop(0,rgba(base,.55));HG.addColorStop(.45,rgba(base,.2));HG.addColorStop(1,rgba(base,0));g.fillStyle=HG;g.beginPath();g.arc(0,0,halo,0,TAU);g.fill();
-   g.fillStyle='rgba(7,4,13,.92)';g.beginPath();g.arc(0,0,out,0,TAU);g.fill();g.fillStyle=grad(body,core);g.beginPath();g.arc(0,0,body,0,TAU);g.fill();
+   g.fillStyle='rgba(7,4,13,.92)';g.beginPath();g.arc(0,0,out,0,TAU);g.fill();if(rim){g.beginPath();g.arc(0,0,out-.25,0,TAU);rimS();}g.fillStyle=grad(body,core);g.beginPath();g.arc(0,0,body,0,TAU);g.fill();
    g.strokeStyle=mix(base,'#ffffff',.3);g.lineWidth=.8;g.beginPath();g.arc(0,0,core*1.12,0,TAU);g.stroke();
    g.fillStyle='rgba(255,255,255,.9)';g.beginPath();g.arc(-.3*core,-.35*core,.35*core,0,TAU);g.fill();return;}
   const rot=frame*TAU/FRAMES[type];g.rotate(rot);g.scale(1.15,1.15);
-  if(type===T.RICE){g.save();g.scale(1,(3.6+ow)/(7.5+ow));g.beginPath();g.arc(0,0,7.5+ow,0,TAU);g.fill();g.restore();
+  if(type===T.RICE){g.save();g.scale(1,(3.6+ow)/(7.5+ow));g.beginPath();g.arc(0,0,7.5+ow,0,TAU);g.fill();rimS();g.restore();
    g.save();g.scale(1,3.6/7.5);g.fillStyle=grad(7.5,3.2);g.beginPath();g.arc(0,0,7.5,0,TAU);g.fill();g.restore();
    g.fillStyle='#ffffff';g.save();g.scale(1,1.6/3);g.beginPath();g.arc(0,0,3,0,TAU);g.fill();g.restore();return;}
   if(type===T.NEEDLE){const path=(L,W)=>{g.beginPath();g.moveTo(L,0);g.lineTo(-L*.2,W);g.lineTo(-L,0);g.lineTo(-L*.2,-W);g.closePath();};
-   path(11+ow,2.8+ow);g.fill();const G=g.createLinearGradient(0,-2.8,0,2.8);G.addColorStop(0,shade);G.addColorStop(.5,base);G.addColorStop(1,shade);g.fillStyle=G;path(11,2.8);g.fill();
+   path(11+ow,2.8+ow);g.fill();rimS();const G=g.createLinearGradient(0,-2.8,0,2.8);G.addColorStop(0,shade);G.addColorStop(.5,base);G.addColorStop(1,shade);g.fillStyle=G;path(11,2.8);g.fill();
    g.strokeStyle='#ffffff';g.lineWidth=1.2;g.lineCap='round';g.beginPath();g.moveTo(-6,0);g.lineTo(6,0);g.stroke();return;}
   if(type===T.STAR){const star=(R,r)=>{g.beginPath();for(let j=0;j<10;j++){const a=-PI/2+j*PI/5,rr=j%2?r:R;g.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}g.closePath();};
-   star(7.5+ow,3.4+ow);g.fill();g.fillStyle=grad(7.5,3.5);star(7.5,3.4);g.fill();g.fillStyle='#ffffff';g.beginPath();g.arc(0,0,3.5*.9,0,TAU);g.fill();}}
+   star(7.5+ow,3.4+ow);g.fill();rimS();g.fillStyle=grad(7.5,3.5);star(7.5,3.4);g.fill();g.fillStyle='#ffffff';g.beginPath();g.arc(0,0,3.5*.9,0,TAU);g.fill();}}
  function bodySprite(type,hue,mobile){const key=type*64+hue*2+(mobile?1:0);let e=atlas.body.get(key);if(e)return e;
   const KB=atlas.KB,px=Math.max(4,Math.ceil(CELL[type]*KB)),fr=FRAMES[type],c=makeCanvas(px*fr,px);if(!c){atlas.ok=false;return null;}
   const g=c.getContext('2d');if(!g){atlas.ok=false;return null;}
@@ -870,18 +922,23 @@
  // ---------------------------------------------------------------- rendering: passes
  const fxOpacity=set=>{const t=Number(set?.skillFxOpacity);return Number.isFinite(t)?clamp(t,.25,1):1;};
  function edgeAlpha(x,y){const e=Math.min(x-CULL.x0,CULL.x1-x,y-CULL.y0,CULL.y1-y);if(e>=36)return 1;return e>=24?.7:e>=12?.4:.15;}
- function drawBullets(ctx,s,m,set){const P=m.pool,N=P.live;if(!N)return 0;ensureAtlas(ctx);let draws=0;const t=s.time,mobile=m.mobile,low=!!set?.lowFx,quiet=!!set?.reducedFlash;
+ // Boss body box (G px around the muzzle, down past the feet to the HP bar): non-aimed curtain bullets
+ // crossing it are drawn at 30% so the boss silhouette and HP bar stay readable (hit rules unchanged).
+ const THIN=Object.freeze({w:60,up:100,down:142,a:.3});
+ function thinBox(m){const z=m.lastMuzzle;if(!m.owner||!z||!Number.isFinite(z.x)||!Number.isFinite(z.y)){m.tb0=1e9;m.tb1=-1e9;return;}const bs=clamp(n(m.bscale,1),1,2.2);m.tb0=z.x-THIN.w*bs;m.tb1=z.x+THIN.w*bs;m.tb2=z.y-((THIN.up+100)*bs-100);m.tb3=z.y+THIN.down;}
+ function thinned(P,i,m){const x=P.x[i],y=P.y[i];return x>m.tb0&&x<m.tb1&&y>m.tb2&&y<m.tb3&&!(P.flags[i]&(F_AIMED|F_FAST|F_SIG));}
+ function drawBullets(ctx,s,m,set){const P=m.pool,N=P.live;if(!N)return 0;ensureAtlas(ctx);let draws=0;const t=s.time,mobile=m.mobile,low=!!set?.lowFx,quiet=!!set?.reducedFlash;thinBox(m);
   // Glow pass ('lighter').
   const gA=.55*Math.min(1,Math.sqrt(140/Math.max(140,N)))*fxOpacity(set)*(low?.35/.55:1)*(quiet?.6:1);
   if(gA>.01){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=gA;
    // Glow budget <= 45% of bullets: large/medium first, small dots only with leftover budget.
    let budget=Math.floor(N*.45)+4;
    for(let pass=0;pass<2&&budget>0;pass++)for(let i=0;i<N&&budget>0;i++){const ty=P.type[i]|0;if((ty===T.DOT)!==(pass===1))continue;if(low&&ty!==T.BIG)continue;if(mobile&&!(ty===T.ORB||ty===T.BIG))continue;if(ty===T.DOT&&N>250)continue;
-    const g=glowSprite(P.hue[i]|0);if(!g)continue;const r=GLOW[ty]*(P.age[i]<.14?1.4:1);ctx.drawImage(g.c,P.x[i]-r,P.y[i]-r,2*r,2*r);draws++;budget--;}}
+    if(thinned(P,i,m))continue;const g=glowSprite(P.hue[i]|0);if(!g)continue;const r=GLOW[ty]*(P.age[i]<.14?1.4:1);ctx.drawImage(g.c,P.x[i]-r,P.y[i]-r,2*r,2*r);draws++;budget--;}}
   // Body pass (source-over, honest cores).
   ctx.globalCompositeOperation='source-over';let alpha=-1;const bloom=mobile?.18:.14;
   for(const ty of DRAW_ORDER)for(let i=0;i<N;i++){if((P.type[i]|0)!==ty)continue;const sp=bodySprite(ty,P.hue[i]|0,mobile);if(!sp)continue;
-   const age=P.age[i];let a=edgeAlpha(P.x[i],P.y[i]),sc=1;if(age<bloom){const u=age/bloom,e=1-(1-u)*(1-u)*(1-u);sc=1.8-.8*e;a*=e;}
+   const age=P.age[i];let a=edgeAlpha(P.x[i],P.y[i])*(thinned(P,i,m)?THIN.a:1),sc=1;if(age<bloom){const u=age/bloom,e=1-(1-u)*(1-u)*(1-u);sc=1.8-.8*e;a*=e;}
    if(a!==alpha){ctx.globalAlpha=a;alpha=a;}
    let f=0;if(sp.fr>1){f=ty===T.STAR?(quiet?0:Math.floor(((t*2+i*.37)%(TAU/5))/(TAU/5)*sp.fr)%sp.fr):Math.round(((P.dir[i]%TAU+TAU)%TAU)/TAU*sp.fr)%sp.fr;}
    const w=sp.cell*sc;ctx.drawImage(sp.c,f*sp.px,0,sp.px,sp.px,P.x[i]-w/2,P.y[i]-w/2,w,w);draws++;}
@@ -905,37 +962,65 @@
   ctx.save();try{const v=screenSpace(ctx);if(!v)return;const {w,h}=v;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.direction='ltr';if('letterSpacing' in ctx)ctx.letterSpacing='0px';if('wordSpacing' in ctx)ctx.wordSpacing='0px';
    if(hitAge>=0&&hitAge<.35){const a=(set?.reducedFlash?.18:.35)*(1-hitAge/.35);const G=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.35,w/2,h/2,Math.max(w,h)*.7);G.addColorStop(0,'rgba(255,30,60,0)');G.addColorStop(1,'rgba(255,30,60,'+a.toFixed(3)+')');ctx.globalAlpha=1;ctx.fillStyle=G;ctx.fillRect(0,0,w,h);}
    if(F&&!set?.reducedFlash){const u=(s.time-F.at)/F.dur;if(u>=0&&u<1){ctx.globalAlpha=F.peak*(1-u)*fxOpacity(set);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);}}
-   if(B)drawBanner(ctx,s,m,set,B,w,h);
+   if(B){bossScreenBox(ctx,m,w,h);drawBanner(ctx,s,m,set,B,w,h);}
   }finally{ctx.restore();}}
  // The world pass hides canvas text while combat info is compact (V31317
  // presentation context). The spell banner is HUD chrome like RC129's HUD, so it
  // draws through the prototype method rather than the suppressed own property.
  function fitText(ctx,t,max){t=String(t);if(!ctx.measureText)return t;if((ctx.measureText(t)?.width??0)<=max)return t;while(t.length>1&&(ctx.measureText(t+'…')?.width??0)>max)t=t.slice(0,-1);return t+'…';}
  function hudText(ctx,t,x,y){const f=Object.getPrototypeOf(ctx)?.fillText;if(typeof f==='function')f.call(ctx,t,x,y);else ctx.fillText?.(t,x,y);}
+ // The card is sized to its full spell name (measured; the font shrinks before anything is cut) and,
+ // when it would cover the boss on screen (m.bossScr, CSS px), it moves to the top centre for the rest
+ // of that spell. It never outlives its boss.
+ const NAME_FONT=' "Noto Serif KR",system-ui,sans-serif';
  function drawBanner(ctx,s,m,set,B,w,h){const age=s.time-B.born,mobile=m.mobile||w<800,hue=HUES[B.hue]?.[1]??'#b45cff';
+  if(m.owner&&!(n(m.owner.hp)>0)){m.banner=null;return;}
   if(B.result&&s.time-B.resultAt>(B.result==='capture'?1.2:.8)&&!m.run){m.banner=null;return;}
   const ease=u=>1-Math.pow(1-clamp(u,0,1),3);let big=1;if(age>1.52)big=1-ease((age-1.52)/.35);
+  const mw=t=>n(ctx.measureText?.(t)?.width,0);
+  ctx.font=(mobile?'9px':'10px')+' system-ui,sans-serif';const bw=mw('보너스 +00.0')||50;
+  ctx.font=(mobile?'14px':'18px')+' ui-monospace,Menlo,monospace';const tw=Math.max(bw,mw('00.0')||40);
+  const gap=mobile?10:14,colW=tw+gap+10,padL=mobile?18:26,maxW=Math.max(160,Math.min(w-(mobile?12:32),w*(mobile?.62:.5)));
+  const bossLine=B.boss+' · 주문 '+(B.index+1)+'/3'+(B.lite?' · 잔향':'');ctx.font=(mobile?'9px':'11px')+' system-ui,"Noto Serif KR",sans-serif';const bossW=mw(bossLine);
+  let fs=mobile?15:20;const fmin=mobile?11:13;ctx.font='bold '+fs+'px'+NAME_FONT;let nw=mw(B.name);
+  while(nw+colW+padL>maxW&&fs>fmin){fs--;ctx.font='bold '+fs+'px'+NAME_FONT;nw=mw(B.name);}
+  const cardW=clamp(Math.max(nw,Math.min(bossW,maxW-colW-padL))+colW+padL,mobile?200:300,maxW);
   // Two columns: [boss line / spell name] | [timer / bonus]. Rows never share a band.
-  const stripH=(mobile?40:50)+(mobile?6:8)*big,y=(h*.24)*big+(mobile?74:62)*(1-big),slide=ease(age/.22),yT=y-stripH/2;
-  const x0=w*.4*big+(w-(mobile?264:360))*(1-big),x1=w-16*(1-big),x=x0+(1-slide)*(w-x0);
+  const stripH=(mobile?40:50)+(mobile?6:8)*big,slide=ease(age/.22);
+  let y=(h*.24)*big+(mobile?74:62)*(1-big),x0=(w-Math.max(cardW,w*.6))*big+(w-16-cardW)*(1-big),x1=w-16*(1-big);
+  const S=m.bossScr;if(!B.top&&m.bossScrOk&&S){const yT=y-stripH/2;if(x0<S[2]&&x1>S[0]&&yT<S[3]&&yT+stripH>S[1])B.top=true;}
+  if(B.top){x0=(w-cardW)/2;x1=x0+cardW;y=(mobile?22:46)+stripH/2;}
+  const yT=y-stripH/2,x=x0+(1-slide)*(w-x0);
   ctx.globalAlpha=1;const G=ctx.createLinearGradient(x,0,x1,0);G.addColorStop(0,'rgba(6,4,14,0)');G.addColorStop(.14,'rgba(6,4,14,.8)');G.addColorStop(1,'rgba(6,4,14,.86)');
   ctx.fillStyle=G;ctx.fillRect(x,yT,x1-x,stripH);ctx.fillStyle=hue;ctx.globalAlpha=.9;ctx.fillRect(x+(x1-x)*.1,yT,(x1-x)*.9,1);ctx.fillRect(x+(x1-x)*.1,yT+stripH-1,(x1-x)*.9,1);
   ctx.textBaseline='middle';ctx.textAlign='right';const right=x1-10;
   const rem=n(B.remaining),timer=rem.toFixed(1);ctx.globalAlpha=1;ctx.font=(mobile?'9px':'10px')+' system-ui,sans-serif';
   const bonus=B.bonus*(1-.75*clamp(n(B.elapsedAtEnd)/Math.max(1,B.duration),0,1)),btxt=m.spellHit?'보너스 실패':'보너스 +'+bonus.toFixed(1);
-  const bw=ctx.measureText?.('보너스 +00.0')?.width??50;ctx.fillStyle=m.spellHit?'#8a8aa0':'#ffe59a';hudText(ctx,btxt,right,yT+stripH*.76);
-  ctx.font=(mobile?'14px':'18px')+' ui-monospace,Menlo,monospace';const tw=Math.max(bw,ctx.measureText?.('00.0')?.width??40);
-  ctx.fillStyle=rem<3&&!(set?.reducedFlash)?'#ff6a6a':'#f2f4ff';hudText(ctx,timer,right,yT+stripH*.34);
-  const tx=right-tw-(mobile?10:14),room=Math.max(40,tx-x-(x1-x)*.14);
-  ctx.fillStyle='#ffffff';ctx.globalAlpha=.72;ctx.font=(mobile?'9px':'11px')+' system-ui,"Noto Serif KR",sans-serif';hudText(ctx,fitText(ctx,B.boss+' · 주문 '+(B.index+1)+'/3'+(B.lite?' · 잔향':''),room),tx,yT+stripH*.27);
-  ctx.globalAlpha=1;ctx.font='bold '+(mobile?'15px':'20px')+' "Noto Serif KR",system-ui,sans-serif';ctx.fillStyle='#ffffff';hudText(ctx,fitText(ctx,B.name,room),tx,yT+stripH*.68);
+  ctx.fillStyle=m.spellHit?'#8a8aa0':'#ffe59a';hudText(ctx,btxt,right,yT+stripH*.76);
+  ctx.font=(mobile?'14px':'18px')+' ui-monospace,Menlo,monospace';
+  ctx.fillStyle=rem<3&&!(set?.reducedFlash)?'#ff6a6a':'#f2f4ff';if(rem>0||m.run)hudText(ctx,timer,right,yT+stripH*.34);// no "0.0" once the spell is over
+  const tx=right-tw-gap,room=Math.max(40,tx-x-padL*.5);
+  ctx.fillStyle='#ffffff';ctx.globalAlpha=.72;ctx.font=(mobile?'9px':'11px')+' system-ui,"Noto Serif KR",sans-serif';hudText(ctx,fitText(ctx,bossLine,room),tx,yT+stripH*.27);
+  ctx.globalAlpha=1;ctx.font='bold '+fs+'px'+NAME_FONT;ctx.fillStyle='#ffffff';hudText(ctx,fitText(ctx,B.name,room),tx,yT+stripH*.68);
   if(B.result&&s.time-B.resultAt<(B.result==='capture'?1.2:.8)){const u=(s.time-B.resultAt)/(B.result==='capture'?1.2:.8);ctx.globalAlpha=1-u*u;ctx.textAlign='center';
-   ctx.font='bold '+(mobile?'20px':'28px')+' "Noto Serif KR",system-ui,sans-serif';ctx.fillStyle=B.result==='capture'?'#ffe59a':'#9a9ab0';
-   hudText(ctx,B.result==='capture'?'주문 격파!  공명 +'+Math.round(n(B.award)):'보너스 실패',w/2,h*.36);}}
+   ctx.font='bold '+(mobile?'20px':'28px')+NAME_FONT;ctx.fillStyle=B.result==='capture'?'#ffe59a':'#9a9ab0';
+   let cy=h*.36;try{const v=root.__HAPIL_STG_FEEL_RC240__?.calloutY?.(w,h,mobile);if(Number.isFinite(v))cy=v;}catch(e){}
+   hudText(ctx,B.result==='capture'?'주문 격파!  공명 +'+Math.round(n(B.award)):'보너스 실패',w/2,cy);}}
+ // Boss on-screen box in CSS px (from the world transform saved by the world pass): head to HP bar.
+ function bossScreenBox(ctx,m,w,h){m.bossScrOk=false;const a=m.owner,M=m.wm;if(!a||!M||!m.wmOk||!(n(a.hp)>0))return;const cv=ctx.canvas;if(!cv||!(cv.width>0)||!(cv.height>0))return;
+  const p=project(a.x,a.y),sx=w/cv.width,sy=h/cv.height,S=m.bossScr??=new Float64Array(4);S[0]=1e9;S[1]=1e9;S[2]=-1e9;S[3]=-1e9;
+  for(let k=0;k<4;k++){const gx=p.x+(k&1?90:-90),gy=p.y+(k&2?40:-260),X=(M[0]*gx+M[2]*gy+M[4])*sx,Y=(M[1]*gx+M[3]*gy+M[5])*sy;if(!(X===X&&Y===Y))return;if(X<S[0])S[0]=X;if(X>S[2])S[2]=X;if(Y<S[1])S[1]=Y;if(Y>S[3])S[3]=Y;}
+  m.bossScrOk=true;}
  function drawTele(ctx,s,m,set){const L=m.tele;if(!L||!L.length)return 0;const t=s.time,op=fxOpacity(set);let d=0;
   for(const v of L){if(v.shot>0||!(Number.isFinite(v.x)&&Number.isFinite(v.y)&&Number.isFinite(v.ang)))continue;const u=clamp((t-v.born)/Math.max(.05,v.fire-v.born),0,1),col=HUES[v.hue|0]?.[1]??'#ff3048';
    const len=Math.min(900,Math.hypot(m.hx-v.x,m.hy-v.y)+90),ex=v.x+Math.cos(v.ang)*len,ey=v.y+Math.sin(v.ang)*len;
-   ctx.globalCompositeOperation='source-over';ctx.lineWidth=1+u;ctx.strokeStyle=col;ctx.globalAlpha=(.16+.44*u)*op;ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.lineTo(ex,ey);ctx.stroke();
+   // Thick, high-contrast, pulsing: a dark underlay, the hue line and a white core, sized in CSS px
+   // (m.kc = CSS px per G px), so a phone shows ~3 px, never a hairline.
+   const kc=clamp(n(m.kc,1),.2,4),pulse=set?.reducedFlash?1:.5+.5*Math.sin(t*TAU*5+v.bi),wc=(m.mobile?3.6:2.9)*(.85+.3*pulse);
+   ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.beginPath();ctx.moveTo(v.x,v.y);ctx.lineTo(ex,ey);
+   ctx.lineWidth=(wc+2.6)/kc;ctx.strokeStyle='rgba(6,3,12,.85)';ctx.globalAlpha=(.3+.45*u)*op;ctx.stroke();
+   ctx.lineWidth=wc/kc;ctx.strokeStyle=col;ctx.globalAlpha=clamp((.5+.45*u)*op*(.75+.25*pulse),0,1);ctx.stroke();
+   ctx.lineWidth=Math.max(.7,wc*.34)/kc;ctx.strokeStyle='#ffffff';ctx.globalAlpha=(.25+.55*u)*op;ctx.stroke();
    const g=glowSprite(v.hue|0);if(g){const r=8+18*u;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=clamp((.45+.55*u)*op,0,1);ctx.drawImage(g.c,v.x-r,v.y-r,2*r,2*r);d++;}}
   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return d;}
  function drawCircle(ctx,s,m,set){const a=m.owner,u=m.circle;if(!a||u<.02||!(a.hp>0))return;const spell=m.spell;if(!spell)return;
@@ -962,9 +1047,43 @@
      if(!open||Math.abs(x-px)+Math.abs(y-py)>70){ctx.moveTo(x,y);open=true;}else ctx.lineTo(x,y);px=x;py=y;}
     if(hue<0)break;if(pass===0){ctx.strokeStyle='rgba(7,4,13,.7)';ctx.lineWidth=m.mobile?7:6;ctx.globalAlpha=.6*op;}else{ctx.strokeStyle=HUES[hue|0]?.[1]??'#ffffff';ctx.lineWidth=m.mobile?3:2.5;ctx.globalAlpha=.75*op;}ctx.stroke();}}
   ctx.globalAlpha=1;}
+ // Swing arc: while a formation swings, fading arcs (strokes only) trace the path its far end has swept
+ // about the pivot, and fade out over .45 s once it releases. Up to three pivots (wings: one per side).
+ const ARC=new Float64Array(3*8);
+ function drawSwingArc(ctx,s,m,set){const run=m.run,S=run&&run.sig;if(!S||!S.active||!S.buf.n)return;const B=S.buf,pt=run.t-S.t0;if(!(pt>=0)||!Number.isFinite(pt))return;
+  let k=0;for(let j=0;j<B.n;j++){if(B.qw[j]===0||B.t[j]>pt)continue;const qx=B.qx[j],qy=B.qy[j],x=B.x[j],y=B.y[j];if(!(qx===qx&&qy===qy&&x===x&&y===y))continue;let i=0;
+   for(;i<k;i++){const o=i*8;if(Math.abs(ARC[o]-qx)<.5&&Math.abs(ARC[o+1]-qy)<.5&&ARC[o+2]===B.qw[j])break;}
+   if(i===k){if(k>=3)continue;const o=k*8;ARC[o]=qx;ARC[o+1]=qy;ARC[o+2]=B.qw[j];ARC[o+3]=B.q0[j];ARC[o+4]=1e9;ARC[o+5]=0;ARC[o+6]=0;ARC[o+7]=B.hu[j];k++;}
+   const o=i*8,d=Math.hypot(x-qx,y-qy);if(B.r[j]<ARC[o+4])ARC[o+4]=B.r[j];if(d>ARC[o+5]){ARC[o+5]=d;ARC[o+6]=Math.atan2(y-qy,x-qx);}}
+  if(!k)return;const op=fxOpacity(set)*(set?.lowFx?.5:1),remap=m.ctx&&m.ctx.remap,kc=clamp(n(m.kc,1),.2,4);ctx.globalCompositeOperation='source-over';ctx.lineCap='round';
+  for(let i=0;i<k;i++){const o=i*8,w=ARC[o+2],q0=ARC[o+3],rel=ARC[o+4],R=ARC[o+5];if(pt<q0||R<20)continue;const sweep=w*clamp(pt-q0,0,rel-q0);if(Math.abs(sweep)<.02)continue;
+   const fade=pt<=rel?1:clamp(1-(pt-rel)/.45,0,1);if(fade<=0)continue;const a0=ARC[o+6],h=remap?remap[ARC[o+7]|0]:ARC[o+7]|0,col=HUES[h|0]?.[1]??'#ffffff';
+   for(let f=0;f<3;f++){const r=R*(1-.2*f);ctx.beginPath();ctx.arc(ARC[o],ARC[o+1],r,a0,a0+sweep,sweep<0);
+    ctx.strokeStyle='rgba(7,4,13,.7)';ctx.lineWidth=(f?7:10)/kc;ctx.globalAlpha=.35*fade*op;ctx.stroke();
+    ctx.strokeStyle=f?col:'#ffffff';ctx.lineWidth=(f?3:4)/kc;ctx.globalAlpha=(f?.45:.6)*fade*op;ctx.stroke();}}
+  ctx.globalAlpha=1;}
+ // Native hostile projectiles share the field with RC240 bullets: give each (first NATIVE_CAP, damaging
+ // ones only) the same dark outline + white core so both read as one enemy style. Two paths, no images;
+ // the iso projection is sampled once per frame (3 project() calls), positions are then affine.
+ const NATIVE_CAP=64;
+ function drawNative(ctx,s,m,set){const L=s.hostileProjectiles;if(!Array.isArray(L)||!L.length)return 0;
+  let ox=640,oy=0,ax=27,ay=13.5,bx=-27,by=13.5;try{const Bp=root.__HAPIL_RC86_BRIDGE__;if(Bp?.project){const o=Bp.project(0,0),p1=Bp.project(1,0),p2=Bp.project(0,1);
+   if(o&&p1&&p2&&Number.isFinite(o.x+o.y+p1.x+p1.y+p2.x+p2.y)){ox=o.x;oy=o.y;ax=p1.x-o.x;ay=p1.y-o.y;bx=p2.x-o.x;by=p2.y-o.y;}}}catch(e){}
+  const kc=clamp(n(m.kc,1),.2,4),op=fxOpacity(set);let c=0;ctx.globalCompositeOperation='source-over';
+  for(let pass=0;pass<2;pass++){ctx.beginPath();c=0;
+   for(let i=0;i<L.length&&c<NATIVE_CAP;i++){const q=L[i];if(!q||q.friendly||q.reflected||q.visualOnly||!(n(q.damage)>0))continue;const qx=n(q.x,NaN),qy=n(q.y,NaN);if(!(qx===qx&&qy===qy))continue;
+    const x=ox+ax*qx+bx*qy,y=oy+ay*qx+by*qy+n(q.visualYV31333,-18);if(!(x===x&&y===y))continue;c++;
+    const r=pass?2.6:clamp(n(q.radius,.45)*15,5,13);ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,TAU);}
+   if(!c)return 0;if(pass===0){ctx.strokeStyle='rgba(7,4,13,.9)';ctx.lineWidth=2.2/kc;ctx.globalAlpha=.8*op;ctx.stroke();}else{ctx.fillStyle='#ffffff';ctx.globalAlpha=.9*op;ctx.fill();}}
+  ctx.globalAlpha=1;return c;}
+ // CSS px per canvas px, refreshed when the canvas size changes or every 120 frames.
+ const dprC={cv:null,w:0,r:1,k:0};
+ function cssRatio(ctx){const cv=ctx.canvas;if(!cv)return 1;if(cv!==dprC.cv||cv.width!==dprC.w||++dprC.k>120){dprC.cv=cv;dprC.w=cv.width;dprC.k=0;let r=1;try{const b=cv.getBoundingClientRect?.();if(b&&b.width>0)r=cv.width/b.width;}catch(e){}dprC.r=r>0&&Number.isFinite(r)?r:1;}return dprC.r;}
  function drawLayer(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const m=worlds.get(s);if(!m)return;const t0=now();let draws=0;
+  // World transform, kept for the screen pass (card vs boss box) and CSS-px line widths.
+  try{const M=ctx.getTransform?.();if(M&&Number.isFinite(M.a+M.b+M.c+M.d+M.e+M.f)){const W=m.wm??=new Float64Array(6);W[0]=M.a;W[1]=M.b;W[2]=M.c;W[3]=M.d;W[4]=M.e;W[5]=M.f;m.wmOk=true;m.kc=(Math.hypot(M.a,M.b)||1)/cssRatio(ctx);}}catch(e){}
   // Layering: decoration (sparks, telegraphs) and hero-side visuals under the bullets; bullets on top.
-  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;drawSigTrail(ctx,s,m,set);ctx.globalAlpha=1;
+  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;drawSigTrail(ctx,s,m,set);ctx.globalAlpha=1;drawSwingArc(ctx,s,m,set);ctx.globalAlpha=1;drawNative(ctx,s,m,set);ctx.globalAlpha=1;
    const fd=hook('draw');if(fd){ctx.save();try{draws+=n(fd.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set));}catch(e){fail(e);}finally{ctx.restore();}}
    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;draws+=drawBullets(ctx,s,m,set);
    drawHitFx(ctx,s,m,set);drawFocus(ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}
