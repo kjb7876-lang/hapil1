@@ -50,7 +50,7 @@
  const STORE_KEY='hapil.danmakuDensityRC240';
 
  // ---------------------------------------------------------------- pool (SoA)
- const FIELDS=['x','y','px','py','vx','vy','ang','spd','acc','vmin','vmax','om','amp','aT','aPh','gvx','gvy','gy','age','life','stAt','stKind','stA','stB','stC','stD','stE','type','hue','flags','bounce','ox','oy','dir'];
+ const FIELDS=['x','y','px','py','vx','vy','ang','spd','acc','vmin','vmax','om','amp','aT','aPh','gvx','gvy','gy','age','life','stAt','stKind','stA','stB','stC','stD','stE','type','hue','flags','bounce','ox','oy','dir','swX','swY','swW','sw0'];
  const F_GRAZED=1,F_AIMED=2,F_STAGED=4,F_REVERSE=8,F_FAST=16;
  function createPool(cap){const p={cap,live:0,peak:0,spawned:0};for(const f of FIELDS)p[f]=new Float32Array(cap);return p;}
  function poolCopy(p,i,j){for(const f of FIELDS)p[f][i]=p[f][j];}
@@ -163,14 +163,15 @@
  // ---------------------------------------------------------------- spell run (pure)
  function makeRun(spellId,o={}){const spell=SPELL_BY_ID[spellId]??SPELLS[5],band=clamp(Math.floor(n(o.band,1)),1,3);
   const layers=spell.layers.filter((l,i)=>band>=(l.bandMin||1)&&band<=(l.bandMax||3)&&(!o.lite||i===0||(!o.midboss&&l.kind!=="decel")));
-  return {spell,band,lite:!!o.lite,seed:n(o.seed,0)>>>0,t:0,layers,next:layers.map(l=>n(l.start,0)),beats:layers.map(()=>0),emitEnd:n(o.emitEnd,1e9)};}
+  const emitEnd=n(o.emitEnd,1e9);
+  return {spell,band,lite:!!o.lite,seed:n(o.seed,0)>>>0,t:0,layers,next:layers.map(l=>n(l.start,0)),beats:layers.map(()=>0),emitEnd,sig:o.weapon?makeSig(o.weapon,o,emitEnd<1e8?emitEnd:11.4):null,thin:false};}
  const RAMP=Object.freeze({t:2.4,k0:.45});
  function layerPeriod(run,l,ctx,at){const aimed=l.kind==='fan'||l.kind==='decel';if(aimed)return l.period/clamp(ctx.dens,.2,1);
   const u=l.kind==='wall'?1:clamp(n(at,RAMP.t)/RAMP.t,0,1),ramp=RAMP.k0+(1-RAMP.k0)*u;return l.period*ramp/Math.max(.2,ctx.dens*n(run.spell.dens,1));}
- function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=0;
+ function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=sigStep(run,ctx,out);const thin=!!run.thin,keep=run.squeeze?-1:ctx.band===3?3:2;
   for(let i=0;i<run.layers.length;i++){const l=run.layers[i];let guard=0;
    const aimedL=l.kind==='fan'||l.kind==='decel';
-   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if(ctx.soft&&(aimedL||k%5>(ctx.band===3?3:2))){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
+   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if((ctx.soft&&(aimedL||k%5>keep))||(thin&&!aimedL&&k%5>keep)){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
     const before=out.length;EMIT[l.kind](l.p,k,rng,ctx,out);for(let j=before;j<out.length;j++){out[j].layer=i;out[j].pre=Math.max(0,run.t-run.next[i]);}c+=out.length-before;
     run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);}}
   return c;}
@@ -190,8 +191,327 @@
   return {n,spd:clamp(V.spd*(mobile?.92:1)*(auto?.9:1),240,340),tele:Math.max(TELE_MIN,V.tele+(mobile?.08:0)+(auto?.1:0)),stream:k%3===1,spread:.12+.02*n,gap:.075,period:V.period*Math.max(.7,red)/Math.max(.45,red)};}
  function volleyShot(x,y,ang,spd,remapHue,j){return spec(x,y,ang,spd,j%2?T.RICE:T.NEEDLE,remapHue,{flags:F_AIMED|F_FAST,vmax:spd*1.02,life:6});}
 
+
+ // ---------------------------------------------------------------- weapon signatures
+ // Each boss's weapon, drawn with bullets inside its spells. A phrase (1) traces the weapon in
+ // front of the boss, between the boss and mid-field, at a size that dominates the band (the game
+ // draws 1 G px as 1 CSS px at 1280x720 and .634 CSS px on an 812x375 phone: >= 130 px tall, long
+ // weapons >= 300 px along their longest span, i.e. 46% / 106% of the 284 px band height);
+ // (2) holds the finished silhouette still >= SIG.hold s; (3) swings it as one rigid body about its
+ // pivot (hilt, handle, shoulder, bar, centre) with edge speed <= SIG.swingV; (4) releases every
+ // bullet below SIG.vcap. Nothing moves earlier than SIG.armed s after the first bullet appears.
+ // The frame (centre, vertical mirror, scale) is picked per phrase from a few candidates so the most
+ // bullets survive the band edges, the heart exclusion (start, mid-swing and end positions) and
+ // the safe-lane rule (releases whose ray would cross the moving safe lane are left out). Start
+ // positions keep out of the heart exclusion; swing and end positions only stay inside the band.
+ // Structure is drawn with bullet type: BIG/ORB for pommels, guards, nodes and rims, NEEDLE/RICE
+ // laid along edges, hollow interiors; edges white, accents in the spell hue. Mobile keeps the same
+ // G-size silhouette with fewer, larger bullets (DOT->ORB, NEEDLE->RICE). Two phrases per spell at
+ // fixed beats; around a phrase the spell's non-aimed layers thin to the soft-hold ratio.
+ const F_SIG=32,DEG=PI/180;
+ const SIG=Object.freeze({base:[56,72,104],mode:{STORY:1,HELL:1.05,DREAM:1.1},max:120,cap:168,beats:[.24,.62],pre:1.3,hold:.5,armed:1.3,vcap:190,swingV:185,minLeft:3.2});
+ const MOB_TY=[T.ORB,T.ORB,T.BIG,T.RICE,T.RICE,T.STAR];
+ const SIG_ACCENT=['cyan','magenta','violet','red','orange'];
+ // Builder: G holds the phrase frame and writes into typed arrays (no allocation per bullet).
+ function sigBuf(cap){const B={n:0,cap};for(const k of ['x','y','t','r','a','o','v','acc','vmin','lf','qx','qy','qw','q0'])B[k]=new Float32Array(cap);for(const k of ['ty','hu','st','fl','bo'])B[k]=new Uint8Array(cap);B.ord=new Uint16Array(cap);
+  B.specs=[];for(let i=0;i<cap;i++)B.specs.push(spec(0,0,0,0,0,0,{swX:0,swY:0,swW:0,sw0:0}));return B;}
+ // Local frame: origin at the formation centre, u toward the hero, v down (mirrored when G.sy<0).
+ const wa=(G,a)=>{a*=G.sy;return G.sx>0?a:PI-a;};
+ const unwa=(G,A)=>G.sy*(G.sx>0?A:PI-A);
+ // Rigid swing for the bullets put after this call: pivot (pu,pv), turn phi (local rad) over td s.
+ // It starts SIG.hold after the trace ends (Td, plus two frames of emission slack) and never before
+ // SIG.armed, so nothing moves earlier than that after the first bullet appears;
+ // rmax (farthest bullet from the pivot) caps the edge speed at SIG.swingV.
+ function swing(G,pu,pv,phi,td,Td,rmax){G.pu=pu;G.pv=pv;const cap=SIG.swingV/Math.max(1,rmax*G.s);G.w=td>0?clamp(phi/td,-cap,cap):0;G.td=td>0?td:0;G.ts=Math.max(Td+SIG.hold+.04,SIG.armed+.05);G.rl=0;G.phi=G.w*G.td;}
+ // Final local position of (u,v) after the current swing -> G.fu, G.fv.
+ function fin(G,u,v){const c=Math.cos(G.phi),s=Math.sin(G.phi),du=u-G.pu,dv=v-G.pv;G.fu=G.pu+du*c-dv*s;G.fv=G.pv+du*s+dv*c;}
+ function out(x,y){return !(y>=FIELD.y0-14&&y<=FIELD.y1+14&&x>=CULL.x0+20&&x<=CULL.x1-20);}
+ function bad(G,x,y){const dx=x-G.hx,dy=y-G.hy;return out(x,y)||dx*dx+dy*dy<G.excl2;}
+ // Adds one bullet at local (u,v), traced at phrase time t (<= the trace end), oriented lo. After
+ // the swing it leaves at local angle la (given in the traced pose; it turns with the swing unless
+ // G.rfix) and spd (STORY px/s, mode-scaled, capped). Rejected (counted) when its start, swing or
+ // end lies outside the band or inside the heart exclusion, or its release crosses the safe lane.
+ function laneHit(G,x,y,ang,vel,r){const c=Math.cos(ang),dx=G.hx-x;if(!(c*dx>0&&Math.abs(c)>.12&&vel>1))return false;const tt=dx/(c*vel);if(tt>=7)return false;return Math.abs(y+Math.sin(ang)*vel*tt-G.ySafe(G.t0+r+tt))<G.gapHalf;}
+ function put(G,u,v,t,la,spd,type,hue,st,lo,acc,flags){const B=G.buf;if(B.n>=B.cap)return -1;
+  const k=G.s,sx=G.sx,sy=G.sy,x=G.cx+sx*u*k,y=G.cy+sy*v*k;if(!(x===x&&y===y&&la===la)){G.off++;return -1;}
+  const phi=G.phi,du=u-G.pu,dv=v-G.pv;let fx=x,fy=y;
+  if(phi!==0)for(let q=1;q<=3;q++){const a=phi*q/3,c=Math.cos(a),s=Math.sin(a);fx=G.cx+sx*(G.pu+du*c-dv*s)*k;fy=G.cy+sy*(G.pv+du*s+dv*c)*k;if(q<3&&out(fx,fy)){G.off++;return -1;}}
+  if(bad(G,x,y)||out(fx,fy)){G.off++;return -1;}
+  let ang=wa(G,la+(G.rfix?0:phi));const r=G.ts+G.td+G.rl,vel=clamp(n(spd)*G.vs,-G.vcap,G.vcap),ac=n(acc)*G.vs,rev=(flags|0)&F_REVERSE;
+  // Safe lane: a release whose ray would cross the lane at the hero's column is left out; for the
+  // whip (G.mirrorOK: links already fly up or down off their crest) it is mirrored instead.
+  if(!rev&&!G.noLane&&laneHit(G,fx,fy,ang,vel,r)){if(!G.mirrorOK){G.lane++;return -1;}ang=-ang;if(laneHit(G,fx,fy,ang,vel,r)){G.lane++;return -1;}G.flip++;}
+  const j=B.n++;B.x[j]=x;B.y[j]=y;B.t[j]=n(t);B.r[j]=Math.max(r,n(t)+.12);B.a[j]=ang;B.v[j]=vel;B.acc[j]=ac;B.vmin[j]=rev?-G.vcap*.9:0;B.ty[j]=G.mob?MOB_TY[type]:type;B.hu[j]=hue;B.st[j]=st;
+  B.o[j]=wa(G,lo==null||!(lo===lo)?la:lo);B.fl[j]=rev?1:0;B.bo[j]=0;B.lf[j]=G.life>0?G.life:0;
+  B.qx[j]=G.cx+sx*G.pu*k;B.qy[j]=G.cy+sy*G.pv*k;B.qw[j]=phi!==0?G.w*sx*sy:0;B.q0[j]=G.ts;return j;}
+ // Nominal width (along u) and height of each generator's silhouette, for the frame search.
+ const DIM={blade:p=>p.cuts?[440,250]:p.split?[460,200]:[440,230],whip:()=>[480,200],mirror:()=>[160,240],strings:()=>[440,240],
+  coin:p=>p.v==='yoyo'?[360,220]:p.v==='gear'?[200,200]:p.v==='lamp'?[90,244]:[110,236],claw:()=>[300,240],jaw:()=>[300,214],wings:()=>[440,240],
+  rings:p=>[210,240],crescent:()=>[390,250],sigil:p=>p.v==='eye'?[350,176]:[196,226],syringe:()=>[480,190]};
+ // Afterimage cuts (l301: three parallel slashes, the last with its hilt) or one long diagonal
+ // draw-cut (h103 iai). Each slash is a lens of NEEDLEs; the slashes part sideways and fan open.
+ function slash(G,p){const K=p.split?1:(p.cuts||3),Ls=p.split?460:410,tilt=(p.split?22:14)*DEG,gap=p.split?0:66,th=p.split?17:12,hilt=7,per=Math.max(6,Math.floor((G.N-hilt)/K)),Td=p.split?.42:.6,dt=Td/K;
+  const ca=Math.cos(tilt),sa=Math.sin(tilt);swing(G,0,0,0,0,Td,1);
+  for(let k=0;k<K;k++){const off=(k-(K-1)/2)*gap,ou=-sa*off,ov=ca*off,hue=k%2?G.h1:G.h0,side=p.split?0:(k%2?1:-1);
+   for(let i=0;i<per;i++){const q=i/(per-1),edge=i%2?1:-1,w=edge*th*Math.sin(PI*Math.min(1,.06+q*.94)),s=-Ls/2+Ls*q,u=ou+ca*s-sa*w,v=ov+sa*s+ca*w;
+    const sd=side||edge,la=tilt+sd*(62-24*q)*DEG;put(G,u,v,k*dt+dt*q,la,74+44*q,i%5===2?T.RICE:T.NEEDLE,hue,k,tilt);}}
+  // Hilt on the boss-side end of the last cut: pommel BIG, grip, ring guard (never a crossguard).
+  const off=((K-1)/2)*gap,hu=-sa*off-ca*Ls/2,hv=ca*off-sa*Ls/2,at=(s,w,ty,hue,o)=>put(G,hu+ca*s-sa*w,hv+sa*s+ca*w,Td,tilt,58,ty,hue,6,o);
+  at(-34,0,T.BIG,G.h1);at(-20,0,T.ORB,G.h0);for(let q=0;q<5;q++){const a=TAU*q/5;at(-6+10*Math.cos(a),10*Math.sin(a),T.DOT,G.h1,a);}}
+ const GEN={
+  // Sword: pommel (BIG), grip, ring guard, two NEEDLE edges converging to the tip around a hollow
+  // blade with a spell-hue fuller. Traced hilt to tip, held raised, swung about the hilt; then its
+  // bullets fly off the swing, faster toward the tip so the line opens. curl: shepherd's crook.
+  blade(G,p){if(p.cuts||p.split)return slash(G,p);
+   const L=p.curl?400:440,ph0=(p.swing??36)*DEG,a0=-(p.up??22)*DEG+(G.alt?ph0:0),phi=G.alt?-ph0:ph0,ca=Math.cos(a0),sa=Math.sin(a0),hu=-L/2*ca,hv=-L/2*sa,Td=.55,sg=phi>=0?1:-1,rel=a0+sg*58*DEG;
+   swing(G,hu,hv,phi,.75,Td,L+34);
+   const at=(s,w,t,ty,hue,st,o,spd)=>put(G,hu+ca*s-sa*w,hv+sa*s+ca*w,t,rel,spd,ty,hue,st,o);
+   at(-30,0,0,T.BIG,G.h1,3,a0,60);at(-15,0,.03,T.ORB,G.h0,3,a0,60);
+   for(let q=0;q<6;q++){const a=TAU*q/6;at(6+13*Math.cos(a),13*Math.sin(a),.06,T.ORB,G.h1,4,a0+a,60);}
+   const rest=Math.max(8,G.N-8);
+   if(p.curl){const hook=Math.round(rest*.3),staff=rest-hook,s1=L-46;
+    for(let i=0;i<staff;i++){const q=i/(staff-1),s=22+(s1-22)*q;at(s,0,Td*q*.8,i%3?T.DOT:T.ORB,i%2?G.h1:G.h0,0,a0,64+100*s/L);}
+    for(let i=0;i<hook;i++){const q=PI*1.15*i/(hook-1),s=s1+26*Math.sin(q),w=-sg*(26-26*Math.cos(q));at(s,w,Td*(.8+.2*i/hook),T.ORB,G.h0,1,a0+q,64+100*s/L);}
+    return;}
+   const E=Math.round(rest*.36),F=rest-2*E;
+   for(let e=-1;e<=1;e+=2)for(let i=0;i<E;i++){const q=i/(E-1),s=26+(L-26)*q,w=e*18*(1-Math.pow(q,1.7));at(s,w,Td*q,T.NEEDLE,G.h0,e>0?0:1,a0,64+100*s/L);}
+   for(let i=0;i<F;i++){const q=(i+.5)/F,s=44+(L*.8-44)*q;at(s,0,Td*q*.85,i%3?T.DOT:T.ORB,G.h1,2,a0,64+100*s/L);}},
+  // Chain whip / flute line: a long tilted wave of alternating white and hue links from a BIG
+  // handle, lashed out handle -> tip, held, cracked about the handle; every link flies off its crest.
+  whip(G,p){G.mirrorOK=true;const Lw=460,A=p.A??86,lam=p.lam??150,tilt=p.tilt??.16,Td=.7,u0=-Lw/2,v0=-tilt*Lw/2-6;
+   swing(G,u0,v0,(G.alt?-1:1)*(p.crack??22)*DEG,.6,Td,Lw+20);
+   put(G,u0-16,v0,0,PI,40,T.BIG,G.h1,3,0);put(G,u0-2,v0,0,PI,40,T.ORB,G.h0,3,0);
+   const per=Math.max(10,G.N-2-(p.notes?Math.floor(G.N/9)*2:0));
+   // Links sit on a phase grid that includes every crest (k per wavelength, k a multiple of 4), so
+   // a sparse mobile whip keeps its full height.
+   const kq=Math.max(4,4*Math.round(lam*(per-1)/(Lw-18)/4)),step=lam/kq,last=Math.min(per+2,Math.floor((Lw-18)/step));
+   for(let j=0;j<=last;j++){const f=j/last,uu=18+step*j,env=Math.pow(f,.5)*.7+.3,w=TAU*(uu-18)/lam,v=v0+A*env*Math.sin(w)+tilt*uu,dv=A*env*Math.cos(w)*TAU/lam+tilt,cr=Math.sin(w)>=0?1:-1;
+    const head=p.notes&&j%6===3,type=head?T.ORB:j%3===0?T.ORB:T.DOT,la=Math.atan2(cr*(.3+.6*f),1),sp=60+38*f;
+    put(G,u0+uu,v,Td*f,la,sp,type,(j>>1)%2?G.h1:G.h0,0,Math.atan2(dv,1));
+    if(head)for(let q=1;q<=2;q++)put(G,u0+uu+6,v-7*q-2,Td*f,la,sp,q===2?T.STAR:T.DOT,G.h1,2,-PI/2);}},
+  // Mirror pane: a tall hollow frame of RICE along its edges with ORB corners, five cracks from an
+  // off-centre impact (no two collinear, so never an X); it tilts, then the shards fly off the impact.
+  mirror(G,p){const W=150,Hh=230,P=Math.round(G.N*.55),K=Math.max(5,G.N-P-4),Td=.75,ix=-W*.1,iy=-Hh*.12,per=2*(W+Hh);
+   swing(G,0,0,(p.tilt??10)*DEG,.5,Td+.25,150);
+   const shard=(u,v,t,ty,hue,st,o)=>{const d=Math.hypot(u-ix,v-iy);put(G,u,v,t,Math.atan2(v-iy,u-ix),44+.5*d,ty,hue,st,o);};
+   for(let i=0;i<P;i++){const s=per*(i+.5)/P;let u,v,o;if(s<W){u=-W/2+s;v=-Hh/2;o=0;}else if(s<W+Hh){u=W/2;v=-Hh/2+(s-W);o=PI/2;}else if(s<2*W+Hh){u=W/2-(s-W-Hh);v=Hh/2;o=0;}else{u=-W/2;v=Hh/2-(s-2*W-Hh);o=PI/2;}shard(u,v,Td*i/P,T.RICE,G.h0,0,o);}
+   for(let c=0;c<4;c++)shard(c%2?W/2:-W/2,c<2?-Hh/2:Hh/2,Td,T.ORB,G.h1,5,0);
+   const cr=[15,88,152,226,302],seg=Math.max(1,Math.floor(K/cr.length));
+   for(let k=0;k<cr.length;k++){const a=cr[k]*DEG,len=Math.min(Math.abs((Hh/2)/Math.sin(a)||1e9),Math.abs((W/2)/Math.cos(a)||1e9))*.9;
+    for(let j=1;j<=seg;j++){const rr=len*j/seg;shard(ix+Math.cos(a)*rr,iy+Math.sin(a)*rr,Td+.05*k,j===seg?T.STAR:T.DOT,G.h1,1+k,a);}}},
+  // Puppet strings / roots / neurons: a control bar above the boss's hand (ORB) with long lines
+  // fanned down to the floor across the field; the bar sways, the lines snap at 55% and both halves
+  // recoil along the line. branch: forked side twigs.
+  strings(G,p){const W=440,Hh=240,K=p.k||5,bw=120,Td=.8,twig=p.branch?Math.round(G.N*.2/K):0,bar=6,per=Math.max(5,Math.floor((G.N-bar)/K)-twig);
+   swing(G,-W/2+bw/2,-Hh/2,(G.alt?-1:1)*(p.sway??12)*DEG,.6,Td+.03*K+.05,W+20);
+   for(let i=0;i<bar;i++)put(G,-W/2+bw*i/(bar-1),-Hh/2,0,PI/2,46,T.ORB,i%2?G.h0:G.h1,7,0);
+   for(let k=0;k<K;k++){const ax=-W/2+bw*(k+.5)/K,ay=-Hh/2+4,ex=-W/2+150+(W-150)*(k+1)/K,ey=Hh/2-((k*2)%3)*34,dx=ex-ax,dy=ey-ay,a=Math.atan2(dy,dx);
+    for(let j=0;j<per;j++){const s=(j+1)/per,away=s>=.55?a:a+PI;put(G,ax+dx*s,ay+dy*s,Td*s+k*.03,away,40+150*Math.abs(s-.55),j===per-1?T.ORB:j%4===0?T.ORB:T.DOT,k%2?G.h1:G.h0,k,a);}
+    for(let q=0;q<twig;q++){const half=Math.max(1,Math.floor(twig/2)),sd=q<half?1:-1,s0=q<half?.45:.75,ii=q%half,ta=a+sd*36*DEG,rr=14+16*ii;
+     put(G,ax+dx*s0+Math.cos(ta)*rr,ay+dy*s0+Math.sin(ta)*rr,Td*s0+.05,ta,56+20*ii,T.DOT,G.h1,8+(k%7),ta);}}},
+  // Coins (white ORB rims that stand apart from a gold curtain, square hole of four hue RICE sides) stacked on a bulging arc, a yoyo pair on its
+  // strings (hollow hubs), a toothed gear with three spokes, or a hollow signal-lamp housing. Coins
+  // and gears spin in place, yoyos scissor on their strings; each disc then flies as one widening body.
+  coin(G,p){const v=p.v||'coin',Td=.7;
+   if(v==='yoyo'){const W=340,R=36,hub=6,str=Math.round(G.N*.2/2),m=Math.max(10,Math.floor(G.N/2)-str-hub),hu=-W/2,hv=0;
+    for(let y=0;y<2;y++){const sd=y?1:-1,cu=W/2-R-2,cv=sd*80,la=Math.atan2(cv-hv,cu-hu),ca=Math.cos(la),sa=Math.sin(la),L=Math.hypot(cu-hu,cv-hv);
+     swing(G,hu,hv,-sd*14*DEG,.55,Td,L+R);
+     for(let i=0;i<m;i++){const q=TAU*i/m,vx=ca*170+Math.cos(q)*12,vy=sa*170+Math.sin(q)*12;put(G,cu+Math.cos(q)*R,cv+Math.sin(q)*R,Td*(.4+.6*i/m),Math.atan2(vy,vx),Math.hypot(vx,vy),i%2?T.ORB:T.DOT,G.h0,y,q+PI/2,-62,F_REVERSE);}
+     for(let i=0;i<hub;i++){const q=TAU*i/hub;put(G,cu+Math.cos(q)*11,cv+Math.sin(q)*11,Td,la,170,T.DOT,G.h1,2+y,q+PI/2,-62,F_REVERSE);}
+     for(let i=0;i<str;i++){const s=(i+1)/(str+1);put(G,hu+(cu-R*ca-hu)*s,hv+(cv-R*sa-hv)*s,Td*.4*s,la,170*s,T.DOT,G.h1,4+y,la,-62*s,F_REVERSE);}}
+    return;}
+   G.rfix=true;
+   const fly=(u,v,cu,cv,la,spd,grow,phi)=>{const q=Math.atan2(v-cv,u-cu)+phi,vx=Math.cos(la)*spd+Math.cos(q)*grow,vy=Math.sin(la)*spd+Math.sin(q)*grow;G.fa=Math.atan2(vy,vx);G.fs=Math.hypot(vx,vy);};
+   if(v==='gear'){const R=80,teeth=Math.round(G.N*.22),hub=7,spoke=9,m=Math.max(12,G.N-teeth-hub-spoke);swing(G,0,0,45*DEG,.6,Td,R+16);
+    const P=(u,vv,t,ty,hue,st,o)=>{fly(u,vv,0,0,0,56,44,G.phi);put(G,u,vv,t,G.fa,G.fs,ty,hue,st,o);};
+    for(let i=0;i<m;i++){const q=TAU*i/m;P(Math.cos(q)*R,Math.sin(q)*R,Td*i/m,i%2?T.ORB:T.DOT,G.h0,0,q+PI/2);}
+    for(let i=0;i<teeth;i++){const q=TAU*(i+.5)/teeth;P(Math.cos(q)*(R+15),Math.sin(q)*(R+15),Td*i/teeth,T.RICE,G.h1,1,q);}
+    for(let i=0;i<hub;i++){const q=TAU*i/hub;P(Math.cos(q)*20,Math.sin(q)*20,Td,T.DOT,G.h1,2,q+PI/2);}
+    for(let i=0;i<spoke;i++){const a=(90+120*(i%3))*DEG,rr=30+(R-40)*(Math.floor(i/3)+.5)/3;P(Math.cos(a)*rr,Math.sin(a)*rr,Td,T.DOT,G.h0,3+(i%3),a);}
+    return;}
+   if(v==='lamp'){const W=80,Hh=240,lamp=3,ring=Math.max(6,Math.round(G.N*.17)),P=Math.max(12,G.N-lamp*(ring+1)),per=2*(W+Hh);swing(G,0,0,0,0,Td,1);
+    for(let i=0;i<P;i++){const s=per*(i+.5)/P;let u,vv,o;if(s<W){u=-W/2+s;vv=-Hh/2;o=0;}else if(s<W+Hh){u=W/2;vv=-Hh/2+(s-W);o=PI/2;}else if(s<2*W+Hh){u=W/2-(s-W-Hh);vv=Hh/2;o=0;}else{u=-W/2;vv=Hh/2-(s-2*W-Hh);o=PI/2;}
+     fly(u,vv,0,0,0,58,30,0);put(G,u,vv,Td*i/P,G.fa,G.fs,T.RICE,G.h0,0,o);}
+    for(let k=0;k<lamp;k++){const cv=(k-1)*76,la=(k-1)*22*DEG;for(let i=0;i<=ring;i++){const q=TAU*i/ring,rr=i===ring?0:22;fly(Math.cos(q)*rr,cv+Math.sin(q)*rr,0,cv,la,80,i===ring?0:24,0);put(G,Math.cos(q)*rr,cv+Math.sin(q)*rr,Td*(.3+.7*k/lamp),G.fa,G.fs,i===ring?T.BIG:T.ORB,k===1?G.h0:G.h1,1+k,q);}}
+    return;}
+   const K=clamp(Math.round(G.N/22),3,4),dv=K===3?78:62,R=34,per=Math.floor(G.N/K),hole=4,m=Math.max(8,per-hole);
+   for(let k=0;k<K;k++){const cv=(k-(K-1)/2)*dv,cu=22*(1-Math.pow(cv/(dv*1.6),2))-10,la=((k+.5)/K-.5)*60*DEG;swing(G,cu,cv,70*DEG,.6,Td,R);
+    const P=(u,vv,t,ty,hue,st,o)=>{fly(u,vv,cu,cv,la,84,26,G.phi);put(G,u,vv,t,G.fa,G.fs,ty,hue,st,o);};
+    for(let i=0;i<m;i++){const q=TAU*i/m;P(cu+Math.cos(q)*R,cv+Math.sin(q)*R,Td*(k+i/m)/K,i%2?T.ORB:T.DOT,G.h0,k,q+PI/2);}
+    for(let i=0;i<hole;i++){const q=i*PI/2;P(cu+Math.cos(q)*9,cv+Math.sin(q)*9,Td*(k+1)/K,T.RICE,G.h1,4+k,q+PI/2);}}},
+  // Claws: three (four) long curved rakes, ORB knuckle, RICE body, NEEDLE tips, scratched one after
+  // another; the paw swipes them about a pivot behind, then they fly on along the stroke.
+  claw(G,p){const K=G.band===3?4:3,per=Math.max(6,Math.floor(G.N/K)),Lc=290,up=p.up?-1:1,a=(p.slant||34)*DEG*up,ca=Math.cos(a),sa=Math.sin(a),gap=36,sag=20*up,Td=K*.14+.3;
+   swing(G,-ca*(Lc/2+90),-sa*(Lc/2+90),(G.alt?up:-up)*16*DEG,.55,Td,Lc+90+gap*2);
+   for(let k=0;k<K;k++){const off=(k-(K-1)/2)*gap;
+    for(let j=0;j<per;j++){const s=j/(per-1),al=-Lc/2+Lc*s,pw=off+sag*4*s*(1-s),u=ca*al-sa*pw,v=sa*al+ca*pw,ty=j===0?T.ORB:s>.84?T.NEEDLE:T.RICE;
+     put(G,u,v,k*.14+.3*s,a,50+75*s,ty,k%2?G.h1:G.h0,k,a+sag*.004*(1-2*s));}}},
+  // Maw (with kitchen knives for teeth): upper and lower jaws open wide in front of the boss, a
+  // NEEDLE knife every fourth tooth; held, then every tooth lunges at the bite line, vanishes there,
+  // and the mouth spits a fan.
+  jaw(G,p){const rx=150,ry=105,teeth=Math.round(G.N*.8),half=Math.floor(teeth/2),spit=Math.max(3,G.N-2*half),Td=.6,vy=70,fw=18;swing(G,0,0,0,0,Td,1);const rel=G.ts;
+   for(let side=0;side<2;side++)for(let i=0;i<half;i++){const s=i/(half-1),q=(side?20+140*s:200+140*s)*DEG,u=Math.cos(q)*rx,v=Math.sin(q)*ry,dy=Math.abs(v);
+    const knife=i%4===0,la=Math.atan2(side?-vy:vy,fw);G.life=rel+dy/(vy*G.vs)+.02;
+    put(G,u,v,Td*(side?1-s:s),la,Math.hypot(vy,fw),knife?T.NEEDLE:T.RICE,knife?G.h1:G.h0,side,Math.atan2(-v,-u));}
+   G.life=0;const bite=ry/(vy*G.vs)*.75;G.rl=bite;
+   for(let i=0;i<spit;i++){const s=spit>1?i/(spit-1):.5,la=(-42+84*s)*DEG;put(G,rx*.15+Math.cos(la)*14,Math.sin(la)*14,Td,la,58+22*((i*5)%3)/2,i%2?T.ORB:T.DOT,G.h1,2,la);}},
+  // Wings: from the shoulder, each wing is a fan of long RICE feathers with ORB tips, an ORB leading
+  // edge and a scalloped DOT trailing edge joining the tips; both wings flap toward the middle, then
+  // every feather launches as a lance along itself, opened outward.
+  wings(G,p){const pairs=G.band===3&&p.six?2:1,R=4,W=430,u0=-W/2,Td=.75,scal=2*pairs*(R-1)+2,per=Math.max(3,Math.floor((G.N-scal)/(2*pairs*R)));
+   for(let side=-1;side<=1;side+=2){swing(G,u0,0,-side*14*DEG,.6,Td+.08*(pairs-1),W);put(G,u0-8,side*8,0,PI+side*.6,50,T.BIG,G.h1,8,0);
+    for(let w=0;w<pairs;w++){const sv=side*(6+w*8);let tu=0,tv=0;
+     for(let r=0;r<R;r++){const la=side*(G.alt?2+8*r+w*5:4+6*r+w*5)*DEG,Lf=(W-(G.alt?34:44)*r)*(1-.16*w),cl=Math.cos(la),sl=Math.sin(la);
+      for(let j=1;j<=per;j++){const s=j/per,u=u0+cl*Lf*s,v=sv+sl*Lf*s,ty=j===per?T.ORB:r===0&&j%2===0?T.ORB:T.RICE;
+       put(G,u,v,Td*(.2*r/R+.8*s)+w*.08,la+side*8*DEG,62+40*s,ty,(w+r)%2?G.h1:G.h0,w*2+(side>0?1:0),la);}
+      const nu=u0+cl*Lf,nv=sv+sl*Lf;if(r>0)put(G,(tu+nu)/2-10,(tv+nv)/2,Td,la+side*12*DEG,70,T.DOT,G.h1,8+w,null);tu=nu;tv=nv;}}}},
+  // Sound: concentric arcs (ORB/DOT nodes) pulse out from the boss on a beat (bell / choir / drum);
+  // notes adds note heads on stems. Held, then every arc expands as a ring.
+  rings(G,p){const R=G.band===3?4:3,beat=p.beat||.26,r0=R===4?70:80,dr=R===4?42:50,u0=-(r0+dr*(R-1))/2-20,Td=(R-1)*beat+.12;swing(G,0,0,0,0,Td,1);
+   const rsum=R*r0+dr*R*(R-1)/2;for(let k=0;k<R;k++){const rad=r0+dr*k,span=Math.min(62*DEG,Math.asin(Math.min(1,118/rad))),pk=Math.max(5,Math.floor(G.N*rad/rsum)),cnt=p.notes?Math.round(pk*.7):pk,ang=i=>-span+2*span*i/Math.max(1,cnt-1);
+    for(let i=0;i<cnt;i++){const a=ang(i);put(G,u0+Math.cos(a)*rad,Math.sin(a)*rad,k*beat,a,64+4*k,i%2?T.DOT:T.ORB,k%2?G.h1:G.h0,k,a+PI/2);}
+    if(p.notes){const heads=Math.floor((pk-cnt)/3),step=Math.max(1,Math.floor(cnt/Math.max(1,heads)));for(let q=0,i=Math.floor(step/2);q<heads;q++,i+=step){const a=ang(Math.min(cnt-1,i)),u=u0+Math.cos(a)*rad,v=Math.sin(a)*rad;
+     for(let z=1;z<=3;z++)put(G,u+5,v-6*z,k*beat,a,64+4*k,z===3?T.STAR:T.DOT,G.h1,4+k,-PI/2);}}}},
+  // Crescent blade (time crescent / harvest scythe): a large tilted crescent, RICE outer edge and
+  // DOT inner edge, traced tip to tip, spun about its middle, then thrown forward as one body that
+  // opens vertically. scythe: plus a long snath from the heel back toward the boss.
+  crescent(G,p){const Ro=262,th=52,c0=120*DEG,sp=57*DEG,snath=p.scythe?Math.round(G.N*.2):0,No=Math.round((G.N-snath)*.56),Ni=G.N-snath-No,Td=.62;
+   let u0=1e9,u1=-1e9,v0=1e9,v1=-1e9;for(let i=0;i<=16;i++){const a=c0-sp+2*sp*i/16,x=Ro*Math.cos(a),y=Ro*Math.sin(a);u0=Math.min(u0,x);u1=Math.max(u1,x);v0=Math.min(v0,y);v1=Math.max(v1,y);}
+   const ou=-(u0+u1)/2,ov=-(v0+v1)/2;swing(G,0,0,(G.alt?24:-24)*DEG,.6,Td,Ro+(snath?60:0));G.rfix=true;
+   const P=(u,v,t,ty,hue,st,o)=>{fin(G,u,v);put(G,u,v,t,Math.atan2(G.fv/240,1),ty===T.DOT?82:96,ty,hue,st,o);};
+   for(let i=0;i<No;i++){const a=c0-sp+2*sp*i/(No-1);P(ou+Math.cos(a)*Ro,ov+Math.sin(a)*Ro,Td*i/(No-1),T.RICE,G.h0,0,a+PI/2);}
+   for(let i=0;i<Ni;i++){const q=(i+.5)/Ni,a=c0-sp+2*sp*q,rr=Ro-th*Math.sin(PI*q);P(ou+Math.cos(a)*rr,ov+Math.sin(a)*rr,Td*q,T.DOT,G.h1,1,a+PI/2);}
+   const ha=c0+sp,hx=ou+Math.cos(ha)*Ro,hy=ov+Math.sin(ha)*Ro;for(let j=0;j<snath;j++){const s=(j+1)/snath;P(hx+210*s,hy+24*s,Td,j%3?T.DOT:T.ORB,G.h1,2,0);}},
+  // Sigils drawn line by line: a hexagram (two interleaved triangles, the canon replacement for
+  // every cross) with BIG vertices, turned a twelfth, or a sleepless eye (RICE lids, ORB iris, BIG
+  // pupil). Released by self-similar expansion; the iris travels toward the hero.
+  sigil(G,p){const Td=.9;
+   if(p.v==='eye'){const hw=175,hh=86,cR=(hw*hw+hh*hh)/(2*hh),iris=10,lid=Math.max(12,G.N-iris-3);swing(G,0,0,0,0,Td,1);
+    for(let i=0;i<lid;i++){const side=i%2?1:-1,s=Math.floor(i/2)/Math.max(1,Math.ceil(lid/2)-1),xx=-hw+2*hw*s,yy=side*(Math.sqrt(Math.max(0,cR*cR-xx*xx))-(cR-hh)),d=Math.hypot(xx,yy);
+     put(G,xx,yy,Td*.6*Math.abs(s-.5)*2,Math.atan2(yy,xx),26+70*d/hw,T.RICE,G.h0,side>0?1:0,Math.atan2(side*-xx,cR));}
+    const aim=unwa(G,Math.atan2(G.hy-G.cy,G.hx-G.cx));G.noLane=true;
+    for(let i=0;i<iris;i++){const q=TAU*i/iris;put(G,Math.cos(q)*40,Math.sin(q)*40,Td,aim,92,T.ORB,G.h1,2,q);}
+    put(G,0,0,Td,aim,92,T.BIG,G.h0,3,0);put(G,-14,0,Td,aim,92,T.DOT,G.h1,3,0);put(G,14,0,Td,aim,92,T.DOT,G.h1,3,0);G.noLane=false;return;}
+   const R=112;swing(G,0,0,30*DEG,.6,Td,R);const per=Math.max(3,Math.floor((G.N-6)/6));
+   for(let e=0;e<6;e++){const tri=e%2,k=Math.floor(e/2),a0=(tri?90:-90)+k*120,a1=a0+120,x0=Math.cos(a0*DEG)*R,y0=Math.sin(a0*DEG)*R,x1=Math.cos(a1*DEG)*R,y1=Math.sin(a1*DEG)*R;
+    put(G,x0,y0,Td*e/6,a0*DEG,26+70,T.BIG,tri?G.h1:G.h0,tri,0);
+    for(let j=1;j<=per;j++){const s=j/(per+1),u=x0+(x1-x0)*s,v=y0+(y1-y0)*s,d=Math.hypot(u,v);put(G,u,v,Td*(e+s)/6,Math.atan2(v,u),26+70*d/R,j%3?T.DOT:T.ORB,tri?G.h1:G.h0,tri,Math.atan2(y1-y0,x1-x0));}}},
+  // Syringe: thumb plate (ORB), rod, hollow RICE barrel with hue liquid and graduation ticks, cone
+  // and a long NEEDLE, laid tilted toward the hero (16-30 deg so it spans the band; or tilted 34 deg away when the hero stands close), held, then the
+  // whole body thrusts along its axis (a positional sidestep).
+  syringe(G,p){const L=470,Td=.6;let ax=unwa(G,Math.atan2(G.hy-G.cy,G.hx-G.cx));ax=wrap(ax);if(Math.abs(ax)>PI/2)ax=0;const sg=ax<0?-1:1;ax=G.alt?-sg*34*DEG:sg*clamp(Math.abs(ax),16*DEG,30*DEG);
+   const ca=Math.cos(ax),sa=Math.sin(ax),sp=p.v==='spear'?150:140;swing(G,0,0,0,0,Td,1);G.noLane=true;
+   const at=(s,w,t,ty,hue,st,o)=>put(G,ca*s-sa*w,sa*s+ca*w,t,ax,sp,ty,hue,st,o==null?ax:o);
+   const N=G.N,need=Math.max(5,Math.round(N*.2)),liq=Math.max(3,Math.round(N*.12)),fixed=5+3+3+4+4,bar=Math.max(5,Math.floor((N-need-liq-fixed)/2));
+   for(let i=0;i<5;i++)at(-L/2,(i-2)*16,0,T.ORB,G.h1,0,ax+PI/2);
+   for(let i=0;i<3;i++)at(-L/2+14+20*i,0,.05,T.DOT,G.h0,1);
+   for(let i=0;i<3;i++)at(-160,(i-1)*20,.1,T.DOT,G.h0,2,ax+PI/2);
+   for(let e=-1;e<=1;e+=2)for(let i=0;i<bar;i++){const q=i/(bar-1);at(-160+230*q,e*30,.1+Td*.5*q,T.RICE,G.h0,e>0?3:4);}
+   for(let i=0;i<4;i++)at(-120+40*i,-40,.2+.06*i,T.DOT,G.h1,5,ax+PI/2);
+   for(let i=0;i<liq;i++){const q=(i+.5)/liq;at(-70+140*q,0,.3+.2*q,T.ORB,G.h1,6);}
+   for(let e=-1;e<=1;e+=2)for(let i=0;i<2;i++)at(80+16*i,e*(20-9*i),Td*.65,T.RICE,G.h0,e>0?3:4,ax-e*.5);
+   for(let i=0;i<need;i++){const q=i/(need-1);at(115+(L/2-115)*q,0,Td*(.7+.3*q),T.NEEDLE,G.h0,7);}
+   G.noLane=false;}
+ };
+ // Boss -> weapon. Evidence is quoted from the bundle (assets/index-v31526.js) or the canon text.
+ const WG=(g,p,ev)=>Object.freeze({g,p:Object.freeze(p||{}),ev});
+ const WEAPON_ROWS=[
+  ['dist00-boss','뿌리의 문지기',[WG('strings',{branch:true,k:6},'actor sprite demon_tree_root_seraph.png; signature "검은 뿌리 봉인"')],true,'body (roots)'],
+  ['dist06-boss','발록 · 지옥의 문지기',[WG('blade',{},'deck flame-sword-cone; canon "발록이 검을 휘두르자"'),WG('whip',{A:88,lam:130},'projectile balrog_chain_whip_wave.webp')],false,'flame sword + chain whip'],
+  ['a11-boss','루시퍼 · 가면 벗은 초천사',[WG('wings',{six:true},'projectile lucifer_feather_lance.webp; deck wing-feather-pairs / six-wing')],false,'feather wings (lances)'],
+  ['b02-boss','나태에 잠식된 남자',[WG('syringe',{},'major memory_command_syringe.webp; deck falling-clutter')],true,'signature attack (syringe major)'],
+  ['b03-boss','호텔 부매니저 · 레비아탄',[WG('mirror',{},'projectile envy_mirror_shard.webp; deck mirror-fan; zone 금이 간 안경')],false,'cracked mirror'],
+  ['b04-boss','탐식의 귀 베엘제붑',[WG('jaw',{},'projectile gluttony_maw_wave.webp; phase "칼을 든 총주방장"; canon "식칼과 프라이팬을 마구 던졌다"')],false,'maw + kitchen knives'],
+  ['b05-boss','붉은 하이힐의 서윤',[WG('strings',{k:5},'deck puppet-thread-pairs; rule 인형실 장력; phase "조종하는 인간 꼭두각시"')],false,'puppet threads'],
+  ['b06-boss','총지배인 · 맘몬',[WG('coin',{v:'coin'},'projectile greed_coin_saw.webp; deck coin-ricochet')],false,'coins'],
+  ['b06b-boss','소년이 된 총지배인 · 맘몬',[WG('coin',{v:'yoyo'},'deck yoyo-true-return; rule 요요 귀환 지뢰; phase "사탕과 요요의 가시 환영"')],false,'yoyo'],
+  ['b07-boss','불을 지른 청소부 · 사탄',[WG('claw',{},'deck beast-triplet-arcs; rule 분노 돌진 상흔'),WG('claw',{up:true},'deck dash-trail-converge')],false,'claws (rake scars)'],
+  ['b08-boss','백색 정장의 호텔 그룹 회장',[WG('sigil',{v:'hex'},'projectile wrath_pride_execution_sigil.webp; cross->hexagram canon (boss-form)')],true,'sigil (no weapon)'],
+  ['b09-boss','사이보그 회장 · 생체 부트로더',[WG('sigil',{v:'hex'},'projectile wrath_pride_execution_sigil.webp; deck black-sun-echo')],true,'sigil (no weapon)'],
+  ['u203-boss','컨트롤러 · 기억의 문',[WG('mirror',{},'sprite u2_mirror_priest.webp'),WG('syringe',{},'projectile memory_command_syringe.webp')],false,'mirror + syringe'],
+  ['l301-boss','타락천사 기사',[WG('blade',{cuts:3},'projectile sleepless_six_sword_wave.webp; deck draw-slash-lanes / afterimage-blades; canon "검날"')],false,'sword (afterimage cuts)'],
+  ['l303-boss','불면귀',[WG('sigil',{v:'eye'},'projectile sleepless_gaze_sigil.webp; deck sleepless-eyes')],true,'body (eye/gaze)'],
+  ['l305-boss','고블린 추장',[WG('whip',{notes:true,A:80,lam:170},'deck flute-sine-wave'),WG('rings',{beat:.3},'deck drum-hop-bomb; rule 세 악기 대위법')],false,'flute + drum'],
+  ['k103-boss','세이렌 모르',[WG('rings',{notes:true},'deck expanding-note-wave / rest-crescendo')],false,'voice (note rings)'],
+  ['h103-boss','EGO 강탈 악몽왕',[WG('blade',{split:true},'deck white-draw-cut; zone midboss 환수검 모조체')],false,'drawn sword (iai cut)'],
+  ['c102-boss','합일 세라핌 · 신경성가대',[WG('rings',{},'deck choir-pulse-bands / antiphonal-left-right')],false,'choir (sound rings)'],
+  ['c103-boss','삼중자아 포식핵',[WG('crescent',{scythe:true},'deck harvest-composite; rule 이드·초자아·자아 수확 (scythe inferred from 수확)')],true,'harvest scythe (inferred)'],
+  ['c104-boss','한시온 · 백색 목자',[WG('blade',{curl:true},'deck shepherd-six-sweep; phase 백색 목자 (crook)')],false,"shepherd's crook"],
+  ['blue-executor','파란불 집행체',[WG('coin',{v:'lamp'},'deck traffic-signal-lanes; projectile murder_causality_road.webp')],true,'signal lamps (no weapon)'],
+  ...['kair-great-01','kair-great-02','kair-great-03','kair-great-06'].map(id=>[id,id==='kair-great-03'?'아르벨리아, 유예의 수문장':'대수문장',[WG('crescent',{},'projectile kair_chrono_crescent.webp')],false,'time crescent']),
+  ['kair-great-04','대수문장 04',[WG('coin',{v:'gear'},'deck gear-arcs / rotating-teeth; rule 톱니 대장간 교합')],false,'gear'],
+  ['kair-great-05','대수문장 05',[WG('strings',{branch:true,k:5},'deck neuron-chain / branch-laser; rule 뉴런 시냅스 연쇄')],false,'neuron chain'],
+ ];
+ // Midbosses / unlisted: name keywords, then the family default (marked fallback).
+ const WEAPON_NAME_RULES=[[/검천사|환수검|기사|칼/,'blade',{},'name: 검천사/환수검/기사'],[/거울|비교잔영/,'mirror',{},'name: 거울/비교잔영'],[/주사|병원|안정화/,'syringe',{},'name: 주사/병원'],[/포식|주방|아가리/,'jaw',{},'name: 포식/주방'],
+  [/장부|금고|동전/,'coin',{v:'coin'},'name: 장부/금고'],[/실안개|꼭두각시|인형|무대감독|실/,'strings',{},'name: 꼭두각시/무대'],[/수확/,'crescent',{scythe:true},'name: 수확'],[/뿔악마|가시/,'claw',{},'name: 뿔/가시 (body)'],
+  [/역십자가|제72문|교만|기둥|폐허핵|연산핵|배양좌/,'sigil',{v:'hex'},'name: sigil (no weapon)'],[/가면|시선|눈/,'sigil',{v:'eye'},'name: 가면/시선 (body)'],[/파란불|인과|목격자|당직|보관인|진술/,'coin',{v:'lamp'},'name: 파란불/인과 (no weapon)'],
+  [/합창|성가|자비|검열/,'rings',{},'name: 합창/교정 (voice)'],[/칩|방화벽|코어|관리자|프레임|집행|신호/,'syringe',{},'name: 관리/코어 (controller syringe)']];
+ const FAMILY_WEAPON=Object.freeze({envy:['mirror',{}],greed:['coin',{v:'coin'}],gluttony:['jaw',{}],rage:['blade',{}],obsession:['strings',{}],order:['sigil',{v:'hex'}],petal:['rings',{}],lucifer:['wings',{}]});
+ const BOSS_WEAPONS={};for(const [id,name,list,fb,what] of WEAPON_ROWS)BOSS_WEAPONS[id]=Object.freeze({id,name,list:Object.freeze(list),fallback:fb,what,evidence:list.map(e=>e.ev).join(' | ')});
+ Object.freeze(BOSS_WEAPONS);
+ const MB_NAMES=Object.freeze({'mb-dist01':'보라검천사','mb-dist02':'늪의 뿔악마 군주','mb-dist03':'핏빛 수호로 추격자','mb-dist04':'첫 동료의 악마잔영','mb-dist05':'숨이 끊긴 전령의 그림자','mb-dist06':'소환진 검은기둥','mb-ep1a07':'무의 기억포식자','mb-ep1a08':'백의 안정화 감독','mb-ep1a09':'갈망의 주사실 감시핵','mb-ep1a10':'오만의 폐허핵','mb-ep1a11':'초천사의 웃는 가면','mb-ep1b01':'교만의 잔향 · 제72문','mb-ep1b02':'나태의 껍데기 파수','mb-ep1b03':'금이 간 비교잔영','mb-ep1b04':'폐기주방 감독','mb-ep1b05':'심장빛 무대감독','mb-ep1b06':'금고 장부감시자','mb-ep1b06b':'겨울숲 가시파수','mb-ep1b07':'호텔 화염기사','mb-ep1b08':'역십자가 시체경호체','mb-ep1b09':'생체부트로더 연산핵','u201-mid':'제4단계 전쟁관리자','u202-mid':'제8단계 자비 교정관','u203-mid':'기억의 문 수호 프레임','mb-hando01':'의존 신호 포식자','mb-hando02':'코어 운반 집행자','mb-hando03':'환수검 모조체','mb-murder01':'파란불 역주행 목격자','mb-murder02':'공실장부 당직감사','mb-murder03':'옥상 인과보관인','c101-mid':'칩 제단 방화벽','c103-mid':'삼중자아 수확기','c104-mid':'적그리스도 배양좌','u204-mid':'제12단계 기억 검열기','u205-mid':'제14단계 역전 관리자','u206-mid':'제17단계 중앙이주 코어','murder04-mid':'진술 봉쇄 인과핵','c105-mid':'ID 생체조 관리자','c106-mid':'기계재판 집행핵','mb-last302-v31231':'꼭두각시 실안개','a11-cosmic-v31318':'루시퍼'});
+ const weaponCache=new Map();
+ function weaponFor(a,family){if(!a)return null;const id=String(a.id??'');if(BOSS_WEAPONS[id])return BOSS_WEAPONS[id];
+  const fam=FAMILY_SPELLS[family]?family:'petal',name=String(a.name??'')+' '+(MB_NAMES[id]??''),key=id+'|'+name+'|'+fam;let w=weaponCache.get(key);if(w)return w;
+  if(/루시퍼/.test(name)&&!/잔향|가면/.test(name))w={id,name,list:BOSS_WEAPONS['a11-boss'].list,fallback:false,what:'feather wings',evidence:'name 루시퍼 -> a11-boss weapon'};
+  else{for(const [re,g,p,ev] of WEAPON_NAME_RULES)if(re.test(name)){w={id,name,list:[WG(g,p,ev)],fallback:!/검천사|환수검|기사|칼|거울|주사|주방|장부|금고|꼭두각시|인형|수확/.test(name),what:g,evidence:ev};break;}}
+  if(!w){const [g,p]=FAMILY_WEAPON[fam];w={id,name,list:[WG(g,p,'family default ('+fam+')')],fallback:true,what:g,evidence:'family default ('+fam+')'};}
+  Object.freeze(w);if(weaponCache.size<256)weaponCache.set(key,w);return w;}
+ function sigCount(ctx){const b=ctx.band-1,base=SIG.base[b]*(SIG.mode[ctx.mode]||1);return Math.round(clamp(base*n(ctx.sigScale,1),12,SIG.max));}
+ function makeSig(list,o,emitEnd){if(!list||!list.length)return null;const beats=(o.sigBeats||SIG.beats.map(f=>f*emitEnd)).filter(t=>t+SIG.minLeft<=emitEnd+.01);
+  return {list,order:n(o.sigOrder,n(o.index,0)*2)|0,beats,k:0,active:false,t0:0,cur:0,end:0,phrases:0,last:null,buf:sigBuf(SIG.cap),G:{},srch:{k:-1,i:0,best:0,bi:0,done:false,alts:1,total:0}};}
+ // Frame search: three distances in front of the boss x five heights x vertical mirror x swing
+ // direction (generators that read G.alt) x two scales; the frame keeping the most bullets wins
+ // (full size and full extent preferred, centre >= 130 px in front of the boss). It is spread over the 1.3 s
+ // pre-window (SIG.perStep candidates per step, so no frame hitches) and stops early once a
+ // full-size frame keeps >= 95%; the phrase is then built once more against the hero's position.
+ const FR_DY=[0,-1,1,-.5,.5],FR_S=[1,.85],FR_D=[80,140,30],ALT=new Set(['blade','whip','claw','crescent','strings','syringe','wings']),SEARCH_PER_STEP=3;
+ function buildSig(G,gen,p){const B=G.buf;B.n=0;G.off=0;G.lane=0;G.flip=0;G.w=0;G.td=0;G.ts=SIG.armed;G.rl=0;G.phi=0;G.pu=0;G.pv=0;G.life=0;G.noLane=false;G.rfix=false;G.mirrorOK=false;try{gen(G,p);}catch(err){B.n=0;}
+  // The trace starts at once: the first bullet appears at t=0 (SIG.armed counts from there).
+  let t0=1e9;for(let j=0;j<B.n;j++)if(B.t[j]<t0)t0=B.t[j];if(t0>0&&t0<1e9)for(let j=0;j<B.n;j++)B.t[j]-=t0;return B.n;}
+ function frameAt(G,ctx,dim,c){const alts=c.alts,al=c.i%alts,r1=(c.i/alts)|0,sy=r1%2?1:-1,r2=(r1/2)|0,yi=r2%FR_DY.length,r3=(r2/FR_DY.length)|0,di=r3%FR_D.length,si=(r3/FR_D.length)|0;
+  const mid=(FIELD.y0+FIELD.y1)/2,room=FIELD.y1-FIELD.y0-20,s=FR_S[si],slack=Math.max(0,(room-dim[1]*s)/2);
+  G.s=s;G.sy=sy;G.alt=al;G.cx=ctx.bx+G.sx*Math.max(130,dim[0]*s/2+FR_D[di]);G.cy=mid+FR_DY[yi]*slack;return si*1e3+di*100+Math.abs(FR_DY[yi]);}
+ function prepG(run,ctx,G,t0){const S=run.sig;G.buf=S.buf;G.sx=ctx.dir>1?-1:1;G.hx=ctx.hx;G.hy=ctx.hy;G.vs=ctx.vs;G.vcap=Math.min(SIG.vcap,ctx.vmax*1.05);G.N=sigCount(ctx);G.band=ctx.band;G.mob=!!ctx.mobile;G.t0=t0;G.ySafe=ctx.ySafeAt;
+  G.gapHalf=(ctx.lane*Math.max(.85,ctx.gapMul))/2+4;G.excl2=(ctx.excl+12)*(ctx.excl+12);
+  // Weapon edge in white (reads apart from the curtain on every map); the accent is the first of
+  // SIG_ACCENT the spell's curtain does not use, so the weapon never melts into a same-hue curtain.
+  const pal=run.spell.hues;G.h0=H.white;G.h1=H.violet;for(const k of SIG_ACCENT)if(!pal.includes(k)&&k!==run.spell.circle){G.h1=H[k];break;}}
+ // Evaluates up to `max` more candidates for the upcoming phrase k; returns true when done.
+ function searchSig(run,ctx,max){const S=run.sig,C=S.srch,e=S.list[(S.order+S.k)%S.list.length],gen=GEN[e.g],G=S.G;if(!gen)return true;
+  if(C.k!==S.k){C.k=S.k;C.i=0;C.best=-1e9;C.bi=0;C.done=false;C.alts=ALT.has(e.g)?2:1;C.total=FR_S.length*FR_D.length*FR_DY.length*2*C.alts;}
+  if(C.done)return true;prepG(run,ctx,G,S.beats[S.k]??run.t);const dim=DIM[e.g](e.p);
+  for(let q=0;q<max&&C.i<C.total;q++,C.i++){const tag=frameAt(G,ctx,dim,C),kept=buildSig(G,gen,e.p),si=tag>=1e3,di=((tag%1e3)/100)|0;
+   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;const B=S.buf;for(let j=0;j<B.n;j++){const x=B.x[j],y=B.y[j];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
+   const ext=B.n?Math.min(1,Math.hypot(x1-x0,y1-y0)/Math.hypot(dim[0],dim[1])):0,sc=kept*(si?1:1.12)*(di===2?.95:di?.97:1)+.4*G.N*ext-(tag%100);if(sc>C.best){C.best=sc;C.bi=C.i;}if(!si&&kept>=G.N*.95){C.i=C.total;break;}}
+  if(C.i>=C.total)C.done=true;S.buf.n=0;return C.done;}
+ function startPhrase(run,ctx){const S=run.sig,e=S.list[(S.order+S.k)%S.list.length],B=S.buf,G=S.G,gen=GEN[e.g];
+  if(!gen){S.k++;return;}
+  if(S.srch.k!==S.k)searchSig(run,ctx,8);// no pre-window (e.g. a phrase at the very start): a short search
+  const C=S.srch,dim=DIM[e.g](e.p);S.k++;prepG(run,ctx,G,run.t);const i=C.i;C.i=C.bi;frameAt(G,ctx,dim,C);C.i=i;buildSig(G,gen,e.p);
+  let end=0;for(let j=0;j<B.n;j++){B.ord[j]=j;if(B.r[j]>end)end=B.r[j];}
+  for(let i=1;i<B.n;i++){const v=B.ord[i],tv=B.t[v];let j=i-1;while(j>=0&&B.t[B.ord[j]]>tv){B.ord[j+1]=B.ord[j];j--;}B.ord[j+1]=v;}
+  S.active=B.n>0;S.t0=run.t;S.cur=0;S.end=end+.5;S.phrases++;S.last={g:e.g,v:e.p.v||'',n:B.n,off:G.off,lane:G.lane,flip:G.flip,N:G.N,s:G.s,sy:G.sy,cx:Math.round(G.cx),cy:Math.round(G.cy)};}
+ // Emits this frame's share of the active phrase into out (reused spec objects, no allocation).
+ function sigStep(run,ctx,out){const S=run.sig;if(!S)return 0;
+  if(!S.active&&S.k<S.beats.length&&run.t>=S.beats[S.k]){if(run.t>run.emitEnd-SIG.minLeft+.6)S.k=S.beats.length;else if(!ctx.soft)startPhrase(run,ctx);}
+  const soon=S.k<S.beats.length&&S.beats[S.k]-run.t<SIG.pre&&S.beats[S.k]>=run.t-1;run.thin=S.active||soon;
+  if(soon&&!S.active)searchSig(run,ctx,SEARCH_PER_STEP);
+  // Squeeze: the formation has budget priority. While live + its unspawned rest would not fit,
+  // non-aimed layers pause (at the budget their bullets would be refused anyway).
+  const need=S.active?S.buf.n-S.cur:soon?sigCount(ctx):0;run.squeeze=need>0&&n(ctx.live,0)+need>ctx.budget;
+  if(!S.active)return 0;const pt=run.t-S.t0,B=S.buf;let c=0;
+  while(S.cur<B.n){const j=B.ord[S.cur];if(B.t[j]>pt)break;S.cur++;const b=B.specs[j];
+   b.x=B.x[j];b.y=B.y[j];b.ang=B.o[j];b.spd=.001;b.type=B.ty[j];b.hue=B.hu[j];b.acc=0;b.vmin=0;b.vmax=1e4;b.om=0;b.amp=0;b.aT=1;b.aPh=0;b.gvx=0;b.gvy=0;b.gy=0;b.life=B.lf[j]>0?Math.max(.2,B.lf[j]-pt):16;
+   b.swX=B.qx[j];b.swY=B.qy[j];b.swW=B.qw[j];b.sw0=Math.max(0,B.q0[j]-pt);b.stAt=Math.max(.12,B.r[j]-pt);b.stKind=3;b.stA=B.v[j];b.stB=B.a[j];b.stC=B.acc[j];b.stD=B.vmin[j];b.stE=Math.abs(B.v[j])*1.02+1;b.bounce=B.bo[j];b.flags=F_SIG|(B.fl[j]?F_REVERSE:0);b.layer=-1;b.pre=0;
+   out.push(b);c++;}
+  if(pt>S.end)S.active=false;return c;}
+
  // ---------------------------------------------------------------- spawn & sim (pure)
- function spawn(pool,b,ctx){if(pool.live>=pool.cap||pool.live>=ctx.budget)return false;
+ // Weapon-formation bullets may use the band peak itself (ctx.peak, the hard cap); the curtain
+ // stays under the native-shared budget, so a formation is drawn whole even on a busy screen.
+ function spawn(pool,b,ctx){if(pool.live>=pool.cap||pool.live>=((b.flags&F_SIG)?ctx.peak:ctx.budget))return false;
   const dx=b.x-ctx.hx,dy=b.y-ctx.hy;if(dx*dx+dy*dy<ctx.excl*ctx.excl){ctx.excluded=(ctx.excluded|0)+1;return false;}
   const aimed=(b.flags&F_AIMED)!==0,vmax=aimed?ctx.vaim:ctx.vmax;
   const i=pool.live++;pool.spawned++;if(pool.live>pool.peak)pool.peak=pool.live;
@@ -199,7 +519,7 @@
   pool.x[i]=b.x;pool.y[i]=b.y;pool.px[i]=b.x;pool.py[i]=b.y;pool.ox[i]=b.x;pool.oy[i]=b.y;pool.ang[i]=b.ang;pool.spd[i]=spd;pool.acc[i]=b.acc;
   pool.vmin[i]=b.vmin;pool.vmax[i]=Math.min(b.vmax,b.flags&(F_REVERSE|F_FAST)?b.vmax:vmax*1.05);pool.om[i]=b.om;pool.amp[i]=b.amp;pool.aT[i]=b.aT||1;pool.aPh[i]=b.aPh;
   pool.gvx[i]=b.gvx;pool.gvy[i]=b.gvy;pool.gy[i]=b.gy;pool.age[i]=0;pool.life[i]=b.life;pool.stAt[i]=b.stAt;pool.stKind[i]=b.stKind;
-  pool.stA[i]=b.stA;pool.stB[i]=b.stB;pool.stC[i]=b.stC;pool.stD[i]=b.stD;pool.stE[i]=b.stE;pool.type[i]=b.type;pool.hue[i]=ctx.remap?ctx.remap[b.hue]:b.hue;pool.flags[i]=b.flags;pool.bounce[i]=b.bounce;
+  pool.stA[i]=b.stA;pool.stB[i]=b.stB;pool.stC[i]=b.stC;pool.stD[i]=b.stD;pool.stE[i]=b.stE;pool.type[i]=b.type;pool.hue[i]=ctx.remap?ctx.remap[b.hue]:b.hue;pool.flags[i]=b.flags;pool.bounce[i]=b.bounce;pool.swW[i]=b.swW||0;pool.swX[i]=b.swX||0;pool.swY[i]=b.swY||0;pool.sw0[i]=b.sw0||0;
   pool.vx[i]=Math.cos(b.ang)*spd+b.gvx;pool.vy[i]=Math.sin(b.ang)*spd+b.gvy;pool.dir[i]=Math.atan2(pool.vy[i],pool.vx[i]);
   if(ctx.spawnLog){const d=Math.sqrt(dx*dx+dy*dy);if(d<ctx.spawnLog.minDist)ctx.spawnLog.minDist=d;}
   return true;}
@@ -207,9 +527,12 @@
  function stepPool(pool,h,ctx,out,removed){
   for(let i=pool.live-1;i>=0;i--){
    const age=pool.age[i]+h;pool.age[i]=age;pool.px[i]=pool.x[i];pool.py[i]=pool.y[i];
+   // Weapon swing: a rigid turn about the weapon's pivot until release (exact rotation, no drift).
+   let sw=false;if(pool.swW[i]!==0&&!(pool.flags[i]&F_STAGED)&&age>pool.sw0[i]){const lo=Math.max(pool.sw0[i],age-h),hi=Math.min(age,pool.stAt[i]);if(hi>lo){const d=pool.swW[i]*(hi-lo),c=Math.cos(d),s=Math.sin(d),rx=pool.x[i]-pool.swX[i],ry=pool.y[i]-pool.swY[i];pool.x[i]=pool.swX[i]+rx*c-ry*s;pool.y[i]=pool.swY[i]+rx*s+ry*c;pool.ang[i]+=d;sw=true;}}
    if(pool.stKind[i]>0&&!(pool.flags[i]&F_STAGED)&&age>=pool.stAt[i]){
     pool.flags[i]|=F_STAGED;const kind=pool.stKind[i];
     if(kind===1){if(ctx.auto||!(pool.flags[i]&F_AIMED))pool.ang[i]=ctx.dir+(pool.ang[i]-ctx.dir)*.35;else pool.ang[i]=Math.atan2(ctx.ay-pool.y[i],ctx.ax-pool.x[i]);pool.spd[i]=pool.stA[i];pool.acc[i]=0;pool.vmin[i]=0;}
+    else if(kind===3){pool.ang[i]=pool.stB[i];pool.spd[i]=pool.stA[i];pool.acc[i]=pool.stC[i];pool.vmin[i]=pool.stD[i];pool.vmax[i]=pool.stE[i];}
     else if(kind===2){const x=pool.x[i],y=pool.y[i],cnt=pool.stA[i]|0,sp=pool.stB[i],ct=pool.stC[i]|0,ty=ct>>4,hu=ct&15,rose=pool.stD[i],center=pool.stE[i];
      const dx=x-ctx.hx,dy=y-ctx.hy;if(dx*dx+dy*dy>=ctx.excl*ctx.excl*(Number.isFinite(center)?1:.6)){
       const fan=Number.isFinite(center),base=fan?center:(ctx.seed%31)*.2+age;
@@ -224,7 +547,8 @@
    if(pool.amp[i]!==0){const w=TAU/pool.aT[i],q=pool.amp[i]*w*Math.cos(w*age+pool.aPh[i]);vx+=-s*q;vy+=c*q;}
    const f=ctx.travel;let x=pool.x[i]+vx*h*f,y=pool.y[i]+vy*h*f;
    if(pool.bounce[i]>0&&((y<FIELD.y0&&vy<0)||(y>FIELD.y1&&vy>0))){pool.bounce[i]--;pool.ang[i]=-pool.ang[i];pool.gvy[i]=-pool.gvy[i];vy=-vy;y=y<FIELD.y0?2*FIELD.y0-y:2*FIELD.y1-y;}
-   pool.x[i]=x;pool.y[i]=y;pool.vx[i]=vx;pool.vy[i]=vy;if(pool.type[i]===T.RICE||pool.type[i]===T.NEEDLE)pool.dir[i]=Math.atan2(vy,vx);
+   if(sw&&!(pool.flags[i]&F_STAGED)){vx=(x-pool.px[i])/h;vy=(y-pool.py[i])/h;}
+   pool.x[i]=x;pool.y[i]=y;pool.vx[i]=vx;pool.vy[i]=vy;if(pool.type[i]===T.RICE||pool.type[i]===T.NEEDLE)pool.dir[i]=Math.atan2(vy,vx);if(sw&&!(pool.flags[i]&F_STAGED))pool.dir[i]=pool.ang[i];
    const back=(pool.flags[i]&F_REVERSE)&&spd<0&&age>1&&Math.abs(x-pool.ox[i])<40&&Math.abs(y-pool.oy[i])<40;
    if(back||!(x===x&&y===y)||age>pool.life[i]||x<CULL.x0||x>CULL.x1||y<CULL.y0||y>CULL.y1)poolRemove(pool,i);
   }}
@@ -239,8 +563,8 @@
   let budget=peakFor(o.mode,band,false)*reduceMul(mobile,auto)*clamp(setting,.4,mobile?1.15:1.3)*gov*(o.lite?.6:1);
   if(o.midboss)budget=Math.min(budget*.5,mobile?60:120);
   budget=Math.min(budget,o.liveCap??(mobile?LIVE_CAP.mobile:LIVE_CAP.pc));
-  const seed=n(o.seed,0)>>>0;
-  return {mode:modeKey(o.mode),band,mobile,auto,vs,vmin:M.vmin,vmax:M.vmax*(o.midboss?.9:1),vaim:M.vaim,dens,budget:Math.floor(budget),peak:Math.floor(budget),
+  const seed=n(o.seed,0)>>>0,sigScale=reduceMul(mobile,auto)*clamp(setting,.6,1.3)*clamp(gov,.35,1)*(o.midboss?.5:1)*(o.lite?.8:1);
+  return {mode:modeKey(o.mode),band,mobile,auto,vs,sigScale,vmin:M.vmin,vmax:M.vmax*(o.midboss?.9:1),vaim:M.vaim,dens,budget:Math.floor(budget),peak:Math.floor(budget),
    remap:o.remap||null,excl:M.excl+(mobile?30:0),gapMul:band===3?.85:band===2?.93:1,lane:M.lane+(mobile?12:0)+(auto?20:0),seed,dir:PI,phi:PI,gapHalf:0,
    bx:1071,by:425,hx:520,hy:520,ax:520,ay:520,beatT:0,travel:1,excluded:0,ySafeAt:t=>safeY(t,seed),spawnLog:null};}
  function frameCtx(ctx,bx,by,hx,hy,ax,ay,t){ctx.bx=bx;ctx.by=by;ctx.hx=hx;ctx.hy=hy;ctx.ax=ax;ctx.ay=ay;ctx.dir=hx<bx?PI:0;
@@ -249,16 +573,17 @@
  // Headless simulation helper for tests: same emitters, pool and stage code.
  function headless(o={}){const ctx=makeCtx(o),pool=createPool(o.mobile?POOL_CAP.mobile:POOL_CAP.pc),M=MODES[ctx.mode];
   const dur=ctx.mode==='DREAM'?10:12,decl=ctx.mode==='DREAM'?.8:1,emitEnd=dur-.6;
-  const run=makeRun(o.spell,{band:ctx.band,seed:ctx.seed,lite:o.lite,emitEnd});const out=[];ctx.spawnLog={minDist:1e9};
+  const w=o.weapon?(BOSS_WEAPONS[o.weapon]??weaponFor({id:o.weapon,name:o.weaponName||''},o.family)):null;
+  const run=makeRun(o.spell,{band:ctx.band,seed:ctx.seed,lite:o.lite,emitEnd,weapon:w?w.list:null,sigOrder:o.sigOrder,sigBeats:o.sigBeats,index:0});const out=[];ctx.spawnLog={minDist:1e9};
   let t=0;const bx=n(o.bx,1071),by=n(o.by,425);
   return {ctx,pool,run,duration:dur,declare:decl,
-   step(h,hx,hy,ax,ay){t+=h;frameCtx(ctx,bx,by,hx,hy,ax??hx,ay??hy,run.t);out.length=0;runStep(run,h,ctx,out);
+   step(h,hx,hy,ax,ay){t+=h;frameCtx(ctx,bx,by,hx,hy,ax??hx,ay??hy,run.t);out.length=0;ctx.live=pool.live;runStep(run,h,ctx,out);
     for(const b of out)spawn(pool,b,ctx);out.length=0;stepPool(pool,h,ctx,out,null);for(const b of out)spawn(pool,b,ctx);return t;},
    get time(){return t;},M};}
 
  // ---------------------------------------------------------------- runtime state
  const metrics={installs:0,rewraps:0,ticks:0,steps:0,spawned:0,hits:0,mercyBlocks:0,capped:0,absorbed:0,dCredits:0,perfectForwards:0,grazes:0,grazeRes:0,
-  hudHidden:0,volleys:0,teleMin:9,volleyNMin:99,volleyNMax:0,cancels:0,fillerSpawned:0,filler:0,spells:0,bonuses:0,holds:0,holdReasons:{},errors:0,draws:0,drawImages:0,drawMs:0,bgMs:0,frameMs:16.7,gov:1,peak:0,live:0,sparks:0,oneShotGuards:0,dangerCalls:0,imminentHits:0};
+  hudHidden:0,volleys:0,teleMin:9,volleyNMin:99,volleyNMax:0,cancels:0,fillerSpawned:0,filler:0,spells:0,bonuses:0,holds:0,holdReasons:{},errors:0,draws:0,drawImages:0,drawMs:0,bgMs:0,frameMs:16.7,gov:1,peak:0,live:0,sparks:0,oneShotGuards:0,dangerCalls:0,imminentHits:0,sigPhrases:0,sigLast:null};
  let enabledFlag=true,densityKey='normal',governorOn=true,gov=1,installed=false,lastError=null;
  const worlds=new WeakMap();let pool=null,poolMobile=null;
  const keys={shift:false};
@@ -333,7 +658,8 @@
   const decl=mode==='DREAM'?.8:1,emitEnd=Math.max(1,ph.duration-.6-clamp(n(ph.elapsed),0,ph.duration));
   m.family=fam;m.spell=SPELL_BY_ID[pick.id];m.lite=(pick.lite&&ph.band<3)||mid;m.midboss=mid;m.ownerId=a.id;m.serial=ph.serial;m.spellIndex=ph.index;m.bossName=String(a.name??'보스');
   const seed=hash(a.id,ph.serial,s.zone);
-  m.run=makeRun(pick.id,{band:ph.band,seed,lite:m.lite,midboss:mid,emitEnd});m.runBand=ph.band;m.decl=decl;m.declLeft=Math.max(0,decl-n(ph.elapsed));m.declOverlap=s.time-n(m.lastEndAt,-1e9)<8;m.spellHit=false;m.dTime=0;m.hold=0;m.winding=false;m.released=true;
+  const wpn=weaponFor(a,fam);m.weapon=wpn;m.sigSeen=0;
+  m.run=makeRun(pick.id,{band:ph.band,seed,lite:m.lite,midboss:mid,emitEnd,weapon:wpn?wpn.list:null,index:ph.index});m.runBand=ph.band;m.decl=decl;m.declLeft=Math.max(0,decl-n(ph.elapsed));m.declOverlap=s.time-n(m.lastEndAt,-1e9)<8;m.spellHit=false;m.dTime=0;m.hold=0;m.winding=false;m.released=true;
   m.dimLevel=FAMILY_DIM[fam]??.42;m.dimTarget=1;metrics.spells++;
   if(!mid){m.banner={name:m.spell.name,boss:m.bossName,index:ph.index,born:s.time,hue:(REMAP[fam]??null)?.[H[m.spell.circle]]??(H[m.spell.circle]??H.violet),result:null,resultAt:0,bonus:8+2*(ph.band-1),remaining:ph.remaining,duration:ph.duration,lite:m.lite};
    flash(s,m,set,.18,.25);}
@@ -449,7 +775,7 @@
    const sharedCap=Math.max(ctx.peak*.85,ctx.peak-1.5*native);ctx.budget=Math.floor(Math.min(ctx.peak,sharedCap));
    const baseExcl=ctx.excl;if(guard)ctx.excl=Math.max(baseExcl,160);
    scratch.length=0;let ectx=ctx;
-   const inDecl=m.run&&m.declLeft>0;if(inDecl)m.declLeft-=h;if(m.run&&(!inDecl||m.declOverlap||m.decl-m.declLeft>BRIDGE.freshDecl)&&!held&&!m.winding&&!warnHold)runStep(m.run,h,ctx,scratch);
+   const inDecl=m.run&&m.declLeft>0;if(inDecl)m.declLeft-=h;ctx.live=m.pool.live;if(m.run&&(!inDecl||m.declOverlap||m.decl-m.declLeft>BRIDGE.freshDecl)&&!held&&!m.winding&&!warnHold){runStep(m.run,h,ctx,scratch);const S=m.run.sig;if(S&&S.phrases>(m.sigSeen|0)){metrics.sigPhrases+=S.phrases-(m.sigSeen|0);m.sigSeen=S.phrases;metrics.sigLast=S.last?S.last.g:null;}}
    if(fillerOn&&fctx){const st=s.time;frameCtx(fctx,mz.x,mz.y,H0.x,H0.y,past.x,past.y,0);const fe=fctx.excl;if(guard)fctx.excl=Math.max(fe,160);
     fctx.budget=Math.floor(Math.min(fctx.peak,Math.max(fctx.peak*.85,fctx.peak-1.5*native)));
     const bridge=(m.bridgeTail||(!m.run&&st-n(m.lastEndAt,-1e9)<.25))&&m.bridgeSerial!==m.serial,tcap=bridge?(m.volleyQuiet?2:BRIDGE.n):m.volleyQuiet?1:2;if(bridge)m.bridgeSerial=m.serial;
@@ -625,9 +951,20 @@
    const v=!set?.lowFx&&vignetteSprite();if(v){ctx.globalAlpha=clamp(dimA/.45,0,1);ctx.drawImage(v.c,0,0,cv.width,cv.height);}
    if(!set?.lowFx&&!m.mobile){ctx.globalCompositeOperation='saturation';ctx.globalAlpha=.4*a;ctx.fillStyle='#808080';ctx.fillRect(0,0,cv.width,cv.height);}
   }finally{ctx.restore();}}
+ // Swing trail: thin strokes through the parked bullets of each stroke, under the bullets,
+ // fading out as the formation releases. Strokes only (no images, no per-bullet state).
+ function drawSigTrail(ctx,s,m,set){const run=m.run,S=run&&run.sig;if(!S||!S.active||!S.buf.n)return;const B=S.buf,pt=run.t-S.t0;if(!(pt>=0)||!Number.isFinite(pt))return;
+  let rel=1e9;for(let j=0;j<B.n;j++){const m0=B.qw[j]!==0?B.q0[j]:B.r[j];if(m0<rel)rel=m0;}/* fades once the weapon starts to move */const fade=clamp(1-(pt-rel)/.35,0,1);if(fade<=0)return;
+  const op=fxOpacity(set)*(set?.lowFx?.5:1)*fade,remap=m.ctx&&m.ctx.remap;if(op<.02)return;ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.lineJoin='round';
+  for(let sid=0;sid<16;sid++){let hue=-1,open=false,px=0,py=0;
+   for(let pass=0;pass<2;pass++){ctx.beginPath();open=false;
+    for(let j=0;j<B.n;j++){if(B.st[j]!==sid||B.t[j]>pt)continue;const x=B.x[j],y=B.y[j];if(!(x===x&&y===y))continue;if(hue<0)hue=remap?remap[B.hu[j]]:B.hu[j];
+     if(!open||Math.abs(x-px)+Math.abs(y-py)>70){ctx.moveTo(x,y);open=true;}else ctx.lineTo(x,y);px=x;py=y;}
+    if(hue<0)break;if(pass===0){ctx.strokeStyle='rgba(7,4,13,.7)';ctx.lineWidth=m.mobile?7:6;ctx.globalAlpha=.6*op;}else{ctx.strokeStyle=HUES[hue|0]?.[1]??'#ffffff';ctx.lineWidth=m.mobile?3:2.5;ctx.globalAlpha=.75*op;}ctx.stroke();}}
+  ctx.globalAlpha=1;}
  function drawLayer(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const m=worlds.get(s);if(!m)return;const t0=now();let draws=0;
   // Layering: decoration (sparks, telegraphs) and hero-side visuals under the bullets; bullets on top.
-  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;
+  ctx.save();try{ctx.shadowBlur=0;draws+=drawSparks(ctx,s,m,set);ctx.globalAlpha=1;draws+=drawTele(ctx,s,m,set);ctx.globalAlpha=1;drawSigTrail(ctx,s,m,set);ctx.globalAlpha=1;
    const fd=hook('draw');if(fd){ctx.save();try{draws+=n(fd.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set));}catch(e){fail(e);}finally{ctx.restore();}}
    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;draws+=drawBullets(ctx,s,m,set);
    drawHitFx(ctx,s,m,set);drawFocus(ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}
@@ -713,8 +1050,8 @@
   setDensity(v){if(!DENSITY[v])return densityKey;densityKey=v;try{root.localStorage?.setItem?.(STORE_KEY,v);}catch(e){}return densityKey;},
   setGovernor(v){governorOn=!!v;if(!governorOn){gov=1;metrics.gov=1;}return governorOn;},
   metrics:()=>({...metrics,enabled:enabledFlag,density:densityKey,gov,installed,lastError}),
-  snapshot(s=currentState()){const m=s&&worlds.get(s);if(!m)return null;const P=m.pool,rows=[];for(let i=0;i<P.live;i++)rows.push({x:P.x[i],y:P.y[i],vx:P.vx[i],vy:P.vy[i],type:P.type[i],hue:P.hue[i],age:P.age[i]});
-   return {zone:m.zone,live:P.live,peak:P.peak,spell:m.spell?.id??null,spellName:m.spell?.name??null,serial:m.serial,owner:m.ownerId,family:m.family,lite:m.lite,midboss:m.midboss,band:m.runBand??null,dim:m.dim,sparks:m.sparks.length,budget:m.ctx?.budget??null,rows};},
+  snapshot(s=currentState()){const m=s&&worlds.get(s);if(!m)return null;const P=m.pool,rows=[];for(let i=0;i<P.live;i++)rows.push({x:P.x[i],y:P.y[i],vx:P.vx[i],vy:P.vy[i],type:P.type[i],hue:P.hue[i],age:P.age[i],sig:(P.flags[i]&F_SIG)?1:0});
+   return {zone:m.zone,live:P.live,peak:P.peak,spell:m.spell?.id??null,spellName:m.spell?.name??null,serial:m.serial,owner:m.ownerId,family:m.family,lite:m.lite,midboss:m.midboss,band:m.runBand??null,weapon:m.weapon?{id:m.weapon.id,what:m.weapon.what,fallback:m.weapon.fallback}:null,sig:m.run&&m.run.sig?{active:m.run.sig.active,phrases:m.run.sig.phrases,t:m.run.t-m.run.sig.t0,last:m.run.sig.last}:null,dim:m.dim,sparks:m.sparks.length,budget:m.ctx?.budget??null,rows};},
   clear(s=currentState()){const m=s&&worlds.get(s);if(m)resetWorld(s,m,'api');},
   cutSegment(s,ax,ay,bx,by,hw,maxN,cb){if(!enabledFlag)return 0;return cutSegment(s,n(ax),n(ay),n(bx),n(by),Math.max(0,n(hw)),maxN,cb);},
   cancelAll(s,reason='wipe',x,y){const m=enabledFlag&&s&&worlds.get(s);if(!m)return 0;return cancelAll(s,m,settingsNow(),String(reason),x,y);},
@@ -725,7 +1062,7 @@
   util:Object.freeze({heroPalette,HERO_SIDE,REMAP,screenSpace,hudText,fitText,project,heart,muzzle,fullAuto,dActive,gmode,settingsNow,fxOpacity,FIELD,HUES,T,HIT}),
   __test:{SPELLS,FAMILY_SPELLS,MODES,FIELD,CULL,HIT,T,HUES,HERO_V,HEART_R,DENSITY,LIVE_CAP,createPool,makeRun,runStep,makeCtx,frameCtx,spawn,stepPool,sweptDist,safeY,peakFor,spellFor,familyOf,headless,mulberry32,hash,
    simTick:(s,dt)=>simTick(s,dt),drawLayer:(c,s,set)=>drawLayer(c,s,set),dangerAt,imminent,governor,install,recheck,worlds,mem:s=>worlds.get(s),injectSettings,
-   getGov:()=>gov,setGov:v=>{gov=v;},seams,drawScreen,drawBanner,wrapFeedback,volleyPlan,VOLLEY,TELE_MIN,REMAP,HERO_SIDE,heroPalette,titleFilter,fitText}};
+   getGov:()=>gov,setGov:v=>{gov=v;},seams,drawScreen,drawBanner,wrapFeedback,volleyPlan,VOLLEY,TELE_MIN,REMAP,HERO_SIDE,heroPalette,titleFilter,fitText,WEAPON_GENS:GEN,BOSS_WEAPONS,WEAPON_ROWS,MB_NAMES,FAMILY_WEAPON,weaponFor,SIG,F_SIG,sigCount,makeSig,sigStep}};
  root.__HAPIL_DANMAKU_RC240__=api;
  let attempts=0;(function ready(){if(!install()&&++attempts<1200)root.setTimeout?.(ready,10);})();
 })(typeof window==='object'?window:globalThis);

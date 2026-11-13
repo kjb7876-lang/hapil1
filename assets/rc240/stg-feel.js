@@ -3,6 +3,9 @@
  * Runs exclusively through RC240 danmaku-layer hooks, so it is inert whenever the
  * danmaku layer is disabled (?qa without rc240=1). Nothing is written into saves;
  * the only game state touched is s.fxSerial, s.pendingStrikes and s.floatTexts.
+ * Michaela heart impact (heart-hit6, 6x1 @14 fps, last frame fades): a small pooled
+ * world-layer effect started by boss-form's afterHit forward; the sheet is fetched
+ * on the first impact only, once per session, with a procedural burst as fallback.
  */
 (function(root){'use strict';
  if(root.__HAPIL_STG_FEEL_RC240__)return;
@@ -22,7 +25,9 @@
  const KIT=()=>root.__HAPIL_ARCADE_KIT_RC240__;
  function kitCall(name,...a){const k=KIT();if(!k||typeof k[name]!=='function')return undefined;try{return k[name](...a);}catch(e){fail(e);}return undefined;}
  const AUDIO={arcane:'./audio/rc22/arcane.wav',laser:'./audio/rc22/laser.wav',shot:'./audio/rc22/shot.wav',heavy:'./audio/rc22/heavy.wav',guard:'./audio/rc22/guard.wav'};
- const metrics={ticks:0,coinsSpawned:0,coinsCollected:0,coinsDropped:0,strikes:0,tamePower:0,aPower:0,beams:0,beamCuts:0,wipes:0,warnings:0,tallies:0,sounds:0,draws:0,drawImages:0,drawMs:0,streakStrokes:0,errors:0};
+ const HIT6=Object.freeze({sheet:'./assets/rc240/art/heart-hit6.webp',cell:256,frames:6,fps:14,size:72,lift:-46,cap:Object.freeze({pc:16,mobile:8}),
+  note:'Dots CX-0084PJ PJ-03 heart-hit6 (1536x256, 6x1) — HOLD'});
+ const metrics={impacts:0,ticks:0,coinsSpawned:0,coinsCollected:0,coinsDropped:0,strikes:0,tamePower:0,aPower:0,beams:0,beamCuts:0,wipes:0,warnings:0,tallies:0,sounds:0,draws:0,drawImages:0,drawMs:0,streakStrokes:0,errors:0};
  let lastError=null;
  function fail(e){metrics.errors++;lastError=String(e&&e.stack||e).slice(0,300);if(metrics.errors<=3)root.console?.warn?.('RC240 stg feel',e);}
 
@@ -32,7 +37,7 @@
  function fresh(s){return {zone:s.zone,coins:coinPool(COIN_CAP.pc),capNow:COIN_CAP.pc,serial:0,rng:(n(s.time)*1e3|0)^0x5f3759df,
   score:0,chain:0,chainUntil:-1,maxChain:0,mult:1,collected:0,grazes:0,
   charge:{on:false,start:0,extra:0,t2Sounded:false,cdUntil:-1,cdDur:1,released:-9},duckUntil:-1,aPow:0,aSeen:new WeakSet(),aWin:[],tameWin:[],autoAt:-1,
-  beams:[],bolts:[],sparks:[],awakeWas:false,warned:new Set(),warn:null,fight:null,tally:null,ev:{at:-1,reason:'',n:0,coins:0,big:false},sounds:{},lastHx:640,lastHy:400};}
+  beams:[],bolts:[],sparks:[],impacts:[],awakeWas:false,warned:new Set(),warn:null,fight:null,tally:null,ev:{at:-1,reason:'',n:0,coins:0,big:false},sounds:{},lastHx:640,lastHy:400};}
  function F(s){let f=worlds.get(s);if(!f){f=fresh(s);worlds.set(s,f);}return f;}
  function reset(s,reason){kitCall('reset',s,reason);const f=worlds.get(s);if(!f)return;const keep=f.warned;const g=fresh(s);if(reason!=='zone')g.warned=keep;worlds.set(s,g);}
  function rnd(f){f.rng=(Math.imul(f.rng^(f.rng>>>15),0x2c1b3c6d)+0x6d2b79f5)|0;return ((f.rng>>>0)%100000)/100000;}
@@ -149,6 +154,7 @@
   for(const b of f.beams)if(t-b.at<b.life)cutBeam(s,f,b);
   f.beams=f.beams.filter(b=>t-b.at<b.life);if(f.bolts.length)f.bolts=f.bolts.filter(b=>t<b.born+b.dur+.05);
   if(f.sparks.length)f.sparks=f.sparks.filter(q=>t-q.born<q.life);
+  pruneImpacts(f,t);
   stepCoins(f,s,dt,hx,hy);
   if(f.chain>0&&t>=f.chainUntil){f.chain=0;f.mult=1;}
   // Fight end: boss died (or bossDefeated rose) while still in this zone.
@@ -197,6 +203,27 @@
    ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle=b.pal.edge;ctx.fillStyle=b.pal.body;shapePath(ctx,b.shape,b.size);ctx.stroke();ctx.fill();
    ctx.fillStyle=b.pal.core;shapePath(ctx,b.shape,b.size*.42);ctx.fill();ctx.restore();k++;}return k;}
 
+ // ---------------------------------------------------------------- Michaela heart impact (hit6)
+ const hit={state:'idle',im:null,loads:0};
+ function loadHit(){if(hit.state!=='idle'||typeof root.Image!=='function')return;hit.state='loading';hit.loads++;
+  try{const im=new root.Image();im.onload=()=>{im.onload=im.onerror=null;hit.state='ready';};im.onerror=()=>{im.onload=im.onerror=null;hit.state='failed';hit.im=null;};hit.im=im;im.src=HIT6.sheet;}catch(e){hit.state='failed';hit.im=null;fail(e);}}
+ function phoneNow(){try{return n(root.innerWidth,1280)<800||root.__HAPIL_COMBAT_RC47__?.mobile?.()===true;}catch(e){return false;}}
+ function impactLift(s){const ef=s.effects;if(Array.isArray(ef))for(let i=ef.length-1;i>=0;i--){const e=ef[i];if(e&&e.heroId31213==='michaela'&&e.heroActionKey31213==='A'&&Number.isFinite(e.endOffsetY))return clamp(e.endOffsetY,-120,0);}return HIT6.lift;}
+ function heartImpact(s,target,source){if(!active()||!s||!target||typeof target!=='object')return false;
+  const id=source?.heroId??source?.heroId31213;if(id!=='michaela'||source?.actionKey!=='A')return false;
+  const tx=target.x,ty=target.y;if(!(Number.isFinite(tx)&&Number.isFinite(ty)))return false;const p=project(tx,ty);if(!(Number.isFinite(p?.x)&&Number.isFinite(p?.y)))return false;
+  const f=F(s),cap=phoneNow()?HIT6.cap.mobile:HIT6.cap.pc;loadHit();
+  while(f.impacts.length>=cap)f.impacts.shift();f.impacts.push({x:p.x,y:p.y+impactLift(s),born:n(s.time)});metrics.impacts++;return true;}
+ function pruneImpacts(f,t){const life=HIT6.frames/HIT6.fps,L=f.impacts;let k=0;for(let i=0;i<L.length;i++){const r=L[i];if(t-r.born<life)L[k++]=r;}L.length=k;}
+ function drawImpacts(ctx,f,t){pruneImpacts(f,t);const L=f.impacts;if(!L.length)return 0;const im=hit.state==='ready'?hit.im:null,ok=!!(im&&im.complete&&im.naturalWidth>0),S=HIT6.size,last=HIT6.frames-1;let k=0;
+  ctx.globalCompositeOperation='source-over';
+  for(const r of L){const age=t-r.born;if(age<0||!(Number.isFinite(r.x)&&Number.isFinite(r.y)))continue;const fr=Math.min(last,Math.floor(age*HIT6.fps+1e-9));
+   const a=fr<last?1:clamp(1-(age-last/HIT6.fps)*HIT6.fps,0,1);if(a<=0)continue;ctx.globalAlpha=a;
+   if(ok){ctx.drawImage(im,fr*HIT6.cell,0,HIT6.cell,HIT6.cell,r.x-S/2,r.y-S/2,S,S);k++;}
+   else{const u=clamp(age*HIT6.fps/HIT6.frames,0,1),rad=6+22*u,sz=5*(1-.5*u);ctx.fillStyle=u<.5?'#ff5c93':'#ffb3cf';
+    for(let j=0;j<6;j++){const ang=j*TAU/6+.3;ctx.save();ctx.translate(r.x+Math.cos(ang)*rad,r.y+Math.sin(ang)*rad);shapePath(ctx,'heart',sz);ctx.fill();ctx.restore();}}}
+  ctx.globalAlpha=1;return k;}
+
  // ---------------------------------------------------------------- draw (world space, under the bullets)
  function draw(ctx,s,m,set){if(!active())return 0;const kd=kitCall('draw',ctx,s,m,set);const f=worlds.get(s);if(!f)return n(kd);const t0=now(),t=n(s.time);let draws=n(kd);
   const P=f.coins;
@@ -217,6 +244,7 @@
    for(const [w,col,al] of [[b.hw*(1-.4*u),b.color,.55],[b.hw*.38*(1-.5*u),b.core??'#ffffff',.9]]){ctx.globalAlpha=al*fade;ctx.fillStyle=col;ctx.beginPath();
     ctx.moveTo(b.ax+nx*w*.5,b.ay+ny*w*.5);ctx.lineTo(b.bx+nx*w*.25,b.by+ny*w*.25);ctx.lineTo(b.bx-nx*w*.25,b.by-ny*w*.25);ctx.lineTo(b.ax-nx*w*.5,b.ay-ny*w*.5);ctx.closePath();ctx.fill();}}
   if(f.sparks.length){ctx.globalCompositeOperation='lighter';for(const q of f.sparks){const u=(t-q.born)/q.life;if(u<0||u>=1)continue;ctx.globalAlpha=1-u;ctx.fillStyle=q.c;ctx.fillRect(q.x+q.vx*(t-q.born)-1.5,q.y+q.vy*(t-q.born)-1.5,3,3);}}
+  if(f.impacts.length)draws+=drawImpacts(ctx,f,t);
   ctx.globalCompositeOperation='source-over';drawBolts(ctx,f,t);
   ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
   metrics.draws++;metrics.drawImages=draws;metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;return draws;}
@@ -262,7 +290,9 @@
 
  // ---------------------------------------------------------------- API
  const api={version:VERSION,tick,draw,drawScreen,drawBackground,onCancel,onGraze,onSpellEnd,onHit,onOwner,reset,
-  play,duck,
+  play,duck,heartImpact,
+  impacts:s=>worlds.get(s)?.impacts.length??0,
+  assets:()=>({hit6:hit.state,loads:hit.loads}),
   dropCoins(s,x,y,count=1){if(!active()||!s||!(Number.isFinite(x)&&Number.isFinite(y)))return 0;const f=F(s);let c=0;const N=clamp(Math.floor(n(count,0)),0,24);for(let j=0;j<N;j++)if(spawnCoin(f,x+(j%3-1)*6,y-(j/3|0)*5,1))c++;return c;},
   dropPower(s,x,y,count=1){if(!active()||!s)return 0;return n(kitCall('dropPower',s,x,y,count));},
   aStats(s){const f=s&&worlds.get(s);if(!f)return {aPow:0,aSum:0};let a=0;for(const r of f.aWin)a+=r.p;return {aPow:f.aPow,aSum:a};},
@@ -272,6 +302,6 @@
   metrics:()=>({...metrics,lastError}),
   state(s){const f=s&&worlds.get(s);if(!f)return null;return {score:f.score,chain:f.chain,maxChain:f.maxChain,mult:f.mult,coins:f.coins.live,cap:f.capNow,collected:f.collected,grazes:f.grazes,aPow:f.aPow,
    charging:f.charge.on,bolts:f.bolts.length,cdUntil:f.charge.cdUntil,beams:f.beams.length,warn:f.warn?{...f.warn}:null,tally:f.tally?{...f.tally}:null,fight:f.fight?{...f.fight}:null};},
-  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite}};
+  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite,HIT6,impactRows:s=>[...(worlds.get(s)?.impacts??[])]}};
  Object.defineProperty(root,'__HAPIL_STG_FEEL_RC240__',{value:Object.freeze(api),configurable:true,writable:false,enumerable:false});
 })(typeof window==='object'?window:globalThis);

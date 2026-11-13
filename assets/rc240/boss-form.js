@@ -13,7 +13,13 @@
  *    the single boss body sprite choice; second form is a render-only floor.
  *  - Image cache (binding.cache.current[path]): michaela-a and cross sprites
  *    resolve to baked heart / hexagram images.
- * Story mode only for parts, transformation, title card and last302 names.
+ *  - Drive art (lazy, one request per sheet per session, code fallback on error):
+ *    heart-fly8 is fetched only once Michaela is in play; the last302 villager
+ *    sheet only when a story last302 ordinary mob is first drawn. Villager frames
+ *    are baked once and returned from phaseSprite under synthetic ...-f<i>.webp keys (native image-path
+ *    test wants a .webp ending; several native draw layers strip ?/# from paths)
+ *    seeded into the asking cache, with feet-pivot sprite metadata (display only).
+ * Story mode only for parts, transformation, title card, last302 names and villagers.
  * Nothing is saved; the only game fields written are display names.
  */
 (function(root){'use strict';
@@ -22,7 +28,7 @@
  const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,clamp=(v,a,b)=>v<a?a:v>b?b:v,TAU=Math.PI*2;
  const PART_HP=.08,PART_SHARE=.35,TRANSFORM_AT=.5,TRANSFORM_DUR=1.2,TITLE_DUR=1.8,POOL_CAP=160,POOL_CAP_MOBILE=96;
  const WHITE_PEAK=.55,WHITE_PEAK_REDUCED=.18;
- const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,errors:0};
+ const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,villagerDraws:0,villagerDeaths:0,errors:0};
  let lastError=null;
  function fail(e){metrics.errors++;lastError=String(e&&e.stack||e).slice(0,300);if(metrics.errors<=3)root.console?.warn?.('RC240 boss-form',e);}
  const now=()=>root.performance?.now?.()??Date.now();
@@ -57,7 +63,7 @@
  const NEEDS_ART=Object.freeze([
   ...['dist00-boss','dist06-boss','l305-boss','l301-boss','kair-great-01','kair-great-02','kair-great-04','kair-great-06','mb-kair09-v31231','c102-boss','c103-mid','c103-boss'].map(id=>Object.freeze({id,what:'2단 변신 그림 (현재 절차식 변신: 색조·오라·균열)'})),
   Object.freeze({id:'a11-boss',what:'가면 쓴 루시퍼 본체 그림 (masked; 현재는 가면 벗은 그림만 있음)'}),
-  Object.freeze({id:'last302-mobs',what:'잠들지 못하는 마을 주민(villager) 잡몹 그림 — 합일1에 없음, m0 r763/r770 villagers 후보'}),
+  Object.freeze({id:'last302-mobs',what:'잠들지 못하는 마을 주민(villager) 잡몹 — 소복 처녀 float8(CX-0070BM) 적용; 피격(hit4)·사망(death8) 시트는 아직 필요 (현재 코드 섬광·페이드)'}),
  ]);
  const LAST302_MIDBOSS='꼭두각시 실안개';
  // Cross audit (sprite -> verdict). All listed sprites resolve to a procedural hexagram.
@@ -76,8 +82,13 @@
   ['./assets/vfx/generated/v303/rian-reverse-cross-barrage.webp','upright','gold'],
   ['./assets/vfx/generated/v300/cross-seal.webp','upright','gold'],
  ].map(r=>Object.freeze(r)));
- const HEART=Object.freeze({path:'./assets/vfx/heroes/michaela-a.webp',sheet:'./assets/rc240/art/heart-fly8.webp',cell:256,piv:Object.freeze({x:150,y:128}),heading:Math.PI*.76,hold:true,
-  note:'Dots CX-0084PJ PJ-03 heart-fly8 (m0 r96/runtime-text/assets/r948) — HOLD: needs art review before release'});
+ // heading = native michaela-a spriteHeading (.76 pi): the renderer turns the quad by (flight - heading),
+// so the sheet's +x heart is baked rotated by heading and flies point-first. Frame 0 only: the
+// native hero tint/metal caches key by path and would re-bake on every frame swap.
+const HEART=Object.freeze({path:'./assets/vfx/heroes/michaela-a.webp',sheet:'./assets/rc240/art/heart-fly8.webp',cell:256,frames:8,piv:Object.freeze({x:152,y:128}),heading:Math.PI*.76,scale:.92,hold:true,
+  note:'Dots CX-0084PJ PJ-03 heart-fly8 (2048x256, 8x1) — HOLD 7.83: needs art review before release'});
+const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',zone:'last302',cols:4,rows:2,cellW:152,cellH:312,frames:8,fps:8,piv:Object.freeze({x:104,y:324}),faces:'right',
+  note:'CX-0070BM vil3_float8_r1 소복 처녀 (608x624, 4x2) — PASS'});
 
  // ---------------------------------------------------------------- text (cross -> hexagram)
  const PARTICLE={'가':'이','와':'과','를':'을','는':'은','로':'으로','라':'이라','야':'이야','여':'이여','랑':'이랑','다':'이다'};
@@ -156,6 +167,7 @@
   const list=s.enemies;
   if(Array.isArray(list))for(let i=0;i<list.length;i++){const a=list[i];if(a&&!textFixed.has(a))fixActorText(a);}
   stepPool(w,dt);
+  if(heartTick++%30===0&&sheet.heart.state==='idle'&&michaelaInPlay(s))loadHeartSheet();
   if(w.card&&n(s.time)>=w.card.until)w.card=null;
   if(!story(s)){w.card=null;return;}
   if(!Array.isArray(list))return;
@@ -164,7 +176,14 @@
    if(!owner(a))continue;const b=bossOf(s,a);placeBoss(b);
    if(b.stage===0&&(b.boss||b.cfg)&&n(a.hp)/Math.max(1,n(a.maxHp,1))<=TRANSFORM_AT)transform(s,b);}
   if(seedTick++%30===0)seedCurrent();}
- function afterHit(s,target,raw,applied,source){if(!enabledFlag||!story(s)||!target?.boss)return;const amt=n(applied,0);if(!(amt>0))return;
+ function afterHit(s,target,raw,applied,source){
+  if(enabledFlag&&source&&typeof source==='object'&&(source.heroId??source.heroId31213)==='michaela'&&source.actionKey==='A'){
+   try{root.__HAPIL_STG_FEEL_RC240__?.heartImpact?.(s,target,source);}catch(e){fail(e);}}
+  // Lethal hit on a villager: the native death row (and its RC145 ash dissolve) reads
+  // actionSprites.death first, so the dissolve burns the villager frame, not the old mob art.
+  if(enabledFlag&&target&&typeof target==='object'&&!(n(target.hp,1)>0)&&s?.zone===SOBOK.zone&&story(s)&&villager(target)&&!target.actionSprites?.death){
+   try{const k=villagerSprite(null,target,n(s.time),s);if(k){target.actionSprites={...(target.actionSprites??{}),death:k};metrics.villagerDeaths++;}}catch(e){fail(e);}}
+  if(!enabledFlag||!story(s)||!target?.boss)return;const amt=n(applied,0);if(!(amt>0))return;
   const w=worlds.get(s);const b=w?.byId.get(target.id);if(!b||!b.parts.length)return;
   const lane=heroLaneY(s);let best=null,bd=Infinity;for(const p of b.parts){if(p.broken)continue;const d=Math.abs(p.sy-lane);if(d<bd){bd=d;best=p;}}
   if(!best)return;best.hp-=amt*PART_SHARE;best.flash=n(s.time);metrics.partHits++;if(best.hp<=0)breakPart(s,b,best);}
@@ -177,7 +196,7 @@
   for(let i=0;i<4;i++){g.globalAlpha=.18+.1*i;g.fillStyle=i%2?'#ffb3cf':'#ff5c93';g.beginPath();g.ellipse?.(-58-i*14,(i%2?8:-8),16-i*2,7,0,0,TAU);g.fill();}
   g.globalAlpha=1;g.fillStyle='#d9235f';heartPath(g,4,4,46);g.fill();g.fillStyle='#ff5c93';heartPath(g,4,2,38);g.fill();g.fillStyle='#ffd6e6';heartPath(g,-4,-6,18);g.fill();
   g.lineWidth=3;g.strokeStyle='#ffffff';heartPath(g,4,4,46);g.stroke();return c;}
- function bakeHeartFromSheet(img){const c=canvas(256,256);const g=c?.getContext?.('2d');if(!g)return null;g.translate(128,128);g.rotate(HEART.heading);g.scale(.92,.92);
+ function bakeHeartFromSheet(img){const c=canvas(256,256);const g=c?.getContext?.('2d');if(!g)return null;g.translate(128,128);g.rotate(HEART.heading);g.scale(HEART.scale,HEART.scale);
   g.drawImage(img,0,0,HEART.cell,HEART.cell,-HEART.piv.x,-HEART.piv.y,HEART.cell,HEART.cell);return c;}
  const HEX_COL={enemy:['#ff3b5c','#ffd0d8'],violet:['#a65cff','#efe0ff'],gold:['#ffcf3f','#fff6d0']};
  function bakeHexagram(tone){const c=canvas(512,512);const g=c?.getContext?.('2d');if(!g)return null;const [main,rim]=HEX_COL[tone]??HEX_COL.enemy;
@@ -188,10 +207,36 @@
   g.lineWidth=6;g.strokeStyle=rim;tri(-Math.PI/2);g.stroke();tri(Math.PI/2);g.stroke();
   g.fillStyle=rim;g.beginPath();g.arc(0,0,22,0,TAU);g.fill();return c;}
  function toImage(c,mark){const I=root.Image;if(!c||typeof I!=='function')return null;const im=new I();try{im.decoding='sync';}catch(e){}im[mark]=true;try{im.src=c.toDataURL('image/png');}catch(e){fail(e);return null;}return im;}
- let heartImage=null,sheetLoading=false;const hexImages=new Map();
- function heart(){if(!heartImage){heartImage=toImage(bakeHeartProcedural(),'rc240Heart');
-   if(heartImage&&!sheetLoading&&typeof root.Image==='function'&&root.document?.body){sheetLoading=true;try{const sh=new root.Image();sh.onload=()=>{try{const c=bakeHeartFromSheet(sh);if(c)heartImage.src=c.toDataURL('image/png');heartImage.rc240HeartSheet=true;}catch(e){fail(e);}};sh.src=HEART.sheet;}catch(e){fail(e);}}}
-  return heartImage;}
+ let heartImage=null,heartTick=0;const hexImages=new Map();
+ // Sheet loader: one request per sheet for the whole session; 'failed' is final (code fallback stays).
+ const sheet={heart:{state:'idle',loads:0},sobok:{state:'idle',loads:0}};
+ function loadSheet(rec,src,onReady){if(rec.state!=='idle'||typeof root.Image!=='function')return;rec.state='loading';rec.loads++;
+  try{const im=new root.Image();im.onload=()=>{im.onload=im.onerror=null;try{onReady(im);rec.state='ready';}catch(e){rec.state='failed';fail(e);}};
+   im.onerror=()=>{im.onload=im.onerror=null;rec.state='failed';};im.src=src;}catch(e){rec.state='failed';fail(e);}}
+ // Procedural heart is seeded at once (no network); the sheet heart replaces its pixels when it arrives.
+ function heart(){if(!heartImage)heartImage=toImage(bakeHeartProcedural(),'rc240Heart');return heartImage;}
+ function michaelaInPlay(s){if(s.activeHeroId==='michaela')return true;const ef=s.effects;if(Array.isArray(ef))for(let i=0;i<ef.length;i++){const e=ef[i];if(e&&(e.sprite===HEART.path||e.heroId31213==='michaela'))return true;}return false;}
+ function loadHeartSheet(){loadSheet(sheet.heart,HEART.sheet,sh=>{const h=heart(),c=bakeHeartFromSheet(sh);if(!h||!c)throw new Error('heart bake');h.src=c.toDataURL('image/png');h.rc240HeartSheet=true;});}
+ // ---------------------------------------------------------------- last302 villager (소복 처녀)
+ const villagerFrames={right:null,left:null};
+ const villagerKey=(side,i)=>SOBOK.sheet.replace(/\.webp$/,'-'+side+i+'.webp');
+ function villager(a){return !!a&&!a.boss&&!a.midboss&&!a.friendly&&!a.visualOnly&&!a.ally&&!a.neutral&&!a.canonAlly&&!a.canonAllyV31217&&!a.canonicalAllyV31217&&!a.rc88Part&&!a.echoChild&&!a.echoChildV31368&&!a.objectiveStructureV31238&&!a.protectedObjective&&!a.narrativeStructureV31238;}
+ function villagerMeta(key,left){const B=root.__HAPIL_RC86_BRIDGE__;try{if(typeof B?.setSpriteMetadata==='function')B.setSpriteMetadata(key,[0,0,1,1,(left?SOBOK.cellW-SOBOK.piv.x:SOBOK.piv.x)/SOBOK.cellW,SOBOK.piv.y/SOBOK.cellH]);}catch(e){fail(e);}}
+ function bakeVillager(sh){const out=[];for(let i=0;i<SOBOK.frames;i++){const c=canvas(SOBOK.cellW,SOBOK.cellH);const g=c?.getContext?.('2d');if(!g)throw new Error('villager bake');
+   g.drawImage(sh,(i%SOBOK.cols)*SOBOK.cellW,Math.floor(i/SOBOK.cols)*SOBOK.cellH,SOBOK.cellW,SOBOK.cellH,0,0,SOBOK.cellW,SOBOK.cellH);
+   const im=toImage(c,'rc240Sobok');if(!im)throw new Error('villager image');const key=villagerKey('f',i);villagerMeta(key,false);out.push({key,im});}
+  villagerFrames.right=out;}
+ // Mirrored set for a source-facing-left actor (native flips by intrinsic x actor facing).
+ function mirrorVillager(){const R=villagerFrames.right;if(!R||!R.every(f=>f.im.complete&&f.im.naturalWidth>0))return null;const out=[];
+  for(let i=0;i<R.length;i++){const c=canvas(SOBOK.cellW,SOBOK.cellH);const g=c?.getContext?.('2d');if(!g)return null;g.translate(SOBOK.cellW,0);g.scale(-1,1);g.drawImage(R[i].im,0,0);
+   const im=toImage(c,'rc240Sobok');if(!im)return null;const key=villagerKey('l',i);villagerMeta(key,true);out.push({key,im});}
+  return villagerFrames.left=out;}
+ function phaseOf(a){const id=String(a.id??'');let h=7;for(let i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))|0;return ((h%SOBOK.frames)+SOBOK.frames)%SOBOK.frames;}
+ function villagerSprite(cache,a,time,s){const rec=sheet.sobok;if(rec.state!=='ready'){if(rec.state==='idle')loadSheet(rec,SOBOK.sheet,bakeVillager);return undefined;}
+  const left=a.sourceFacing31223==='left',set=left?(villagerFrames.left??mirrorVillager()):villagerFrames.right;if(!set)return undefined;
+  const t=Number.isFinite(time)?time:n(s.time),i=((Math.floor(t*SOBOK.fps)+phaseOf(a))%SOBOK.frames+SOBOK.frames)%SOBOK.frames,f=set[i];
+  if(!f||!f.im.complete||!(f.im.naturalWidth>0))return undefined;
+  const c=cache&&typeof cache==='object'?cache:binding()?.cache?.current;if(c&&typeof c==='object'&&c[f.key]!==f.im)c[f.key]=f.im;f.im.__mongseLastUsed=now();metrics.villagerDraws++;return f.key;}
  function hex(tone){let im=hexImages.get(tone);if(!im){im=toImage(bakeHexagram(tone),'rc240Hexagram');if(im)hexImages.set(tone,im);}return im;}
  const keyVariants=p=>[p,p.slice(2)];
  function seedImages(cache){if(!enabledFlag||!cache||typeof cache!=='object')return 0;let k=0;
@@ -261,7 +306,8 @@
    get(target,key){if(key==='fixedPhase'){const f=n(Reflect.get(target,key),0);return Math.max(f||nativePhase(target),b.floor);}if(SHADOW_KEYS.has(key))return shadow[key];return Reflect.get(target,key,target);},
    set(target,key,value){if(SHADOW_KEYS.has(key)){shadow[key]=value;return true;}return Reflect.set(target,key,value,target);},
    deleteProperty(target,key){if(SHADOW_KEYS.has(key)){delete shadow[key];return true;}return Reflect.deleteProperty(target,key);}});}return b.proxy;}
- function spriteOverride(cache,actor,time,base,self,rest){if(!enabledFlag||!actor)return undefined;const s=currentState();if(!s||!story(s))return undefined;const w=worlds.get(s);const b=w?.byId.get(actor.id);if(!b||b.stage<1)return undefined;
+ function spriteOverride(cache,actor,time,base,self,rest){if(!enabledFlag||!actor)return undefined;const s=currentState();if(!s||!story(s))return undefined;
+  if(s.zone===SOBOK.zone&&villager(actor))return villagerSprite(cache,actor,time,s);const w=worlds.get(s);const b=w?.byId.get(actor.id);if(!b||b.stage<1)return undefined;
   const B=root.__HAPIL_RC86_BRIDGE__,c=b.cfg,u=(n(s.time)-b.at)/TRANSFORM_DUR,native=()=>b.floor>0?base.call(self,cache,floorProxy(b,actor),time,...rest):base.call(self,cache,actor,time,...rest);
   if(c?.transition&&u>=0&&u<1)return B.runtimeSprite(cache,c.transition,native());
   if(c?.final)return B.runtimeSprite(cache,c.final,native());
@@ -291,9 +337,10 @@
   form(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);if(!b)return null;const u=n(s.time)-b.at;return {stage:b.stage,at:b.at,transforming:b.stage>=1&&u>=0&&u<TRANSFORM_DUR,procedural:b.procedural,floor:b.floor,art:b.cfg?(b.cfg.final??b.cfg.transition??b.cfg.overlay??'native-phase'):null};},
   titleCard(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?{...c}:null;},
   fixText,
-  metrics:()=>({...metrics,enabled:enabledFlag,installed,lastError}),
+  assets:()=>({heart:{...sheet.heart},sobok:{...sheet.sobok}}),
+  metrics:()=>({...metrics,enabled:enabledFlag,installed,lastError,heartSheet:sheet.heart.state,sobokSheet:sheet.sobok.state}),
   __test:{tick,afterHit,render,burst,seedImages,install,recheck,worlds,nativePhase,floorFor,story,
-   poolLive:s=>worlds.get(s)?.pool.live??0,FORMS,NEEDS_ART,ZONE_NAMES,CROSS_AUDIT,HEART,PART_HP,PART_SHARE,TRANSFORM_AT,TRANSFORM_DUR,TITLE_DUR,POOL_CAP}};
+   poolLive:s=>worlds.get(s)?.pool.live??0,FORMS,NEEDS_ART,ZONE_NAMES,CROSS_AUDIT,HEART,SOBOK,villager,PART_HP,PART_SHARE,TRANSFORM_AT,TRANSFORM_DUR,TITLE_DUR,POOL_CAP}};
  root.__HAPIL_BOSS_FORM_RC240__=api;
  let attempts=0;(function ready(){if(!install()&&++attempts<1200)root.setTimeout?.(ready,10);})();
 })(typeof window==='object'?window:globalThis);
