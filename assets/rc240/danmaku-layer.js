@@ -38,15 +38,15 @@
   ['white','#f4f4ff','#6a6a8a'],['lime','#b6ff4a','#3f7a00'],['pink','#ff6fb5','#8a1a52'],['gold','#ffcf3a','#7a5200']];
  const H={};HUES.forEach((h,i)=>H[h[0]]=i);
  const MODES=Object.freeze({
-  STORY:{peakPc:[130,180,280],vs:1,vmin:55,vmax:120,vaim:130,dens:1.55,dmg:.04,mercy:1.5,clear:140,cap:.18,excl:160,lane:58},
-  HELL:{peakPc:[160,220,340],vs:1.15,vmin:60,vmax:140,vaim:150,dens:1.75,dmg:.06,mercy:1.1,clear:100,cap:.24,excl:130,lane:50},
-  DREAM:{peakPc:[190,260,400],vs:1.35,vmin:70,vmax:165,vaim:180,dens:2.05,dmg:.08,mercy:.9,clear:80,cap:.30,excl:110,lane:44}});
+  STORY:{peakPc:[150,200,280],vs:1,vmin:55,vmax:120,vaim:130,dens:1.55,dmg:.04,mercy:1.5,clear:140,cap:.18,excl:160,lane:58},
+  HELL:{peakPc:[180,245,340],vs:1.15,vmin:60,vmax:140,vaim:150,dens:1.75,dmg:.06,mercy:1.1,clear:100,cap:.24,excl:130,lane:50},
+  DREAM:{peakPc:[205,290,400],vs:1.35,vmin:70,vmax:165,vaim:180,dens:2.05,dmg:.08,mercy:.9,clear:80,cap:.30,excl:110,lane:44}});
  const DENSITY=Object.freeze({low:.6,normal:1,high:1.3});
  const MOBILE_MUL=.55,AUTO_MUL=.75;
  const LIVE_CAP=Object.freeze({pc:640,mobile:260,lowFx:200});
  const POOL_CAP=Object.freeze({pc:1024,mobile:384});
  const SPARK_CAP=Object.freeze({pc:320,mobile:96,lowFx:64});
- const BAND_DENS=[.68,.84,1.12],BAND_SPEED=[1,1.05,1.1];
+ const BAND_DENS=[.78,.92,.98],BAND_SPEED=[1,1.05,1.1];
  const STORE_KEY='hapil.danmakuDensityRC240';
 
  // ---------------------------------------------------------------- pool (SoA)
@@ -103,7 +103,7 @@
   {id:'S1',dens:1.7,key:'envy-mirror',name:'질투 「금 간 거울 회랑」',hues:['magenta','yellow'],circle:'magenta',layers:[
    {kind:'mirror',period:1.05,p:{angles:[13,21,29,37],spd:92,type:T.RICE,hue:H.magenta,hue2:H.pink,bounce:1}},
    {kind:'bloom',period:2.2,start:.6,lite:false,p:{count:2,off:16,spd:84,acc:-14,splitAt:2.4,hue:H.violet,ring:{n:10,spd:58,type:T.ORB,hue:H.yellow}}},
-   {kind:'fan',period:2.3,start:1.1,lite:false,bandMin:2,p:{n:4,step:11,spd:118,type:T.RICE,hue:H.red,line:2}}]},
+   {kind:'fan',period:2.3,start:1.1,lite:false,p:{n:4,step:11,spd:118,type:T.RICE,hue:H.red,line:2}}]},
   {id:'S2',dens:1.5,key:'greed-interest',name:'탐욕 「복리 회수」',hues:['gold','orange'],circle:'gold',layers:[
    {kind:'arc',period:1.15,p:{n:21,arc:150,spd:100,acc:-30,vmin:56,type:T.ORB,hue:H.gold,sway:6}},
    {kind:'decel',period:2.1,start:.5,lite:false,p:{n:6,spread:80,v0:190,dec:380,stopAt:.5,hold:.6,v1:112,type:T.DOT,hue:H.yellow}},
@@ -116,7 +116,7 @@
   {id:'S4',dens:1.4,key:'obsession-song',name:'집착 「끊기지 않는 노랫줄」',hues:['pink','magenta'],circle:'pink',layers:[
    {kind:'wave',period:.2,p:{streams:[-26,-13,0,13,26],spd:94,A:18,T:1.3,type:T.ORB,hue:H.pink,hue2:H.magenta,gap:true}},
    {kind:'bloom',period:2.6,start:.8,lite:false,p:{count:1,off:0,spd:90,acc:-18,splitAt:2.2,hue:H.magenta,ring:{n:22,spd:46,type:T.DOT,hue:H.white,rose:2}}},
-   {kind:'fan',period:2.0,start:1.4,bandMin:2,lite:false,p:{n:4,step:10,spd:112,type:T.RICE,hue:H.yellow}}]},
+   {kind:'fan',period:2.0,start:1.4,lite:false,p:{n:4,step:10,spd:112,type:T.RICE,hue:H.yellow}}]},
   {id:'S5',dens:2.6,key:'order-seal',name:'율법 「봉인 격자」',hues:['blue','white'],circle:'blue',layers:[
    {kind:'lattice',period:.5,p:{offs:[-120,-40,40,120],ang:22,spd:96,type:T.NEEDLE,hue:H.cyan,hue2:H.blue,wobble:0}},
    {kind:'fan',period:1.9,start:.9,lite:false,p:{n:4,step:14,spd:110,type:T.STAR,hue:H.gold}},
@@ -124,11 +124,13 @@
   {id:'S6',dens:1.4,key:'petal-nebula',name:'몽화 「피어나는 성운」',hues:['violet','cyan'],circle:'violet',layers:[
    {kind:'spiral',period:.11,p:{arms:4,om:1.1,spd:78,acc:16,vmax:118,type:T.ORB,hue:H.violet,hue2:H.cyan,cosMin:.05}},
    {kind:'bloom',period:1.9,start:.7,lite:false,p:{count:2,off:15,spd:92,acc:-20,splitAt:1.9,hue:H.cyan,ring:{n:12,spd:56,type:T.ORB,hue:H.violet}}},
-   {kind:'spiral',period:.16,bandMin:3,lite:false,p:{arms:6,om:-.9,flip:4,spd:84,type:T.STAR,hue:H.white,cosMin:.2}}]},
+   {kind:'spiral',period:.16,bandMin:3,lite:false,p:{arms:6,om:-.9,flip:4,spd:84,type:T.STAR,hue:H.white,cosMin:.2}},
+   {kind:'fan',period:2.2,start:1.3,bandMax:2,lite:false,p:{n:3,step:12,spd:114,type:T.RICE,hue:H.magenta,line:2}}]},
   {id:'S7',dens:0.85,key:'pride-crowns',name:'교만 「추락하는 일곱 왕관」',hues:['gold','red'],circle:'gold',layers:[
    {kind:'arc',period:.95,p:{n:30,arc:190,spd:150,acc:-150,vmin:50,type:T.ORB,hue:H.gold,sway:5,gapW:1.9}},
    {kind:'crowns',period:2.2,start:.6,lite:false,p:{n:6,vy:60,hue:H.red,fan:{n:5,spd:70,spread:1.3,type:T.RICE,hue:H.orange}}},
-   {kind:'decel',period:2.6,start:1.4,bandMin:3,lite:false,p:{n:5,spread:70,v0:170,dec:340,stopAt:.5,hold:.7,v1:110,type:T.STAR,hue:H.white}}]},
+   {kind:'decel',period:2.6,start:1.4,bandMin:3,lite:false,p:{n:5,spread:70,v0:170,dec:340,stopAt:.5,hold:.7,v1:110,type:T.STAR,hue:H.white}},
+   {kind:'fan',period:2.4,start:1.0,lite:false,p:{n:3,step:13,spd:116,type:T.RICE,hue:H.red,line:2}}]},
   {id:'S8',dens:2.3,key:'gluttony-table',name:'탐식 「되삼키는 식탁」',hues:['lime','violet'],circle:'lime',layers:[
    {kind:'arc',period:1.3,p:{n:26,arc:176,spd:132,acc:-96,vmin:-90,vmax:140,type:T.ORB,hue:H.lime,sway:8,reverse:true}},
    {kind:'fan',period:2.1,start:.8,lite:false,p:{n:6,step:9,spd:116,type:T.RICE,hue:H.violet}},
@@ -160,26 +162,32 @@
 
  // ---------------------------------------------------------------- spell run (pure)
  function makeRun(spellId,o={}){const spell=SPELL_BY_ID[spellId]??SPELLS[5],band=clamp(Math.floor(n(o.band,1)),1,3);
-  const layers=spell.layers.filter((l,i)=>band>=(l.bandMin||1)&&(!o.lite||i===0||(l.kind!=="fan"&&l.kind!=="decel"&&!o.midboss)));
+  const layers=spell.layers.filter((l,i)=>band>=(l.bandMin||1)&&band<=(l.bandMax||3)&&(!o.lite||i===0||(!o.midboss&&l.kind!=="decel")));
   return {spell,band,lite:!!o.lite,seed:n(o.seed,0)>>>0,t:0,layers,next:layers.map(l=>n(l.start,0)),beats:layers.map(()=>0),emitEnd:n(o.emitEnd,1e9)};}
- function layerPeriod(run,l,ctx){const aimed=l.kind==='fan'||l.kind==='decel';return l.period/(aimed?clamp(ctx.dens,.2,1):Math.max(.2,ctx.dens*n(run.spell.dens,1)));}
+ const RAMP=Object.freeze({t:2.4,k0:.45});
+ function layerPeriod(run,l,ctx,at){const aimed=l.kind==='fan'||l.kind==='decel';if(aimed)return l.period/clamp(ctx.dens,.2,1);
+  const u=l.kind==='wall'?1:clamp(n(at,RAMP.t)/RAMP.t,0,1),ramp=RAMP.k0+(1-RAMP.k0)*u;return l.period*ramp/Math.max(.2,ctx.dens*n(run.spell.dens,1));}
  function runStep(run,dt,ctx,out){run.t+=dt;if(run.t>run.emitEnd)return 0;let c=0;
   for(let i=0;i<run.layers.length;i++){const l=run.layers[i];let guard=0;
    const aimedL=l.kind==='fan'||l.kind==='decel';
-   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if(ctx.soft&&(aimedL||k%5>(ctx.band===3?3:2))){run.next[i]+=layerPeriod(run,l,ctx);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
+   while(run.next[i]<=run.t&&guard++<4){const k=run.beats[i]++;if(ctx.soft&&(aimedL||k%5>(ctx.band===3?3:2))){run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);continue;}ctx.beatT=run.next[i];const rng=mulberry32(hash(run.seed,run.spell.id,i,k));
     const before=out.length;EMIT[l.kind](l.p,k,rng,ctx,out);for(let j=before;j<out.length;j++){out[j].layer=i;out[j].pre=Math.max(0,run.t-run.next[i]);}c+=out.length-before;
-    run.next[i]+=layerPeriod(run,l,ctx);}}
+    run.next[i]+=layerPeriod(run,l,ctx,run.next[i]);}}
   return c;}
 
  // ---------------------------------------------------------------- fast aimed volleys (between spells)
  // Few fast shots aimed at the heart with zero lead. Every volley is telegraphed
  // >= .3 s (muzzle flash + thin aim line that tracks the heart) before release,
  // so the answer is a positional sidestep, not memorisation.
- const VOLLEY=Object.freeze({STORY:{n:[3,5],spd:260,period:1.7,tele:.42},HELL:{n:[4,6],spd:300,period:1.4,tele:.36},DREAM:{n:[5,7],spd:340,period:1.15,tele:.32}});
+ const VOLLEY=Object.freeze({STORY:{n:[4,6],spd:260,period:1.1,tele:.42},HELL:{n:[5,7],spd:300,period:.95,tele:.36},DREAM:{n:[5,7],spd:340,period:.85,tele:.32}});
+ // Spell-to-spell bridge: in the last BRIDGE.lead s of a spell the next volleys are already
+ // telegraphed; they release only once the spell's own bullets have been cancelled, so the
+ // screen never sits empty through the drain / rest / declaration, and never stacks on the old curtain.
+ const BRIDGE=Object.freeze({lead:.55,maxWait:6,quiet:1.25,n:3,stagger:.2,freshDecl:.35});
  const TELE_MIN=.3;
  function volleyPlan(mode,band,mobile,auto,k,rng){const V=VOLLEY[modeKey(mode)],red=reduceMul(mobile,auto);
   const n=clamp(Math.round((V.n[0]+(V.n[1]-V.n[0])*rng()+(band-1)*.5)*Math.max(.7,red)),3,7);
-  return {n,spd:clamp(V.spd*(mobile?.92:1)*(auto?.9:1),240,340),tele:Math.max(TELE_MIN,V.tele+(mobile?.08:0)+(auto?.1:0)),stream:k%3===1,spread:.12+.02*n,gap:.075,period:V.period/Math.max(.45,red)};}
+  return {n,spd:clamp(V.spd*(mobile?.92:1)*(auto?.9:1),240,340),tele:Math.max(TELE_MIN,V.tele+(mobile?.08:0)+(auto?.1:0)),stream:k%3===1,spread:.12+.02*n,gap:.075,period:V.period*Math.max(.7,red)/Math.max(.45,red)};}
  function volleyShot(x,y,ang,spd,remapHue,j){return spec(x,y,ang,spd,j%2?T.RICE:T.NEEDLE,remapHue,{flags:F_AIMED|F_FAST,vmax:spd*1.02,life:6});}
 
  // ---------------------------------------------------------------- spawn & sim (pure)
@@ -240,11 +248,11 @@
 
  // Headless simulation helper for tests: same emitters, pool and stage code.
  function headless(o={}){const ctx=makeCtx(o),pool=createPool(o.mobile?POOL_CAP.mobile:POOL_CAP.pc),M=MODES[ctx.mode];
-  const dur=ctx.mode==='DREAM'?10:12,decl=ctx.mode==='DREAM'?.8:1,emitEnd=dur-.6-decl;
+  const dur=ctx.mode==='DREAM'?10:12,decl=ctx.mode==='DREAM'?.8:1,emitEnd=dur-.6;
   const run=makeRun(o.spell,{band:ctx.band,seed:ctx.seed,lite:o.lite,emitEnd});const out=[];ctx.spawnLog={minDist:1e9};
   let t=0;const bx=n(o.bx,1071),by=n(o.by,425);
   return {ctx,pool,run,duration:dur,declare:decl,
-   step(h,hx,hy,ax,ay){t+=h;frameCtx(ctx,bx,by,hx,hy,ax??hx,ay??hy,run.t);out.length=0;if(t>=decl)runStep(run,h,ctx,out);
+   step(h,hx,hy,ax,ay){t+=h;frameCtx(ctx,bx,by,hx,hy,ax??hx,ay??hy,run.t);out.length=0;runStep(run,h,ctx,out);
     for(const b of out)spawn(pool,b,ctx);out.length=0;stepPool(pool,h,ctx,out,null);for(const b of out)spawn(pool,b,ctx);return t;},
    get time(){return t;},M};}
 
@@ -280,7 +288,7 @@
  function hook(name){const F=root.__HAPIL_STG_FEEL_RC240__;return F&&typeof F[name]==='function'?F[name]:null;}
  function callHook(name,...args){const f=hook(name);if(!f)return undefined;try{return f.apply(root.__HAPIL_STG_FEEL_RC240__,args);}catch(e){fail(e);}return undefined;}
  function resetWorld(s,m,reason){poolClear(m.pool);m.sparks.length=0;m.run=null;m.tele=[];m.fillerOwner=null;m.feelOwner=null;m.serial=null;m.key=null;m.banner=null;m.dim=0;m.dimTarget=0;m.circle=0;m.zone=s.zone;m.hist.length=0;m.reason=reason;
-  m.warnHoldUntil=-1;m.spawnGuardUntil=-1;m.fillerPauseUntil=n(s.time)+.8;callHook('reset',s,reason);}
+  m.warnHoldUntil=-1;m.spawnGuardUntil=-1;m.lastEndAt=-1e9;m.fillerPauseUntil=n(s.time)+.8;callHook('reset',s,reason);}
 
  // ---------------------------------------------------------------- sparks (cancel / graze)
  function sparkCap(m,set){return set?.lowFx?SPARK_CAP.lowFx:m.mobile?SPARK_CAP.mobile:SPARK_CAP.pc;}
@@ -322,10 +330,10 @@
   return {src:'own',serial:'o'+o.serial,index:o.index,band,stage:o.stage,elapsed:o.elapsed,remaining:Math.max(0,dur-o.elapsed),duration:dur,bossName:a.name};}
 
  function beginSpell(s,m,a,ph,set){const fam=familyOf(a),mid=!a.boss,pick=spellFor(fam,mid?1:ph.index),mode=gmode(s);
-  const decl=mode==='DREAM'?.8:1,emitEnd=Math.max(1,ph.duration-.6-decl);
+  const decl=mode==='DREAM'?.8:1,emitEnd=Math.max(1,ph.duration-.6-clamp(n(ph.elapsed),0,ph.duration));
   m.family=fam;m.spell=SPELL_BY_ID[pick.id];m.lite=(pick.lite&&ph.band<3)||mid;m.midboss=mid;m.ownerId=a.id;m.serial=ph.serial;m.spellIndex=ph.index;m.bossName=String(a.name??'보스');
   const seed=hash(a.id,ph.serial,s.zone);
-  m.run=makeRun(pick.id,{band:ph.band,seed,lite:m.lite,midboss:mid,emitEnd});m.runBand=ph.band;m.decl=decl;m.declLeft=Math.max(0,decl-n(ph.elapsed));m.spellHit=false;m.dTime=0;m.hold=0;m.winding=false;m.released=true;
+  m.run=makeRun(pick.id,{band:ph.band,seed,lite:m.lite,midboss:mid,emitEnd});m.runBand=ph.band;m.decl=decl;m.declLeft=Math.max(0,decl-n(ph.elapsed));m.declOverlap=s.time-n(m.lastEndAt,-1e9)<8;m.spellHit=false;m.dTime=0;m.hold=0;m.winding=false;m.released=true;
   m.dimLevel=FAMILY_DIM[fam]??.42;m.dimTarget=1;metrics.spells++;
   if(!mid){m.banner={name:m.spell.name,boss:m.bossName,index:ph.index,born:s.time,hue:(REMAP[fam]??null)?.[H[m.spell.circle]]??(H[m.spell.circle]??H.violet),result:null,resultAt:0,bonus:8+2*(ph.band-1),remaining:ph.remaining,duration:ph.duration,lite:m.lite};
    flash(s,m,set,.18,.25);}
@@ -339,7 +347,7 @@
    else big.result='fail';big.resultAt=s.time;}
   else if(big)big.result=null;
   callHook('onSpellEnd',s,{result,reason,spellId:had.spell.id,ownerId:m.ownerId,midboss:!!m.midboss,index:m.spellIndex});
-  m.run=null;m.dimTarget=0;m.fillerPauseUntil=s.time+.6;}
+  m.run=null;m.dimTarget=0;m.lastEndAt=reason==='spell-end'||reason==='serial'?s.time:-1e9;}
  function flash(s,m,set,peak,dur){if(set?.reducedFlash)return;if(m.flash&&s.time-m.flash.at<1)return;m.flash={at:s.time,peak:Math.min(peak,set?.lowFx?.15:m.mobile?.2:.25),dur};}
 
  // ---------------------------------------------------------------- collision / damage
@@ -397,8 +405,10 @@
   if(a&&String(m.feelOwner)!==String(a.id)){m.feelOwner=a.id;callHook('onOwner',s,m,a);}
   let ph=null;if(a)ph=phaseOf(s,m,a,dt);
   const warnHold=s.time<n(m.warnHoldUntil,-1);
-  if(ph&&ph.serial!==m.serial&&m.run)endSpell(s,m,set,m.lastPhase?.stage==='active'?'spell-end':'serial');
-  if(ph&&ph.stage!=='active'&&m.run){if(m.banner)m.banner.elapsedAtEnd=m.lastPhase?.elapsed;endSpell(s,m,set,'spell-end');m.serial=ph.serial;}
+  if(ph&&ph.serial!==m.serial&&m.run)endSpell(s,m,set,m.lastPhase?.stage==='active'||m.lastPhase?.stage==='draining'?'spell-end':'serial');
+  // The curtain keeps drifting through RC129's drain (the boss finishing its cast) and is
+  // cancelled together with RC129's own clear when the rest begins.
+  if(ph&&ph.stage==='rest'&&m.run){if(m.banner)m.banner.elapsedAtEnd=m.lastPhase?.elapsed;endSpell(s,m,set,'spell-end');m.serial=ph.serial;}
   if(ph&&ph.stage==='active'&&ph.serial!==m.serial&&!warnHold)beginSpell(s,m,a,ph,set);
   if(ph&&m.banner){m.banner.remaining=ph.remaining;m.banner.elapsedAtEnd=ph.elapsed;}
   m.lastPhase=ph;m.owner=a;
@@ -420,10 +430,11 @@
    const fkey=[mode,band,mobile,auto,densityKey,lowFx,!a.boss,fam,Math.round(gov*20),rank].join('|');
    if(!m.fctx||m.fctxKey!==fkey){m.fctx=makeCtx({remap:REMAP[fam]||null,mode,band,mobile,auto,setting:DENSITY[densityKey]*rank,gov,midboss:!a.boss,seed:hash(a.id,'volley'),liveCap:lowFx?LIVE_CAP.lowFx:mobile?LIVE_CAP.mobile:LIVE_CAP.pc});m.fctxKey=fkey;}
    fctx=m.fctx;fctx.travel=travel;
-   const why=(!m.run||m.declLeft>0)?heldByCast(s,a,true):'';
-   fillerOn=(!m.run||m.declLeft>0)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold;
-   m.volleyQuiet=why==='cast';}
-  if(!fillerOn&&m.tele?.length&&(s.time<m.mercyUntil||!a))m.tele.length=0;
+   const tail=!!m.run&&!m.midboss&&!!ph&&ph.serial===m.serial&&(ph.stage==='draining'||(ph.stage==='active'&&n(ph.remaining,9)<=BRIDGE.lead));
+   const gap=!m.run||m.declLeft>0,why=(gap||tail)?heldByCast(s,a,true):'';
+   fillerOn=(gap||tail)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold;
+   m.bridgeTail=tail;m.volleyQuiet=why==='cast';}
+  if(!fillerOn&&m.tele?.length&&(s.time<m.mercyUntil||!a)){m.tele.length=0;m.bridgeSerial=null;}// a dropped bridge may be queued again
   const guard=s.time<n(m.spawnGuardUntil,-1);
   const mz=a?muzzle(a):m.lastMuzzle??{x:1071,y:425};m.lastMuzzle=mz;
   // Hold during major casts / locks / lasers; resume .4 s later; long hold winds the spell down.
@@ -438,13 +449,14 @@
    const sharedCap=Math.max(ctx.peak*.85,ctx.peak-1.5*native);ctx.budget=Math.floor(Math.min(ctx.peak,sharedCap));
    const baseExcl=ctx.excl;if(guard)ctx.excl=Math.max(baseExcl,160);
    scratch.length=0;let ectx=ctx;
-   if(m.run&&m.declLeft>0)m.declLeft-=h;else if(m.run&&!held&&!m.winding&&!warnHold)runStep(m.run,h,ctx,scratch);
+   const inDecl=m.run&&m.declLeft>0;if(inDecl)m.declLeft-=h;if(m.run&&(!inDecl||m.declOverlap||m.decl-m.declLeft>BRIDGE.freshDecl)&&!held&&!m.winding&&!warnHold)runStep(m.run,h,ctx,scratch);
    if(fillerOn&&fctx){const st=s.time;frameCtx(fctx,mz.x,mz.y,H0.x,H0.y,past.x,past.y,0);const fe=fctx.excl;if(guard)fctx.excl=Math.max(fe,160);
     fctx.budget=Math.floor(Math.min(fctx.peak,Math.max(fctx.peak*.85,fctx.peak-1.5*native)));
-    if(st>=n(m.vNext,0)&&(m.tele??=[]).length<(m.volleyQuiet?1:2)){const k=m.vK=(m.vK|0)+1,rng=mulberry32(hash(m.fillerOwner,'v',k,s.zone));const plan=volleyPlan(mode,ph?.band??1,mobile,auto,k,rng);
-     const oy=[0,-36,36][k%3],ox=mz.x,y0=mz.y+oy;m.tele.push({born:st,fire:st+plan.tele,x:ox,y:y0,ang:Math.atan2(H0.y-y0,H0.x-ox),plan,shot:0,next:0,hue:(REMAP[familyOf(a)]??null)?.[k%2?H.magenta:H.red]??(k%2?H.magenta:H.red)});m.vNext=st+plan.period*(m.volleyQuiet?1.6:1);metrics.volleys++;}// boss casts: sparser, one telegraph at a time
+    const bridge=(m.bridgeTail||(!m.run&&st-n(m.lastEndAt,-1e9)<.25))&&m.bridgeSerial!==m.serial,tcap=bridge?(m.volleyQuiet?2:BRIDGE.n):m.volleyQuiet?1:2;if(bridge)m.bridgeSerial=m.serial;
+    while((bridge||(!m.bridgeTail&&st>=n(m.vNext,0)))&&(m.tele??=[]).length<tcap){const k=m.vK=(m.vK|0)+1,rng=mulberry32(hash(m.fillerOwner,'v',k,s.zone));const plan=volleyPlan(mode,ph?.band??1,mobile,auto,k,rng);
+     const oy=[0,-36,36][k%3],ox=mz.x,y0=mz.y+oy;const bi=bridge?m.tele.length:0;m.tele.push({born:st,fire:st+plan.tele+(bridge&&!m.run?bi*BRIDGE.stagger:0),bi,x:ox,y:y0,ang:Math.atan2(H0.y-y0,H0.x-ox),plan,shot:0,next:0,wait:!!m.run&&!!m.bridgeTail,hue:(REMAP[familyOf(a)]??null)?.[k%2?H.magenta:H.red]??(k%2?H.magenta:H.red)});m.vNext=st+plan.period*(m.volleyQuiet?BRIDGE.quiet:1);metrics.volleys++;if(!bridge)break;}// boss casts: sparser, one telegraph at a time
     for(const v of m.tele??[]){if(v.shot===0)v.ang=Math.atan2(H0.y-v.y,H0.x-v.x);// track until release; zero lead
-     if(st<v.fire)continue;const P=v.plan;
+     if(st<v.fire)continue;if(v.wait){if(m.run){if(st-v.born>BRIDGE.maxWait)v.shot=v.plan.n;continue;}v.wait=false;v.fire=Math.max(v.fire,st+v.bi*BRIDGE.stagger);if(st<v.fire)continue;}const P=v.plan;
      if(P.stream){while(v.shot<P.n&&st>=v.fire+v.shot*P.gap){if(spawn(m.pool,volleyShot(v.x,v.y,v.ang,P.spd,v.hue,v.shot),fctx)){metrics.spawned++;metrics.fillerSpawned++;}v.shot++;}}
      else{for(let j=0;j<P.n;j++){const ang=v.ang+(j-(P.n-1)/2)*(P.spread/Math.max(1,P.n-1))*(P.n>1?1:0);if(spawn(m.pool,volleyShot(v.x,v.y,ang,P.spd,v.hue,j),fctx)){metrics.spawned++;metrics.fillerSpawned++;}}v.shot=P.n;}
      if(v.shot>=P.n&&!v.logged){v.logged=true;const lead=v.fire-v.born;metrics.teleMin=Math.min(n(metrics.teleMin,9),lead);metrics.volleyNMin=Math.min(n(metrics.volleyNMin,99),P.n);metrics.volleyNMax=Math.max(n(metrics.volleyNMax,0),P.n);}}
