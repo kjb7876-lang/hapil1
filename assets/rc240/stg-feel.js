@@ -129,13 +129,17 @@
   f.lastOwner=a;if(!f.fight||String(f.fight.ownerId)!==String(a.id))f.fight={ownerId:a.id,boss:!!a.boss,name:String(a.name??'보스'),start:t,spells:0,captured:0,grazes:0,maxChain:0,coins:0,coinsOut:0,score0:f.score,hits:0};
   if(f.warned.has(key))return;f.warned.add(key);const big=!!a.boss;
   // Beat order: stage title card first, then the warning, then combat. Never both on screen.
-  const tu=titleUntil(s),start=tu>t?tu+.15:t;f.warn={at:start,dur:big?2.2:1.2,name:String(a.name??''),big,sounded:false};metrics.warnings++;
+  const tu=titleUntil(s),start=tu>t?tu+.15:t;f.warn={at:start,dur:big?2.2:1.2,name:String(a.name??''),id:String(a.id),big,sounded:false};metrics.warnings++;
   if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),start+(big?1:.5));}
  function titleUntil(s){try{const v=root.__HAPIL_BOSS_FORM_RC240__?.titleUntil?.(s);return Number.isFinite(v)?v:-1;}catch(e){return -1;}}
  function stepWarn(s,f,m,t){const W=f.warn;if(!W)return;
   if(t<W.at+.05){const tu=titleUntil(s);if(tu>t&&W.at<tu+.15){W.at=tu+.15;if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),W.at+(W.big?1:.5));}}
   if(!W.sounded&&t>=W.at){W.sounded=true;sound(f,s,'heavy',W.big?GAIN.boss:GAIN.boss*.7,.5,'boss');}
   if(t>=W.at+W.dur)f.warn=null;}
+ // R3: the warning belongs to its actor: when that actor dies, a queued warning is dropped and a showing
+ // one fades out over WARN_OUT, so the band never sits over the kill beat or the tally.
+ const WARN_OUT=.25;
+ function endWarn(f,id,t){const W=f.warn;if(!W||W.id!==String(id))return;if(t<W.at){f.warn=null;return;}if(t-W.at<W.dur-WARN_OUT)W.dur=t-W.at+WARN_OUT;}
  function warningActive(s){const f=s&&worlds.get(s);if(!f?.warn||!active())return false;return n(s.time)<f.warn.at+f.warn.dur;}
  function warnUntil(s){return warningActive(s)?worlds.get(s).warn.at+worlds.get(s).warn.dur:-1;}
 
@@ -199,6 +203,7 @@
   // Fight end: boss died (or bossDefeated rose) while still in this zone.
   const fg=f.fight;if(fg&&(!m.owner||String(m.owner.id)!==String(fg.ownerId))){const e=(s.enemies??[]).find(q=>q&&String(q.id)===String(fg.ownerId));
    const dead=(e?!(n(e.hp)>0):true)||(s.bossDefeated&&!f.defeatedWas);
+   if(dead)endWarn(f,fg.ownerId,t);
    if(dead&&fg.boss&&!fg.tallied){fg.tallied=true;const nohit=fg.hits===0?100000:0;f.score+=nohit;killBeat0(s,f,m,e??f.lastOwner,t);
     const T=f.tally={at:t+KILL_BEAT,time:t-fg.start,spells:fg.spells,captured:fg.captured,grazes:fg.grazes,maxChain:fg.maxChain,coins:fg.coins+(f.coins.live|0),gained:f.score-fg.score0,nohit,name:fg.name,rows:null};
     // Rows that would read 0/0 or 0 are left out; built once, formatted per frame.

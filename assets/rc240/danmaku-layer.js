@@ -1094,14 +1094,31 @@
    if(outer){ctx.save();if(!low)ctx.rotate(t*.6);ctx.drawImage(outer.c,-80,-80,160,160);ctx.restore();}
    if(inner&&!low&&!m.mobile){ctx.save();ctx.rotate(-t*.6*.72);ctx.drawImage(inner.c,-80,-80,160,160);ctx.restore();}
   }finally{ctx.restore();}}
- function drawDim(ctx,s,m,set){const a=m.dim;if(a<.01)return;if(root.__HAPIL_RC95_NATIVE__?.locked?.(s)===true)return;const cv=ctx.canvas;if(!cv)return;const dimA=m.dimLevel*a;
+ // R3: the dim passes (multiply darken, vignette, PC desaturation) composite source-over, which painted
+ // opaque grey on transparent canvas pixels (letterbox bars, the strip above the map). The canvas is copied
+ // into one cached same-size buffer before them (before the flow streaks when called from the background
+ // pass) and its alpha is restored after ('destination-in'): two GPU blits while a spell dims, no
+ // allocation per frame. Without a buffer the darken is an alpha-preserving source-atop fill instead.
+ const dimMask={c:null,g:null,cv:null,ok:false,bad:false};
+ function dimOn(s,m){return !!m&&m.dim>=.01&&root.__HAPIL_RC95_NATIVE__?.locked?.(s)!==true;}
+ function dimSnap(ctx){dimMask.ok=false;dimMask.cv=null;const cv=ctx?.canvas;if(dimMask.bad||!cv||!(cv.width>0)||!(cv.height>0))return false;
+  try{if(!dimMask.c){const c=makeCanvas(cv.width,cv.height),g=c?.getContext?.('2d');if(!g){dimMask.bad=true;return false;}dimMask.c=c;dimMask.g=g;}
+   const c=dimMask.c,g=dimMask.g;if(c.width!==cv.width)c.width=cv.width;if(c.height!==cv.height)c.height=cv.height;
+   g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='copy';g.drawImage(cv,0,0);dimMask.cv=cv;dimMask.ok=true;return true;}catch(e){dimMask.bad=true;return false;}}
+ function drawDim(ctx,s,m,set,snapped){const a=m.dim;if(a<.01)return;if(root.__HAPIL_RC95_NATIVE__?.locked?.(s)===true)return;const cv=ctx.canvas;if(!cv)return;const dimA=m.dimLevel*a;
+  if(!(snapped===true&&dimMask.ok&&dimMask.cv===cv))dimSnap(ctx);const masked=dimMask.ok&&dimMask.cv===cv;
   // R2: a multiply darken (keeps hue and chroma; the same on PC and phone) with a faint cool cast,
   // plus at most .2 desaturation on PC (half the old .4; phone keeps none, so both read alike).
-  ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;const k=1-dimA;ctx.globalCompositeOperation='multiply';
-   ctx.fillStyle='rgb('+Math.round(255*k*.95)+','+Math.round(255*k*.97)+','+Math.round(255*Math.min(1,k*1.04))+')';ctx.fillRect(0,0,cv.width,cv.height);ctx.globalCompositeOperation='source-over';
-   const v=!set?.lowFx&&vignetteSprite();if(v){ctx.globalAlpha=clamp(dimA/.45,0,1);ctx.drawImage(v.c,0,0,cv.width,cv.height);}
-   if(!set?.lowFx&&!m.mobile){ctx.globalCompositeOperation='saturation';ctx.globalAlpha=.2*a;ctx.fillStyle='#808080';ctx.fillRect(0,0,cv.width,cv.height);}
-  }finally{ctx.restore();}}
+  ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;const k=1-dimA;const v=!set?.lowFx&&vignetteSprite();
+   if(masked){ctx.globalCompositeOperation='multiply';
+    ctx.fillStyle='rgb('+Math.round(255*k*.95)+','+Math.round(255*k*.97)+','+Math.round(255*Math.min(1,k*1.04))+')';ctx.fillRect(0,0,cv.width,cv.height);ctx.globalCompositeOperation='source-over';
+    if(v){ctx.globalAlpha=clamp(dimA/.45,0,1);ctx.drawImage(v.c,0,0,cv.width,cv.height);}
+    if(!set?.lowFx&&!m.mobile){ctx.globalCompositeOperation='saturation';ctx.globalAlpha=.2*a;ctx.fillStyle='#808080';ctx.fillRect(0,0,cv.width,cv.height);}
+    ctx.globalCompositeOperation='destination-in';ctx.globalAlpha=1;ctx.drawImage(dimMask.c,0,0);}
+   else{// uniform multiply by k == black at alpha 1-k, atop (alpha kept); a near-black blue keeps the cool cast
+    ctx.globalCompositeOperation='source-atop';ctx.globalAlpha=clamp(dimA,0,1);ctx.fillStyle='rgb(0,2,12)';ctx.fillRect(0,0,cv.width,cv.height);
+    if(v){ctx.globalAlpha=clamp(dimA/.45,0,1);ctx.drawImage(v.c,0,0,cv.width,cv.height);}}
+  }finally{ctx.restore();dimMask.ok=false;dimMask.cv=null;}}
  // Swing trail: thin strokes through the parked bullets of each stroke, under the bullets,
  // fading out as the formation releases. Strokes only (no images, no per-bullet state).
  function drawSigTrail(ctx,s,m,set){const run=m.run,S=run&&run.sig;if(!S||!S.active||!S.buf.n)return;const B=S.buf,pt=run.t-S.t0;if(!(pt>=0)||!Number.isFinite(pt))return;
@@ -1186,7 +1203,7 @@
   const needBg=!(lp.background===seams.background&&lp.imminent===seams.imminent),needDec=typeof lp.decorateAttack==='function'&&lp.decorateAttack!==seams.decorate;
   if(!needBg&&!needDec)return true;
   const bg=lp.background,im=lp.imminent;
-  const background=function(ctx,s,rect,...rest){if(inBackground)return bg.call(this,ctx,s,rect,...rest);inBackground=true;let r;try{r=bg.call(this,ctx,s,rect,...rest);}finally{try{const m=enabledFlag&&s&&worlds.get(s);if(m){const set=settingsNow(),t0=now(),fb=hook('drawBackground');if(fb){ctx.save();try{fb.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}}drawDim(ctx,s,m,set);metrics.bgMs=metrics.bgMs*.9+(now()-t0)*.1;}}catch(e){fail(e);}finally{inBackground=false;}}return r;};
+  const background=function(ctx,s,rect,...rest){if(inBackground)return bg.call(this,ctx,s,rect,...rest);inBackground=true;let r;try{r=bg.call(this,ctx,s,rect,...rest);}finally{try{const m=enabledFlag&&s&&worlds.get(s);if(m){const set=settingsNow(),t0=now(),snap=dimOn(s,m)&&dimSnap(ctx),fb=hook('drawBackground');if(fb){ctx.save();try{fb.call(root.__HAPIL_STG_FEEL_RC240__,ctx,s,m,set);}catch(e){fail(e);}finally{ctx.restore();}}drawDim(ctx,s,m,set,snap);metrics.bgMs=metrics.bgMs*.9+(now()-t0)*.1;}}catch(e){fail(e);}finally{inBackground=false;}}return r;};
   const imminentFn=function(s,h,...rest){const r=im.call(this,s,h,...rest);if(r)return r;try{return imminent(s,h)??r;}catch(e){fail(e);return r;}};
   // decorateAttack runs synchronously right after native A rows are queued (B:53060):
   // the STG feel/arcade kit scales new rows there (power level). Base always runs first.
