@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "base": "8629bd82fc1d8baf41183395c054fd83775e96df",
+  "baseTree": "ca89ae0d9ce36ce83bc82418c810a15e89d82edb",
+  "sourceCommit": "93c3619b25101c6ac4b721037cb1c14967702362",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "a182fd9163f73abba746c57ce5a363e79209f70883b351b57c7599a15afd744c",
+  "files": [
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ea206127ff1ee9d6a13410cead99ca26e9d126e4",
+        "file": "assets/combat-v31412/skill-completion.js"
+      },
+      "after": {
+        "file": "assets/combat-v31412/skill-completion.js",
+        "mode": "100644",
+        "sha256": "50f54004dfdf67d0a6dd86e4465d8a1c4ce2598459d2b867a093ab0a7ea392be",
+        "gitBlob": "d176f5a60ddbd7d330c7b0f1071aa75fdb90e426"
+      },
+      "reason": "assets/combat-v31412/skill-completion.js: Cache the matching cast-window key names per actor for one synchronous task while always reading the values live."
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c24f0b8ecc38370642b0186ad33fab6dcadae837",
+        "file": "assets/rc133/bitmap-contact.js"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "sha256": "4150686c7229fc5689983460cd59e05b1d6975d1e13f1e24151f04fdb6c736de",
+        "gitBlob": "063444ed5bedc13e181c428db0e21560b22182ed"
+      },
+      "reason": "assets/rc133/bitmap-contact.js: Reuse the world and camera base transform inside one synchronous task and bind recorder methods once, keeping contact geometry identical."
+    },
+    {
+      "file": "assets/rc240/arcade-kit.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/arcade-kit.js",
+        "mode": "100644",
+        "sha256": "3495f5829ac18a37283ac9def15255c179b7cc407c2375f7e63db31b7e1c9e69",
+        "gitBlob": "60c2d973ec1ae0fc6720385aafd481970e9f7f45"
+      },
+      "reason": "assets/rc240/arcade-kit.js: Add the story-only arcade kit: power items, hero familiars and the double-tap bomb, runtime only and never saved."
+    },
+    {
+      "file": "assets/rc240/art/heart-fly8.webp",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/art/heart-fly8.webp",
+        "mode": "100644",
+        "sha256": "02ec0492466b78b30c7dbcbba9b5d1434213c41f8ad769f1700b29edfeded12a",
+        "gitBlob": "4441e4a7422330d73c1b4b677be189affe1204ee"
+      },
+      "reason": "assets/rc240/art/heart-fly8.webp: Add the original eight-frame heart sprite sheet drawn by the RC240 danmaku layer."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "83e378ac2f0f4d6e7e0f5c60d344066f4f41104726f52f6d06e6f3471859fc55",
+        "gitBlob": "43992cf86feabeeb5fc72332a6c886d719420c73"
+      },
+      "reason": "assets/rc240/boss-form.js: Add story boss weak-point parts, the one-way second form, stage title cards and display-only names."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "77e76b29f24ca9e3b38389a5e8a3ccc8891912e828575632c1489689bac57941",
+        "gitBlob": "c7d24571edc8c65248f6601a36e17778470284fb"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: Add the self-contained dense boss danmaku layer with its own pool, heart-only collision and frame governor."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "1c8f299c983212577e5ea1ab0ee8530623dd351c8211384a7de60c8920ab96a6",
+        "gitBlob": "ff64d4a060cfe64da6ed34af7b6ce94a87d51900"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: Add the phone landscape fit, rotate prompt polish, hero and enemy stand-off lines and the phone combat zoom."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "639babf1685a0f1a521f79d8dc0a265564494e74029d68ca1010aba043577f3f",
+        "gitBlob": "aec37832c0e483ec713efe047e8d11ccc7fb309a"
+      },
+      "reason": "assets/rc240/stg-feel.js: Add spirit coins, chain score, the charge shot, boss warnings and the result tally driven by the danmaku layer hooks."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b432f4213f2e10ee79eb6ee8db8d386c45e76c2b",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "0d8eef6f3eace7281e9a55cdcc66b3bb087df5fe81097bab22f36474f225e8f2",
+        "gitBlob": "37dbdc3ea62593650b8472ae6f10a3bd41e2b0a8"
+      },
+      "reason": "index.html: Load the four RC240 combat overlays after the RC26 UI module and the landscape fit at the end of the head."
+    }
+  ],
+  "targetProtectedRowsSha256": "42068dfeef93bb909bfe4c53e3430d19a98b9eb8ac33a17bd642fa55bf9db4ee"
+}
