@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "base": "cb9054d9cb3be4f6574939cab5e6595582ae23ba",
+  "baseTree": "60315066f7bff9f5791ada68c680f9c5587d6412",
+  "sourceCommit": "ff2a9bf369732023bd7b36386cb37d4d52190b58",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "1799e068584f41e6ff25cc72daf140c9ba6726d5ac81d338e4964b73d422dd7f",
+  "files": [
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1ab5861cd1ca99ddc27f35baa5c06e98fd7c437a",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "e133816b2318e9d3992e61bce2c8e8f7c0e7858b9dc0a1d6b037c79dee5871cb",
+        "gitBlob": "94a983ff6a1d4a1f263af092d3d0304853b3d482"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: The spell dim (multiply darken, vignette, PC desaturation) restores the canvas alpha from one cached same-size buffer after its passes, so transparent pixels (letterbox bars, the strip above the map) stay transparent instead of turning opaque grey; without a buffer it darkens with an alpha-preserving source-atop fill."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "994e3bb2b69e4a74dd2034eaf918c11aefe34a6c",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "ddfda5379077b6aa099783a062e04f834996cb71232d7a900ca6e7082aa76a23",
+        "gitBlob": "a593d6acc1c3a732f4a19786dc1dc4270c85545a"
+      },
+      "reason": "assets/rc240/stg-feel.js: A boss that dies drops its queued warning or fades the showing warning band out within 0.25 s, so the band never sits over the kill beat or the tally."
+    }
+  ],
+  "targetProtectedRowsSha256": "f6861882d4dc7e7f8ad865e30dc637bf5106b6a8ea08224621de92eda0c42b8c"
+}
