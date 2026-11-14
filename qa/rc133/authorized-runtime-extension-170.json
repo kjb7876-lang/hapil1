@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "ade55181f34cc41f20797a8a9a324733ac80f2d5",
+  "baseTree": "92ee84b45e375d6fb2d270977a4c5cc5924cc379",
+  "sourceCommit": "768168c6e469af25150e11af023322e325b399e8",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d8ef4780b8ad23dda7104e6b581c10f4a6a4cbf466a95982ef8b135e6dd30bf2",
+  "files": [
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "64b4dbc411a1141585bf44f07369a9bda67ca2dd",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "8c939956d08751e1b50870d354224e786e711d8819b9c73d91d08850de510009",
+        "gitBlob": "86734665ee9d3ba3ceec90a1ae68711ec970dec9"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: The landscape phone zoom is fitted in window (rc153Viewport) CSS space, so zoomCamera returns the base RC153 camera unless the view is landscape and its measured canvas fills that window within 1 CSS px; a 300/640/1280 px canvas inside an 844x390 window keeps its whole-body RC153 framing, and a real landscape phone (canvas == window) zooms exactly as before."
+    }
+  ],
+  "targetProtectedRowsSha256": "233681f4d8986d63a03b0f86d62c8f71482fd704df3396b28efa7777fff49d74"
+}

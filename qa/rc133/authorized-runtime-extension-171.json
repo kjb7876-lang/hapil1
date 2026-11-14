@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "cee38e1957d9030565e11f4c8b2fece9e81e223c",
+  "baseTree": "f016f258205871830d915afc9c64435057cc5c00",
+  "sourceCommit": "740500fde9dabe8917a87142bfe62e9fb76c44c2",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7bb10a4790b91ba561f1aac98744a1e688abf68ccaa711a6d9a65a62ceb4516b",
+  "files": [
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "86734665ee9d3ba3ceec90a1ae68711ec970dec9",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "0e3d4f59b9830331ca77792470fffdbcd10bf57177161c3ec9311858856633a5",
+        "gitBlob": "49420052aae428f309083a1afad30269fbb3d146"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: RC153 hands out a settled whole-body camera a frame or two after a fresh combat state is first framed; a base change within zoomSettleSeconds (0.25 s) of that first fit in the zone now snaps instead of starting a 0.6 s eased glide that was still running when combat input began (camera moved under arrow/blink); later phase changes, dead-zone and urgent re-aims ease as before and a real landscape phone keeps its zoom."
+    }
+  ],
+  "targetProtectedRowsSha256": "2884d9174fcb80e7aacafe99ad5af3e0244a026ce822a3d3e4efab0cf5dacbe3"
+}

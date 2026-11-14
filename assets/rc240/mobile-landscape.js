@@ -59,6 +59,7 @@
   zoomKeepHigh:.79,
   zoomDriftSeconds:.75,    // a shift must persist this long before a re-aim
   zoomEaseSeconds:.6,      // re-aims are eased over this much game time
+  zoomSettleSeconds:.25,   // a fresh state's framing settles (snaps) this long after its first fit
   resizeNudgePx:2,         // a viewport change this small (CSS px) is a nudge, not a new layout ...
   resizeScaleStep:.009,    // ... and moves the world-to-CSS scale by at most 0.9% (RC233: < 1% per pixel)
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
@@ -502,23 +503,33 @@
   if(D()?.active?.(s))return false;
   return true;
  }
+ // The zoom is fitted in window (rc153Viewport) CSS space, so it only holds
+ // for a landscape view whose measured canvas fills that window. A canvas of
+ // another size (e.g. a 300 px paint surface in an 844x390 window) keeps the
+ // base RC153 camera instead of a framing aimed at the window.
+ function viewFillsViewport(base){
+  const v=base.rc153View,vp=base.rc153Viewport,vw=finite(vp?.width)?vp.width:Number(root.innerWidth),vh=finite(vp?.height)?vp.height:Number(root.innerHeight);
+  return v.width>v.height&&Math.abs(v.width*v.k-vw)<=1&&Math.abs(v.height*v.k-vh)<=1;
+ }
  function zoomCamera(s,view,slotName,base){
   if(!base||typeof base!=='object'||!finite(base.scale)||!finite(base.x)||!finite(base.y)||base.scale<=0)return base;
   const v=base.rc153View;if(!v||!finite(v.x)||!finite(v.y)||!finite(v.width)||!finite(v.height)||!finite(v.k)||v.k<=0)return base;
-  if(!zoomEligible(s,view,slotName))return base;
+  if(!zoomEligible(s,view,slotName)||!viewFillsViewport(base))return base;
   if(!controlsRead)readControls();
   const f=rc223Shrink(base),vw=Number(root.innerWidth),vh=Number(root.innerHeight),t=s.time;
   let st=aims.get(s);
   if(!st||st.zone!==s.zone||st.vw!==vw||st.vh!==vh){
    const nudge=!!st&&st.zone===s.zone&&Math.abs(st.vw-vw)<=POLICY.resizeNudgePx&&Math.abs(st.vh-vh)<=POLICY.resizeNudgePx;
-   if(!st){st={zone:null,vw:0,vh:0,base:null,base0:null,f:1,version:-1,cam:null,fit:null,hx:NaN,emid:NaN,efar:NaN,boss:false,driftT:NaN,checkT:NaN,easing:false,easeT0:NaN,easeWall:0,base0Prev:null,fromX:0,fromY:0,fromScale:1,fromZ:1,bufA:null,bufB:null,buf:null,bufT:NaN,flip:false};aims.set(s,st);}
-   st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false,nudge);
+   if(!st){st={t0:NaN,zone:null,vw:0,vh:0,base:null,base0:null,f:1,version:-1,cam:null,fit:null,hx:NaN,emid:NaN,efar:NaN,boss:false,driftT:NaN,checkT:NaN,easing:false,easeT0:NaN,easeWall:0,base0Prev:null,fromX:0,fromY:0,fromScale:1,fromZ:1,bufA:null,bufB:null,buf:null,bufT:NaN,flip:false};aims.set(s,st);}
+   if(st.zone!==s.zone)st.t0=t;st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false,nudge);
   }else if(st.f!==f||st.version!==controlsVersion){
    // Layout inputs (touch controls, insets, RC223 view setting) can change
    // while paused: snap so the new constraints hold at once.
    st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false);
   }else if(st.base!==base){
-   st.checkT=t;refit(st,s,base,f,focus(s,focusNow),true);
+   // RC153 settling a fresh state's camera right after its first fit snaps:
+   // that glide would still be running when combat input begins.
+   st.checkT=t;refit(st,s,base,f,focus(s,focusNow),!(finite(t)&&finite(st.t0)&&t-st.t0<POLICY.zoomSettleSeconds));
   }else if(st.checkT!==t){
    // Dead zone with hysteresis: the framing stays while the far actor is in
    // [60%, 79%] of the width; outside it must persist before a re-aim.
