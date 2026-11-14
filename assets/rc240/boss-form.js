@@ -94,7 +94,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  const PARTICLE={'가':'이','와':'과','를':'을','는':'은','로':'으로','라':'이라','야':'이야','여':'이여','랑':'이랑','다':'이다'};
  const RE_HANG=/거꾸로\s*매달린\s*십자가(가|와|를|는|로|라|야|여|랑|다)?/g,RE_UPSIDE=/거꾸로\s*(?:된|세워진|선)\s*십자가(가|와|를|는|로|라|야|여|랑|다)?/g;
  const RE_CROSS=/[역성]?십자가(가|와|를|는|로|라|야|여|랑|다)?/g,RE_SHORT=/[역성]십자|십자(?=\s*(?:참격|탄막|진화|돌진|방패|베기|문양|표식|창|검|포화|교차))/g;
- const tail=p=>p?PARTICLE[p]??p:'';
+ const tail=p=>p?PARTICLE[p]??p:'',GRAZE_DX=48,GRAZE_DY=20;
  function fixText(t){if(typeof t!=='string'||t.indexOf('십자')<0)return t;
   return t.replace(RE_HANG,(m,p)=>'매달린 육망성'+tail(p)).replace(RE_UPSIDE,(m,p)=>'검은 육망성'+tail(p)).replace(RE_CROSS,(m,p)=>'육망성'+tail(p)).replace(RE_SHORT,'육망성');}
  const textFixed=new WeakSet();
@@ -107,7 +107,11 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  let textHooks=false;
  function installTextHooks(){if(textHooks)return;textHooks=true;
   try{const P=root.CanvasRenderingContext2D?.prototype;if(P&&!P.fillText?.rc240BossForm){for(const k of ['fillText','strokeText']){const base=P[k];if(typeof base!=='function')continue;
-    const fn=function(t,...r){return base.call(this,enabledFlag&&typeof t==='string'&&t.indexOf('십자')>=0?fixText(t):t,...r);};fn.rc240BossForm=true;P[k]=fn;}}}catch(e){fail(e);}
+    const fn=function(t,x,y,...r){if(enabledFlag&&typeof t==='string'){if(t.indexOf('십자')>=0)t=fixText(t);
+      // Phone: the native RC129 "GRAZE n" readout (right-aligned at w-10, y 21) sits under the settings gear;
+      // it moves left of the gear, under the RC240 score line (score right edge = w - 58).
+      else if(k==='fillText'&&(t.charCodeAt(0)===71?t.startsWith('GRAZE '):t.startsWith('피해 5% 감소'))&&this.textAlign==='right'&&n(root.innerWidth,1280)<900&&n(root.innerHeight,720)<500&&typeof x==='number'&&typeof y==='number'){x-=GRAZE_DX;y+=GRAZE_DY;}}
+     return base.call(this,t,x,y,...r);};fn.rc240BossForm=true;P[k]=fn;}}}catch(e){fail(e);}
   try{const d=root.document,MO=root.MutationObserver;if(!d?.body||typeof MO!=='function')return;
    const fixNode=node=>{if(!enabledFlag||!node)return;if(node.nodeType===3){const v=node.nodeValue;if(v&&v.indexOf('십자')>=0){const f=fixText(v);if(f!==v){node.nodeValue=f;metrics.renames++;}}return;}
     if(node.nodeType===1&&(node.textContent??'').indexOf('십자')>=0){const w=d.createTreeWalker(node,4);let x;while((x=w.nextNode()))fixNode(x);}};
@@ -278,17 +282,25 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  // band opening from the centre across the whole width, double gold rules, the name large; the title
  // card also brings thin letterbox bars in from the top and bottom edges. k = px per 1280-wide unit.
  const BAND={x0:0,bw:0,bh:0,cy:0};const R4=(ctx,x,y,w,h)=>{ctx.beginPath();ctx.rect(x,y,w,h);ctx.fill();};
- function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars){a=clamp(n(a,0),0,1);const bh=(sub?78:68)*k,e=clamp(open,0,1),x0=cw/2*(1-e),bw=cw*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
+ // Optional horizontal span [xl, xr] (phone title card: inset clear of the left HUD stack and the gear).
+ function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars,xl,xr){a=clamp(n(a,0),0,1);const L0=n(xl,0),R0=n(xr,cw),mid=(L0+R0)/2,span=Math.max(1,R0-L0);
+  const bh=(sub?78:68)*k,e=clamp(open,0,1),x0=mid-span/2*e,bw=span*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
   // Paths, not fillRect: the white-out checks treat full-width fillRects as screen washes.
   ctx.globalCompositeOperation='source-over';
   if(bars){const lb=26*k*e;ctx.globalAlpha=.7*a;ctx.fillStyle='#030207';R4(ctx,0,0,cw,lb);R4(ctx,0,ch-lb,cw,lb);}
   ctx.globalAlpha=.78*a;ctx.fillStyle='#07040c';R4(ctx,x0,y0,bw,bh);
   ctx.globalAlpha=.35*a;R4(ctx,x0,y0-6*k,bw,6*k);R4(ctx,x0,y0+bh,bw,6*k);
   ctx.fillStyle=GOLD;ctx.globalAlpha=.95*a;const L=Math.max(1,1.6*k);R4(ctx,x0,y0,bw,L);R4(ctx,x0,y0+bh-L,bw,L);ctx.globalAlpha=.45*a;R4(ctx,x0,y0+4*k,bw,Math.max(1,.8*k));R4(ctx,x0,y0+bh-5*k,bw,Math.max(1,.8*k));
-  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,cw/2,y0+L/2,5*k);dia(ctx,cw/2,y0+bh-L/2,5*k);ctx.fill();
+  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,mid,y0+L/2,5*k);dia(ctx,mid,y0+bh-L/2,5*k);ctx.fill();
   ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`600 ${Math.round((sub?30:34)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
-  hudText(ctx,title,cw/2,sub?cy-12*k:cy+1*k);
-  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,cw/2,cy+22*k);}}
+  hudText(ctx,title,mid,sub?cy-12*k:cy+1*k);
+  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,mid,cy+22*k);}}
+ // Title card slot (device px of the world canvas): PC in the top band above the arena (cy .19 x height,
+ // full width); phone at the same height as before but inset between the left HUD stack (pips / F button,
+ // x < 156 CSS px) and the settings gear (right 56 CSS px).
+ const SLOT={cy:0,xl:0,xr:0};
+ function titleSlot(cw,ch){const iw=n(root.innerWidth,1280),ph=mobile()||n(root.innerHeight,720)<500,d=cw/Math.max(1,iw);
+  if(ph){SLOT.cy=ch*.4;SLOT.xl=160*d;SLOT.xr=cw-56*d;}else{SLOT.cy=ch*.19;SLOT.xl=0;SLOT.xr=cw;}return SLOT;}
  // Flash envelope: fast rise (.04 s) then exponential decay; no flicker.
  function flashEnv(age){return age<0?0:age<.04?age/.04:Math.exp(-(age-.04)*4.5);}
  function render(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const w=worlds.get(s);if(!w)return;const t0=now();metrics.draws++;set=set??{};
@@ -320,16 +332,22 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    // screen space: white-out fallback (only when the above-HUD overlay is not running) and title card
    const cv=ctx.canvas,cw=n(cv?.width,1280),ch=n(cv?.height,720),sk=cw/1280;
    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';
-   if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r');}
-   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1);
-    band(ctx,cw,ch,ch*.4,sk,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',true);}
+   if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r',t-wb.at);}
+   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),Q=titleSlot(cw,ch);
+    band(ctx,cw,ch,Q.cy,sk,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',true,Q.xl,Q.xr);}
   }catch(e){fail(e);}finally{ctx.restore();}
   metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;}
  // Additive boss-centred radial flash (keeps contrast at the edges; never a flat grey wash). The gradient
  // is rebuilt only when the centre / radius moves (cache per path: 'r' render fallback, 'o' overlay).
- function drawFlash(ctx,w,b,env,reduced,cx,cy,cw,ch,path){const R=Math.max(cw,ch)*(ch<500||cw<900?1.25:.95),key=path==='o'?'fo':'fr',c=w[key];
-  let G=c&&c.ctx===ctx&&Math.abs(c.x-cx)<4&&Math.abs(c.y-cy)<4&&Math.abs(c.r-R)<4?c.g:null;
-  if(!G&&typeof ctx.createRadialGradient==='function'){G=ctx.createRadialGradient(cx,cy,0,cx,cy,R);G.addColorStop(0,'rgba(255,250,252,1)');G.addColorStop(.12,'rgba(255,228,242,.75)');G.addColorStop(.38,'rgba(255,190,225,.28)');G.addColorStop(.7,'rgba(200,140,220,.07)');G.addColorStop(1,'rgba(200,140,220,0)');w[key]={ctx,x:cx,y:cy,r:R,g:G};}
+ // PC: the wide lift is the first ~50 ms only (age < FLASH_WIDE); after it the gradient tightens around the
+ // boss (radius .5 x the long side) so the frame never reads as a milky full-screen haze. Phone unchanged.
+ const FLASH_WIDE=.05;
+ function drawFlash(ctx,w,b,env,reduced,cx,cy,cw,ch,path,age){const ph=ch<500||cw<900,wide=ph||!(n(age,0)>=FLASH_WIDE),R=Math.max(cw,ch)*(ph?1.25:wide?.95:.5),key=path==='o'?'fo':'fr',c=w[key];
+  let G=c&&c.ctx===ctx&&c.wide===wide&&Math.abs(c.x-cx)<4&&Math.abs(c.y-cy)<4&&Math.abs(c.r-R)<4?c.g:null;
+  if(!G&&typeof ctx.createRadialGradient==='function'){G=ctx.createRadialGradient(cx,cy,0,cx,cy,R);G.addColorStop(0,'rgba(255,250,252,1)');
+   if(wide){G.addColorStop(.12,'rgba(255,228,242,.75)');G.addColorStop(.38,'rgba(255,190,225,.28)');G.addColorStop(.7,'rgba(200,140,220,.07)');}
+   else{G.addColorStop(.1,'rgba(255,230,244,.72)');G.addColorStop(.32,'rgba(255,190,225,.2)');G.addColorStop(.65,'rgba(200,140,220,.03)');}
+   G.addColorStop(1,'rgba(200,140,220,0)');w[key]={ctx,x:cx,y:cy,r:R,g:G,wide};}
   if(!G)return;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=clamp(env*(reduced?WHITE_PEAK_REDUCED:WHITE_PEAK),0,1);ctx.fillStyle=G;ctx.fillRect(0,0,cw,ch);ctx.globalCompositeOperation='source-over';}
  function drawSecondForm(ctx,b,t,k,reduced,low){const x=b.ax,y=b.ay;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;
   const pul=reduced?1:.85+.15*Math.sin(t*1.7);ctx.globalCompositeOperation='lighter';
@@ -346,7 +364,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   const cv=ctx.canvas,kx=n(cv?.width,cw)/Math.max(1,n(cw,1280)),ky=n(cv?.height,ch)/Math.max(1,n(ch,720)),reduced=!!set.reducedFlash;let d=0;
   for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;if(!(u>=0&&u<1))continue;
    const cx=b.dOk?b.dx/kx:cw/2,cy=b.dOk?b.dy/ky:ch*.4;if(!(Number.isFinite(cx)&&Number.isFinite(cy)))continue;
-   drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o');d++;
+   drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o',age);d++;
    if(ringSprite){const R=40+Math.max(cw,ch)*.75*easeOut(u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.pow(1-u,1.5)*(reduced?RING_PEAK_REDUCED:.9);ctx.drawImage(ringSprite,cx-R,cy-R,2*R,2*R);
     const R2=R*.62;ctx.globalAlpha*=.6;ctx.drawImage(ringSprite,cx-R2,cy-R2,2*R2,2*R2);d++;}}
   // Second form re-declared: a full-width band with the boss name, after the white-out peak.
