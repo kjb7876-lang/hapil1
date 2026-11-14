@@ -502,10 +502,18 @@
   if(D()?.active?.(s))return false;
   return true;
  }
+ // The zoom is fitted in window (rc153Viewport) CSS space, so it only holds
+ // for a landscape view whose measured canvas fills that window. A canvas of
+ // another size (e.g. a 300 px paint surface in an 844x390 window) keeps the
+ // base RC153 camera instead of a framing aimed at the window.
+ function viewFillsViewport(base){
+  const v=base.rc153View,vp=base.rc153Viewport,vw=finite(vp?.width)?vp.width:Number(root.innerWidth),vh=finite(vp?.height)?vp.height:Number(root.innerHeight);
+  return v.width>v.height&&Math.abs(v.width*v.k-vw)<=1&&Math.abs(v.height*v.k-vh)<=1;
+ }
  function zoomCamera(s,view,slotName,base){
   if(!base||typeof base!=='object'||!finite(base.scale)||!finite(base.x)||!finite(base.y)||base.scale<=0)return base;
   const v=base.rc153View;if(!v||!finite(v.x)||!finite(v.y)||!finite(v.width)||!finite(v.height)||!finite(v.k)||v.k<=0)return base;
-  if(!zoomEligible(s,view,slotName))return base;
+  if(!zoomEligible(s,view,slotName)||!viewFillsViewport(base))return base;
   if(!controlsRead)readControls();
   const f=rc223Shrink(base),vw=Number(root.innerWidth),vh=Number(root.innerHeight),t=s.time;
   let st=aims.get(s);
