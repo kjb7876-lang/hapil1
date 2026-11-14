@@ -28,7 +28,8 @@
  const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,clamp=(v,a,b)=>v<a?a:v>b?b:v,TAU=Math.PI*2;
  const FORM_BANNER_AT=.3,FORM_BANNER_DUR=1.8,PART_HP=.08,PART_SHARE=.35,TRANSFORM_AT=.5,TRANSFORM_DUR=1.2,TITLE_DUR=1.8,POOL_CAP=160,POOL_CAP_MOBILE=96;
  const WHITE_PEAK=.7,WHITE_PEAK_REDUCED=.2,RING_PEAK_REDUCED=.25,RETICLE_ARCS=3,GOLD='#c9a65a',INK='#0a0612';
- const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,villagerDraws:0,villagerDeaths:0,errors:0};
+ const CLEAR_EVERY=.35;
+ const metrics={installs:0,ticks:0,parts:0,partHits:0,breaks:0,bursts:0,transforms:0,cancels:0,nativeCancels:0,titles:0,renames:0,seeds:0,draws:0,drawMs:0,rewraps:0,villagerDraws:0,villagerDeaths:0,errors:0};
  let lastError=null;
  function fail(e){metrics.errors++;lastError=String(e&&e.stack||e).slice(0,300);if(metrics.errors<=3)root.console?.warn?.('RC240 boss-form',e);}
  const now=()=>root.performance?.now?.()??Date.now();
@@ -94,7 +95,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  const PARTICLE={'가':'이','와':'과','를':'을','는':'은','로':'으로','라':'이라','야':'이야','여':'이여','랑':'이랑','다':'이다'};
  const RE_HANG=/거꾸로\s*매달린\s*십자가(가|와|를|는|로|라|야|여|랑|다)?/g,RE_UPSIDE=/거꾸로\s*(?:된|세워진|선)\s*십자가(가|와|를|는|로|라|야|여|랑|다)?/g;
  const RE_CROSS=/[역성]?십자가(가|와|를|는|로|라|야|여|랑|다)?/g,RE_SHORT=/[역성]십자|십자(?=\s*(?:참격|탄막|진화|돌진|방패|베기|문양|표식|창|검|포화|교차))/g;
- const tail=p=>p?PARTICLE[p]??p:'';
+ const tail=p=>p?PARTICLE[p]??p:'',GRAZE_DX=104,GRAZE_DY=20;
  function fixText(t){if(typeof t!=='string'||t.indexOf('십자')<0)return t;
   return t.replace(RE_HANG,(m,p)=>'매달린 육망성'+tail(p)).replace(RE_UPSIDE,(m,p)=>'검은 육망성'+tail(p)).replace(RE_CROSS,(m,p)=>'육망성'+tail(p)).replace(RE_SHORT,'육망성');}
  const textFixed=new WeakSet();
@@ -107,7 +108,11 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  let textHooks=false;
  function installTextHooks(){if(textHooks)return;textHooks=true;
   try{const P=root.CanvasRenderingContext2D?.prototype;if(P&&!P.fillText?.rc240BossForm){for(const k of ['fillText','strokeText']){const base=P[k];if(typeof base!=='function')continue;
-    const fn=function(t,...r){return base.call(this,enabledFlag&&typeof t==='string'&&t.indexOf('십자')>=0?fixText(t):t,...r);};fn.rc240BossForm=true;P[k]=fn;}}}catch(e){fail(e);}
+    const fn=function(t,x,y,...r){if(enabledFlag&&typeof t==='string'){if(t.indexOf('십자')>=0)t=fixText(t);
+      // R5 phone: the native RC129 "GRAZE n" readout (right edge, y 21) sits under the settings gear; it
+      // moves left of the gear, under the RC240 score line (score right edge = w - 112).
+      else if(k==='fillText'&&(t.charCodeAt(0)===71?t.startsWith('GRAZE '):t.startsWith('피해 5% 감소'))&&this.textAlign==='right'&&n(root.innerWidth,1280)<900&&n(root.innerHeight,720)<500&&typeof x==='number'&&typeof y==='number'){x-=GRAZE_DX;y+=GRAZE_DY;}}
+     return base.call(this,t,x,y,...r);};fn.rc240BossForm=true;P[k]=fn;}}}catch(e){fail(e);}
   try{const d=root.document,MO=root.MutationObserver;if(!d?.body||typeof MO!=='function')return;
    const fixNode=node=>{if(!enabledFlag||!node)return;if(node.nodeType===3){const v=node.nodeValue;if(v&&v.indexOf('십자')>=0){const f=fixText(v);if(f!==v){node.nodeValue=f;metrics.renames++;}}return;}
     if(node.nodeType===1&&(node.textContent??'').indexOf('십자')>=0){const w=d.createTreeWalker(node,4);let x;while((x=w.nextNode()))fixNode(x);}};
@@ -158,7 +163,16 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   return c.kind==='floor'?Math.max(1,n(c.floor,2)):0;}
  function transform(s,b){b.stage=1;b.at=n(s.time);{const c=W(s).card;b.bannerAt=Math.max(b.at+FORM_BANNER_AT,c&&c.until>b.at?c.until+.1:-1);}b.floor=floorFor(b);b.procedural=!b.cfg;metrics.transforms++;
   burst(s,b.ax,b.ay,mobile()?18:36,2);
-  try{const r=root.__HAPIL_DANMAKU_RC240__;if(typeof r?.cancelAll==='function'){r.cancelAll(s,'wipe',b.ax,b.ay);metrics.cancels++;}}catch(e){fail(e);}}
+  b.clearAt=-9;clearField(s,b);}
+ // R5: the transformation and its banner are a clean beat on PC and phone: RC240 bullets and native hostile
+ // bullets (the bomb's cancel path, arcade kit) are cancelled at the start and every CLEAR_EVERY s until the
+ // banner ends, and RC240 firing is held for the same window (m.warnHoldUntil, the boss-warning hold).
+ function clearField(s,b){const t=n(s.time),first=!(n(b.clearAt,-9)>=b.at);if(!first&&t-b.clearAt<CLEAR_EVERY&&t>=b.clearAt)return;b.clearAt=t;
+  // RC240 bullets: one cancel at the transformation (firing is held afterwards, so the pool stays empty).
+  if(first)try{const r=root.__HAPIL_DANMAKU_RC240__;if(typeof r?.cancelAll==='function'){r.cancelAll(s,'wipe',b.ax,b.ay);metrics.cancels++;}}catch(e){fail(e);}
+  try{const k=root.__HAPIL_ARCADE_KIT_RC240__;if(typeof k?.cancelNative==='function')metrics.nativeCancels+=n(k.cancelNative(s));}catch(e){fail(e);}}
+ function holdField(s,w,t){for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;const end=n(b.bannerAt,b.at+FORM_BANNER_AT)+FORM_BANNER_DUR;if(!(t>=b.at&&t<end))continue;
+   clearField(s,b);try{const m=root.__HAPIL_DANMAKU_RC240__?.world?.(s);if(m&&!(n(m.warnHoldUntil,-1)>=end))m.warnHoldUntil=end;}catch(e){fail(e);}}}
  function breakPart(s,b,p){p.broken=true;p.hp=0;metrics.breaks++;burst(s,p.sx,p.sy,mobile()?14:28,1);
   try{const f=root.__HAPIL_STG_FEEL_RC240__;if(typeof f?.dropPower==='function')f.dropPower(s,p.sx,p.sy,2);if(typeof f?.dropCoins==='function')f.dropCoins(s,p.sx,p.sy,6);}catch(e){fail(e);}}
  function tick(s,dt){if(!enabledFlag||!s||typeof s!=='object')return;metrics.ticks++;dt=clamp(n(dt,0),0,.1);
@@ -176,7 +190,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    if(!owner(a))continue;const b=bossOf(s,a);placeBoss(b);
    if(b.stage===0&&(b.boss||b.cfg)&&n(a.hp)/Math.max(1,n(a.maxHp,1))<=TRANSFORM_AT)transform(s,b);}
   // Queue: a second-form banner that has not started yet waits for the boss warning (STG feel) to clear.
-  {const t=n(s.time);for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!(t<=n(b.bannerAt,-1)+.02))continue;let wu=-1;try{wu=n(root.__HAPIL_STG_FEEL_RC240__?.warnUntil?.(s),-1);}catch(e){}if(wu>t)b.bannerAt=Math.max(b.bannerAt,wu+.1);}}
+  {const t=n(s.time);for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!(t<=n(b.bannerAt,-1)+.02))continue;let wu=-1;try{wu=n(root.__HAPIL_STG_FEEL_RC240__?.warnUntil?.(s),-1);}catch(e){}if(wu>t)b.bannerAt=Math.max(b.bannerAt,wu+.1);}holdField(s,w,t);}
   if(seedTick++%30===0)seedCurrent();}
  function afterHit(s,target,raw,applied,source){
   if(enabledFlag&&source&&typeof source==='object'&&(source.heroId??source.heroId31213)==='michaela'&&source.actionKey==='A'){
@@ -281,7 +295,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  // R4: optional horizontal span [xl, xr] (phone: clear of the left HUD stack and the settings button); the
  // title-only band is thinner (56 units).
  function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars,xl,xr){a=clamp(n(a,0),0,1);const L0=n(xl,0),R0=n(xr,cw),mid=(L0+R0)/2,span=Math.max(1,R0-L0);
-  const bh=(sub?78:56)*k,e=clamp(open,0,1),x0=mid-span/2*e,bw=span*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
+  const bh=(sub?FORM_BH:56)*k,e=clamp(open,0,1),x0=mid-span/2*e,bw=span*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
   // Paths, not fillRect: the white-out checks treat full-width fillRects as screen washes.
   ctx.globalCompositeOperation='source-over';
   if(bars){const lb=26*k*e;ctx.globalAlpha=.7*a;ctx.fillStyle='#030207';R4(ctx,0,0,cw,lb);R4(ctx,0,ch-lb,cw,lb);}
@@ -289,14 +303,17 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   ctx.globalAlpha=.35*a;R4(ctx,x0,y0-6*k,bw,6*k);R4(ctx,x0,y0+bh,bw,6*k);
   ctx.fillStyle=GOLD;ctx.globalAlpha=.95*a;const L=Math.max(1,1.6*k);R4(ctx,x0,y0,bw,L);R4(ctx,x0,y0+bh-L,bw,L);ctx.globalAlpha=.45*a;R4(ctx,x0,y0+4*k,bw,Math.max(1,.8*k));R4(ctx,x0,y0+bh-5*k,bw,Math.max(1,.8*k));
   ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,mid,y0+L/2,5*k);dia(ctx,mid,y0+bh-L/2,5*k);ctx.fill();
-  ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`600 ${Math.round((sub?30:32)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
-  hudText(ctx,title,mid,sub?cy-12*k:cy+1*k);
-  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,mid,cy+22*k);}}
+  ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`${sub?700:600} ${Math.round((sub?FORM_TYPE:32)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
+  hudText(ctx,title,mid,sub?cy-11*k:cy+1*k);
+  if(sub){ctx.font=`700 ${Math.round(19*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,mid,cy+27*k);}}
  // Band slot (R4): PC in the top band above the arena (full width); phone in the warning slot (CSS y 78),
  // between the left HUD stack (pips / F button, x < 156) and the settings button. Units: px of (cw, ch);
  // dpr = those px per CSS px.
- const SLOT={cy:0,xl:0,xr:0,k:1};
- function slot(cw,ch,dpr,phone,sub){if(phone){SLOT.k=clamp(dpr*.62,.4,3);SLOT.xl=160*dpr;SLOT.xr=cw-56*dpr;SLOT.cy=(sub?80:76)*dpr;}else{SLOT.k=cw/1280;SLOT.xl=0;SLOT.xr=cw;SLOT.cy=ch*(sub?.2:.19);}return SLOT;}
+ // R5 hierarchy: the title card is the widest plate (full width on PC) with a slow fade; the second-form
+ // banner has the largest type (FORM_TYPE units) and a taller band, over a short arena dim. Phone: right
+ // of the inline pips (x < 228), below the native boss-phase panel (y <= 51), left of the settings gear.
+ const SLOT={cy:0,xl:0,xr:0,k:1},FORM_TYPE=40,FORM_BH=88,FORM_DIM=.34;
+ function slot(cw,ch,dpr,phone,sub){if(phone){SLOT.k=clamp(dpr*(sub?.7:.62),.4,3);SLOT.xl=(sub?244:228)*dpr;SLOT.xr=cw-(sub?72:56)*dpr;SLOT.cy=(sub?87:83)*dpr;}else{SLOT.k=cw/1280;SLOT.xl=0;SLOT.xr=cw;SLOT.cy=ch*(sub?.21:.19);}return SLOT;}
  // Flash envelope: fast rise (.04 s) then exponential decay; no flicker.
  function flashEnv(age){return age<0?0:age<.04?age/.04:Math.exp(-(age-.04)*4.5);}
  function render(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const w=worlds.get(s);if(!w)return;const t0=now();metrics.draws++;set=set??{};
@@ -329,7 +346,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    const cv=ctx.canvas,cw=n(cv?.width,1280),ch=n(cv?.height,720),sk=cw/1280;
    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';
    if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r',t-wb.at);}
-   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),ph=mobile()||n(root.innerHeight,720)<500,Q=slot(cw,ch,cw/Math.max(1,n(root.innerWidth,1280)),ph,false);
+   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.4,(c.until-t)/.7),0,1),ph=mobile()||n(root.innerHeight,720)<500,Q=slot(cw,ch,cw/Math.max(1,n(root.innerWidth,1280)),ph,false);
     band(ctx,cw,ch,Q.cy,Q.k,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',!ph,Q.xl,Q.xr);}
   }catch(e){fail(e);}finally{ctx.restore();}
   metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;}
@@ -358,7 +375,8 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  // render() skips its own under-HUD fallback flash.
  function drawOverlay(ctx,s,set,cw,ch){if(!enabledFlag||!ctx||!s)return 0;const w=worlds.get(s);if(!w||!story(s))return 0;const t=n(s.time);w.overlayT=t;set=set??{};sprites();
   const cv=ctx.canvas,kx=n(cv?.width,cw)/Math.max(1,n(cw,1280)),ky=n(cv?.height,ch)/Math.max(1,n(ch,720)),reduced=!!set.reducedFlash;let d=0;
-  for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;if(!(u>=0&&u<1))continue;
+  for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;// R5: a boss killed mid-transformation drops its white-out and ring at once (they sat on the kill beat)
+   const age=t-b.at,u=age/TRANSFORM_DUR;if(!(u>=0&&u<1))continue;
    const cx=b.dOk?b.dx/kx:cw/2,cy=b.dOk?b.dy/ky:ch*.4;if(!(Number.isFinite(cx)&&Number.isFinite(cy)))continue;
    drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o',age);d++;
    if(ringSprite){const R=40+Math.max(cw,ch)*.75*easeOut(u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.pow(1-u,1.5)*(reduced?RING_PEAK_REDUCED:.9);ctx.drawImage(ringSprite,cx-R,cy-R,2*R,2*R);
@@ -366,6 +384,7 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   // Second form re-declared: a full-width band with the boss name, after the white-out peak.
   for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;const age=t-n(b.bannerAt,b.at+FORM_BANNER_AT);if(!(age>=0&&age<FORM_BANNER_DUR))continue;
    const a=clamp(Math.min(age/.2,(FORM_BANNER_DUR-age)/.35),0,1),W0=n(cw,1280),H0=n(ch,720),ph=W0<800||H0<500,Q=slot(W0,H0,1,ph,true),k=ph?Q.k:clamp(W0/1280,.6,1.4);
+   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=FORM_DIM*a;ctx.fillStyle='#05030a';R4(ctx,0,0,W0,H0);
    band(ctx,W0,H0,Q.cy,k,a,reduced?1:easeOut(age/.25),String(b.actor.name??'보스'),'제2형태','#ffe3e6',false,Q.xl,Q.xr);d++;}
   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return d;}
  // Floor pass (under actors; STG feel calls it from the background seam): last302 villager contact

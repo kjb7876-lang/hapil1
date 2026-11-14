@@ -18,7 +18,8 @@
  const CHAIN_WINDOW=1.2,MULT_CAP=4,T1=.7,T2=1.5,CD1=2,CD2=3.5,AUTO_EVERY=7;
  const TAME_SHARE=.2,TAME_SHARE_AUTO=.1,TAME_WINDOW=30;
  // Review round 1: kill beat before the tally, heart ring graze radius (px), callout ring size.
- const KILL_BEAT=.85,TALLY_LIFE=3.6,RING_NEAR=40,RING_TOUCH=14,CALL_N=4,GOLD='#c9a65a',INK='#0a0612';
+ const PULSE_FRAC=.75,PULSE_DUR=.7,FLASH_COVER=.4;
+ const KILL_BEAT=.85,TALLY_LIFE=3.6,RING_NEAR=40,RING_TOUCH=14,CALL_N=4,GOLD='#c9a65a',INK='#0a0612',KILL_COL='#ffd27a';
  const CANCEL_RULES={bomb:{every:2,max:48,kind:1},capture:{every:3,max:48,kind:1},'spell-end':{every:6,max:24,kind:0},serial:{every:6,max:24,kind:0},owner:{every:2,max:64,kind:1},wipe:{every:3,max:40,kind:0},api:{every:3,max:40,kind:0}};
  // Gain tiers (player hit > shot/charge/bomb > boss > hit-confirm > enemy bullet > mobs); RC240 adds no enemy-bullet or mob sounds.
  // pickup/familiar sit in the hit-confirm band, below confirm. Bomb or a player hit ducks every tier below 'shot' for .25 s.
@@ -129,11 +130,16 @@
   f.lastOwner=a;if(!f.fight||String(f.fight.ownerId)!==String(a.id))f.fight={ownerId:a.id,boss:!!a.boss,name:String(a.name??'보스'),start:t,spells:0,captured:0,grazes:0,maxChain:0,coins:0,coinsOut:0,score0:f.score,hits:0};
   if(f.warned.has(key))return;f.warned.add(key);const big=!!a.boss;
   // Beat order: stage title card first, then the warning, then combat. Never both on screen.
-  const tu=titleUntil(s),start=tu>t?tu+.15:t;f.warn={at:start,dur:big?2.2:1.2,name:String(a.name??''),id:String(a.id),big,sounded:false};metrics.warnings++;
-  if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),start+(big?1:.5));}
+  // R5: the intro warning is for a fresh encounter. A boss first met already damaged (re-entry, ~50% HP)
+  // gets a short edge pulse only (no band, no name), so it never reads as the intro shown again mid-fight.
+  const pulse=big&&n(a.hp)/Math.max(1,n(a.maxHp,n(a.hp,1)))<PULSE_FRAC;
+  const tu=titleUntil(s),start=tu>t?tu+.15:t;f.warn={at:start,dur:pulse?PULSE_DUR:big?2.2:1.2,name:String(a.name??''),id:String(a.id),big,pulse,sounded:false};metrics.warnings++;
+  if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),start+(pulse?.3:big?1:.5));}
  function titleUntil(s){try{const v=root.__HAPIL_BOSS_FORM_RC240__?.titleUntil?.(s);return Number.isFinite(v)?v:-1;}catch(e){return -1;}}
  function stepWarn(s,f,m,t){const W=f.warn;if(!W)return;
-  if(t<W.at+.05){const tu=titleUntil(s);if(tu>t&&W.at<tu+.15){W.at=tu+.15;if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),W.at+(W.big?1:.5));}}
+  if(t<W.at+.05){const tu=titleUntil(s);if(tu>t&&W.at<tu+.15){W.at=tu+.15;if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),W.at+(W.pulse?.3:W.big?1:.5));}}
+  // R5: the intro band does not linger into the fight: once its boss is below PULSE_FRAC HP it fades out now.
+  if(W.big&&!W.pulse&&t>=W.at){const a=f.lastOwner;if(a&&String(a.id)===W.id&&n(a.hp)>0&&n(a.hp)/Math.max(1,n(a.maxHp,n(a.hp)))<PULSE_FRAC&&W.at+W.dur>t+.3)W.dur=t-W.at+.3;}
   if(!W.sounded&&t>=W.at){W.sounded=true;sound(f,s,'heavy',W.big?GAIN.boss:GAIN.boss*.7,.5,'boss');}
   if(t>=W.at+W.dur)f.warn=null;}
  // R3/R4: the warning belongs to its actor: when that actor dies the warning (queued or showing) is
@@ -214,7 +220,9 @@
   kitCall('tick',s,dt,m);}
  // Kill beat: a held flash on the boss, staggered rings, rays and embers, then the tally slides in.
  function killBeat0(s,f,m,a,t){let x=n(m?.lastMuzzle?.x,640),y=n(m?.lastMuzzle?.y,300);if(a&&Number.isFinite(a.x)&&Number.isFinite(a.y)){const p=project(a.x,a.y);if(Number.isFinite(p.x)&&Number.isFinite(p.y)){x=p.x;y=p.y-90;}}
-  f.kill={at:t,x,y};for(let k=0;k<22;k++){const ang=rnd(f)*TAU,v=120+260*rnd(f);f.sparks.push({x,y,vx:Math.cos(ang)*v,vy:Math.sin(ang)*v*.8,born:t,life:.5+.4*rnd(f),c:k%3?'#ffd27a':'#fff3c8'});}
+  // R5: boss palette (actor colour) for the burst, rays and embers; fy = the boss's feet (floor rings).
+  const col=typeof a?.color==='string'&&/^#[0-9a-f]{6}$/i.test(a.color)?a.color:KILL_COL;
+  f.kill={at:t,x,y,fy:y+90,col};for(let k=0;k<26;k++){const ang=rnd(f)*TAU,v=90+230*rnd(f);f.sparks.push({x,y,vx:Math.cos(ang)*v,vy:Math.sin(ang)*v*.7-40,born:t+.03*(k&3),life:.6+.5*rnd(f),c:k%4?col:'#ffe9c4',s:13+7*rnd(f)});}
   sound(f,s,'heavy',GAIN.charge,.3);duck(s,.4);}
  function killBeat(s){const f=s&&worlds.get(s);return !!(f?.kill&&n(s.time)-f.kill.at<KILL_BEAT+.3&&n(s.time)>=f.kill.at);}
 
@@ -256,9 +264,15 @@
    ctx.fillStyle=b.pal.core;shapePath(ctx,b.shape,b.size*.42);ctx.fill();ctx.restore();k++;}return k;}
 
  // ---------------------------------------------------------------- Michaela heart impact (hit6)
- const hit={state:'idle',im:null,loads:0};
+ const hit={state:'idle',im:null,tint:null,loads:0};
  function loadHit(){if(hit.state!=='idle'||typeof root.Image!=='function')return;hit.state='loading';hit.loads++;
-  try{const im=new root.Image();im.onload=()=>{im.onload=im.onerror=null;hit.state='ready';};im.onerror=()=>{im.onload=im.onerror=null;hit.state='failed';hit.im=null;};hit.im=im;im.src=HIT6.sheet;}catch(e){hit.state='failed';hit.im=null;fail(e);}}
+  try{const im=new root.Image();im.onload=()=>{im.onload=im.onerror=null;hit.tint=tintHit(im,HIT_TINT);hit.state='ready';};im.onerror=()=>{im.onload=im.onerror=null;hit.state='failed';hit.im=null;};hit.im=im;im.src=HIT6.sheet;}catch(e){hit.state='failed';hit.im=null;fail(e);}}
+ // R5: the sheet's red ribbons read as hostile. The artist's sheet is still drawn as it is; a hero-gold
+ // layer with the sheet's own alpha (baked once) is then laid over each frame with the 'hue' blend, so only
+ // the sprite's pixels move into the hero colour family (luminance and shape kept, no red left).
+ const HIT_TINT='#ecd994';
+ function tintHit(im,col){try{const W=n(im?.naturalWidth,n(im?.width)),H=n(im?.naturalHeight,n(im?.height));if(!(W>0&&H>0))return null;const c=canvas(W,H),g=c?.getContext?.('2d');if(!g)return null;
+   g.drawImage(im,0,0);g.globalCompositeOperation='source-in';g.fillStyle=col;g.fillRect(0,0,W,H);g.globalCompositeOperation='source-over';return c;}catch(e){fail(e);return null;}}
  function phoneNow(){try{return n(root.innerWidth,1280)<800||root.__HAPIL_COMBAT_RC47__?.mobile?.()===true;}catch(e){return false;}}
  function impactLift(s){const ef=s.effects;if(Array.isArray(ef))for(let i=ef.length-1;i>=0;i--){const e=ef[i];if(e&&e.heroId31213==='michaela'&&e.heroActionKey31213==='A'&&Number.isFinite(e.endOffsetY))return clamp(e.endOffsetY,-120,0);}return HIT6.lift;}
  function heartImpact(s,target,source){if(!active()||!s||!target||typeof target!=='object')return false;
@@ -275,20 +289,30 @@
    // move it out of the enemy magenta read.
    const u=clamp(age*HIT6.fps/HIT6.frames,0,1);ctx.globalAlpha=.5*a;ctx.fillStyle='rgba(10,6,20,.55)';ctx.beginPath();ctx.arc(r.x,r.y,S*.34,0,TAU);ctx.fill();
    ctx.globalAlpha=.9*a*(1-.6*u);ctx.lineWidth=2.2;ctx.strokeStyle=T.body;ctx.beginPath();ctx.arc(r.x,r.y,S*.3+10*u,0,TAU);ctx.stroke();ctx.globalAlpha=a;
-   if(ok){ctx.drawImage(im,fr*HIT6.cell,0,HIT6.cell,HIT6.cell,r.x-S*.42,r.y-S*.42,S*.84,S*.84);k++;}
-   else{const u=clamp(age*HIT6.fps/HIT6.frames,0,1),rad=6+22*u,sz=5*(1-.5*u);ctx.fillStyle=u<.5?'#ff5c93':'#ffb3cf';
+   if(ok){ctx.drawImage(im,fr*HIT6.cell,0,HIT6.cell,HIT6.cell,r.x-S*.42,r.y-S*.42,S*.84,S*.84);k++;
+    if(hit.tint){ctx.globalCompositeOperation='hue';if(ctx.globalCompositeOperation==='hue')ctx.drawImage(hit.tint,fr*HIT6.cell,0,HIT6.cell,HIT6.cell,r.x-S*.42,r.y-S*.42,S*.84,S*.84);ctx.globalCompositeOperation='source-over';}}
+   else{const u=clamp(age*HIT6.fps/HIT6.frames,0,1),rad=6+22*u,sz=5*(1-.5*u);ctx.fillStyle=u<.5?T.body:'#fff1c2';
     for(let j=0;j<6;j++){const ang=j*TAU/6+.3;ctx.save();ctx.translate(r.x+Math.cos(ang)*rad,r.y+Math.sin(ang)*rad);shapePath(ctx,'heart',sz);ctx.fill();ctx.restore();}}}
   ctx.globalAlpha=1;return k;}
 
  function beamQuad(ctx,ax,ay,bx,by,nx,ny,w0,w1,col,al){ctx.globalAlpha=al;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(ax+nx*w0,ay+ny*w0);ctx.lineTo(bx+nx*w1,by+ny*w1);ctx.lineTo(bx-nx*w1,by-ny*w1);ctx.lineTo(ax-nx*w0,ay-ny*w0);ctx.closePath();ctx.fill();}
- function drawKill(ctx,f,t,set){const K=f.kill,age=t-K.at;if(age<0||age>=1.1||!(Number.isFinite(K.x)&&Number.isFinite(K.y)))return 0;const q=!!set?.reducedFlash,u=age/1.1;let d=0;
-  ctx.globalCompositeOperation='lighter';const gs=glowSprite('#ffd27a'),rs=ringSprite('#ffd27a');
-  // Visual hold: the flash stays at full size for .18 s, then decays.
-  const hold=age<.18?1:Math.exp(-(age-.18)*5),S=200+140*Math.min(1,age/.18);if(gs){ctx.globalAlpha=(q?.3:.95)*hold;ctx.drawImage(gs,K.x-S/2,K.y-S/2,S,S);d++;}
-  for(let j=0;j<3;j++){const a=age-j*.12;if(a<0)continue;const v=a/.8;if(v>=1)continue;const R=40+380*(1-(1-v)*(1-v));if(rs){ctx.globalAlpha=(q?.25:.8)*(1-v);ctx.drawImage(rs,K.x-R,K.y-R*.62,2*R,1.24*R);d++;}}
-  if(!q){ctx.strokeStyle='#fff3c8';ctx.lineCap='round';ctx.globalAlpha=.7*(1-u);ctx.lineWidth=3*(1-u)+.6;ctx.beginPath();
-   for(let j=0;j<10;j++){const ang=j*TAU/10+.3,L0=40+280*Math.min(1,age/.45),L1=L0*.45;ctx.moveTo(K.x+Math.cos(ang)*L1,K.y+Math.sin(ang)*L1*.8);ctx.lineTo(K.x+Math.cos(ang)*L0,K.y+Math.sin(ang)*L0*.8);}ctx.stroke();}
-  return d;}
+ // Kill burst (world space, R5): a warm capped core in the boss colour (source-over, so it never clips to
+ // white), and tapered glowing rays (filled wedges, additive). No hairline spokes, no world rings: the
+ // floor rings are drawn by the screen pass, clamped to the frame. Sprite baked once per colour.
+ const burstSprites=new Map();
+ function burstSprite(col){let g=burstSprites.get(col);if(g!==undefined)return g;burstSprites.set(col,null);const c=canvas(128,128),x=c?.getContext?.('2d');if(!x?.createRadialGradient)return null;
+  const G=x.createRadialGradient(64,64,0,64,64,64);G.addColorStop(0,'rgba(255,232,196,.92)');G.addColorStop(.22,'rgba(255,214,150,.7)');G.addColorStop(.5,rgba(col,.34));G.addColorStop(.8,rgba(col,.1));G.addColorStop(1,rgba(col,0));x.fillStyle=G;x.fillRect(0,0,128,128);burstSprites.set(col,c);return c;}
+ const RAYS=9;
+ function rayPath(ctx,x,y,L0,L1,hw,rot){ctx.beginPath();for(let j=0;j<RAYS;j++){const ang=rot+j*TAU/RAYS,c=Math.cos(ang),sn=Math.sin(ang)*.8,k=j&1?.72:1,px=-sn,py=c;
+   ctx.moveTo(x+c*L0-px*hw,y+sn*L0-py*hw);ctx.lineTo(x+c*L1*k,y+sn*L1*k);ctx.lineTo(x+c*L0+px*hw,y+sn*L0+py*hw);ctx.closePath();}}
+ function drawKill(ctx,f,t,set){const K=f.kill,age=t-K.at;if(age<0||age>=1.1||!(Number.isFinite(K.x)&&Number.isFinite(K.y)))return 0;const q=!!set?.reducedFlash,col=K.col||KILL_COL;let d=0;
+  // Visual hold: the core stays at full size for .18 s, then decays.
+  const hold=age<.18?1:Math.exp(-(age-.18)*5),S=150+110*Math.min(1,age/.18),bs=burstSprite(col);
+  if(bs){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=(q?.3:.62)*hold;ctx.drawImage(bs,K.x-S/2,K.y-S/2,S,S);d++;}
+  const v=age/.55;if(v<1){const e=1-(1-v)*(1-v),L0=26+30*e,L1=70+120*e,a=(q?.2:1)*(1-v);ctx.globalCompositeOperation='lighter';
+   ctx.fillStyle=col;ctx.globalAlpha=.2*a;rayPath(ctx,K.x,K.y,L0,L1*1.06,13,.3);ctx.fill();
+   ctx.fillStyle='#ffe9c4';ctx.globalAlpha=.46*a;rayPath(ctx,K.x,K.y,L0,L1,5,.3);ctx.fill();}
+  ctx.globalCompositeOperation='source-over';return d;}
  // Heart ring: white with a dark outline, always on while the dense layer is active; brightens (and
  // pulses unless reducedFlash) when a bullet is within graze range. The hitbox itself is unchanged.
  const RING={on:false,r:8.5,alpha:.75,near:0};
@@ -322,7 +346,7 @@
     if(b.hasT){const S=(b.tier===2?150:100)*(.8+.5*Math.min(1,u*3));ctx.globalAlpha=.95*fade;ctx.drawImage(gs,ex-S/2,ey-S/2,S,S);draws++;
      ctx.strokeStyle=b.core;ctx.lineCap='round';ctx.lineWidth=2;ctx.globalAlpha=.8*fade;ctx.beginPath();for(let k=0;k<6;k++){const a=k*TAU/6+b.at*7,r0=S*.18,r1=S*(.34+.12*(k&1));ctx.moveTo(ex+Math.cos(a)*r0,ey+Math.sin(a)*r0);ctx.lineTo(ex+Math.cos(a)*r1,ey+Math.sin(a)*r1);}ctx.stroke();}}}
   if(f.sparks.length){ctx.globalCompositeOperation='lighter';for(const q of f.sparks){const u=(t-q.born)/q.life;if(u<0||u>=1)continue;const x=q.x+q.vx*(t-q.born),y=q.y+q.vy*(t-q.born);if(!(Number.isFinite(x)&&Number.isFinite(y)))continue;
-    const gs=glowSprite(q.c);ctx.globalAlpha=1-u;if(gs){const S=10*(1-.5*u);ctx.drawImage(gs,x-S/2,y-S/2,S,S);draws++;}}}
+    const gs=glowSprite(q.c);ctx.globalAlpha=1-u;if(gs){const S=n(q.s,10)*(1-.5*u);ctx.drawImage(gs,x-S/2,y-S/2,S,S);draws++;}}}
   if(f.kill)draws+=drawKill(ctx,f,t,set);
   if(f.impacts.length)draws+=drawImpacts(ctx,f,t,heroTone(s));
   ctx.globalCompositeOperation='source-over';drawBolts(ctx,f,t);
@@ -354,8 +378,19 @@
   ctx.moveTo(x0+cap*.55-3,y0+.6);ctx.quadraticCurveTo?.(x0+cap*.55-12,y0+2,x0+cap*.55-9,y0+9);ctx.moveTo(x1-cap*.55+3,y0+.6);ctx.quadraticCurveTo?.(x1-cap*.55+12,y0+2,x1-cap*.55+9,y0+9);
   ctx.moveTo(x0+cap*.55-3,y1-.6);ctx.quadraticCurveTo?.(x0+cap*.55-12,y1-2,x0+cap*.55-9,y1-9);ctx.moveTo(x1-cap*.55+3,y1-.6);ctx.quadraticCurveTo?.(x1-cap*.55+12,y1-2,x1-cap*.55+9,y1-9);ctx.stroke();}
  const ease3=v=>1-Math.pow(1-clamp(v,0,1),3);
+ // Warning plate (R5 hazard language): the ornamented panel carries a dark red field, a red inner hem that
+ // pulses, and three amber chevrons marching inward at each end. Few path segments (no stripe tape).
+ const CHEV=3;
+ function hazardPanel(ctx,cx,cy,pw,ph,a,age,quiet,mobile){ornPanel(ctx,cx,cy,pw,ph,a,GOLD);if(!(a>0)||!(pw>40))return;const x0=cx-pw/2,x1=cx+pw/2,y0=cy-ph/2,cap=Math.min(36,pw*.14),pul=quiet?.8:.7+.3*Math.sin(age*TAU*1.6);
+  ctx.globalAlpha=a;ctx.fillStyle='rgba(124,10,24,.6)';ctx.beginPath();ctx.rect(x0+cap,y0+5,pw-2*cap,ph-10);ctx.fill();
+  ctx.fillStyle='#ff5a62';ctx.globalAlpha=.9*a*pul;ctx.beginPath();ctx.rect(x0+cap,y0+5,pw-2*cap,mobile?1.5:2);ctx.rect(x0+cap,y0+ph-5-(mobile?1.5:2),pw-2*cap,mobile?1.5:2);ctx.fill();
+  const ch=ph*.3,cw=ch*.62,gap=cw*1.25,ph0=quiet?0:Math.floor(age*6)%CHEV;ctx.lineCap='butt';ctx.lineJoin='miter';ctx.lineWidth=mobile?2.6:3.6;
+  for(let i=0;i<CHEV;i++){const hot=quiet||i===ph0;ctx.strokeStyle=hot?'#ffb84a':'#ff8a3a';ctx.globalAlpha=(hot?1:.5)*a;const lx=x0+cap+10+i*gap,rx=x1-cap-10-i*gap;
+   ctx.beginPath();ctx.moveTo(lx,cy-ch);ctx.lineTo(lx+cw,cy);ctx.lineTo(lx,cy+ch);ctx.moveTo(rx,cy-ch);ctx.lineTo(rx-cw,cy);ctx.lineTo(rx,cy+ch);ctx.stroke();}}
  const WB=[0,0,0,0];
- function warnBox(w,h,mobile,big,m,t){const pw=mobile?Math.min(380,w*.5):Math.min(560,w*.46),ph=mobile?(big?44:32):(big?60:42);let cy=mobile?78:Math.max(84,h*.15);let cx=mobile?w*.42:w/2;cx=Math.max(pw/2+8,Math.min(w-pw/2-8,cx));
+ function warnBox(w,h,mobile,big,m,t){const pw=mobile?Math.min(380,w*.5):Math.min(600,w*.48),ph=mobile?(big?50:34):(big?74:46);let cy=mobile?86:Math.max(88,h*.155);
+  // R5 phone: right of the inline pips (x < 228), left of the settings gear, below the native phase panel (y <= 51).
+  let cx=mobile?Math.max(w*.42,230+pw/2):w/2;cx=Math.max(pw/2+8,Math.min(w-pw/2-(mobile?56:8),cx));
   // Keep clear of the RC240 spell card (danmaku drawBanner geometry: big card at h*.24, settled card at
   // y 62/74, top-centre card at 46/22). Vertical test only, so it is conservative.
   const C=m?.banner;if(C&&Number.isFinite(t)){const cm=!!m.mobile||w<800,age=t-n(C.born),u=Math.min(1,Math.max(0,(age-1.52)/.35)),bg=age>1.52?Math.pow(1-u,3):1,sh=(cm?40:50)+(cm?6:8)*bg,
@@ -395,6 +430,23 @@
  // layer, so the ring is re-drawn right after it through a wrapper on that API. The wrapper keeps every
  // member (prototype bridge) and is installed once: if another wrapper later wraps it, it is still in the
  // chain and is not wrapped again.
+ // R5: the native debuff label (흡혈 억제 ...) is a solid card on the hero's body. While hostile bullets are
+ // near the heart it is taken out of the native draw (its timers read as expired for that one synchronous
+ // draw call and are restored right after) and re-drawn as a faint tag above the head.
+ const AIL_KEYS=['heroSleepUntil','heroCharmUntil','heroBleedUntil','heroBurnUntil','heroEnvyPoisonUntil','heroSlowUntil','heroHealingBlockedUntil','lifestealSuppressedUntil','themeRootUntilV31323'];
+ const AIL_NAMES=['수면','매혹','출혈','화상','유리독','둔화','회복 차단','흡혈 억제','속박'],AIL_VAL=new Float64Array(AIL_KEYS.length),AIL_NEAR=110,AIL_ALPHA=.4;let ailN=0;
+ function bulletsNear(s,m){const P=m.pool,hx=n(m.hx),hy=n(m.hy);if(P)for(let i=0;i<P.live;i++){const dx=P.x[i]-hx,dy=P.y[i]-hy;if(dx*dx+dy*dy<AIL_NEAR*AIL_NEAR)return true;}
+  const L=s.hostileProjectiles;if(Array.isArray(L)){const N=Math.min(L.length,96),sx=n(s.x),sy=n(s.y);for(let i=0;i<N;i++){const q=L[i];if(q&&n(q.damage)>0&&!q.friendly&&!q.visualOnly&&Math.abs(n(q.x,1e9)-sx)+Math.abs(n(q.y,1e9)-sy)<4.5)return true;}}return false;}
+ function ghostBegin(s){ailN=0;if(!active()||!s||!(n(s.hp)>0))return false;const m=R()?.world?.(s),f=worlds.get(s);if(!m||!f)return false;const t=n(s.time),H=f.heroScr;if(!H||H.t!==t)return false;
+  if(bulletsNear(s,m))f.ghostUntil=t+.4;if(!(t<n(f.ghostUntil,-1))||t<n(f.ghostUntil,-1)-.41)return false;
+  try{for(let i=0;i<AIL_KEYS.length;i++){const v=s[AIL_KEYS[i]];if(typeof v==='number'&&v>t){AIL_VAL[i]=v;s[AIL_KEYS[i]]=0;ailN++;}else AIL_VAL[i]=0;}}catch(e){ghostEnd(s);ailN=0;return false;}return ailN>0;}
+ function ghostEnd(s){for(let i=0;i<AIL_KEYS.length;i++)if(AIL_VAL[i]>0){try{s[AIL_KEYS[i]]=AIL_VAL[i];}catch(e){}}}
+ function ghostDraw(ctx,s){const f=worlds.get(s),u=U(),m=R()?.world?.(s),H=f?.heroScr;if(!H||!u?.screenSpace||!m)return;const t=n(s.time);
+  ctx.save();try{const v=u.screenSpace(ctx);if(!v||Math.abs(v.w-H.w)>1||Math.abs(v.h-H.h)>1)return;const kc=clamp(n(m.kc,1),.3,3);let y=H.y-64*kc-10,row=0;
+   ctx.globalCompositeOperation='source-over';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 10px sans-serif';
+   for(let i=0;i<AIL_KEYS.length&&row<3;i++){if(!(AIL_VAL[i]>0))continue;const label=AIL_NAMES[i]+' '+Math.max(0,AIL_VAL[i]-t).toFixed(1),tw=label.length*7+12;
+    ctx.globalAlpha=AIL_ALPHA*.7;ctx.fillStyle='#180c18';ctx.beginPath();ctx.rect(H.x-tw/2,y-7,tw,14);ctx.fill();ctx.globalAlpha=AIL_ALPHA;ctx.fillStyle='#ffe3df';u.hudText(ctx,label,H.x,y);y-=15;row++;}
+  }catch(e){fail(e);}finally{ctx.restore();}}
  let fbBridge=null,inFb=false;
  function postRing(ctx,s){if(!active()||!s||!ctx)return;const m=R()?.world?.(s),f=worlds.get(s),u=U();if(!m||!f||!u?.screenSpace)return;const set=settingsOf();
   // The hero point is the one the RC240 screen pass computed this frame (m.wm can be overwritten by a later
@@ -402,40 +454,43 @@
   const H=f.heroScr,t=n(s.time);if(!H||H.t!==t)return;
   ctx.save();try{const v=u.screenSpace(ctx);if(!v||Math.abs(v.w-H.w)>1||Math.abs(v.h-H.h)>1)return;const mobile=!!m.mobile||v.w<800||v.h<500;if(screenRing(ctx,s,m,set,f,v.w,v.h,t,mobile,H))f.ringPostAt=t;}catch(e){fail(e);}finally{ctx.restore();}}
  function wrapFeedback(){const F=root.__HAPIL_FEEDBACK_RC128__;if(!F||typeof F.draw!=='function')return false;for(let o=F,d=0;o&&d<40;o=Object.getPrototypeOf(o),d++)if(o===fbBridge)return true;
-  const base=F;const draw=function(ctx,s,canvas,settings,...rest){const r=base.draw.call(base,ctx,s,canvas,settings,...rest);if(!inFb){inFb=true;try{postRing(ctx,s);}catch(e){fail(e);}finally{inFb=false;}}return r;};
+  const base=F;const draw=function(ctx,s,canvas,settings,...rest){let g=false;if(!inFb){try{g=ghostBegin(s);}catch(e){fail(e);}}let r;try{r=base.draw.call(base,ctx,s,canvas,settings,...rest);}finally{if(ailN>0)ghostEnd(s);}
+   if(!inFb){inFb=true;try{if(g)ghostDraw(ctx,s);postRing(ctx,s);}catch(e){fail(e);}finally{inFb=false;ailN=0;}}return r;};
   const b=Object.create(base);Object.defineProperty(b,'draw',{value:draw,enumerable:true});Object.defineProperty(b,'rc240FeelRing',{value:true});fbBridge=Object.freeze(b);
   try{root.__HAPIL_FEEDBACK_RC128__=fbBridge;}catch(e){fail(e);return false;}return true;}
  try{root.setTimeout?.(wrapFeedback,0);root.setInterval?.(wrapFeedback,1000);}catch(e){}
  function screenFeel(ctx,s,m,set,f,w,h,t,u){const mobile=!!m?.mobile||w<800||h<500,txt=(a,x,y)=>u.hudText(ctx,a,x,y),quiet=!!set?.reducedFlash;
   ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.textBaseline='middle';ctx.direction='ltr';
+  // Kill beat (R5): everything is clamped to the frame. A short additive flash confined to a radial disc
+  // around the boss (<= FLASH_COVER of the screen, capped alpha, never a flat full-screen lift), a light
+  // spotlight dim (reads as a hit-stop), then two thick floor rings (2:1 ellipses at the boss's feet,
+  // centre and radius clamped to the safe area: nothing leaves the frame or crosses the score).
+  const K=f.kill;if(K){const age=t-K.at,col=K.col||KILL_COL,top=mobile?30:56;let bx=w*.68,by=h*.42,fx=bx,fy=h*.56;const p=toScreen(ctx,m,K.x,K.y,w,h);if(p){bx=p.x;by=p.y;const p2=toScreen(ctx,m,K.x,n(K.fy,K.y+90),w,h);if(p2){fx=p2.x;fy=p2.y;}else{fx=bx;fy=by+60;}}
+   if(age>=0&&age<.14){const R=Math.min(Math.min(w,h)*.42,Math.sqrt(FLASH_COVER*w*h/Math.PI)*.98),cx=clamp(bx,R*.6,Math.max(R*.6,w-R*.6)),cy=clamp(by,top+R*.4,Math.max(top+R*.4,h-R*.6)),G=ctx.createRadialGradient?.(cx,cy,0,cx,cy,R);
+    if(G){G.addColorStop(0,'rgba(255,232,190,.6)');G.addColorStop(.3,rgba(col,.3));G.addColorStop(.7,rgba(col,.08));G.addColorStop(1,rgba(col,0));ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(quiet?.25:1)*(1-age/.14);ctx.fillStyle=G;ctx.beginPath();ctx.rect(cx-R,cy-R,2*R,2*R);ctx.fill();ctx.globalCompositeOperation='source-over';}}
+   if(age>=.06&&age<.6){const v=age<.35?1:1-(age-.35)/.25,G=ctx.createRadialGradient?.(clamp(bx,0,w),clamp(by,0,h),60,clamp(bx,0,w),clamp(by,0,h),Math.max(w,h)*.8);if(G){G.addColorStop(0,'rgba(5,3,10,0)');G.addColorStop(.3,'rgba(5,3,10,.16)');G.addColorStop(1,'rgba(5,3,10,.3)');ctx.globalAlpha=v;ctx.fillStyle=G;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}}
+   if(age>=0&&age<.9&&typeof ctx.ellipse==='function'){const Rm=Math.min(w*.17,(h-top-8)*.6,h*.3),cx=clamp(fx,8+Rm,Math.max(8+Rm,w-8-Rm)),cy=clamp(fy,top+Rm/2,Math.max(top+Rm/2,h-8-Rm/2));ctx.lineCap='butt';
+    for(let j=0;j<2;j++){const a=age-j*.12;if(a<0)continue;const v=a/.65;if(v>=1)continue;const R=14+(Rm-14)*ease3(v),lw=(mobile?7:9)*(1-v)+2;
+     ctx.globalAlpha=.6*(1-v);ctx.lineWidth=lw+3;ctx.strokeStyle=INK;ctx.beginPath();ctx.ellipse(cx,cy,R,R/2,0,0,TAU);ctx.stroke();
+     ctx.globalAlpha=(quiet?.6:.9)*(1-v);ctx.lineWidth=lw;ctx.strokeStyle=j?col:'#ffe9c4';ctx.stroke();}}}
   // Score + chain: top right (PC) / left of the settings button (phone), out of the top-centre presentation
   // column. R4: always shown during a fight (also at 0), white on a dark plate, left of the native
   // top-right "GRADE n" label (it sat on top of that label on PC and phone).
   if(f.score>0||f.chain>=5||m?.owner||m?.run){ctx.textAlign='right';const rx=mobile?w-112:w-92,y0=mobile?14:18,line='점수 '+fmt(f.score),fz=mobile?12:14;
-   const l2=mobile?(f.chain>=10):(f.chain>=5),pw=(line.length*fz*.62)+16,phh=l2?(mobile?32:36):(mobile?19:22);
-   ctx.globalAlpha=.55;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(rx-pw+6,y0-phh/2-1+(l2?(mobile?6.5:8):0),pw+4,phh);ctx.fill();
+   const l2=mobile?(f.chain>=10):(f.chain>=5),pw=(line.length*fz*.62)+16,phh=l2?(mobile?32:38):(mobile?19:22);
+   ctx.globalAlpha=.8;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(rx-pw+4,y0-phh/2-1+(l2?(mobile?6.5:8.5):0),pw+8,phh);ctx.fill();ctx.globalAlpha=.7;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(rx-pw+4,y0-phh/2-1+(l2?(mobile?6.5:8.5):0)+phh-1,pw+8,1);ctx.fill();
    ctx.globalAlpha=1;ctx.font='bold '+fz+'px ui-monospace,Menlo,monospace';ctx.lineJoin='round';ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,line,rx,y0);ctx.fillStyle='#ffffff';txt(line,rx,y0);
-   if(l2){const c2='연쇄 '+f.chain+' ×'+f.mult.toFixed(1),dy=mobile?13:16;ctx.font='bold '+(mobile?10:12)+'px ui-monospace,Menlo,monospace';ctx.globalAlpha=.95;hudStroke(ctx,c2,rx,y0+dy);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(c2,rx,y0+dy);}}
-  // Kill beat: a short additive flash, a spotlight dim held on the boss (reads as a hit-stop), then
-  // two thick rings and rays from the boss in screen space; the tally comes after.
-  const K=f.kill;if(K){const age=t-K.at;let bx=w*.68,by=h*.42;const p=toScreen(ctx,m,K.x,K.y,w,h);if(p){bx=clamp(p.x,0,w);by=clamp(p.y,0,h);}
-   if(age>=0&&age<.12){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(quiet?.18:.42)*(1-age/.12);ctx.fillStyle='#fff3d8';ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();ctx.globalCompositeOperation='source-over';}
-   if(age>=.06&&age<.8){const v=age<.5?1:1-(age-.5)/.3,G=ctx.createRadialGradient?.(bx,by,40,bx,by,Math.max(w,h)*.8);if(G){G.addColorStop(0,'rgba(5,3,10,0)');G.addColorStop(.25,'rgba(5,3,10,.32)');G.addColorStop(1,'rgba(5,3,10,.55)');ctx.globalAlpha=v;ctx.fillStyle=G;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}}
-   if(age>=0&&age<.9){const Rm=mobile?Math.max(w,h)*.42:Math.max(w,h)*.36;ctx.lineCap='round';
-    for(let j=0;j<2;j++){const a=age-j*.12;if(a<0)continue;const v=a/.65;if(v>=1)continue;const R=24+Rm*ease3(v),lw=(mobile?8:10)*(1-v)+2;
-     ctx.globalAlpha=.7*(1-v);ctx.lineWidth=lw+3;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(bx,by,R,0,TAU);ctx.stroke();
-     ctx.globalAlpha=(quiet?.6:.95)*(1-v);ctx.lineWidth=lw;ctx.strokeStyle=j?'#ffd27a':'#fff3c8';ctx.beginPath();ctx.arc(bx,by,R,0,TAU);ctx.stroke();}
-    const v=clamp(age/.5,0,1);if(v<1){ctx.globalAlpha=(quiet?.35:.6)*(1-v);ctx.strokeStyle='#ffe59a';ctx.lineWidth=(mobile?2.5:3)*(1-v)+1;ctx.beginPath();
-     for(let j=0;j<12;j++){const ang=j*TAU/12+.2,L0=30+Rm*.9*ease3(v),L1=L0*.55;ctx.moveTo(bx+Math.cos(ang)*L1,by+Math.sin(ang)*L1);ctx.lineTo(bx+Math.cos(ang)*L0,by+Math.sin(ang)*L0);}ctx.stroke();}}}
+   if(l2){const c2='연쇄 '+f.chain+' ×'+f.mult.toFixed(1),dy=mobile?13:17;ctx.font='bold '+(mobile?11:13)+'px ui-monospace,Menlo,monospace';ctx.globalAlpha=1;hudStroke(ctx,c2,rx,y0+dy);ctx.fillStyle=f.mult>=2?'#ffd34d':'#d8f8ff';txt(c2,rx,y0+dy);}}
   // Boss warning: dark red edge vignette + ornamented band in the upper third, after the stage title card.
   // The spell card is held by the danmaku layer while it is up, so the band takes the free slot.
-  const Wn=f.warn;if(Wn){const age=t-Wn.at;if(age>=0&&age<Wn.dur){const fade=Math.min(1,age/.18)*Math.min(1,(Wn.dur-age)/.3);
+  const Wn=f.warn;if(Wn){const age=t-Wn.at;if(age>=0&&age<Wn.dur){const fade=Wn.pulse?Math.sin(Math.PI*age/Wn.dur):Math.min(1,age/.18)*Math.min(1,(Wn.dur-age)/.3);
     const vg=vignette(ctx,w,h);if(vg){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=fade*(quiet?.8:.8+.2*(.5+.5*Math.sin(age*TAU*1.2)));ctx.fillStyle=vg;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}
+    if(!Wn.pulse){
     const B=warnBox(w,h,mobile,Wn.big,m?.banner&&!m.banner.held?m:null,t),cx=B[0],cy=(Wn.cy=Wn.cy==null||age<.02?B[1]:Wn.cy+(B[1]-Wn.cy)*.2),pw0=B[2],ph=B[3],pw=pw0*(quiet?1:.3+.7*ease3(age/.28));
-    ornPanel(ctx,cx,cy,pw,ph,fade,GOLD);const ty=Wn.big?cy-ph*.16:cy;ctx.textAlign='center';ctx.lineJoin='round';
-    ctx.font='bold '+(Wn.big?(mobile?17:24):(mobile?13:17))+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.globalAlpha=fade;ctx.lineWidth=3;ctx.strokeStyle=INK;const title=Wn.big?'경고 · 거대 반응 접근':'경고 · 반응 접근';
-    hudStroke(ctx,title,cx,ty);ctx.fillStyle='#ff5a62';txt(title,cx,ty);
-    if(Wn.name&&Wn.big){ctx.font=(mobile?11:14)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.fillStyle='#efe2c4';ctx.globalAlpha=.92*fade;txt(u.fitText?u.fitText(ctx,Wn.name,pw*.8):Wn.name,cx,cy+ph*.27);}}}
+    hazardPanel(ctx,cx,cy,pw,ph,fade,age,quiet,mobile);const ty=Wn.big?cy-ph*.15:cy;ctx.textAlign='center';ctx.lineJoin='round';
+    ctx.font='bold '+(Wn.big?(mobile?21:31):(mobile?15:20))+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.globalAlpha=fade;ctx.lineWidth=4;ctx.strokeStyle=INK;const title=Wn.big?'경고 · 거대 반응 접근':'경고 · 반응 접근';
+    hudStroke(ctx,title,cx,ty);ctx.fillStyle=quiet||Math.sin(age*TAU*1.6)>-.2?'#ff6a70':'#ffd0a8';txt(title,cx,ty);
+    if(Wn.name&&Wn.big){ctx.font=(mobile?11:15)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.fillStyle='#f3e6c8';ctx.globalAlpha=.94*fade;txt(u.fitText?u.fitText(ctx,Wn.name,pw*.62):Wn.name,cx,cy+ph*.3);}}}}
   // Callouts: the hero-side lane (left), in the upper band, clear of the centre column and debuff labels.
   // R4: callouts (spell result, bomb, power) wait behind the second-form banner: live and pending ones are
   // pushed to start just after it (no clash with the banner on phone or PC).
@@ -453,14 +508,19 @@
   const T=f.tally;if(T){const age=t-T.at;if(age>=TALLY_LIFE)f.tally=null;else if(age>=0&&!modalOpen(s)&&T.rows){const k=clamp(age/1.2,0,1),fade=Math.min(1,age/.2)*Math.min(1,(TALLY_LIFE-age)/.4);
    // R4: anchored in the top band (phone: top edge; PC: under the top HUD strip), clear of the hero row and its
    // status tag; if the hero still sits under it, the panel slides sideways away from the hero.
-   const pw=mobile?Math.min(300,w*.46):Math.min(420,w*.36),lh=mobile?17:24,ph=lh*(T.rows.length+1)+(mobile?18:26),rise=quiet?0:(1-ease3(age/.3))*14;let cx=w/2;const y0=(mobile?8:56)+rise;
+   const pw=mobile?Math.min(300,w*.46):Math.min(420,w*.36),lh=mobile?17:24,th=mobile?24:34,ph=lh*(T.rows.length+1)+(mobile?18:26)+th,rise=quiet?0:(1-ease3(age/.3))*14;let cx=w/2;const y0=(mobile?8:56)+rise;
    {const hp=toScreen(ctx,m,n(m?.hx,f.lastHx),n(m?.hy,f.lastHy),w,h);if(hp&&y0+ph>hp.y-(mobile?50:60)&&Math.abs(hp.x-cx)<pw/2+70)cx=hp.x<w/2?Math.min(w-pw/2-8,hp.x+70+pw/2):Math.max(pw/2+8,hp.x-70-pw/2);}
    const x0=cx-pw/2;
    ctx.globalAlpha=.35*fade;ctx.fillStyle='#05030a';ctx.beginPath();ctx.rect(0,y0-10,w,ph+20);ctx.fill();
    ornPanel(ctx,cx,y0+ph/2,pw,ph,fade,GOLD);
    ctx.globalAlpha=fade;ctx.textAlign='center';ctx.font='bold '+(mobile?17:24)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,'격파 결산',cx,y0+lh*.5+10);ctx.fillStyle='#ffe59a';txt('격파 결산',cx,y0+lh*.5+10);
    ctx.font=(mobile?13:17)+'px system-ui,sans-serif';const pad=mobile?18:28;for(let i=0;i<T.rows.length;i++){const r=T.rows[i],y=y0+lh*(i+1.5)+(mobile?10:14),v=r[1]==='time'?(r[2]*k).toFixed(1)+'s':r[1]==='frac'?Math.round(r[2]*k)+'/'+Math.round(T.spells):r[1]==='plus'?'+'+fmt(r[2]*k):fmt(r[2]*k);
-    ctx.textAlign='left';ctx.fillStyle='#c9c4d8';txt(r[0],x0+pad,y);ctx.textAlign='right';ctx.fillStyle=r[1]==='plus'?'#ffe59a':'#ffffff';txt(v,x0+pw-pad,y);}}}}
+    ctx.textAlign='left';ctx.fillStyle='#c9c4d8';txt(r[0],x0+pad,y);ctx.textAlign='right';ctx.fillStyle=r[1]==='plus'?'#ffe59a':'#ffffff';txt(v,x0+pw-pad,y);}
+   // R5: after the count-up (1.2 s) a gold rule and the total line (the running score) land with a small pop.
+   const ta=clamp((age-1.25)/.22,0,1);if(ta>0){const ty=y0+lh*(T.rows.length+1)+(mobile?12:16)+th*.5,pop=quiet?0:(1-ease3(ta))*4;
+    ctx.globalAlpha=.8*fade*ta;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x0+pad,ty-th*.5,(pw-2*pad)*ease3(ta),1.2);ctx.fill();
+    ctx.globalAlpha=fade*ta;ctx.font='bold '+(mobile?13:17)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.textAlign='left';ctx.fillStyle='#ffe59a';txt('합계',x0+pad,ty+pop);
+    ctx.font='bold '+(mobile?17:23)+'px ui-monospace,Menlo,monospace';ctx.textAlign='right';ctx.lineWidth=3;ctx.strokeStyle=INK;const tv=fmt(f.score);hudStroke(ctx,tv,x0+pw-pad,ty+pop);ctx.fillStyle='#ffe59a';txt(tv,x0+pw-pad,ty+pop);}}}}
 
  // ---------------------------------------------------------------- flow streaks (background, before RC240 dim)
  const STREAK_SEEDS=[];for(let i=0;i<28;i++){const a=Math.sin(i*12.9898)*43758.5453,b=Math.sin(i*78.233)*12345.678,c=Math.sin(i*39.425)*24680.135;STREAK_SEEDS.push({y:a-Math.floor(a),v:b-Math.floor(b),l:c-Math.floor(c),g:i%3});}
@@ -492,7 +552,7 @@
   metrics:()=>({...metrics,lastError}),
   state(s){const f=s&&worlds.get(s);if(!f)return null;return {score:f.score,chain:f.chain,maxChain:f.maxChain,mult:f.mult,coins:f.coins.live,cap:f.capNow,collected:f.collected,grazes:f.grazes,aPow:f.aPow,
    charging:f.charge.on,bolts:f.bolts.length,cdUntil:f.charge.cdUntil,beams:f.beams.length,warn:f.warn?{...f.warn}:null,tally:f.tally?{...f.tally}:null,fight:f.fight?{...f.fight}:null};},
-  __test:{boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite,HIT6,KILL_BEAT,warnBox,warnVignette:()=>({edge:VIG.edge,mid:VIG.mid}),toScreen,heartRing:(s,m,set)=>{const f=worlds.get(s);const h=heartRing(s,m,set??{},n(m?.hx,f?.lastHx??640),n(m?.hy,f?.lastHy??400),n(s.time));return {...h};},
+  __test:{tintHit,hazardPanel,bulletsNear,boltShape,SHAPE_BY_SHOT,HERO_SHOT,GAIN,DUCKED,palette,worlds,COIN_CAP,CANCEL_RULES,T1,T2,CD1,CD2,beamEnd,tameRoom,fire,coinSprite,HIT6,KILL_BEAT,warnBox,warnVignette:()=>({edge:VIG.edge,mid:VIG.mid}),toScreen,heartRing:(s,m,set)=>{const f=worlds.get(s);const h=heartRing(s,m,set??{},n(m?.hx,f?.lastHx??640),n(m?.hy,f?.lastHy??400),n(s.time));return {...h};},
    beamRows:s=>(worlds.get(s)?.beams??[]).map(b=>({ax:b.ax,ay:b.ay,tx:b.tx,ty:b.ty,color:b.color,hasT:b.hasT})),impactRows:s=>[...(worlds.get(s)?.impacts??[])]}};
  Object.defineProperty(root,'__HAPIL_STG_FEEL_RC240__',{value:Object.freeze(api),configurable:true,writable:false,enumerable:false});
 })(typeof window==='object'?window:globalThis);
