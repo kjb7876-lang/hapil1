@@ -514,6 +514,7 @@ assert.equal(laterExtensions[169-66].base,'87768e369d2e80a67fc676ca0d1731232b6b8
 assert.equal(laterExtensions[170-66].base,'ade55181f34cc41f20797a8a9a324733ac80f2d5','exact RC240 narrow-canvas zoom fix extension base');
 assert.equal(laterExtensions[171-66].base,'cee38e1957d9030565e11f4c8b2fece9e81e223c','exact RC240 settle snap extension base');
 assert.equal(laterExtensions[172-66].base,'82e243153ee440bbb66806fe837928afce5c4bd9','exact RC241 boss duel pilot extension base');
+assert.equal(laterExtensions[173-66].base,'29acfd845a7f99853a5637e8bc712146a7e15f8d','exact RC240 control readout timing extension base');
 assert.equal(runtimeOutputs.size,415,'exact extension172 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));

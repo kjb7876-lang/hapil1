@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "29acfd845a7f99853a5637e8bc712146a7e15f8d",
+  "baseTree": "b33d84ac8bbeefaa8053fd602f55fee3d24b0664",
+  "sourceCommit": "12802f960598b70e05654abec10a9a8cd9781f00",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6fa0478fdc240f77f9ed93e090fba785c34683f7da58b537108ddc545b330f95",
+  "files": [
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1f3af8fba7a00c2a1e7e7c174062d8612d05187d",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "dd128b3ed31ab9534d5154a547b4acb837703b69e35dc775cbe01ac5b22a33ba",
+        "gitBlob": "c2be879d7b27f41756ef31cde51d71d3ce4cda52"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: RC240 cached the phone control rects and --rc154-safe insets, re-reading them only on resize and at the 1 Hz heartbeat, so a read could sample the .hm-movement stick mid its 0.05 s CSS transition (portrait geometry, fit rejected, camera back to the base RC153 view until an arbitrary later frame) and inset or class changes waited up to a second; readControls now defers while a control has a running CSS transition (capped at controlDeferMax 30 frames, never on the first read) and a MutationObserver on html/body class and style marks the layout stale so it is re-read on the next camera call; fits, eases, the extension 171 settle snap and the RC241 duel guard are unchanged."
+    }
+  ],
+  "targetProtectedRowsSha256": "7051fa0fce4cba8420e700b9ae932f8fca1bd5d8c479eaa6ccc3f9d0e71c07bd"
+}
