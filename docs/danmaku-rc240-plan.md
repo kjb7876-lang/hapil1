@@ -163,3 +163,11 @@ ade55181 병합 뒤 main 전용 `rc137-integration`의 `tests/rc153-combat-brows
 결투 중에는 네이티브 공격 타이머를 붙잡고, 그래도 생긴 그 보스의 투사체·예약 타격·이탈 비행체는 같은 틱에 걷어내 공격원은 결투 하나뿐이다. RC240의 주문 장막·시그니처 대형·필러와 폰 줌은 결투 보스에서만 물러난다.
 `?duel=0`, `?qa`(`duel=1`이 없을 때), 저장값 `hapil.rc241.duel=off`로 끈다.
 검증: `tests/rc241-boss-duel-unit.cjs`, `tools/rc241-build-extension.cjs --check`.
+
+## RC240 컨트롤 판독 시점 수정 (확장 173, fix/rc240-camera-timing-173)
+
+deffccdf 병합 뒤 main `rc137-integration` 실행 43581073388의 portrait 1라운드가 시도마다 다르게 실패했다. 1차는 `tools/rc154-pack-visual-evidence.cjs`의 "whole body/weapon envelope", 2차는 `tests/rc153-boundary-input-browser.cjs`의 "camera moved with arrow/blink"였다.
+원인은 같은 곳이었다. RC240은 폰 컨트롤 위치와 `--rc154-safe` 여백을 저장해 두고 크기 변경과 1초 heartbeat 때만 다시 읽었다. 그래서 `.hm-movement` 스틱이 0.05초 CSS 전환 중일 때(세로 배치 위치) 읽으면 줌 맞춤이 거부되어 RC153 기본 카메라로 돌아갔고, 임의의 나중 프레임에 다시 줌으로 튀었다. 그 프레임이 입력 구간이면 경계 테스트가 실패했고, 캡처 시점의 줌·잘림도 heartbeat 위상에 따라 달라졌다.
+이제 `readControls`는 컨트롤에 진행 중인 CSS 전환이 있으면 읽기를 미룬다(`controlDeferMax` 30프레임 상한, 첫 읽기는 미루지 않음). html/body의 class·style 변화는 MutationObserver가 감지해 다음 카메라 호출에서 바로 다시 읽는다. 맞춤·이징·확장 171 settle snap·RC241 결투 가드는 그대로다.
+판독이 결정적이 되자 844x240 비안전 after-full/after-manual 캡처는 항상 RC240 줌 1.04로 전신 envelope 위쪽이 약 7 CSS px 잘린다. 확장 161에서 승인된 RC154 불변식 변경(`tests/rc154-mobile-layout-browser.cjs`)과 같은 불변식이므로, 패커도 테스트와 똑같은 허용만 적용한다: RC240 줌일 때 한쪽당 최대 24 CSS px 잘림, 주인공 전신은 안전 프레임 안, 모든 액터 중심은 안전 프레임 안. 줌이 없으면 여전히 전신 envelope 전체를 요구하며 그보다 느슨한 허용은 없다.
+검증: `tests/rc240-control-readout-unit.cjs`, `tests/rc154-pack-rc240-zoom-unit.cjs`(둘 다 수정 전 실패), `tools/rc240y-build-extension.cjs --check`.
