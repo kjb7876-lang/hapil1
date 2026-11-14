@@ -26,8 +26,8 @@
  *   and re-aims (phase change, sustained shift) are eased on game time.
  *   Applied inside the camera chain, so render, pointer hit-testing, RC240
  *   bullets and RC129 markers all share it. Desktop/tablet/portrait: identity.
- * - Danger band: a faint isometric floor band marks the RC223 strip during
- *   stand-off combat (phone and PC), drawn from the native floor pass.
+ * - Danger band: soft amber light on the floor marks the RC223 strip during
+ *   stand-off combat (phone and PC), drawn from the native floor pass under the actors.
  * No bundle edits. Wraps public globals only; idempotent; re-checks each second.
  */
 (function(root){'use strict';
@@ -45,18 +45,25 @@
   zoneZoomCap:Object.freeze({ep1b03:1.2}), // boss rooms whose boss + formation crowd the right edge (Envy)
   floorMarginPx:16,        // CSS px between the painted floor-diamond corners and the frame ...
   floorMarginMinPx:3,      // ... or at least this much when 16 px cannot hold at >= minZoom
-  floorArtPadG:24,         // painted platform diamond reaches ~24 G px past the radius-0 floor at its side corners (dist06/ep1a11, measured)
+  floorArtPadG:24,         // painted platform diamond reaches ~24 G px past the radius-0 floor at its side corners (default)
+  // Review round 3: re-measured on the PC shots (S/fix3/camera/paint-*.png). The painted platform is the
+  // full floor square, not the radius-0 floor with its flattened caps: side corners (floor surface,
+  // the carved rim reaches ~25 G px further) and the near (bottom) vertex in G px.
+  paintedFloor:Object.freeze({dist06:Object.freeze({pad:50,bottom:768}),ep1a11:Object.freeze({pad:52,bottom:802})}),
   mobFloorBottomPx:4,      // mob stages: near floor edge only kept on screen (vertical centring wins)
   bodyFallback:150,        // G px body height above the foot when no paint envelope is exposed
   zoomStep:.01,
   zoomEdgePx:4,            // CSS px between the floor and the safe-area edge
   zoomControlPadPx:4,      // CSS px kept clear around touch controls
   zoomFarTarget:.76,       // boss (or farthest mob) foot at <= 76% of the width ...
+  zoomLeadAim:.71,         // review round 3: boss foot aimed at ~71% (lead room; the view pans toward the boss) ...
+  zoomLeadOk:.735,         // ... a fit reaching <= 73.5% is preferred (largest such zoom); <= 76% stays acceptable
+  zoomHeroMin:.2,          // the pan never brings the hero closer than 20% of the width to its edge
   zoomFarMax:.85,          // ... and never past 85%
   zoomFarCorner:.78,       // far target while the floor-diamond corners keep their margin (not in capped rooms)
   zoomDrop:.08,            // vertical target lowered by 8% of the screen height
   zoomKeepLow:.6,          // dead zone: keep the framing while the far actor stays in [60%, 79%]
-  zoomKeepHigh:.79,
+  zoomKeepHigh:.75,        // (review round 3: .79 let the boss sit at 78-80%, effects clipped right)
   zoomDriftSeconds:.75,    // a shift must persist this long before a re-aim
   zoomEaseSeconds:.6,      // re-aims are eased over this much game time
   resizeNudgePx:2,         // a viewport change this small (CSS px) is a nudge, not a new layout ...
@@ -64,12 +71,17 @@
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
   mobEdgePx:60,            // mob bodies kept this far inside the frame edge
   mobHalfFallback:40,      // G px half body when no paint envelope is exposed
-  bandAlpha:.12,           // danger band base fill ...
-  bandStripeAlpha:.18,     // ... plus iso stripes on top: 1-(.88*.82) = 28% where they lie
-  bandStripeWidth:.42,bandStripeGap:.62, // floor units, stripes along the floor y axis
-  bandDash:.55,bandDashGap:.35,bandDashAlpha:.5, // dashed boundary on x-y = -1.45
-  bandChevron:.5,bandChevronStep:2,bandChevronAlpha:.62, // iso chevrons pointing into the strip
-  bandColor:'#ff5a3c',bandEdgeColor:'#ff8a66',
+  // Danger band (review round 3): light on the floor, not a UI box. Nested layers of the strip,
+  // each inset from the rule line (x-y = -1.45, vertical on screen), from the playable floor's
+  // flattened top cap (horizontal on screen) and slightly from the far diagonal x = 19, so the
+  // coverage ramps up softly (no hard vertical/horizontal edge, no hatch): 1-(1-a)^n.
+  bandLayers:6,bandLayerAlpha:.055,  // 6 x .055 -> ~29% inside the strip
+  bandRampRule:.25,        // x-y units per layer from the rule line (ramp ~34 G px)
+  bandRampTop:.45,         // x+y units per layer from the top cap (ramp ~30 G px)
+  bandRampFar:.12,         // x units per layer from the far diagonal x = 19
+  bandRimWidth:5,bandRimAlpha:.4,bandRimSegments:8, // faint rim light along the far floor diagonal
+  bandColor:'#d9a25e',bandRimColor:'rgba(236,184,116,.3)', // desaturated amber (not the red hero family)
+  bandComposite:'screen',  // brightens the floor like light instead of painting over it
   screenPxPerUnit:27,      // G(x,y).x = 640 + 27(x-y)
   gapLogicalPx:(1.45+5)*27,
   heroMaxScreenX:640-1.45*27,
@@ -346,6 +358,8 @@
   try{const FP=root.__HAPIL_FLOOR_PATCHES_RC227__;if(FP?.enabled?.(s))add(FP.polygon?.('all',0));}catch{}
   return finite(l)&&finite(r)&&finite(t)&&finite(b)?{l,r,t,b}:null;
  }
+ const PASSES_ROOM=Object.freeze([1,0]),PASSES_PAINT=Object.freeze([3,2,1.5,1,0]),PASSES_FLOOR=Object.freeze([3,2,1,0]),PASSES_NONE=Object.freeze([0]);
+ function passList(s,ob,capped){return !ob?PASSES_NONE:capped?PASSES_ROOM:POLICY.paintedFloor[s.zone]?PASSES_PAINT:PASSES_FLOOR;}
  function fitZoom(s,base,f,fz,half,box){
   const cap=fz.boss&&finite(POLICY.zoneZoomCap[s.zone])?Math.min(POLICY.maxZoom,POLICY.zoneZoomCap[s.zone]):POLICY.maxZoom;
   const ob=outerBounds(s),capped=cap<POLICY.maxZoom;
@@ -353,7 +367,9 @@
   // keeps the far enemy on target (<= 76%; 78% while the corners keep their
   // margin) beats the band: the far aim, then the floor-diamond corner margin,
   // then the vertical drop. A fit missing the far aim is the last resort.
-  const bands=[[cap,POLICY.minZoom],[POLICY.minZoom-POLICY.zoomStep,1]],passes=ob?[3,2,1,0]:[0];
+  // Review round 3: a zone-capped room (Envy) is furnished, not a platform: its corner passes only
+  // pinned the pan (boss at 76%+, Michaela pushed down to 1.04); lead room and zoom win there.
+  const bands=[[cap,POLICY.minZoom],[POLICY.minZoom-POLICY.zoomStep,1]],passes=passList(s,ob,capped);
   // Passes are run lazily (fit time only): most fits stop in the first band.
   const rs=bands.map(()=>passes.map(()=>undefined)),get=(b,i)=>rs[b][i]!==undefined?rs[b][i]:(rs[b][i]=fitPass(s,base,f,fz,half,box,ob,passes[i],bands[b][0],bands[b][1],capped));
   const pick=keys=>{for(let b=0;b<rs.length;b++)for(const [i,key] of keys){const r=get(b,i)?.[key];if(r){r.pass=passes[i];return r;}}return null;};
@@ -370,14 +386,20 @@
   const gx=[],gy=[];for(const poly of polys){const xs=[],ys=[];for(const p of poly){xs.push(640+27*(p.x-p.y));ys.push(13.5*(p.x+p.y));}gx.push(xs);gy.push(ys);}
   let gl=Infinity,gr=-Infinity,ft=Infinity,fb=-Infinity;for(let i=0;i<gx.length;i++)for(let j=0;j<gx[i].length;j++){gl=Math.min(gl,gx[i][j]);gr=Math.max(gr,gx[i][j]);ft=Math.min(ft,gy[i][j]);fb=Math.max(fb,gy[i][j]);}
   // pass 3: corners floorMarginPx inside; 2: corners just inside; 1: near edge on screen; 0: playable floor only.
-  const corner=pass>=2,M=pass===3?POLICY.floorMarginPx:POLICY.floorMarginMinPx,mB=fz.boss||!box?POLICY.floorMarginPx:POLICY.mobFloorBottomPx,artPad=POLICY.floorArtPadG;
+  const paint=!capped&&POLICY.paintedFloor[s.zone]||null;
+  // pass 1.5 (measured platforms only): the old 24 G px corner estimate when the measured corners
+  // cannot be kept on screen (narrow phones): the surface corners are then cropped symmetrically.
+  const corner=pass>=1.5,M=pass===3?POLICY.floorMarginPx:POLICY.floorMarginMinPx,mB=fz.boss||!box?POLICY.floorMarginPx:POLICY.mobFloorBottomPx,artPad=paint&&pass>=2?paint.pad:POLICY.floorArtPadG;
   let frame=null;try{frame=rc153Base?.framing?.(s);}catch{}
   if(frame&&finite(frame.top)&&finite(frame.bottom)&&frame.bottom>frame.top){ft=Math.min(ft,frame.top);fb=Math.max(fb,frame.bottom);}
   const E=POLICY.zoomEdgePx,pad=POLICY.zoomControlPadPx,sl=insets.left+E,sr=vw-insets.right-E,st=insets.top,sb=vh-insets.bottom,cx=(sl+sr)/2;
   const rects=controls.filter(c=>c.valid).map(c=>({left:c.left-pad,top:c.top-pad,right:c.right+pad,bottom:c.bottom+pad}));
   const cssX=gx.map(a=>a.map(()=>0)),cssY=gy.map(a=>a.map(()=>0));
   const sign=fz.sign,hasFar=finite(fz.efar),mid=finite(fz.hx)&&finite(fz.emid)?(fz.hx+fz.emid)/2:(gl+gr)/2;
-  const farT=(corner&&!capped?POLICY.zoomFarCorner:POLICY.zoomFarTarget)*vw,farMax=POLICY.zoomFarMax*vw,mobEdge=vw-insets.right-POLICY.mobEdgePx;
+  // Boss stages: lead room. The view pans toward the boss (foot aimed at zoomLeadAim) and a fit
+  // reaching zoomLeadOk wins; zoomFarTarget is still acceptable. Corner passes keep zoomFarCorner
+  // (the painted corners pin the pan there).
+  const lead=fz.boss&&hasFar&&!(corner&&!capped),farT=(corner&&!capped?POLICY.zoomFarCorner:lead?POLICY.zoomLeadOk:POLICY.zoomFarTarget)*vw,farAccept=POLICY.zoomFarTarget*vw,farMax=POLICY.zoomFarMax*vw,mobEdge=vw-insets.right-POLICY.mobEdgePx;
   const along=c=>sign>0?c:vw-c; // css distance from the hero-side edge
   // The authored map image must keep covering the screen (RC154: >= 90%).
   let map=null;try{const m=root.__HAPIL_MAP_FORMAT_RC138__?.metrics?.()?.last;if(m&&m.zone===s.zone&&m.rect&&finite(m.rect.x)&&finite(m.rect.y)&&m.rect.width>0&&m.rect.height>0)map=m.rect;}catch{}
@@ -389,16 +411,31 @@
    let lo=sl-gl*Sk,hi=sr-gr*Sk;
    if(corner){lo=Math.max(lo,insets.left+M-(ob.l-artPad)*Sk);hi=Math.min(hi,vw-insets.right-M-(ob.r+artPad)*Sk);}
    if(lo>hi+1e-9)continue;
-   let A=Math.min(hi,Math.max(lo,cx-mid*Sk)); // css x = A + gx*Sk
+   const Ac=cx-mid*Sk;let A0=Ac; // css x = A + gx*Sk
+   // lead pan: toward the boss, never past the hero guard nor back beyond the centred midpoint
+   if(lead){const Af=sign>0?POLICY.zoomLeadAim*vw-fz.efar*Sk:vw-POLICY.zoomLeadAim*vw-fz.efar*Sk;A0=sign>0?Math.min(Ac,Af):Math.max(Ac,Af);
+    if(finite(fz.hx)){const Ah=sign>0?POLICY.zoomHeroMin*vw-fz.hx*Sk:vw-POLICY.zoomHeroMin*vw-fz.hx*Sk;A0=sign>0?Math.max(A0,Math.min(Ac,Ah)):Math.min(A0,Math.max(Ac,Ah));}}
+   // The lead pan first; if no vertical placement fits there (e.g. the floor then touches a thumb
+   // control on a flat screen), the centred pan, as before round 3 (no feasibility is lost).
+   let A=NaN,far=-Infinity,B=NaN,B0=NaN,room=0,Bt=NaN,paintAim=false;const mobs=!fz.boss&&!!box;
+   // Last resort: step the pan across the floor's range (4 px), nearest the centred pan first, so a
+   // thumb control at one end never makes a zoom level infeasible (continuity on 1 px resizes).
+   const Acl=Math.min(hi,Math.max(lo,Ac)),nScan=Math.min(64,Math.ceil((hi-lo)/4));
+   for(let ai=0;ai<2+2*nScan&&!finite(B);ai++){
+   if(ai===1&&Math.abs(A0-Ac)<1e-9)continue;
+   if(ai>=2){const o=4*(1+((ai-2)>>1)),c=Acl+((ai&1)?o:-o);if(c<lo-1e-9||c>hi+1e-9)continue;A=c;}
+   else A=Math.min(hi,Math.max(lo,ai===0?A0:Ac));
    if(map){const mlo=vw-(map.x+map.width)*Sk,mhi=-map.x*Sk;if(A<mlo)A=Math.min(hi,mlo);else if(A>mhi)A=Math.max(lo,mhi);}
-   const far=hasFar?along(A+fz.efar*Sk):-Infinity;
+   far=hasFar?along(A+fz.efar*Sk):-Infinity;
    if(far>farMax)continue;
    if(hasFar&&half>0&&along(A+fz.efar*Sk+sign*half*Sk)>along(sign>0?mobEdge:vw-mobEdge))continue;
-   const B0=(st+sb)/2-(ft+fb)/2*Sk,room=(sb-st-h)/2,mobs=!fz.boss&&!!box; // css y = B + gy*Sk
+   B0=(st+sb)/2-(ft+fb)/2*Sk;room=(sb-st-h)/2; // css y = B + gy*Sk
    // Boss: body frame lowered by zoomDrop. Mob stage: fighters' box centred.
-   const Bt=mobs?(st+sb)/2-(box.top+box.bottom)/2*Sk:B0+Math.min(room,POLICY.zoomDrop*vh);
+   Bt=mobs?(st+sb)/2-(box.top+box.bottom)/2*Sk:B0+Math.min(room,POLICY.zoomDrop*vh);
+   // Measured platform (corner passes): raise the view until the painted near vertex keeps its
+   // margin; the nearest feasible (bodies on screen) wins, so the far back vertex is what is cropped.
+   paintAim=corner&&!!paint&&!mobs;if(paintAim)Bt=Math.min(Bt,sb-mB-paint.bottom*Sk);
    const oyLo=corner?st+M:-Infinity,oyHi=corner?sb-mB:pass===1?sb:Infinity;
-   let B=NaN;
    // Search outwards from the aim, nearest feasible first (covers the whole body-frame range).
    const span=2*room+Math.abs(Bt-B0)+2;
    for(let o=0;o<=span+1e-9&&!finite(B);o+=2)for(let sgn=-1;sgn<=1;sgn+=2){
@@ -409,12 +446,14 @@
     for(let i=0;i<gx.length&&okFit;i++)for(const r of rects)if(polyHitsRect(cssX[i],cssY[i],gx[i].length,r)){okFit=false;break;}
     if(okFit){B=cand;break;}
    }
+   }
    if(!finite(B))continue;
    const Xf=A/k+v.x,Yf=B/k+v.y,ax=v.x+v.width/2,ay=v.y+v.height/2;
    const out={Z,x:ax+(Xf-ax)*f,y:ay+(Yf-ay)*f,scale:base.scale*Z,A,B,Sk,vw,farPct:hasFar?far/vw:null,midPct:along(A+mid*Sk)/vw,dropPct:(B-B0)/vh,half};
-   const farOk=!hasFar||far<=farT+1e-9,dropOk=mobs||B-B0>=POLICY.zoomDrop*.75*vh-1e-6||B>=B0+room-1e-6;
+   const farOk=!hasFar||far<=farT+1e-9,dropOk=mobs||paintAim||B-B0>=POLICY.zoomDrop*.75*vh-1e-6||B>=B0+room-1e-6;
    if(farOk&&dropOk)return {good:out,aimed:null,fallback:null};
-   if(farOk){if(!aimed)aimed=out;}else fallback=out; // keep lowering: less zoom over a lost aim
+   // aimed: the far aim holds (lead room: the acceptable 76%, nearest to the lead target wins)
+   if(farOk||lead&&far<=farAccept+1e-9){if(!aimed||lead&&far<aimed.farPct*vw-1e-6)aimed=out;}else fallback=out; // keep lowering: less zoom over a lost aim
   }
   return aimed||fallback?{good:null,aimed,fallback}:null;
  }
@@ -469,7 +508,7 @@
   if(!(Z>1+1e-9))return null; // identity camera
   const cap=fz.boss&&finite(POLICY.zoneZoomCap[s.zone])?Math.min(POLICY.maxZoom,POLICY.zoneZoomCap[s.zone]):POLICY.maxZoom;
   if(Z>cap+1e-9)return fresh;
-  const ob=outerBounds(s),passes=ob?[3,2,1,0]:[0];
+  const ob=outerBounds(s),passes=passList(s,ob,cap<POLICY.maxZoom);
   for(const p of passes){const r2=fitPass(s,base,f,fz,half,box,ob,p,Z,Z,cap<POLICY.maxZoom),hit=r2&&(r2.good||r2.aimed||r2.fallback);if(hit){hit.pass=p;hit.nudged=true;return hit;}}
   return fresh;
  }
@@ -530,57 +569,48 @@
   return current(st,s,t);
  }
  // ------------------------------------------------------------------ danger band
- // The RC223 danger strip (old hero line y-x = 1.45 up to the x < 19 centre
- // line, on the playable floor) is painted as a floor band during stand-off
- // combat, phone and PC. Review round 2: the old flat fill + entry column
- // read as a screen-aligned red rectangle. Now it follows the iso grid: a
- // faint base fill, stripes along the floor's y axis (combined ~28% where they
- // lie), and a crisp boundary (dashes on the line plus iso chevrons pointing
- // into the strip, arms along the floor axes). Everything is clipped to the
- // walkable floor. Drawn from the native FLOW.drawFloor call (world/camera
- // transform, after the map, before dim/actors/bullets). Geometry is built
- // once into flat arrays; each frame replays four paths, no allocation.
- const band={src:null,strip:null,stripes:null,dashes:null,chevrons:null};
+ // The RC223 danger strip (old hero line y-x = 1.45 up to the x < 19 centre line, on the playable
+ // floor) is painted during stand-off combat, phone and PC, from the native FLOW.drawFloor call
+ // (world/camera transform, after the map, before dim/actors/bullets: under every sprite).
+ // Review round 3: the striped/chevroned band still read as a screen-aligned UI box: its rule-line
+ // edge is vertical on screen (x-y = const) and the playable floor's flattened top cap made a
+ // horizontal top edge. Now it is light on the floor: nested layers of the strip, each inset from the
+ // rule line, from the top cap and a little from the far diagonal (x = 19, a floor axis), drawn in
+ // a desaturated amber with a screen blend. Coverage ramps from ~5% at the rule line to ~29% inside,
+ // so neither screen-aligned edge shows; a faint rim light runs along the far floor diagonal.
+ // Geometry is built once into flat arrays; each frame replays the same paths, no allocation.
+ const band={src:null,strip:null,layers:null,rim:null};
  function clipPoly(pts,fn){const out=[];for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],va=fn(a),vb=fn(b);if(va>=-1e-10)out.push(a);if((va>=-1e-10)!==(vb>=-1e-10)){const t=va/(va-vb);out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});}}return out;}
  function toG(pts){const g=new Float64Array(pts.length*2);for(let i=0;i<pts.length;i++){g[i*2]=640+27*(pts[i].x-pts[i].y);g[i*2+1]=13.5*(pts[i].x+pts[i].y);}return g;}
- function inConvex(q,poly){let sg=0;for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],c=(b.x-a.x)*(q.y-a.y)-(b.y-a.y)*(q.x-a.x);if(Math.abs(c)<1e-9)continue;const d=c>0?1:-1;if(!sg)sg=d;else if(d!==sg)return false;}return true;}
  function bandGeometry(){
-  const poly=D()?.polygon?.('all',.8);if(!poly?.length)return false;if(band.src===poly)return !!band.strip;
-  band.src=poly;const C=root.__HAPIL_LEFT_ZONE_RC223__?.policy?.centerX??19,start=-POLICY.heroLine;
+  const poly=D()?.polygon?.('all',.8);if(!poly?.length)return false;if(band.src===poly)return !!band.layers;
+  band.src=poly;band.strip=null;band.layers=null;band.rim=null;
+  const C=root.__HAPIL_LEFT_ZONE_RC223__?.policy?.centerX??19,start=-POLICY.heroLine;
   const strip=clipPoly(clipPoly(poly,p=>(p.x-p.y)-start),p=>C-p.x);
-  band.strip=strip.length>=3?toG(strip):null;band.stripes=null;band.dashes=null;band.chevrons=null;
-  if(!band.strip)return false;
-  // Stripes: x in [c, c+w] every period, along the floor's y axis.
-  let x0=Infinity,x1=-Infinity;for(const p of strip){if(p.x<x0)x0=p.x;if(p.x>x1)x1=p.x;}
-  const stripes=[];for(let c=C-POLICY.bandStripeWidth-POLICY.bandStripeGap*.5;c>x0-POLICY.bandStripeWidth;c-=POLICY.bandStripeWidth+POLICY.bandStripeGap){
-   const q=clipPoly(clipPoly(strip,p=>p.x-c),p=>c+POLICY.bandStripeWidth-p.x);if(q.length>=3)stripes.push(toG(q));}
-  band.stripes=stripes.length?stripes:null;
-  // Boundary: the strip edge on x-y = start, from far (small x+y) to near.
-  let lo=Infinity,hi=-Infinity;for(const p of strip)if(Math.abs((p.x-p.y)-start)<1e-6){const t=p.x+p.y;if(t<lo)lo=t;if(t>hi)hi=t;}
-  if(finite(lo)&&hi-lo>.5){
-   const at=(u,d)=>({x:(u+d)/2,y:(u-d)/2}); // x+y = u, x-y = d
-   const dashes=[];for(let u=lo+.12;u<hi-.12;u+=POLICY.bandDash+POLICY.bandDashGap){const e=Math.min(hi-.12,u+POLICY.bandDash);if(e-u>.08)dashes.push(toG([at(u,start),at(e,start)]));}
-   band.dashes=dashes.length?dashes:null;
-   const a=POLICY.bandChevron,chev=[];
-   for(let u=lo+POLICY.bandChevronStep*.5;u<hi-a;u+=POLICY.bandChevronStep){
-    const T=at(u,start+a),A1={x:T.x-a,y:T.y},A2={x:T.x,y:T.y+a};
-    if(inConvex(T,strip)&&inConvex(A1,strip)&&inConvex(A2,strip))chev.push(toG([A1,T,A2]));
-   }
-   band.chevrons=chev.length?chev:null;
+  if(strip.length<3)return false;band.strip=toG(strip);
+  let top=Infinity;for(const p of strip){const u=p.x+p.y;if(u<top)top=u;}
+  const layers=[];
+  for(let k=0;k<POLICY.bandLayers;k++){
+   const d=start+k*POLICY.bandRampRule,u=top+k*POLICY.bandRampTop,c=C-k*POLICY.bandRampFar;
+   const q=clipPoly(clipPoly(clipPoly(strip,p=>(p.x-p.y)-d),p=>(p.x+p.y)-u),p=>c-p.x);
+   if(q.length>=3)layers.push(toG(q));
   }
-  return true;
+  band.layers=layers.length?layers:null;
+  // Rim light: the far diagonal (x = C, inset half a layer), from below the top fade to the rule line.
+  const xr=C-POLICY.bandRampFar*.5,inside=p=>{let sg=0;for(let i=0;i<strip.length;i++){const a=strip[i],b=strip[(i+1)%strip.length],cr=(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);if(Math.abs(cr)<1e-9)continue;const t=cr>0?1:-1;if(!sg)sg=t;else if(t!==sg)return false;}return true;};
+  let y0=Infinity,y1=-Infinity;for(let y=0;y<=40;y+=.05){const p={x:xr,y};if(p.x+p.y>=top+POLICY.bandLayers*POLICY.bandRampTop&&(p.x-p.y)>=start+POLICY.bandLayers*POLICY.bandRampRule*.5&&inside(p)){if(y<y0)y0=y;if(y>y1)y1=y;}}
+  if(finite(y0)&&y1-y0>1){const n=POLICY.bandRimSegments,rim=[];for(let i=0;i<n;i++)rim.push(toG([{x:xr,y:y0+(y1-y0)*i/n},{x:xr,y:y0+(y1-y0)*(i+1)/n}]));band.rim=rim;}
+  return !!band.layers;
  }
- function tracePath(ctx,g){ctx.beginPath();ctx.moveTo(g[0],g[1]);for(let i=2;i<g.length;i+=2)ctx.lineTo(g[i],g[i+1]);ctx.closePath();}
  function traceMany(ctx,list,close){ctx.beginPath();for(let k=0;k<list.length;k++){const g=list[k];ctx.moveTo(g[0],g[1]);for(let i=2;i<g.length;i+=2)ctx.lineTo(g[i],g[i+1]);if(close)ctx.closePath();}}
+ function tracePath(ctx,g){ctx.beginPath();ctx.moveTo(g[0],g[1]);for(let i=2;i<g.length;i+=2)ctx.lineTo(g[i],g[i+1]);ctx.closePath();}
  function drawBand(ctx,s){
   if(!ctx||!s||typeof s!=='object'||rawMode(s)!=='standoff'||heroSide(s)!=='left'||!bandGeometry())return;
   ctx.save();
-  try{ctx.globalCompositeOperation='source-over';ctx.fillStyle=POLICY.bandColor;
-   ctx.globalAlpha=POLICY.bandAlpha;tracePath(ctx,band.strip);ctx.fill();
-   if(band.stripes){ctx.globalAlpha=POLICY.bandStripeAlpha;traceMany(ctx,band.stripes,true);ctx.fill();}
-   ctx.strokeStyle=POLICY.bandEdgeColor;ctx.lineCap='round';ctx.lineJoin='round';
-   if(band.dashes){ctx.globalAlpha=POLICY.bandDashAlpha;ctx.lineWidth=2.5;traceMany(ctx,band.dashes,false);ctx.stroke();}
-   if(band.chevrons){ctx.globalAlpha=POLICY.bandChevronAlpha;ctx.lineWidth=3.5;traceMany(ctx,band.chevrons,false);ctx.stroke();}
+  try{ctx.globalCompositeOperation=POLICY.bandComposite;ctx.fillStyle=POLICY.bandColor;ctx.globalAlpha=POLICY.bandLayerAlpha;
+   // one fill per layer: overlapping layers accumulate (a single nonzero path would not)
+   const L=band.layers;for(let k=0;k<L.length;k++){tracePath(ctx,L[k]);ctx.fill();}
+   if(band.rim){ctx.strokeStyle=POLICY.bandRimColor;ctx.globalAlpha=POLICY.bandRimAlpha;ctx.lineWidth=POLICY.bandRimWidth;ctx.lineCap='round';traceMany(ctx,band.rim,false);ctx.stroke();}
    metrics.bandDraws++;}
   finally{ctx.restore();}
  }

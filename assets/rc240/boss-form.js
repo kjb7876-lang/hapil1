@@ -278,17 +278,25 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
  // band opening from the centre across the whole width, double gold rules, the name large; the title
  // card also brings thin letterbox bars in from the top and bottom edges. k = px per 1280-wide unit.
  const BAND={x0:0,bw:0,bh:0,cy:0};const R4=(ctx,x,y,w,h)=>{ctx.beginPath();ctx.rect(x,y,w,h);ctx.fill();};
- function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars){a=clamp(n(a,0),0,1);const bh=(sub?78:68)*k,e=clamp(open,0,1),x0=cw/2*(1-e),bw=cw*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
+ // R4: optional horizontal span [xl, xr] (phone: clear of the left HUD stack and the settings button); the
+ // title-only band is thinner (56 units).
+ function band(ctx,cw,ch,cy,k,a,open,title,sub,col,bars,xl,xr){a=clamp(n(a,0),0,1);const L0=n(xl,0),R0=n(xr,cw),mid=(L0+R0)/2,span=Math.max(1,R0-L0);
+  const bh=(sub?78:56)*k,e=clamp(open,0,1),x0=mid-span/2*e,bw=span*e,y0=cy-bh/2;BAND.x0=x0;BAND.bw=bw;BAND.bh=bh;BAND.cy=cy;
   // Paths, not fillRect: the white-out checks treat full-width fillRects as screen washes.
   ctx.globalCompositeOperation='source-over';
   if(bars){const lb=26*k*e;ctx.globalAlpha=.7*a;ctx.fillStyle='#030207';R4(ctx,0,0,cw,lb);R4(ctx,0,ch-lb,cw,lb);}
   ctx.globalAlpha=.78*a;ctx.fillStyle='#07040c';R4(ctx,x0,y0,bw,bh);
   ctx.globalAlpha=.35*a;R4(ctx,x0,y0-6*k,bw,6*k);R4(ctx,x0,y0+bh,bw,6*k);
   ctx.fillStyle=GOLD;ctx.globalAlpha=.95*a;const L=Math.max(1,1.6*k);R4(ctx,x0,y0,bw,L);R4(ctx,x0,y0+bh-L,bw,L);ctx.globalAlpha=.45*a;R4(ctx,x0,y0+4*k,bw,Math.max(1,.8*k));R4(ctx,x0,y0+bh-5*k,bw,Math.max(1,.8*k));
-  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,cw/2,y0+L/2,5*k);dia(ctx,cw/2,y0+bh-L/2,5*k);ctx.fill();
-  ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`600 ${Math.round((sub?30:34)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
-  hudText(ctx,title,cw/2,sub?cy-12*k:cy+1*k);
-  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,cw/2,cy+22*k);}}
+  ctx.globalAlpha=.95*a;ctx.beginPath();dia(ctx,mid,y0+L/2,5*k);dia(ctx,mid,y0+bh-L/2,5*k);ctx.fill();
+  ctx.globalAlpha=a*e;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=col;ctx.font=`600 ${Math.round((sub?30:32)*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;
+  hudText(ctx,title,mid,sub?cy-12*k:cy+1*k);
+  if(sub){ctx.font=`700 ${Math.round(17*k)}px "Noto Serif KR","Nanum Myeongjo",serif`;ctx.fillStyle='#ff8a96';ctx.globalAlpha=.95*a*e;hudText(ctx,sub,mid,cy+22*k);}}
+ // Band slot (R4): PC in the top band above the arena (full width); phone in the warning slot (CSS y 78),
+ // between the left HUD stack (pips / F button, x < 156) and the settings button. Units: px of (cw, ch);
+ // dpr = those px per CSS px.
+ const SLOT={cy:0,xl:0,xr:0,k:1};
+ function slot(cw,ch,dpr,phone,sub){if(phone){SLOT.k=clamp(dpr*.62,.4,3);SLOT.xl=160*dpr;SLOT.xr=cw-56*dpr;SLOT.cy=(sub?80:76)*dpr;}else{SLOT.k=cw/1280;SLOT.xl=0;SLOT.xr=cw;SLOT.cy=ch*(sub?.2:.19);}return SLOT;}
  // Flash envelope: fast rise (.04 s) then exponential decay; no flicker.
  function flashEnv(age){return age<0?0:age<.04?age/.04:Math.exp(-(age-.04)*4.5);}
  function render(ctx,s,set){if(!enabledFlag||!ctx||!s)return;const w=worlds.get(s);if(!w)return;const t0=now();metrics.draws++;set=set??{};
@@ -320,16 +328,22 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
    // screen space: white-out fallback (only when the above-HUD overlay is not running) and title card
    const cv=ctx.canvas,cw=n(cv?.width,1280),ch=n(cv?.height,720),sk=cw/1280;
    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';
-   if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r');}
-   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1);
-    band(ctx,cw,ch,ch*.4,sk,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',true);}
+   if(white>0&&wb&&!(t-n(w.overlayT,-9)<.1&&t>=n(w.overlayT,-9))){drawFlash(ctx,w,wb,white,reduced,wb.dOk?wb.dx:cw/2,wb.dOk?wb.dy:ch/2,cw,ch,'r',t-wb.at);}
+   const c=w.card;if(c&&t<c.until){const age=t-c.born,a=clamp(Math.min(age/.25,(c.until-t)/.35),0,1),ph=mobile()||n(root.innerHeight,720)<500,Q=slot(cw,ch,cw/Math.max(1,n(root.innerWidth,1280)),ph,false);
+    band(ctx,cw,ch,Q.cy,Q.k,a,reduced?1:easeOut(age/.3),c.text,null,'#f3e6c8',!ph,Q.xl,Q.xr);}
   }catch(e){fail(e);}finally{ctx.restore();}
   metrics.drawMs=metrics.drawMs*.9+(now()-t0)*.1;}
  // Additive boss-centred radial flash (keeps contrast at the edges; never a flat grey wash). The gradient
  // is rebuilt only when the centre / radius moves (cache per path: 'r' render fallback, 'o' overlay).
- function drawFlash(ctx,w,b,env,reduced,cx,cy,cw,ch,path){const R=Math.max(cw,ch)*(ch<500||cw<900?1.25:.95),key=path==='o'?'fo':'fr',c=w[key];
-  let G=c&&c.ctx===ctx&&Math.abs(c.x-cx)<4&&Math.abs(c.y-cy)<4&&Math.abs(c.r-R)<4?c.g:null;
-  if(!G&&typeof ctx.createRadialGradient==='function'){G=ctx.createRadialGradient(cx,cy,0,cx,cy,R);G.addColorStop(0,'rgba(255,250,252,1)');G.addColorStop(.12,'rgba(255,228,242,.75)');G.addColorStop(.38,'rgba(255,190,225,.28)');G.addColorStop(.7,'rgba(200,140,220,.07)');G.addColorStop(1,'rgba(200,140,220,0)');w[key]={ctx,x:cx,y:cy,r:R,g:G};}
+ // R4: the wide lift is the first frame only (age < FLASH_WIDE); after it the gradient tightens around the
+ // boss (radius .5 x the long side on PC, .8 on phone) so the frame never reads as a milky full-screen haze.
+ const FLASH_WIDE=.05;
+ function drawFlash(ctx,w,b,env,reduced,cx,cy,cw,ch,path,age){const ph=ch<500||cw<900,wide=!(n(age,0)>=FLASH_WIDE),R=Math.max(cw,ch)*(wide?(ph?1.25:.95):(ph?.8:.5)),key=path==='o'?'fo':'fr',c=w[key];
+  let G=c&&c.ctx===ctx&&c.wide===wide&&Math.abs(c.x-cx)<4&&Math.abs(c.y-cy)<4&&Math.abs(c.r-R)<4?c.g:null;
+  if(!G&&typeof ctx.createRadialGradient==='function'){G=ctx.createRadialGradient(cx,cy,0,cx,cy,R);G.addColorStop(0,'rgba(255,250,252,1)');
+   if(wide){G.addColorStop(.12,'rgba(255,228,242,.75)');G.addColorStop(.38,'rgba(255,190,225,.28)');G.addColorStop(.7,'rgba(200,140,220,.07)');}
+   else{G.addColorStop(.1,'rgba(255,230,244,.72)');G.addColorStop(.32,'rgba(255,190,225,.2)');G.addColorStop(.65,'rgba(200,140,220,.03)');}
+   G.addColorStop(1,'rgba(200,140,220,0)');w[key]={ctx,x:cx,y:cy,r:R,g:G,wide};}
   if(!G)return;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=clamp(env*(reduced?WHITE_PEAK_REDUCED:WHITE_PEAK),0,1);ctx.fillStyle=G;ctx.fillRect(0,0,cw,ch);ctx.globalCompositeOperation='source-over';}
  function drawSecondForm(ctx,b,t,k,reduced,low){const x=b.ax,y=b.ay;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;
   const pul=reduced?1:.85+.15*Math.sin(t*1.7);ctx.globalCompositeOperation='lighter';
@@ -346,13 +360,13 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   const cv=ctx.canvas,kx=n(cv?.width,cw)/Math.max(1,n(cw,1280)),ky=n(cv?.height,ch)/Math.max(1,n(ch,720)),reduced=!!set.reducedFlash;let d=0;
   for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1)continue;const age=t-b.at,u=age/TRANSFORM_DUR;if(!(u>=0&&u<1))continue;
    const cx=b.dOk?b.dx/kx:cw/2,cy=b.dOk?b.dy/ky:ch*.4;if(!(Number.isFinite(cx)&&Number.isFinite(cy)))continue;
-   drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o');d++;
+   drawFlash(ctx,w,b,flashEnv(age),reduced,cx,cy,cw,ch,'o',age);d++;
    if(ringSprite){const R=40+Math.max(cw,ch)*.75*easeOut(u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.pow(1-u,1.5)*(reduced?RING_PEAK_REDUCED:.9);ctx.drawImage(ringSprite,cx-R,cy-R,2*R,2*R);
     const R2=R*.62;ctx.globalAlpha*=.6;ctx.drawImage(ringSprite,cx-R2,cy-R2,2*R2,2*R2);d++;}}
   // Second form re-declared: a full-width band with the boss name, after the white-out peak.
   for(let i=0;i<w.list.length;i++){const b=w.list[i];if(b.stage<1||!b.actor||!(n(b.actor.hp)>0))continue;const age=t-n(b.bannerAt,b.at+FORM_BANNER_AT);if(!(age>=0&&age<FORM_BANNER_DUR))continue;
-   const a=clamp(Math.min(age/.2,(FORM_BANNER_DUR-age)/.35),0,1),k=clamp(n(cw,1280)/1280,.6,1.4)*(n(ch,720)<500?1.15:1);
-   band(ctx,n(cw,1280),n(ch,720),n(ch,720)*.3,k,a,reduced?1:easeOut(age/.25),String(b.actor.name??'보스'),'제2형태','#ffe3e6',false);d++;}
+   const a=clamp(Math.min(age/.2,(FORM_BANNER_DUR-age)/.35),0,1),W0=n(cw,1280),H0=n(ch,720),ph=W0<800||H0<500,Q=slot(W0,H0,1,ph,true),k=ph?Q.k:clamp(W0/1280,.6,1.4);
+   band(ctx,W0,H0,Q.cy,k,a,reduced?1:easeOut(age/.25),String(b.actor.name??'보스'),'제2형태','#ffe3e6',false,Q.xl,Q.xr);d++;}
   ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;return d;}
  // Floor pass (under actors; STG feel calls it from the background seam): last302 villager contact
  // shadows and the second-form floor sigil (ellipses + six diamonds, never a cross).
@@ -417,6 +431,8 @@ const SOBOK=Object.freeze({sheet:'./assets/rc240/art/last302-sobok-float8.webp',
   partsBroken(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);return b?b.parts.reduce((k,p)=>k+(p.broken?1:0),0):0;},
   parts(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);return b?b.parts.map(p=>({index:p.index,hp:p.hp,maxHp:p.maxHp,broken:p.broken,sx:n(p.sx,b.ax),sy:n(p.sy,b.ay)})):[];},
   form(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);if(!b)return null;const u=n(s.time)-b.at;return {stage:b.stage,at:b.at,transforming:b.stage>=1&&u>=0&&u<TRANSFORM_DUR,procedural:b.procedural,floor:b.floor,art:b.cfg?(b.cfg.final??b.cfg.transition??b.cfg.overlay??'native-phase'):null};},
+  // Second-form stage of a boss (0 = first form, 1 = second); the spell card tags itself with it.
+  formStage(s,bossId){const b=s&&worlds.get(s)?.byId.get(bossId);return b?b.stage:0;},
   titleCard(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?{...c}:null;},
   // Accessors for other owners (no allocation): title card end, second-form transition window.
   titleUntil(s){const c=s&&worlds.get(s)?.card;return c&&n(s.time)<c.until?c.until:-1;},

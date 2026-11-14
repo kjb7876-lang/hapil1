@@ -23,7 +23,7 @@
  const FLAVOUR=Object.freeze({hwando:'ink-clone',seoha:'clock-clone',lauren:'orbit-orbs',hunter:'squad-clone',slayer:'blood-clone',gunner:'afterimage',michaela:'heart-blossom'});
  // Horizontal-shooter option formation around the heart (hero faces right), clear of the hero sprite.
  // Review round 1: familiars ~0.4 hero height (FAM_SCALE x 16 local units), dark outline, trail, floor shadow.
- const SLOTS=[[-40,-54],[-40,46],[-76,-84],[-76,74]],FAM_SCALE=2.1,TRAIL=4,INK='#0a0612',GOLD='#c9a65a';
+ const SLOTS=[[-40,-54],[-40,46],[-76,-84],[-76,74]],FAM_SCALE=2.1,TRAIL=5,INK='#0a0612',GOLD='#c9a65a';
  const BOMB_DUR=.7,BOMB_R={pc:560,mobile:260},DASH=Object.freeze([10,14]),NODASH=Object.freeze([]);
  const metrics={ticks:0,drops:0,pickups:0,levelUps:0,levelDowns:0,famRows:0,famPower:0,famShots:0,bombs:0,autoBombs:0,bombRows:0,bombPower:0,bombCancelled:0,nativeCancelled:0,presses:0,scaled:0,draws:0,errors:0};
  let lastError=null;
@@ -112,7 +112,7 @@
   if(f==='orbit-orbs'){const a=t*2.4+i*TAU/Math.max(1,cnt);return [hx+Math.cos(a)*48,hy+Math.sin(a)*30];}
   if(f==='afterimage'){const H=k.hist,lag=Math.min(H.n-1,(i+1)*4);if(lag>0){const j=(H.i-1-lag+64)%32;return [H.x[j]-6*(i+1),H.y[j]];}}
   // Each option circles its slot (radius ~7 px) so it reads as an orbiting option, not a flying bullet.
-  const sl=SLOTS[i],a=t*3.2+i*1.7,bob=f==='heart-blossom'?Math.sin(t*3+i)*3:0;return [hx+sl[0]+Math.cos(a)*7,hy+sl[1]*(cnt<=2&&i<2?.85:1)+Math.sin(a)*4.5+bob];}
+  const sl=SLOTS[i],a=t*3.2+i*1.7,bob=Math.sin(t*4.2+i*1.3)*2.5+(f==='heart-blossom'?Math.sin(t*3+i)*3:0);return [hx+sl[0]+Math.cos(a)*7,hy+sl[1]*(cnt<=2&&i<2?.85:1)+Math.sin(a)*4.5+bob];}
  function stepFamiliars(s,k,m,dt,hx,hy){const cnt=Math.min(FAM_MAX,k.level),hero=s.activeHeroId,t=n(s.time);
   for(let i=0;i<FAM_MAX;i++){const F=k.fam[i];if(i>=cnt){F.x=NaN;continue;}const [gx,gy]=famPos(s,k,i,cnt,hx,hy,hero);
    if(!Number.isFinite(F.x)){F.x=hx;F.y=hy;F.tn=0;}const e=Math.min(1,dt*(flavour(hero)==='afterimage'?20:10));F.x+=(gx-F.x)*e;F.y+=(gy-F.y)*e;
@@ -197,24 +197,34 @@
    case 'afterimage':ctx.ellipse?.(x,y,7.5*r,5*r,0,0,TAU);break;
    case 'heart-blossom':ctx.moveTo(x,y+6*r);ctx.bezierCurveTo?.(x-8.5*r,y-.6*r,x-4*r,y-7.2*r,x,y-2.3*r);ctx.bezierCurveTo?.(x+4*r,y-7.2*r,x+8.5*r,y-.6*r,x,y+6*r);ctx.closePath();break;
    default:ctx.moveTo(x+8*r,y);ctx.lineTo(x,y+5.5*r);ctx.lineTo(x-8*r,y);ctx.lineTo(x,y-5.5*r);ctx.closePath();}}
- function drawFamiliar(ctx,F,i,f,T,t,set){const x=F.x,y=F.y;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;const r=FAM_SCALE,flash=t-F.flash<.08&&!set?.reducedFlash;
+ // R4: familiars are companion motes, not glyph cursors: a soft additive glow in the hero colour (baked
+ // once per colour, no white centre), a short fading afterimage trail, a small dark-rimmed orb with the
+ // hero-colour ring and a tiny flavour glyph inside (heart for Michaela), and a muzzle flash when it fires.
+ const moteSprites=new Map();
+ function rgbaOf(hex,a){const v=parseInt(String(hex).slice(1),16)|0;return 'rgba('+(v>>16&255)+','+(v>>8&255)+','+(v&255)+','+a+')';}
+ function moteSprite(col){let g=moteSprites.get(col);if(g!==undefined)return g;moteSprites.set(col,null);const c=canvas(64,64),x=c?.getContext?.('2d');if(!x?.createRadialGradient)return null;
+  const G=x.createRadialGradient(32,32,0,32,32,32);G.addColorStop(0,rgbaOf(col,.9));G.addColorStop(.3,rgbaOf(col,.62));G.addColorStop(.62,rgbaOf(col,.2));G.addColorStop(1,rgbaOf(col,0));x.fillStyle=G;x.fillRect(0,0,64,64);moteSprites.set(col,c);return c;}
+ function drawFamiliar(ctx,F,i,f,T,t,set){const x=F.x,y=F.y;if(!(Number.isFinite(x)&&Number.isFinite(y)))return;const r=FAM_SCALE,q=!!set?.reducedFlash,fl=t-F.flash,flash=fl>=0&&fl<.12;
+  const body=f==='afterimage'?.8-.1*i:1,ms=moteSprite(T.body);
   ctx.globalCompositeOperation='source-over';
   // floor shadow at the actor floor line (heart + 42)
-  ctx.globalAlpha=.5;ctx.fillStyle=INK;ctx.beginPath();ctx.ellipse?.(x,y+40,8*r,3*r,0,0,TAU);ctx.fill();
-  // short trail (older samples first), additive in the hero colour
+  ctx.globalAlpha=.35;ctx.fillStyle=INK;ctx.beginPath();ctx.ellipse?.(x,y+40,6*r,2*r,0,0,TAU);ctx.fill();
+  // afterimage trail (older samples first), additive in the hero colour
   ctx.globalCompositeOperation='lighter';ctx.fillStyle=T.body;
-  for(let j=1;j<F.tn;j++){const q=(F.ti-1-j+TRAIL*2)%TRAIL,px=F.tx[q],py=F.ty[q];if(!(Number.isFinite(px)&&Number.isFinite(py)))continue;ctx.globalAlpha=.34*(1-j/TRAIL);ctx.beginPath();ctx.arc(px,py,(5.5-j)*r*.8,0,TAU);ctx.fill();}
-  ctx.globalCompositeOperation='source-over';const body=f==='afterimage'?.72-.1*i:1;
-  // Hollow outline glyph (fix round 2): dark rim + hero-colour outline + faint dark fill, never a solid
-  // bright body (solid bright shapes are the enemy-bullet language).
-  famPath(ctx,f,x,y,r);ctx.globalAlpha=.45*body;ctx.fillStyle=INK;ctx.fill();ctx.globalAlpha=.9*body;ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle=INK;ctx.stroke();
-  ctx.globalAlpha=body;ctx.lineWidth=2.2;ctx.strokeStyle=T.body;ctx.stroke();ctx.lineWidth=.8;ctx.strokeStyle='rgba(255,255,255,.6)';ctx.stroke();
-  // detail: core / clock hands / inner heart
-  ctx.fillStyle=T.core;ctx.globalAlpha=.95*body;
-  if(f==='clock-clone'){ctx.strokeStyle=INK;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*2+i)*5*r,y+Math.sin(t*2+i)*5*r);ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*.4)*3.2*r,y+Math.sin(t*.4)*3.2*r);ctx.stroke();}
-  else if(f==='heart-blossom'){famPath(ctx,f,x,y-.6*r,r*.42);ctx.fill();}
-  else{ctx.beginPath();ctx.arc(x+(f==='squad-clone'||f==='default'||f==='option'?2*r:0),y-(f==='ink-clone'?7*r:0),1.8*r,0,TAU);ctx.fill();}
-  if(flash){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.7;ctx.beginPath();ctx.arc(x+9*r,y,2.6*r,0,TAU);ctx.fill();}}
+  for(let j=1;j<F.tn;j++){const qd=(F.ti-1-j+TRAIL*2)%TRAIL,px=F.tx[qd],py=F.ty[qd];if(!(Number.isFinite(px)&&Number.isFinite(py)))continue;ctx.globalAlpha=.3*(1-j/TRAIL)*body;ctx.beginPath();ctx.arc(px,py,(4.2-.6*j)*r*.8,0,TAU);ctx.fill();}
+  // soft glow
+  if(ms){const S=(19+(q?0:Math.sin(t*5+i)*1.6))*r;ctx.globalAlpha=.9*body;ctx.drawImage(ms,x-S/2,y-S/2,S,S);}
+  // orb: dark rim + hero-colour ring, faint dark fill
+  ctx.globalCompositeOperation='source-over';ctx.beginPath();ctx.arc(x,y,3.6*r,0,TAU);ctx.globalAlpha=.5*body;ctx.fillStyle=INK;ctx.fill();
+  ctx.globalAlpha=.85*body;ctx.lineWidth=3;ctx.strokeStyle=INK;ctx.stroke();ctx.globalAlpha=body;ctx.lineWidth=2.2;ctx.strokeStyle=T.body;ctx.stroke();
+  // flavour glyph inside, in the hero colour (additive, never white)
+  ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.9*body;ctx.fillStyle=T.body;
+  if(f==='clock-clone'){ctx.globalCompositeOperation='source-over';ctx.strokeStyle=T.body;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*2+i)*2.6*r,y+Math.sin(t*2+i)*2.6*r);ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(t*.4)*1.7*r,y+Math.sin(t*.4)*1.7*r);ctx.stroke();}
+  else{famPath(ctx,f,x,y,r*.32);ctx.fill();}
+  // muzzle flash toward the target (hero faces right): a brief bright puff and two short sparks
+  if(flash&&ms){const u=fl/.12,S=(q?9:15)*r*(1-.4*u);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(q?.45:.9)*(1-u);ctx.drawImage(ms,x+5*r-S/2,y-S/2,S,S);
+   if(!q){ctx.strokeStyle=T.body;ctx.lineWidth=1.6;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x+4*r,y-1.5*r);ctx.lineTo(x+(8+4*u)*r,y-3*r);ctx.moveTo(x+4*r,y+1.5*r);ctx.lineTo(x+(8+4*u)*r,y+3*r);ctx.stroke();}}
+  ctx.globalCompositeOperation='source-over';}
  function drawShots(ctx,k,pal,t){const SP=FEEL()?.shapes;let c=0;for(const b of k.shots){if(!b.on)continue;const u=(t-b.born)/b.dur;if(u<0||u>1)continue;const x=b.ax+(b.tx-b.ax)*u,y=b.ay+(b.ty-b.ay)*u;if(!(Number.isFinite(x)&&Number.isFinite(y)))continue;
   ctx.save();ctx.translate(x,y);if(!SP?.UPRIGHT?.[b.shape])ctx.rotate(Math.atan2(b.ty-b.ay,b.tx-b.ax));ctx.globalAlpha=.95;ctx.lineWidth=1.6;ctx.strokeStyle=INK;ctx.fillStyle=pal.body;
   if(SP?.shapePath)SP.shapePath(ctx,b.shape,5.2);else{ctx.beginPath();ctx.arc(0,0,3.5,0,TAU);}ctx.stroke();ctx.fill();ctx.restore();c++;}return c;}
@@ -259,25 +269,29 @@
  // HUD: power pips (4) + bomb stock (2) beside the resonance bar. PC: bottom-left of the canvas, above
  // the native resonance strip; phone: just under the resonance bar, clear of the phase panel and controls.
  const HB=[0,0,0,0];
- const PIP_R=Object.freeze({pc:6.5,mobile:6});
- function hudBox(w,h,mobile){if(mobile){HB[0]=8;HB[1]=76;HB[2]=150;HB[3]=22;}else{HB[0]=16;HB[1]=n(h,720)-36;HB[2]=172;HB[3]=26;}return HB;}
+ const PIP_R=Object.freeze({pc:10,mobile:6});
+ function hudBox(w,h,mobile){if(mobile){HB[0]=8;HB[1]=76;HB[2]=150;HB[3]=22;}else{HB[0]=16;HB[1]=n(h,720)-46;HB[2]=200;HB[3]=38;}return HB;}
  function drawHud(ctx,s,k,m,w,h,T){const mobile=!!m?.mobile||w<800||h<500,B=hudBox(w,h,mobile),x0=B[0],y0=B[1],bw=B[2],bh=B[3],cy=y0+bh/2;
-  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=.72;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(x0,y0,bw,bh);ctx.fill();
-  ctx.globalAlpha=.9;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x0+4,y0,bw-8,1);ctx.fill();
-  const step=mobile?16:17,r=mobile?PIP_R.mobile:PIP_R.pc;let x=x0+12;
+  ctx.globalCompositeOperation='source-over';
+  if(mobile){ctx.globalAlpha=.72;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(x0,y0,bw,bh);ctx.fill();ctx.globalAlpha=.9;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x0+4,y0,bw-8,1);ctx.fill();}
+  else{// R4: PC backing plate (clipped corners) with a gold border, pips ~1.5x
+   const c=6;ctx.beginPath();ctx.moveTo(x0+c,y0);ctx.lineTo(x0+bw-c,y0);ctx.lineTo(x0+bw,y0+c);ctx.lineTo(x0+bw,y0+bh-c);ctx.lineTo(x0+bw-c,y0+bh);ctx.lineTo(x0+c,y0+bh);ctx.lineTo(x0,y0+bh-c);ctx.lineTo(x0,y0+c);ctx.closePath();
+   ctx.globalAlpha=.8;ctx.fillStyle='#08050c';ctx.fill();ctx.globalAlpha=.85;ctx.lineWidth=1.2;ctx.strokeStyle=GOLD;ctx.stroke();}
+  const step=mobile?16:25,r=mobile?PIP_R.mobile:PIP_R.pc;let x=x0+(mobile?12:20);
   for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x,cy-r);ctx.lineTo(x+r*.8,cy);ctx.lineTo(x,cy+r);ctx.lineTo(x-r*.8,cy);ctx.closePath();
-   if(i<k.level){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle=INK;ctx.stroke();}else{ctx.globalAlpha=.75;ctx.lineWidth=1.4;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step;}
-  ctx.globalAlpha=.6;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x-3,y0+4,1.2,bh-8);ctx.fill();x+=step*.75;
+   if(i<k.level){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=mobile?1.5:2;ctx.strokeStyle=INK;ctx.stroke();}else{ctx.globalAlpha=.8;ctx.lineWidth=mobile?1.4:1.8;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step;}
+  ctx.globalAlpha=.6;ctx.fillStyle=GOLD;ctx.beginPath();ctx.rect(x-(mobile?3:6),y0+4,1.2,bh-8);ctx.fill();x+=step*(mobile?.75:.6);
   for(let i=0;i<STOCK_MAX;i++){ctx.beginPath();ctx.arc(x,cy,r+.6,0,TAU);
-   if(i<k.stock){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1.2;ctx.strokeStyle=INK;ctx.stroke();ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-1.2,cy-1.2,1.4,0,TAU);ctx.fill();}
-   else{ctx.globalAlpha=.7;ctx.lineWidth=1;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step+2;}
+   if(i<k.stock){ctx.globalAlpha=1;ctx.fillStyle=T.body;ctx.fill();ctx.lineWidth=1.2;ctx.strokeStyle=INK;ctx.stroke();ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-r*.2,cy-r*.2,mobile?1.4:2,0,TAU);ctx.fill();}
+   else{ctx.globalAlpha=.7;ctx.lineWidth=mobile?1:1.5;ctx.strokeStyle=GOLD;ctx.stroke();}x+=step+2;}
   ctx.globalAlpha=1;}
  function drawScreen(ctx,s,m,set){if(!on(s))return;const k=worlds.get(s);if(!k)return;const v=U()?.screenSpace?.(ctx);if(!v)return;const T=tone(s);
   if(k.fx){const u=(n(s.time)-k.fx.at)/WASH_DUR;if(u>=0&&u<1){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=washAlpha(set)*(1-u)*(1-u);ctx.fillStyle=T.body;ctx.fillRect(0,0,v.w,v.h);ctx.globalAlpha=1;}}
-  // Screen-wide shockwave sweep from the hero (CSS px, strokes only): the bomb reads at phone scale too.
-  if(k.fx){const u=(n(s.time)-k.fx.at)/SWEEP_DUR;if(u>=0&&u<1){let p=null;try{p=FEEL()?.toScreen?.(ctx,m,k.fx.x,k.fx.y-42,v.w,v.h);}catch(e){}const cx=p?p.x:v.w*.35,cy=p?p.y:v.h*.55,e=1-(1-u)*(1-u)*(1-u),f=1-u,ph=!!k.fx.phone||v.w<800;
-   const R=24+Math.hypot(Math.max(cx,v.w-cx),Math.max(cy,v.h-cy))*e,L=(ph?11:8)*f+2;ctx.globalCompositeOperation='source-over';ctx.lineCap='butt';
-   ctx.globalAlpha=.55*f;ctx.lineWidth=L+4;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.stroke();
+  // Shockwave sweep from the hero's feet (CSS px, strokes only): a 2:1 floor ellipse (R4: never a screen
+  // circle clipped by the top HUD); its top stays below 8% of the screen height.
+  if(k.fx){const u=(n(s.time)-k.fx.at)/SWEEP_DUR;if(u>=0&&u<1){let p=null;try{p=FEEL()?.toScreen?.(ctx,m,k.fx.x,k.fx.y,v.w,v.h);}catch(e){}const cx=p?p.x:v.w*.35,cy=p?p.y:v.h*.6,e=1-(1-u)*(1-u)*(1-u),f=1-u,ph=!!k.fx.phone||v.w<800;
+   const cap=Math.max(12,cy-v.h*.08),ry=Math.min(cap,(24+Math.max(cx,v.w-cx)*e)/2),R=2*ry,L=(ph?11:8)*f+2;ctx.globalCompositeOperation='source-over';ctx.lineCap='butt';
+   ctx.globalAlpha=.55*f;ctx.lineWidth=L+4;ctx.strokeStyle=INK;ctx.beginPath();if(ctx.ellipse)ctx.ellipse(cx,cy,R,ry,0,0,TAU);else ctx.arc(cx,cy,ry,0,TAU);ctx.stroke();
    ctx.globalAlpha=(set?.reducedFlash?.6:.9)*f;ctx.lineWidth=L;ctx.strokeStyle=T.body;ctx.stroke();ctx.globalAlpha=.8*f;ctx.lineWidth=Math.max(1.2,L*.3);ctx.strokeStyle=T.core;ctx.stroke();ctx.globalAlpha=1;}}
   drawHud(ctx,s,k,m,v.w,v.h,T);}
  // "x2" hint: a small DOM badge over the D / 공명 button while a bomb is in stock, until the player
@@ -289,9 +303,9 @@
    const show=!!(k&&btn&&k.stock>0&&seen.bombs<2&&!d.hidden&&(b?.phase===undefined||b.phase==='game')&&!b?.modal?.current&&!root.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.());
    if(!badgeEl){if(!show)return;const e=d.createElement('div');e.textContent='×2';e.setAttribute?.('aria-hidden','true');const st=e.style;st.position='fixed';st.pointerEvents='none';st.zIndex='2147483000';
     // A double-tap glyph (finger + ripples) before "×2" on a gold pill, so it reads as "tap twice", not "2 in stock".
-    st.font='bold 10px ui-monospace,Menlo,monospace';st.color='#1a1206';st.backgroundColor='#ffd86a';st.backgroundImage=TAP_ICON;st.backgroundRepeat='no-repeat';st.backgroundPosition='3px 50%';st.backgroundSize='12px 12px';
-    st.border='1px solid #fff3c8';st.borderRadius='8px';st.padding='0 4px 0 17px';st.lineHeight='14px';st.transition='transform .14s ease-out,box-shadow .14s ease-out';st.transformOrigin='50% 50%';d.body.appendChild(e);badgeEl=e;}
-   if(!show){badgeEl.style.display='none';return;}const r=btn.getBoundingClientRect();badgeEl.style.display='block';badgeEl.style.left=Math.round(r.right-30)+'px';badgeEl.style.top=Math.round(r.top-9)+'px';
+    st.font='bold 13px ui-monospace,Menlo,monospace';st.color='#1a1206';st.backgroundColor='#ffd86a';st.backgroundImage=TAP_ICON;st.backgroundRepeat='no-repeat';st.backgroundPosition='4px 50%';st.backgroundSize='16px 16px';
+    st.border='1.5px solid #fff3c8';st.borderRadius='10px';st.padding='1px 6px 1px 23px';st.lineHeight='18px';st.boxSizing='border-box';st.transition='transform .14s ease-out,box-shadow .14s ease-out';st.transformOrigin='50% 50%';d.body.appendChild(e);badgeEl=e;}
+   if(!show){badgeEl.style.display='none';return;}const r=btn.getBoundingClientRect();badgeEl.style.display='block';badgeEl.style.left=Math.round(r.right-40)+'px';badgeEl.style.top=Math.round(r.top-14)+'px';
    // One-time pulse the first time the hint shows this session (4 beats at the 300 ms tick), then steady.
    if(pulse.left<0)pulse.left=8;if(pulse.left>0){pulse.left--;const up=pulse.left%2===1;badgeEl.style.transform=up?'scale(1.3)':'scale(1)';badgeEl.style.boxShadow=up?'0 0 0 3px rgba(255,216,106,.45)':'none';}
    else{badgeEl.style.transform='scale(1)';badgeEl.style.boxShadow='none';}}catch(e){fail(e);}}

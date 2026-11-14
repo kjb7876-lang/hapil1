@@ -136,10 +136,9 @@
   if(t<W.at+.05){const tu=titleUntil(s);if(tu>t&&W.at<tu+.15){W.at=tu+.15;if(m)m.warnHoldUntil=Math.max(n(m.warnHoldUntil,-1),W.at+(W.big?1:.5));}}
   if(!W.sounded&&t>=W.at){W.sounded=true;sound(f,s,'heavy',W.big?GAIN.boss:GAIN.boss*.7,.5,'boss');}
   if(t>=W.at+W.dur)f.warn=null;}
- // R3: the warning belongs to its actor: when that actor dies, a queued warning is dropped and a showing
- // one fades out over WARN_OUT, so the band never sits over the kill beat or the tally.
- const WARN_OUT=.25;
- function endWarn(f,id,t){const W=f.warn;if(!W||W.id!==String(id))return;if(t<W.at){f.warn=null;return;}if(t-W.at<W.dur-WARN_OUT)W.dur=t-W.at+WARN_OUT;}
+ // R3/R4: the warning belongs to its actor: when that actor dies the warning (queued or showing) is
+ // dropped on that frame, so no ghost of the band sits under the kill beat or the tally.
+ function endWarn(f,id,t){const W=f.warn;if(!W||W.id!==String(id))return;f.warn=null;}
  function warningActive(s){const f=s&&worlds.get(s);if(!f?.warn||!active())return false;return n(s.time)<f.warn.at+f.warn.dur;}
  function warnUntil(s){return warningActive(s)?worlds.get(s).warn.at+worlds.get(s).warn.dur:-1;}
 
@@ -363,11 +362,13 @@
    y=C.top?(cm?22:46)+sh/2:h*.24*bg+(cm?74:62)*(1-bg),yT=y-sh/2,yB=y+sh/2;
    if(cy-ph/2<yB&&cy+ph/2>yT){const up=yT-ph/2-6,dn=yB+ph/2+6;cy=(!mobile&&up>=ph/2+4)?up:(dn+ph/2<=h*.5?dn:Math.max(ph/2+4,up));}}
   WB[0]=cx;WB[1]=n(cy,84);WB[2]=pw;WB[3]=ph;return WB;}
- // Warning edge vignette (fix round 2): dark, slightly red, source-over only, so blacks never lift.
+ // Warning edge vignette (R4): edge-only and luminance-only. The centre disc (radius .42 x the short side)
+ // is untouched, the falloff is near-black with only a trace of red at the very corners (no hue cast over
+ // the room), at most ~-35..50% at the frame corners. source-over only, so blacks never lift.
  // Radial gradients cached per ctx/size (no per-frame allocation, no image draws in the HUD pass).
- const VIG={edge:'rgba(34,0,8,.66)',mid:'rgba(20,0,6,.2)',g:null,ctx:null,w:0,h:0};
+ const VIG={edge:'rgba(14,4,6,.5)',mid:'rgba(6,3,4,.1)',g:null,ctx:null,w:0,h:0};
  function vignette(ctx,w,h){if(VIG.g&&VIG.ctx===ctx&&VIG.w===w&&VIG.h===h)return VIG.g;if(typeof ctx.createRadialGradient!=='function')return null;
-  const R=Math.hypot(w,h)/2,G=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.3,w/2,h/2,R);G.addColorStop(0,'rgba(0,0,0,0)');G.addColorStop(.45,VIG.mid);G.addColorStop(1,VIG.edge);
+  const R=Math.hypot(w,h)/2,G=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.42,w/2,h/2,R);G.addColorStop(0,'rgba(0,0,0,0)');G.addColorStop(.4,'rgba(0,0,0,0)');G.addColorStop(.7,VIG.mid);G.addColorStop(1,VIG.edge);
   VIG.g=G;VIG.ctx=ctx;VIG.w=w;VIG.h=h;return G;}
  // Dark separation disc under the screen-pass heart ring (dims native labels / whip art right at the core).
  const DISC={g:null,ctx:null};
@@ -376,14 +377,45 @@
  // World (G px) -> CSS px through the world transform the danmaku world pass saved (m.wm, device px).
  const SP={x:0,y:0};
  function toScreen(ctx,m,x,y,w,h){const M=m?.wm,cv=ctx.canvas;if(!M||!m.wmOk||!cv||!(cv.width>0)||!(cv.height>0))return null;const X=(M[0]*x+M[2]*y+M[4])*w/cv.width,Y=(M[1]*x+M[3]*y+M[5])*h/cv.height;if(!(X===X&&Y===Y))return null;SP.x=X;SP.y=Y;return SP;}
+ // Heart ring in screen space (CSS px): hero-colour ring with a dark outline above native art; PC adds a
+ // dark separation disc, phone keeps a thin outline (the hero stays visible). While a spell runs, a soft
+ // hero-colour rim (baked ring sprite, additive, low alpha) frames the hero body.
+ function screenRing(ctx,s,m,set,f,w,h,t,mobile,at){if(!m||(f.kill&&t>=f.kill.at&&t-f.kill.at<.12))return false;const hx=n(m.hx,f.lastHx),hy=n(m.hy,f.lastHy),R=heartRing(s,m,set,hx,hy,t);if(!R.on)return false;
+  const p=at||toScreen(ctx,m,hx,hy,w,h);if(!p)return false;f.ringScreenAt=t;const X=p.x,Y=p.y,T=heroTone(s),kc=clamp(n(m.kc,1),.3,3);ctx.lineCap='butt';
+  if(m.run||m.banner){const rs=ringSprite(T.body);if(rs){const bw=30*kc,bh=56*kc;ctx.globalCompositeOperation='lighter';ctx.globalAlpha=(mobile?.26:.34)*(set?.reducedFlash?.8:1);ctx.drawImage(rs,X-bw,Y-4*kc-bh,2*bw,2*bh);}}
+  ctx.globalCompositeOperation='source-over';const r=(mobile?8.5:10)+(R.r-8.5),dc=disc(ctx);
+  if(dc){ctx.globalAlpha=mobile?.3:.85;ctx.save();ctx.translate(X,Y);if(mobile)ctx.scale(.7,.7);ctx.fillStyle=dc;ctx.beginPath();ctx.arc(0,0,34,0,TAU);ctx.fill();ctx.restore();}
+  ctx.globalAlpha=.95;ctx.lineWidth=mobile?2.6:5;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
+  ctx.globalAlpha=R.alpha;ctx.lineWidth=mobile?1.4:2.4;ctx.strokeStyle=T.body;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
+  if(!mobile){ctx.globalAlpha=.9;ctx.lineWidth=1;ctx.strokeStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,r-2.2,0,TAU);ctx.stroke();}
+  ctx.globalAlpha=1;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,mobile?1.7:2.4,0,TAU);ctx.fill();
+  if(R.near>.02){ctx.globalAlpha=.8*R.near;ctx.lineWidth=mobile?1.2:1.6;ctx.strokeStyle=T.ring;ctx.beginPath();ctx.arc(X,Y,r+(mobile?4:5),0,TAU);ctx.stroke();}
+  ctx.globalAlpha=1;return true;}
+ // Post-HUD pass: the native RC128 feedback draw (debuff labels such as 흡혈 억제) runs after the RC240
+ // layer, so the ring is re-drawn right after it through a wrapper on that API. The wrapper keeps every
+ // member (prototype bridge) and is installed once: if another wrapper later wraps it, it is still in the
+ // chain and is not wrapped again.
+ let fbBridge=null,inFb=false;
+ function postRing(ctx,s){if(!active()||!s||!ctx)return;const m=R()?.world?.(s),f=worlds.get(s),u=U();if(!m||!f||!u?.screenSpace)return;const set=settingsOf();
+  // The hero point is the one the RC240 screen pass computed this frame (m.wm can be overwritten by a later
+  // world pass before the native HUD draws); without it the RC240 pass keeps drawing the ring.
+  const H=f.heroScr,t=n(s.time);if(!H||H.t!==t)return;
+  ctx.save();try{const v=u.screenSpace(ctx);if(!v||Math.abs(v.w-H.w)>1||Math.abs(v.h-H.h)>1)return;const mobile=!!m.mobile||v.w<800||v.h<500;if(screenRing(ctx,s,m,set,f,v.w,v.h,t,mobile,H))f.ringPostAt=t;}catch(e){fail(e);}finally{ctx.restore();}}
+ function wrapFeedback(){const F=root.__HAPIL_FEEDBACK_RC128__;if(!F||typeof F.draw!=='function')return false;for(let o=F,d=0;o&&d<40;o=Object.getPrototypeOf(o),d++)if(o===fbBridge)return true;
+  const base=F;const draw=function(ctx,s,canvas,settings,...rest){const r=base.draw.call(base,ctx,s,canvas,settings,...rest);if(!inFb){inFb=true;try{postRing(ctx,s);}catch(e){fail(e);}finally{inFb=false;}}return r;};
+  const b=Object.create(base);Object.defineProperty(b,'draw',{value:draw,enumerable:true});Object.defineProperty(b,'rc240FeelRing',{value:true});fbBridge=Object.freeze(b);
+  try{root.__HAPIL_FEEDBACK_RC128__=fbBridge;}catch(e){fail(e);return false;}return true;}
+ try{root.setTimeout?.(wrapFeedback,0);root.setInterval?.(wrapFeedback,1000);}catch(e){}
  function screenFeel(ctx,s,m,set,f,w,h,t,u){const mobile=!!m?.mobile||w<800||h<500,txt=(a,x,y)=>u.hudText(ctx,a,x,y),quiet=!!set?.reducedFlash;
   ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.textBaseline='middle';ctx.direction='ltr';
-  // Score + chain: top right (PC) / left of the settings button (phone), out of the top-centre presentation column.
-  if(f.score>0||f.chain>=5){ctx.textAlign='right';const rx=mobile?w-58:w-24,y0=mobile?14:18;
-   if(!mobile){ctx.globalAlpha=.92;ctx.font='bold 13px ui-monospace,Menlo,monospace';ctx.fillStyle='#000000';txt('점수 '+fmt(f.score),rx+1,y0+1);ctx.fillStyle='#f6f0ff';txt('점수 '+fmt(f.score),rx,y0);
-    if(f.chain>=5){ctx.globalAlpha=.9;ctx.font='bold 12px ui-monospace,Menlo,monospace';const line='연쇄 '+f.chain+' ×'+f.mult.toFixed(1);ctx.fillStyle='#000000';txt(line,rx+1,y0+17);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(line,rx,y0+16);}}
-   else{ctx.globalAlpha=.9;ctx.font='bold 11px ui-monospace,Menlo,monospace';const line='점수 '+fmt(f.score);ctx.fillStyle='#000000';txt(line,rx+1,y0+1);ctx.fillStyle='#f6f0ff';txt(line,rx,y0);
-    if(f.chain>=10){const l2='연쇄 '+f.chain+' ×'+f.mult.toFixed(1);ctx.font='bold 10px ui-monospace,Menlo,monospace';ctx.fillStyle='#000000';txt(l2,rx+1,y0+14);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(l2,rx,y0+13);}}}
+  // Score + chain: top right (PC) / left of the settings button (phone), out of the top-centre presentation
+  // column. R4: always shown during a fight (also at 0), white on a dark plate, left of the native
+  // top-right "GRADE n" label (it sat on top of that label on PC and phone).
+  if(f.score>0||f.chain>=5||m?.owner||m?.run){ctx.textAlign='right';const rx=mobile?w-112:w-92,y0=mobile?14:18,line='점수 '+fmt(f.score),fz=mobile?12:14;
+   const l2=mobile?(f.chain>=10):(f.chain>=5),pw=(line.length*fz*.62)+16,phh=l2?(mobile?32:36):(mobile?19:22);
+   ctx.globalAlpha=.55;ctx.fillStyle='#08050c';ctx.beginPath();ctx.rect(rx-pw+6,y0-phh/2-1+(l2?(mobile?6.5:8):0),pw+4,phh);ctx.fill();
+   ctx.globalAlpha=1;ctx.font='bold '+fz+'px ui-monospace,Menlo,monospace';ctx.lineJoin='round';ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,line,rx,y0);ctx.fillStyle='#ffffff';txt(line,rx,y0);
+   if(l2){const c2='연쇄 '+f.chain+' ×'+f.mult.toFixed(1),dy=mobile?13:16;ctx.font='bold '+(mobile?10:12)+'px ui-monospace,Menlo,monospace';ctx.globalAlpha=.95;hudStroke(ctx,c2,rx,y0+dy);ctx.fillStyle=f.mult>=2?'#ffd34d':'#bff4ff';txt(c2,rx,y0+dy);}}
   // Kill beat: a short additive flash, a spotlight dim held on the boss (reads as a hit-stop), then
   // two thick rings and rays from the boss in screen space; the tally comes after.
   const K=f.kill;if(K){const age=t-K.at;let bx=w*.68,by=h*.42;const p=toScreen(ctx,m,K.x,K.y,w,h);if(p){bx=clamp(p.x,0,w);by=clamp(p.y,0,h);}
@@ -398,30 +430,32 @@
   // Boss warning: dark red edge vignette + ornamented band in the upper third, after the stage title card.
   // The spell card is held by the danmaku layer while it is up, so the band takes the free slot.
   const Wn=f.warn;if(Wn){const age=t-Wn.at;if(age>=0&&age<Wn.dur){const fade=Math.min(1,age/.18)*Math.min(1,(Wn.dur-age)/.3);
-    const vg=vignette(ctx,w,h);if(vg){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=fade*(quiet?.75:.6+.4*(.5+.5*Math.sin(age*TAU*1.2)));ctx.fillStyle=vg;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}
+    const vg=vignette(ctx,w,h);if(vg){ctx.globalCompositeOperation='source-over';ctx.globalAlpha=fade*(quiet?.8:.8+.2*(.5+.5*Math.sin(age*TAU*1.2)));ctx.fillStyle=vg;ctx.beginPath();ctx.rect(0,0,w,h);ctx.fill();}
     const B=warnBox(w,h,mobile,Wn.big,m?.banner&&!m.banner.held?m:null,t),cx=B[0],cy=(Wn.cy=Wn.cy==null||age<.02?B[1]:Wn.cy+(B[1]-Wn.cy)*.2),pw0=B[2],ph=B[3],pw=pw0*(quiet?1:.3+.7*ease3(age/.28));
     ornPanel(ctx,cx,cy,pw,ph,fade,GOLD);const ty=Wn.big?cy-ph*.16:cy;ctx.textAlign='center';ctx.lineJoin='round';
     ctx.font='bold '+(Wn.big?(mobile?17:24):(mobile?13:17))+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.globalAlpha=fade;ctx.lineWidth=3;ctx.strokeStyle=INK;const title=Wn.big?'경고 · 거대 반응 접근':'경고 · 반응 접근';
     hudStroke(ctx,title,cx,ty);ctx.fillStyle='#ff5a62';txt(title,cx,ty);
     if(Wn.name&&Wn.big){ctx.font=(mobile?11:14)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.fillStyle='#efe2c4';ctx.globalAlpha=.92*fade;txt(u.fitText?u.fitText(ctx,Wn.name,pw*.8):Wn.name,cx,cy+ph*.27);}}}
   // Callouts: the hero-side lane (left), in the upper band, clear of the centre column and debuff labels.
+  // R4: callouts (spell result, bomb, power) wait behind the second-form banner: live and pending ones are
+  // pushed to start just after it (no clash with the banner on phone or PC).
+  {let fu=-1;try{fu=n(root.__HAPIL_BOSS_FORM_RC240__?.formBannerUntil?.(s),-1);}catch(e){}if(fu>t)for(let i=0;i<CALL_N;i++){const c=f.calls[i];if(c.at+c.dur>t&&c.at<fu+.05)c.at=fu+.05;}}
   const lx=calloutX(w,mobile);let row=0;ctx.textAlign='center';ctx.lineJoin='round';const cy=calloutY(w,h,mobile);
   for(let pass=0;pass<CALL_N;pass++){let k=null;for(let i=0;i<CALL_N;i++){const c=f.calls[i],age=t-c.at;if(age<0||age>=c.dur||c.drawn===t)continue;if(!k||c.at>k.at)k=c;}if(!k)break;k.drawn=t;
    const age=t-k.at,a=Math.min(1,age/.1)*Math.min(1,(k.dur-age)/.25),fz=k.big?(mobile?16:21):(mobile?13:16),y=cy+row*(mobile?17:21)+(k.big?2:0)-(quiet?0:6*Math.min(1,age/.3));ctx.font='bold '+fz+'px "Noto Serif KR","Nanum Myeongjo",serif';
    ctx.globalAlpha=a;ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,k.text,lx,y);ctx.fillStyle=k.color;txt(k.text,lx,y);row+=k.big?1.3:1;}
   for(let i=0;i<CALL_N;i++)f.calls[i].drawn=-1;
-  // Heart ring above everything native (debuff labels, whip / lance art): screen pass, hero colour, dark disc.
-  if(m&&!(f.kill&&t-f.kill.at<.12)&&!(titleUntil(s)>t)){const R=heartRing(s,m,set,n(m.hx,f.lastHx),n(m.hy,f.lastHy),t);const p=R.on?toScreen(ctx,m,n(m.hx,f.lastHx),n(m.hy,f.lastHy),w,h):null;
-   if(p){f.ringScreenAt=t;const X=p.x,Y=p.y,r=(mobile?9:10)+(R.r-8.5),T=heroTone(s),dc=disc(ctx);ctx.globalCompositeOperation='source-over';ctx.lineCap='butt';
-    if(dc){ctx.globalAlpha=.85;ctx.save();ctx.translate(X,Y);ctx.fillStyle=dc;ctx.beginPath();ctx.arc(0,0,34,0,TAU);ctx.fill();ctx.restore();}
-    ctx.globalAlpha=.95;ctx.lineWidth=5;ctx.strokeStyle=INK;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
-    ctx.globalAlpha=R.alpha;ctx.lineWidth=2.4;ctx.strokeStyle=T.body;ctx.beginPath();ctx.arc(X,Y,r,0,TAU);ctx.stroke();
-    ctx.globalAlpha=.9;ctx.lineWidth=1;ctx.strokeStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,r-2.2,0,TAU);ctx.stroke();
-    ctx.globalAlpha=1;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(X,Y,mobile?2.2:2.4,0,TAU);ctx.fill();
-    if(R.near>.02){ctx.globalAlpha=.8*R.near;ctx.lineWidth=1.6;ctx.strokeStyle=T.ring;ctx.beginPath();ctx.arc(X,Y,r+5,0,TAU);ctx.stroke();}}}
+  // Heart ring: drawn by the feedback seam after the native RC128 HUD (debuff labels) when that pass ran
+  // last frame; this RC240 screen pass is the fallback.
+  {const H=f.heroScr??={x:0,y:0,t:-1,w:0,h:0},p=m?toScreen(ctx,m,n(m.hx,f.lastHx),n(m.hy,f.lastHy),w,h):null;if(p){H.x=p.x;H.y=p.y;H.t=t;H.w=w;H.h=h;}else H.t=-1;}
+  if(!(t-n(f.ringPostAt,-9)<.2&&t>=n(f.ringPostAt,-9)))screenRing(ctx,s,m,set,f,w,h,t,mobile);
   // Result tally: after the kill beat, centred, larger, counting up; zero rows were dropped at creation.
   const T=f.tally;if(T){const age=t-T.at;if(age>=TALLY_LIFE)f.tally=null;else if(age>=0&&!modalOpen(s)&&T.rows){const k=clamp(age/1.2,0,1),fade=Math.min(1,age/.2)*Math.min(1,(TALLY_LIFE-age)/.4);
-   const pw=mobile?Math.min(300,w*.46):Math.min(420,w*.36),lh=mobile?18:26,ph=lh*(T.rows.length+1)+(mobile?20:28),rise=quiet?0:(1-ease3(age/.3))*14,x0=(w-pw)/2,y0=Math.max(mobile?44:60,h*(mobile?.3:.36)-ph/2)+rise,cx=w/2;
+   // R4: anchored in the top band (phone: top edge; PC: under the top HUD strip), clear of the hero row and its
+   // status tag; if the hero still sits under it, the panel slides sideways away from the hero.
+   const pw=mobile?Math.min(300,w*.46):Math.min(420,w*.36),lh=mobile?17:24,ph=lh*(T.rows.length+1)+(mobile?18:26),rise=quiet?0:(1-ease3(age/.3))*14;let cx=w/2;const y0=(mobile?8:56)+rise;
+   {const hp=toScreen(ctx,m,n(m?.hx,f.lastHx),n(m?.hy,f.lastHy),w,h);if(hp&&y0+ph>hp.y-(mobile?50:60)&&Math.abs(hp.x-cx)<pw/2+70)cx=hp.x<w/2?Math.min(w-pw/2-8,hp.x+70+pw/2):Math.max(pw/2+8,hp.x-70-pw/2);}
+   const x0=cx-pw/2;
    ctx.globalAlpha=.35*fade;ctx.fillStyle='#05030a';ctx.beginPath();ctx.rect(0,y0-10,w,ph+20);ctx.fill();
    ornPanel(ctx,cx,y0+ph/2,pw,ph,fade,GOLD);
    ctx.globalAlpha=fade;ctx.textAlign='center';ctx.font='bold '+(mobile?17:24)+'px "Noto Serif KR","Nanum Myeongjo",serif';ctx.lineWidth=3;ctx.strokeStyle=INK;hudStroke(ctx,'격파 결산',cx,y0+lh*.5+10);ctx.fillStyle='#ffe59a';txt('격파 결산',cx,y0+lh*.5+10);
