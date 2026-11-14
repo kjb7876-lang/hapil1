@@ -68,7 +68,8 @@ jobs:
           run_check extension166-historical node tools/rc240f-build-extension.cjs --check --historical-source-check
           run_check extension167-historical node tools/rc240g-build-extension.cjs --check --historical-source-check
           run_check extension168-historical node tools/rc240h-build-extension.cjs --check --historical-source-check
-          run_check extension169 node tools/rc240i-build-extension.cjs --check
+          run_check extension169-historical node tools/rc240i-build-extension.cjs --check --historical-source-check
+          run_check extension170 node tools/rc240j-build-extension.cjs --check
           run_check native-source-sync node tools/rc215-build-native.cjs --check
           shopt -s nullglob
           targeted=(tests/rc231-*-unit.cjs tests/rc232-*-unit.cjs tests/rc233-*-unit.cjs tests/rc234-*-unit.cjs tests/rc240-*-unit.cjs)
