@@ -70,10 +70,11 @@ jobs:
           run_check extension168-historical node tools/rc240h-build-extension.cjs --check --historical-source-check
           run_check extension169-historical node tools/rc240v-build-extension.cjs --check --historical-source-check
           run_check extension170-historical node tools/rc240w-build-extension.cjs --check --historical-source-check
-          run_check extension171 node tools/rc240x-build-extension.cjs --check
+          run_check extension171-historical node tools/rc240x-build-extension.cjs --check --historical-source-check
+          run_check extension172 node tools/rc241-build-extension.cjs --check
           run_check native-source-sync node tools/rc215-build-native.cjs --check
           shopt -s nullglob
-          targeted=(tests/rc231-*-unit.cjs tests/rc232-*-unit.cjs tests/rc233-*-unit.cjs tests/rc234-*-unit.cjs tests/rc240-*-unit.cjs)
+          targeted=(tests/rc231-*-unit.cjs tests/rc232-*-unit.cjs tests/rc233-*-unit.cjs tests/rc234-*-unit.cjs tests/rc240-*-unit.cjs tests/rc241-*-unit.cjs)
           test "${#targeted[@]}" -gt 0 || exit 1
           for test_file in "${targeted[@]}"; do run_check "$(basename "$test_file" .cjs)" node "$test_file"; done
           run_check admission node tests/rc229-admission-unit.cjs

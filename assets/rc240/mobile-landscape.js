@@ -501,6 +501,8 @@
   if(root.__HAPIL_MOBILE_V31366__?.enabled?.()!==true&&!html()?.classList?.contains?.('hapil-touch-v31366'))return false;
   if(!s||typeof s!=='object'||!R()?.enabled?.(s))return false;
   if(D()?.active?.(s))return false;
+  // RC241 boss duel frames the whole arena, like the RC134 persona duel.
+  if(root.__HAPIL_BOSS_DUEL_RC241__?.framed?.(s))return false;
   return true;
  }
  // The zoom is fitted in window (rc153Viewport) CSS space, so it only holds

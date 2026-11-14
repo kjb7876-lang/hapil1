@@ -781,6 +781,10 @@
   if(!hook('state'))return;if(t-n(m.warnPollAt,-9)<.25&&t>=n(m.warnPollAt,-9))return;m.warnPollAt=t;
   const st=callHook('state',s),w=st&&st.warn;if(w&&Number.isFinite(w.at)){m.warnEnd=w.at+Math.max(0,n(w.dur,0))+.1;m.warnDeclAt=w.at+1;}else if(!(n(m.warnEnd,-1)>t)){m.warnEnd=-1;}}
  // Second-form transformation (boss-form module): no new spell is declared under its white-out.
+ // RC241 boss duel: a boss that owns a duel deck runs its own named volleys (one attack source).
+ // Its spell curtain, signature formation and filler stream stand aside; ownership, the boss
+ // warning and the STG feel hooks (charge shot) keep running.
+ function duelHeld(s,a){try{return !!a&&root.__HAPIL_BOSS_DUEL_RC241__?.owns?.(s,a)===true;}catch(e){return false;}}
  function formBusy(s,a){try{const B=root.__HAPIL_BOSS_FORM_RC240__;if(!B)return false;if(typeof B.transforming==='function')return B.transforming(s)===true;const f=B.form?.(s,a.id);return !!(f&&f.transforming);}catch(e){return false;}}
  function simTick(s,dt){
   if(!enabledFlag||!s)return;const m=mem(s),set=settingsNow();
@@ -807,7 +811,8 @@
   // The curtain keeps drifting through RC129's drain (the boss finishing its cast) and is
   // cancelled together with RC129's own clear when the rest begins.
   if(ph&&ph.stage==='rest'&&m.run){if(m.banner)m.banner.elapsedAtEnd=m.lastPhase?.elapsed;endSpell(s,m,set,'spell-end');m.serial=ph.serial;}
-  if(ph&&ph.stage==='active'&&ph.serial!==m.serial&&!warnHold&&!formBusy(s,a))beginSpell(s,m,a,ph,set);
+  const duel=duelHeld(s,a);if(duel&&m.run)endSpell(s,m,set,'owner');
+  if(ph&&ph.stage==='active'&&ph.serial!==m.serial&&!warnHold&&!formBusy(s,a)&&!duel)beginSpell(s,m,a,ph,set);
   if(ph&&m.banner){m.banner.remaining=ph.remaining;m.banner.elapsedAtEnd=ph.elapsed;}
   m.lastPhase=ph;m.owner=a;
   // Frame constants.
@@ -832,7 +837,7 @@
    fctx=m.fctx;fctx.travel=travel;
    const tail=!!m.run&&!m.midboss&&!!ph&&ph.serial===m.serial&&(ph.stage==='draining'||(ph.stage==='active'&&n(ph.remaining,9)<=BRIDGE.lead));
    const gap=!m.run||m.declLeft>0,why=(gap||tail)?heldByCast(s,a,true):'';
-   fillerOn=(gap||tail)&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold&&!spawnHold;
+   fillerOn=(gap||tail)&&!duel&&!m.winding&&why!=='locked'&&s.time>=m.mercyUntil&&s.time>=n(m.fillerPauseUntil,-1)&&!warnHold&&!spawnHold;
    m.bridgeTail=tail;m.volleyQuiet=why==='cast';}
   if(!fillerOn&&m.tele?.length&&(s.time<m.mercyUntil||!a)){m.tele.length=0;m.bridgeSerial=null;}// a dropped bridge may be queued again
   // A volley telegraphed in the declaration gap that the spell start cut off would otherwise sit frozen
