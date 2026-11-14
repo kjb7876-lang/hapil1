@@ -59,6 +59,7 @@
   zoomKeepHigh:.79,
   zoomDriftSeconds:.75,    // a shift must persist this long before a re-aim
   zoomEaseSeconds:.6,      // re-aims are eased over this much game time
+  zoomSettleSeconds:.25,   // a fresh state's framing settles (snaps) this long after its first fit
   resizeNudgePx:2,         // a viewport change this small (CSS px) is a nudge, not a new layout ...
   resizeScaleStep:.009,    // ... and moves the world-to-CSS scale by at most 0.9% (RC233: < 1% per pixel)
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
@@ -521,14 +522,16 @@
   let st=aims.get(s);
   if(!st||st.zone!==s.zone||st.vw!==vw||st.vh!==vh){
    const nudge=!!st&&st.zone===s.zone&&Math.abs(st.vw-vw)<=POLICY.resizeNudgePx&&Math.abs(st.vh-vh)<=POLICY.resizeNudgePx;
-   if(!st){st={zone:null,vw:0,vh:0,base:null,base0:null,f:1,version:-1,cam:null,fit:null,hx:NaN,emid:NaN,efar:NaN,boss:false,driftT:NaN,checkT:NaN,easing:false,easeT0:NaN,easeWall:0,base0Prev:null,fromX:0,fromY:0,fromScale:1,fromZ:1,bufA:null,bufB:null,buf:null,bufT:NaN,flip:false};aims.set(s,st);}
-   st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false,nudge);
+   if(!st){st={t0:NaN,zone:null,vw:0,vh:0,base:null,base0:null,f:1,version:-1,cam:null,fit:null,hx:NaN,emid:NaN,efar:NaN,boss:false,driftT:NaN,checkT:NaN,easing:false,easeT0:NaN,easeWall:0,base0Prev:null,fromX:0,fromY:0,fromScale:1,fromZ:1,bufA:null,bufB:null,buf:null,bufT:NaN,flip:false};aims.set(s,st);}
+   if(st.zone!==s.zone)st.t0=t;st.zone=s.zone;st.vw=vw;st.vh=vh;st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false,nudge);
   }else if(st.f!==f||st.version!==controlsVersion){
    // Layout inputs (touch controls, insets, RC223 view setting) can change
    // while paused: snap so the new constraints hold at once.
    st.checkT=t;refit(st,s,base,f,focus(s,focusNow),false);
   }else if(st.base!==base){
-   st.checkT=t;refit(st,s,base,f,focus(s,focusNow),true);
+   // RC153 settling a fresh state's camera right after its first fit snaps:
+   // that glide would still be running when combat input begins.
+   st.checkT=t;refit(st,s,base,f,focus(s,focusNow),!(finite(t)&&finite(st.t0)&&t-st.t0<POLICY.zoomSettleSeconds));
   }else if(st.checkT!==t){
    // Dead zone with hysteresis: the framing stays while the far actor is in
    // [60%, 79%] of the width; outside it must persist before a re-aim.
