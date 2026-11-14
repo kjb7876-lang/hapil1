@@ -34,4 +34,5 @@ pins.push([166,"e6367ea92abd126a44bee15dd8407b33a613d007ebecd5e7f61482d7304be24e
 pins.push([167,"1799e068584f41e6ff25cc72daf140c9ba6726d5ac81d338e4964b73d422dd7f"]);
 pins.push([168,"6c48956987e601cb5d8582f4317372a6c13378f54a8828b7fd24aef00eeacc9c"]);
 pins.push([169,"d8ef4780b8ad23dda7104e6b581c10f4a6a4cbf466a95982ef8b135e6dd30bf2"]);
+pins.push([170,"7bb10a4790b91ba561f1aac98744a1e688abf68ccaa711a6d9a65a62ceb4516b"]);
 module.exports=function(root){let previous=digest(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-65.json')));return pins.map(([number,hash])=>{const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-'+number+'.json'));assert.equal(digest(bytes),hash,'exact later extension '+number);const row=JSON.parse(bytes);assert.equal(row.previousExtensionSha256,previous,'exact later extension chain '+number);previous=hash;return row;});};
