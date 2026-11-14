@@ -50,7 +50,7 @@
    grade:'#d9b45a',rim:'#ff3f8a',core:'#fff6e4',
    deck:deck([
     {name:'부서진 여섯 날개',src:'native pattern a11-boss',sprite:V+'a11-boss/lucifer_feather_lance.webp',heading:'dir',formation:'twin',count:12,spread:.5,speed:1.02,hang:.9,size:81},
-    {name:'치료거부 성광십자',src:'native pattern a11-boss',sprite:V+'a11-boss/lucifer_judgment_sigil.webp',heading:'spin',formation:'cross',count:16,speed:.9,hang:1,size:64},
+    {name:'치료거부 성광십자',src:'native pattern a11-boss',sprite:V+'a11-boss/lucifer_judgment_sigil.webp',heading:'spin',formation:'hexagram',count:16,speed:.9,hang:1,size:64},
     {name:'거짓천국 조형추락',src:'native pattern a11-boss',sprite:V+'a11-boss/lucifer_judgment_sigil.webp',heading:'spin',formation:'rain',count:11,speed:.95,hang:1.1,size:64},
     {name:'십이진 방사',src:'native laser card a11-boss',sprite:V+'a11-boss/lucifer_feather_lance.webp',heading:'dir',formation:'ring',count:12,speed:1.05,hang:.95,size:81},
     {name:'거짓구원의 단일명령',src:'native pattern a11-boss',sprite:V+'a11-boss/lucifer_feather_lance.webp',heading:'dir',formation:'needle',count:9,rows:3,stagger:.07,speed:1.32,hang:.8,size:81},

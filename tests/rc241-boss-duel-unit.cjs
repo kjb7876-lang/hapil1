@@ -299,6 +299,56 @@ function rc240Env(duelOwns) {
   let g = 0; while (!sb.__HAPIL_DANMAKU_RC240__.installed && g++ < 5) sb.__HAPIL_DANMAKU_RC240__.__test.install();
   return { sb, feelTicks };
 }
+// House rule: no bullet formation may read as a cross (X or +); crosses become hexagrams.
+function readsAsCross(rows) {
+  const pts = rows.filter(r => !r.abs && r.r > 0);
+  const groups = [];
+  for (const r of pts) {
+    const a = ((r.off % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    const g = groups.find(g => Math.abs(Math.atan2(Math.sin(a - g.a), Math.cos(a - g.a))) < .12);
+    if (g) g.r.add(Math.round(r.r)); else groups.push({ a, r: new Set([Math.round(r.r)]) });
+  }
+  const arms = groups.filter(g => g.r.size >= 2);
+  if (arms.length !== 2 && arms.length !== 4) return false;
+  if (arms.length !== groups.length) return false;
+  let min = Infinity;
+  for (let i = 0; i < arms.length; i++) for (let j = i + 1; j < arms.length; j++) min = Math.min(min, Math.abs(Math.atan2(Math.sin(arms[i].a - arms[j].a), Math.cos(arms[i].a - arms[j].a))));
+  return min >= Math.PI / 3;
+}
+
+test('no cross formation: every deck volley (plain and awakened) is cross-free; the old cross is now a hexagram of two triangles', () => {
+  const { sb, api } = makeEnv();
+  const D = sb.__HAPIL_BOSS_DUEL_DECKS_RC241__, F = api.__test.formation;
+  assert.ok(!/f===['"]cross['"]/.test(read(duelFile)), 'no cross formation branch in the runtime');
+  const H0 = { x: 400, y: 380 }, mz = { x: 900, y: 300 };
+  for (const b of Object.values(D.bosses)) for (const e of b.deck) {
+    assert.notStrictEqual(e.formation, 'cross', e.name);
+    for (const N of [e.count, Math.round(e.count * 1.5)]) for (let cycle = 0; cycle < 3; cycle++)
+      assert.ok(!readsAsCross(F(e, N, Math.PI, H0, mz, cycle, 1, e.size)), e.name + ' reads as a cross (N=' + N + ')');
+  }
+  // The detector does catch the retired 4-arm layout.
+  const oldCross = []; for (let i = 0; i < 16; i++) oldCross.push({ off: Math.PI / 4 + (i % 4) * Math.PI / 2, r: 80 + Math.floor(i / 4) * 40 });
+  assert.ok(readsAsCross(oldCross), 'detector sanity');
+  const lucifer = D.bosses['a11-boss'].deck.find(e => e.name === '치료거부 성광십자');
+  assert.strictEqual(lucifer.formation, 'hexagram', 'volley name kept, layout is a hexagram');
+  for (const N of [16, 24]) {
+    const rows = F(lucifer, N, 0, H0, mz, 0, 1, lucifer.size);
+    assert.strictEqual(rows.length % 6, 0, 'six-fold symmetric');
+    for (let i = 0; i < rows.length; i++) for (let j = i + 1; j < rows.length; j++)
+      assert.ok(Math.hypot(Math.cos(rows[i].off) * rows[i].r - Math.cos(rows[j].off) * rows[j].r, Math.sin(rows[i].off) * rows[i].r - Math.sin(rows[j].off) * rows[j].r) > lucifer.size * .9, 'no stacked or touching points');
+    const pts = rows.map(r => ({ x: Math.cos(r.off) * r.r, y: Math.sin(r.off) * r.r })), R = Math.max(...rows.map(r => r.r));
+    const tips = rows.filter(r => Math.abs(r.r - R) < 1e-6).map(r => ((r.off % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)).sort((a, b) => a - b);
+    assert.strictEqual(tips.length, 6, 'six star points');
+    for (let i = 1; i < 6; i++) assert.ok(Math.abs(tips[i] - tips[i - 1] - Math.PI / 3) < 1e-6, 'points 60 deg apart');
+    // Every point lies on one of the two triangles' edges (distance to the edge line = R/2 from the centre).
+    for (const p of pts) {
+      const onEdge = [0, 1].some(tri => [0, 1, 2].some(k => { const a = tri * Math.PI / 3 + k * 2 * Math.PI / 3 + Math.PI / 3; return Math.abs(p.x * Math.cos(a) + p.y * Math.sin(a) - R / 2) < 1e-6; }));
+      assert.ok(onEdge, 'point on a triangle edge');
+    }
+    assert.ok(rows.every(r => r.spd === 1), 'one speed, so the star keeps its shape in flight');
+  }
+});
+
 test('RC240 gate: a duel-owned boss gets no spell curtain, signature formation or filler stream; the STG feel keeps ticking', () => {
   for (const owns of [true, false]) {
     const { sb, feelTicks } = rc240Env(owns), api = sb.__HAPIL_DANMAKU_RC240__;

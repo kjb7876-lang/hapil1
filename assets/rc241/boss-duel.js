@@ -88,7 +88,12 @@
   else if(f==='needle'){const rowsN=Math.max(1,Math.floor(n(e.rows,3))),per=Math.ceil(N/rowsN);for(let i=0;i<N;i++){const lane=i%rowsN,j=Math.floor(i/rowsN);add({off:rowsN>1?(lane/(rowsN-1)-.5)*.22:0,r:74*rs+j*Math.max(30,n(sz,48)*.62),delay:j*stagger,flags:F_ANCHOR|F_TRACK,spd:1+.04*(per-j)});}}
   else if(f==='ring'){for(let i=0;i<N;i++)add({off:TAU*i/N+Math.PI/N+(cycle%2)*Math.PI/N*.5,r:ringR(N),delay:stagger>0?(i%2)*stagger:0});}
   else if(f==='spiral'){const arms=Math.max(1,Math.floor(n(e.arms,1))),per=Math.ceil(N/arms),dir=cycle%2?-1:1;for(let i=0;i<N;i++){const arm=i%arms,k=Math.floor(i/arms);add({off:dir*(arm*TAU/arms+k*TAU/per*.92),r:ringR(per),delay:k*stagger});}}
-  else if(f==='cross'){const per=Math.max(1,Math.ceil(N/4)),turn=(cycle%3)*.18;for(let i=0;i<N;i++){const q=i%4,j=Math.floor(i/4);add({off:Math.PI/4+q*Math.PI/2+turn,r:80*rs+j*Math.max(30,n(sz,48)*.62),spd:.82+.12*j/Math.max(1,per-1)});}}
+  // Hexagram (house rule: no formation may read as a cross): two overlapping triangles traced edge by edge
+  // (3 or 6 points per edge, so each place the triangles cross is shared and placed once),
+  // around the muzzle, every point flying straight out at one speed so the star grows without distorting.
+  else if(f==='hexagram'){const per=N>=20?6:3,R=Math.max(130*rs,per*n(sz,48)*.95/Math.sqrt(3)),seen=[],turn=(cycle%3)*.18;
+   for(let tri=0;tri<2;tri++)for(let e2=0;e2<3;e2++){const a0=aim+turn+tri*Math.PI/3+e2*TAU/3,a1=a0+TAU/3,x0=Math.cos(a0)*R,y0=Math.sin(a0)*R,x1=Math.cos(a1)*R,y1=Math.sin(a1)*R;
+    for(let k=0;k<per;k++){const u=k/per,x=x0+(x1-x0)*u,y=y0+(y1-y0)*u;if(seen.some(q=>Math.hypot(q[0]-x,q[1]-y)<1))continue;seen.push([x,y]);add({off:Math.atan2(y,x)-aim,r:Math.hypot(x,y),spd:1,delay:tri*stagger});}}}
   else if(f==='wall'){const rowsN=Math.max(1,Math.floor(n(e.rows,1))),per=Math.ceil(N/rowsN),gap=Math.max(1,Math.floor(n(e.gap,2))),spacing=Math.max(34,n(sz,48)*.8);
    for(let r=0;r<rowsN;r++){const total=per+gap,shift=((cycle+r*2)%3)-1,g0=Math.floor((total-gap)/2)+shift*2;let placed=0;for(let k=0;k<total&&placed<per;k++){if(k>=g0&&k<g0+gap)continue;placed++;add({off:0,r:110*rs+r*40,lat:(k-(total-1)/2)*spacing+(r%2)*spacing/2,delay:r*.12,flags:F_ANCHOR|F_TRACK});}}}
   else if(f==='rain'){const spacing=clamp(900/N,54,84),cx=clamp(H0.x,200,1080),y=Math.max(BOUND.y0+130,H0.y-250);for(let i=0;i<N;i++){const j=hashI(cycle*31+i,7)-.5;rows.push({abs:true,x:cx+(i-(N-1)/2)*spacing+j*18,y:y-((i+cycle)%2)*26,off:0,r:0,lat:0,delay:(i%3)*.08,spd:1,flags:0,tilt:(i%2?1:-1)*.1});}}
