@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "base": "82e243153ee440bbb66806fe837928afce5c4bd9",
+  "baseTree": "5629d90c29a058dfff19a38765e97a0188cd9e93",
+  "sourceCommit": "4cb43a0a76040503aa2dc4b84b512e13d443de2a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0c953251b66e908835720ddc9f938fb014fee82f3bc019fe560787f166466e4f",
+  "files": [
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "94a983ff6a1d4a1f263af092d3d0304853b3d482",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "d1e4d54ad435cd1a7159027cc66b7187d07e073fa4f8cf13ee9f02d307ec2af8",
+        "gitBlob": "11dfa33282c81aae2709babe4e6ae80b98ea0779"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: a boss owned by the RC241 duel gets no RC240 spell curtain, signature formation or filler stream (one attack source); every other boss and the STG feel are unchanged."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "49420052aae428f309083a1afad30269fbb3d146",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "b615e8b97f3153f942c76779f6a3fe51f078f17a5b3e3ac487185f4f36510d93",
+        "gitBlob": "1f3af8fba7a00c2a1e7e7c174062d8612d05187d"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: the RC240 phone zoom stands aside while an RC241 duel frames the whole arena; every other fight keeps its zoom and the extension 171 settle snap."
+    },
+    {
+      "file": "assets/rc241/boss-duel-decks.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc241/boss-duel-decks.js",
+        "mode": "100644",
+        "sha256": "2bf40adb43ce1116297081f959f3c2b3ee73c0839c378c8aef51359792d579d4",
+        "gitBlob": "51339c6b048167fa1dd461f3fe0e61f94915f78b"
+      },
+      "reason": "assets/rc241/boss-duel-decks.js: new RC241 deck data: per pilot boss eight volleys whose names are existing in-repo text and whose sprites are authored projectiles that boss already owns, per-mode scaling and the awakening act timing; data only, no new art, text or audio."
+    },
+    {
+      "file": "assets/rc241/boss-duel.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc241/boss-duel.js",
+        "mode": "100644",
+        "sha256": "b84b2f4967e003dd989ab92ae8b2ff936bb011172b2718aadec055e1f37e3883",
+        "gitBlob": "21db1e343e428fdbe645d863d5208abe33c19c96"
+      },
+      "reason": "assets/rc241/boss-duel.js: new RC241 duel overlay: for the three pilot deck bosses only, named volleys materialise and hang harmlessly (>= .72 s, telegraphed), then release together from one pooled layer, with a 7 s awakening act every 28 s; native boss ordnance clocks are held and stray boss ordnance is retired so the duel is the only attack source; off with ?duel=0, under ?qa unless duel=1, or the stored off flag; it wraps public seams only (loop tick, enemy-feel front draw, echoes tick) and loads its deck data file itself."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "37dbdc3ea62593650b8472ae6f10a3bd41e2b0a8",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "7d92270e38be749098bf75b565d16cccd93d1c2bdaf28c2eac0aaf86a3b74f87",
+        "gitBlob": "ff79d1b41403c67d24d90935da5829525ab0230f"
+      },
+      "reason": "index.html: one deferred loader for assets/rc241/boss-duel.js after the RC240 overlays; no other byte changes."
+    }
+  ],
+  "targetProtectedRowsSha256": "27ce2c5bb9de29de0d96603ec97476d75f8939d6ffecd0c6201c05ac0bb46c95"
+}
