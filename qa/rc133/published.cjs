@@ -502,7 +502,16 @@ assert.equal(laterExtensions[157-66].base,'59598c41d747819590ca4b0c90cb0cd3b5f3c
 assert.equal(laterExtensions[158-66].base,'9bfd8d4fbc434223c8927755c714b4a205c8bfec','exact all-viewport orientation extension base');
 assert.equal(laterExtensions[159-66].base,'346bee26788b789168fca50f63f12a09f6869c2d','exact camera and projectile quality extension base');
 assert.equal(laterExtensions[160-66].base,'43f9b257199f3cb25d81bf0ef3fdc8243f8dbd81','exact movement audit extension base');
-assert.equal(runtimeOutputs.size,404,'exact extension160 scoped file inventory');
+assert.equal(laterExtensions[161-66].base,'8629bd82fc1d8baf41183395c054fd83775e96df','exact RC240 danmaku overlay extension base');
+assert.equal(laterExtensions[162-66].base,'5dbe381fba3fa7fde18f2088bd2c7213ce292eac','exact RC240 weapons and drive art extension base');
+assert.equal(laterExtensions[163-66].base,'2b09ab860c491672ceb2cf1d8d9efca135753f71','exact RC240 text observer fix extension base');
+assert.equal(laterExtensions[164-66].base,'89e040b0651bd42067b9996b751423a0687261dc','exact RC240 review fixes extension base');
+assert.equal(laterExtensions[165-66].base,'cba3172441fb509a9e9128d0552648495969e355','exact RC240 phone zoom modal hold extension base');
+assert.equal(laterExtensions[166-66].base,'320f9246279cb3b8a0bff324e33d54fd444ced9d','exact RC240 review round 2 fixes extension base');
+assert.equal(laterExtensions[167-66].base,'1ce23b1017f276fddf0c9b7d52c2b5bbf28147f6','exact RC240 one-pixel zoom continuity extension base');
+assert.equal(laterExtensions[168-66].base,'cb9054d9cb3be4f6574939cab5e6595582ae23ba','exact RC240 review round 3 visual fixes extension base');
+assert.equal(laterExtensions[169-66].base,'87768e369d2e80a67fc676ca0d1731232b6b8add','exact RC240 v7.29 defect fixes extension base');
+assert.equal(runtimeOutputs.size,413,'exact extension162 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -525,9 +534,9 @@ assert.equal(runtimeOutputs.size,404,'exact extension160 scoped file inventory')
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
     assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
-    assert.equal(expected.size-egoOriginalFiles.length,402,'prior set plus exact scoped runtime extensions through extension160');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,400,'exact prior runtime set plus the scoped runtime extensions through extension160');
-    assert.equal(expected.size,409,'exact public set including the all-combat lifecycle policy through extension160');
+    assert.equal(expected.size-egoOriginalFiles.length,411,'prior set plus exact scoped runtime extensions through extension162');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,409,'exact prior runtime set plus the scoped runtime extensions through extension162');
+    assert.equal(expected.size,418,'exact public set including the all-combat lifecycle policy through extension162');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "base": "87768e369d2e80a67fc676ca0d1731232b6b8add",
+  "baseTree": "68360cb41945361d26d8b5e5f33651ff653bc2d8",
+  "sourceCommit": "a5e734d2bcf8226bbccb0a2b2662f47cb7f7acc7",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6c48956987e601cb5d8582f4317372a6c13378f54a8828b7fd24aef00eeacc9c",
+  "files": [
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "519aa77a417b2184e59553e173711368fcf1c670",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "abe6113d00db0eb31d881f8f87465f8df8bfc125628b1da34880672d968ef302",
+        "gitBlob": "9e18be041a45cba87ec21ac4981d2a02bb48cf0d"
+      },
+      "reason": "assets/rc240/boss-form.js: On phone the native \"GRAZE n\" readout (and its guard line) is drawn left of the settings gear under the score line; the stage title band sits in the top band above the arena on PC and is inset clear of the left HUD stack and the gear on phone; on PC the second-form white-out is shaped radially around the boss after its first 50 ms (no full-frame haze)."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "a593d6acc1c3a732f4a19786dc1dc4270c85545a",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "b65d9a8191d5b3d98de7272a52dc109ca53b9b09a3032da9d55f020adb0150a3",
+        "gitBlob": "ff90e09b10dc968925becc93998db3c748e35a24"
+      },
+      "reason": "assets/rc240/stg-feel.js: The boss warning is an opening beat: it is dropped once the boss is at or below 60% HP (or lost 15% since it was queued), waits while a stage title card is up and is dropped on the kill frame; its tint is an edge-only, luminance-only vignette; callouts wait behind the second-form banner; the heart ring is drawn after the native status labels through the RC128 feedback seam; the tally panel moves clear of the hero and its status tag."
+    }
+  ],
+  "targetProtectedRowsSha256": "93c7b15143188606d3a90e3138eaf4e0d97a1a0f67e90dce7492146e4aead310"
+}

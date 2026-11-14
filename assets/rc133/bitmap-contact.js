@@ -11,10 +11,31 @@
   function boxKeyFor(canvas){return [canvas.width,canvas.height,root.innerWidth,root.innerHeight,root.devicePixelRatio].join(':');}
   function canvasBounds(canvas,refresh=false){if(!canvas)return null;const key=boxKeyFor(canvas);if(refresh||canvas!==boxTarget||!boxValue||key!==boxKey){boxTarget=canvas;boxValue=canvas.getBoundingClientRect();boxKey=key;stats.boundsReads++;}return boxValue;}
   function observe(canvas,images){if(canvas){target=canvas;canvasBounds(canvas,true);}if(images)cache=images;}
+  // Paint calls never reach the isolated recorder; transform methods are bound
+  // once per native function instead of once per property read.
+  const noop=()=>{},paintOps=new Set(['fill','stroke','fillRect','strokeRect','clearRect','fillText','strokeText','putImageData']),bound=new WeakMap();
+  function boundTo(v){let b=bound.get(v);if(!b){b=v.bind(ctx);bound.set(v,b);}return b;}
+  // The world+camera base transform is identical for every probe in one
+  // synchronous task while the hero, roster, viewport and probe scope are
+  // unchanged. Reuse it inside that task only; any later task recomputes it.
+  let baseMemo=null,baseKey=[],baseTask=0,taskSerial=0,taskOpen=false;
+  function closeTask(){taskOpen=false;taskSerial++;baseMemo=null;}
+  function baseSignature(s,canvas){
+   const k=[s,s.time,s.x,s.y,s.zone,s.activeHeroId,s.heroId,s.egoGuardianRC155?.active===true,s.heroMotion,canvas,canvas.width,canvas.height,root.innerWidth,root.innerHeight,root.devicePixelRatio,root.__HAPIL_CAMERA_RC223__?.baseCameraActive?.()===true,s.enemies,s.enemies?.length];
+   for(const a of s.enemies??[])k.push(a,a?.x,a?.y,a?.hp,a?.attackAt,a?.recoverUntil,a?.sprite,a?.currentPhase,a?.fixedPhase,a?.phaseIndex,a?.scale,a?.facing,a?.friendly,a?.visualOnly);
+   return k;
+  }
+  function frameBase(s,canvas){
+   if(!taskOpen){taskOpen=true;Promise.resolve().then(closeTask);}
+   const key=baseSignature(s,canvas);
+   if(baseMemo&&baseTask===taskSerial&&key.length===baseKey.length){let same=true;for(let i=0;i<key.length;i++)if(!Object.is(key[i],baseKey[i])){same=false;break;}if(same)return baseMemo;}
+   baseKey=key;baseMemo=null;baseTask=taskSerial;return null;
+  }
+  function rememberBase(matrix){if(baseTask===taskSerial)baseMemo=matrix;}
   function measure(s,actor,draw,worldOnly=false){
    const canvas=target??document.querySelector('.game-stage canvas');if(!canvas)return [];
    const loaded=root.__HAPIL_MEDIA_ART_RC133__?.picture(actor.sprite);if(loaded&&!cache[actor.sprite]?.naturalWidth)cache[actor.sprite]=loaded;
-   const rows=[],raw=ctx,noop=()=>{};
+   const rows=[],raw=ctx;
    const view=new Proxy(Object.create(null),{get(o,k){if(Object.hasOwn(o,k))return o[k];if(k==='canvas')return canvas;
     if(k==='drawImage')return(...args)=>{
      if(args.length!==5&&args.length!==9||raw.globalAlpha<.03)return;
@@ -31,13 +52,13 @@
      const left=Math.min(...screen.map(p=>p.x)),right=Math.max(...screen.map(p=>p.x)),top=Math.min(...screen.map(p=>p.y)),bottom=Math.max(...screen.map(p=>p.y));
      rows.push({points,area,alpha:raw.globalAlpha,path:im.currentSrc||im.src||'',crop:[l,t,r-l,b-t],displayBounds:{left,right,top,bottom,width:right-left,height:bottom-top,longEdge:Math.max(right-left,bottom-top)}});
     };
-    if(['fill','stroke','fillRect','strokeRect','clearRect','fillText','strokeText','putImageData'].includes(k))return noop;
-    const v=Reflect.get(raw,k,raw);return typeof v==='function'?v.bind(raw):v;
+    if(paintOps.has(k))return noop;
+    const v=Reflect.get(raw,k,raw);return typeof v==='function'?boundTo(v):v;
    },set(o,k,v){if(k==='drawImage'||typeof v==='function'){o[k]=v;return true;}return Reflect.set(raw,k,v,raw);},defineProperty:(o,k,v)=>Reflect.defineProperty(o,k,v),deleteProperty:(o,k)=>Reflect.deleteProperty(o,k)});
    // RC204 visual layers do not replace the existing hero contact silhouette.
    Object.defineProperty(view,'__rc204ContactProbe',{value:!worldOnly});
    raw.save();let base;try{
-    raw.setTransform(n(canvas.width,1280)/1280,0,0,n(canvas.height,720)/720,0,0);raw.globalAlpha=1;raw.filter='none';if(!worldOnly){world?.(view,canvas,s);const cam=camera(s);view.translate(cam.x,cam.y);view.scale(cam.scale??1,cam.scale??1);}base=raw.getTransform();
+    raw.setTransform(n(canvas.width,1280)/1280,0,0,n(canvas.height,720)/720,0,0);raw.globalAlpha=1;raw.filter='none';if(!worldOnly){const memo=frameBase(s,canvas);if(memo)raw.setTransform(memo);else{world?.(view,canvas,s);const cam=camera(s);view.translate(cam.x,cam.y);view.scale(cam.scale??1,cam.scale??1);rememberBase(raw.getTransform());}}base=raw.getTransform();
     draw(view,cache,{...actor,rc156PresentationState:s},s.time,settings(s));
    }finally{raw.restore();raw.beginPath();}
    stats.plans++;if(rows.length)stats.decoded++;else stats.missing++;return rows;
