@@ -148,3 +148,10 @@
 ade55181 병합 뒤 main 전용 `rc137-integration`의 `tests/rc153-combat-browser.cjs`(가로·세로 프로필)가 실패했다: 844x390 창 안에서 캔버스를 300 CSS px로 줄이면 RC153 시야는 그 캔버스(세로 1280x1664)로 잡히는데, RC240 폰 줌은 창(rc153Viewport) 기준으로 맞춘 1.3배를 그대로 적용해 인물이 캔버스 밖(300 px 캔버스의 왼쪽 343 px)에 놓였다.
 이제 시야가 가로이고 측정한 캔버스가 창을 1 CSS px 안으로 채울 때만 줌을 적용하고, 그 밖의 캔버스는 RC153 기본 카메라를 그대로 쓴다. 실제 가로 폰(캔버스 = 창)의 줌과 카메라는 바이트 단위로 같다.
 검증: `tests/rc240-narrow-canvas-zoom-unit.cjs`(수정 전 실패), `tools/rc240w-build-extension.cjs --check`.
+
+## 안정화 스냅 (확장 171, 같은 브랜치)
+
+같은 `rc137-integration`에서 `tests/rc153-boundary-input-browser.cjs`(가로·세로, 1·2회차)도 실패했다(ade55181부터, 8629bd82는 통과): 방향키·블링크 입력 중 카메라가 움직였다.
+진단 결과 순간이동이 원인이 아니었다. 새 전투 상태를 t=100에 처음 잡은 뒤 RC153이 두 프레임 뒤 전신 카메라를 안정화하며(새 base 객체) RC240이 그 변화를 0.6초 동안 부드럽게 옮겼고, 그 이동이 입력 구간까지 이어졌다.
+이제 한 구역에서 처음 잡은 뒤 0.25초(zoomSettleSeconds) 안의 base 변화는 바로 맞춘다. 그 뒤의 페이즈 변화, 데드존·긴급 재조준은 그대로 부드럽게 옮기고, 실제 가로 폰의 줌과 카메라는 그대로다.
+검증: `tests/rc240-settle-ease-unit.cjs`(수정 전 실패), `tools/rc240x-build-extension.cjs --check`.
