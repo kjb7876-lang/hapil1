@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{verify}=require('../tools/rc154-cosmic-loader.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f));
 const input={html:read('index.html').toString(),bundle:read('assets/index-v31526.js').toString()};
-for(let n=15;n<=160;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
+for(let n=15;n<=171;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
 let checks=0;
 assert.equal(verify(input),'exact-chained-RC155+RC152+EGO+resume');checks++;
 const patches=[
@@ -10,6 +10,8 @@ const patches=[
  {html:input.html.replace('rc231/combat-lifecycle.js?v=23401','rc231/combat-lifecycle.js?v=23101')},
  {html:input.html.replace('rc95/combat-flow.js?v=23401','rc95/combat-flow.js?v=23101')},
  {html:input.html.replace('rc232/projectile-readability.js?v=23402','rc232/projectile-readability.js?v=23401')},
+ {html:input.html.replace('rc240/danmaku-layer.js?v=24001','rc240/danmaku-layer.js?v=24000')},
+ {html:input.html.replace('<script src="./assets/rc240/mobile-landscape.js?v=24001"></script>\n','')},
  {html:input.html.replace('rc15/hero-controls.js?v=39602','rc15/hero-controls.js?v=39601')},
  {html:input.html.replace('hapil-mobile-v31406.js?v=40803','hapil-mobile-v31406.js?v=40802')},
  {html:input.html.replace('rc111/mobile-auto.js?v=41502','rc111/mobile-auto.js?v=41501')},
@@ -40,7 +42,7 @@ const patches=[
  {html:input.html.replace('resonance-counter.js?v=22105','resonance-counter.js?v=22101')},
  {html:input.html.replace('resonance-counter.css?v=22102','resonance-counter.css?v=22101')},
  {html:input.html+' '},{bundle:input.bundle+' '},
- ...Array.from({length:146},(_,i)=>{const n=i+15;return{['extension'+n]:Buffer.concat([input['extension'+n],Buffer.from('\n')])};})
+ ...Array.from({length:157},(_,i)=>{const n=i+15;return{['extension'+n]:Buffer.concat([input['extension'+n],Buffer.from('\n')])};})
 ];
 for(const patch of patches){assert(Object.entries(patch).some(([key,value])=>value!==input[key]),'negative case must actually mutate its input');assert.throws(()=>verify({...input,...patch}));checks++;}
 assert.equal(verify({html:'<script src="./assets/index-v31526.js?v=45001"></script>',bundle:'historical source-only fixture'}),'historical-45001');checks++;

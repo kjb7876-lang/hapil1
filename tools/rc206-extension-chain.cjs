@@ -25,4 +25,15 @@ pins.push([157,"ebbeef6548780b2fa1c2841c305e48bb67778e83f8095ae715559d862d886e3c
 pins.push([158,"c4ab9e1d0ba0857b2a3a28ca6512476461576a6eaa4ecc16890a89c4d78ff602"]);
 pins.push([159,"53493745c0c27cd17085bc2fba7addf595c7b0ad609c2a9c7ec8ee80f2d42074"]);
 pins.push([160,"a182fd9163f73abba746c57ce5a363e79209f70883b351b57c7599a15afd744c"]);
+pins.push([161,"5e4569ed92c71235df44aa373050fe7462da9f5d14936281992cbf9b73df40e3"]);
+pins.push([162,"dd78e353a537969d4757c515b4b24e0e0237510624adab9510a2750442046241"]);
+pins.push([163,"98b385d59476467669641650dbe9d39f58ed30087dece4f3dbbfb4e3c14e24e1"]);
+pins.push([164,"f63f6d0e56b8fc6364984b68513dd3ab0662f70a37180969a28feb6100b10ddb"]);
+pins.push([165,"a844214104eade621bffc11573166b186e7ac4845559b833039f1a643bbb5060"]);
+pins.push([166,"e6367ea92abd126a44bee15dd8407b33a613d007ebecd5e7f61482d7304be24e"]);
+pins.push([167,"1799e068584f41e6ff25cc72daf140c9ba6726d5ac81d338e4964b73d422dd7f"]);
+pins.push([168,"6c48956987e601cb5d8582f4317372a6c13378f54a8828b7fd24aef00eeacc9c"]);
+pins.push([169,"bb8c8c89a091c690e0f98fcd2512b997216196cd8fca63a2ebfae1af3e5986dd"]);
+pins.push([170,"43e0a0bd21dbc1445e6afb36dec94e26a897f1086f40899332ef4cf7513228e5"]);
+pins.push([171,"4b6cc3bca5fb14ec075ff9e4c0e12b6a470792954454368ceb20746587a1e793"]);
 module.exports=function(root){let previous=digest(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-65.json')));return pins.map(([number,hash])=>{const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-'+number+'.json'));assert.equal(digest(bytes),hash,'exact later extension '+number);const row=JSON.parse(bytes);assert.equal(row.previousExtensionSha256,previous,'exact later extension chain '+number);previous=hash;return row;});};

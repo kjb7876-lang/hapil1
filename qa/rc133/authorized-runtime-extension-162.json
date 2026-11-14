@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "base": "5dbe381fba3fa7fde18f2088bd2c7213ce292eac",
+  "baseTree": "9861eea4cd484852b3354cc2eed3fc53aceff80d",
+  "sourceCommit": "c27b88db7803a63ee9fe9cef5e1121a43ce1c994",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5e4569ed92c71235df44aa373050fe7462da9f5d14936281992cbf9b73df40e3",
+  "files": [
+    {
+      "file": "assets/rc240/art/heart-fly8.webp",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "4441e4a7422330d73c1b4b677be189affe1204ee",
+        "file": "assets/rc240/art/heart-fly8.webp"
+      },
+      "after": {
+        "file": "assets/rc240/art/heart-fly8.webp",
+        "mode": "100644",
+        "sha256": "abd775e7c7b327627c7aa2d4fceb2bb851da5bb6903ac65e9df304d026f2c3c5",
+        "gitBlob": "5c8ab76a294168ea62fbeebddec99ed33bb7aee4"
+      },
+      "reason": "assets/rc240/art/heart-fly8.webp: Replace the heart sheet with the reviewed PJ-03 fly8 (2048x256, 8x1, pivot 152,128), fetched only once Michaela is in play."
+    },
+    {
+      "file": "assets/rc240/art/heart-hit6.webp",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/art/heart-hit6.webp",
+        "mode": "100644",
+        "sha256": "6c6a1e9e0b2e49d3d0f1fb5c4585d432edbb0c8facb2592ca6ff74b868fe4585",
+        "gitBlob": "dcc1329b87cc3c049dc5b8216a06ac296c662791"
+      },
+      "reason": "assets/rc240/art/heart-hit6.webp: Add the reviewed PJ-03 hit6 impact sheet (1536x256, 6x1) played once per Michaela basic-shot hit."
+    },
+    {
+      "file": "assets/rc240/art/last302-sobok-float8.webp",
+      "before": null,
+      "after": {
+        "file": "assets/rc240/art/last302-sobok-float8.webp",
+        "mode": "100644",
+        "sha256": "16678eb22d9990e9a1efd22c6744cc317da13b3b12767d545c15df2e4dde144b",
+        "gitBlob": "44fa25dd718f8823317f0b19f9e9c05f9d23e281"
+      },
+      "reason": "assets/rc240/art/last302-sobok-float8.webp: Add the reviewed CX-0070BM villager float8 sheet (608x624, 4x2) shown for story last302 ordinary mobs."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "43992cf86feabeeb5fc72332a6c886d719420c73",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "a60d79aee001a6b9ca0be89d86bdf0753a5b759a9ed5d62d06735bfcb8bc31ee",
+        "gitBlob": "f8aadbb62be15b3cf6410e8d1e2a0376c78a9ea7"
+      },
+      "reason": "assets/rc240/boss-form.js: Lazy-load the heart and villager sheets once, bake villager frames behind the phaseSprite seam with feet-pivot metadata, and forward Michaela hits to the impact pool."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c7d24571edc8c65248f6601a36e17778470284fb",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "0791de8eadb7603b69bf9203257a9b1e3d1eb30ac36999c9e97f8f7205dd99f2",
+        "gitBlob": "408e1370119d60ca916cc5c7e8bc9077b03d0187"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: Add boss weapon formations (sword arcs and chain whips) with their signature trail, inside the existing pool, caps and fairness rules."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "aec37832c0e483ec713efe047e8d11ccc7fb309a",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "55b0a2a8651765304d59186219a2968d1973b0263c23072a3cb27bebf334cd42",
+        "gitBlob": "07b175e16966c95aba40eb29b342c54a29d1e219"
+      },
+      "reason": "assets/rc240/stg-feel.js: Add the pooled hit6 heart impact (14 fps, fading last frame) under the bullets with a procedural fallback."
+    }
+  ],
+  "targetProtectedRowsSha256": "df85550407ee49a8c6d8c9a178b36b33de5960715d68f84bea6f29ef886503d0"
+}

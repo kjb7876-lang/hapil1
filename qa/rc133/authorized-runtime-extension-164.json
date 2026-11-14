@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "base": "89e040b0651bd42067b9996b751423a0687261dc",
+  "baseTree": "ac47043298ba085b9d89277a8dea6aa20afaa293",
+  "sourceCommit": "b8fd132cfe098cf79015ee22e79ac232d20554bf",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "98b385d59476467669641650dbe9d39f58ed30087dece4f3dbbfb4e3c14e24e1",
+  "files": [
+    {
+      "file": "assets/rc240/arcade-kit.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "60c2d973ec1ae0fc6720385aafd481970e9f7f45",
+        "file": "assets/rc240/arcade-kit.js"
+      },
+      "after": {
+        "file": "assets/rc240/arcade-kit.js",
+        "mode": "100644",
+        "sha256": "92711b3b44f85bdbca8469c1e3520f34383a58db6092f7ef4b2d2c03e03b7113",
+        "gitBlob": "87e3be96b7e50cbde1d3e12b1c35f722feb17f38"
+      },
+      "reason": "assets/rc240/arcade-kit.js: Review fixes: HUD power pips and bomb stock beside the resonance bar, x2 bomb hint, iso floor bomb ring, familiars with outline and floor shadow."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "4736889471682d53222fd500fdc936dfdba97c11",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "2c18c2fb5838f492393601a8cdfe995a7e2333bf24edbdd24f555f36ed3f6bc2",
+        "gitBlob": "fbfd0b3a1cb48faf5b74b052dc4477a49b6daee9"
+      },
+      "reason": "assets/rc240/boss-form.js: Review fixes: second-form white-out as an above-HUD overlay drawn last, persistent second form, soft particles, weak-point reticle, villager floor shadows, title accessors, portrait gate."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "408e1370119d60ca916cc5c7e8bc9077b03d0187",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "8f62195f001b9dec031ef8a5045cf32caae86f1a92a101097f64173c4c70aa72",
+        "gitBlob": "30c6c21abb1b6fc0e5bfa7297035314994229642"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: Review fixes: map-themed enemy bullet palettes, muzzle ring at the boss edge, boss body box kept clear of formations, iso floor formations, coherent formation release and redrawn weapon shapes (blade, chain, mirror, wings), spawns held behind the warning."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ff64d4a060cfe64da6ed34af7b6ce94a87d51900",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "2cb837671d2b060afdd730cbf3783d0355866e726fde1fcfff6ae4620489bd13",
+        "gitBlob": "6e5b8fd9214d8bce76f9ff17af5738f96037009d"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: Review fixes: phone landscape zoom framed on the fight with the floor edge kept on screen and clear of the touch controls."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "07b175e16966c95aba40eb29b342c54a29d1e219",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "7f9cfbe290a94b42e29b35f3ef9818fdb150d2d8234b0d8f52aae1e473439ee3",
+        "gitBlob": "8a5b7c47014b50fd4dcebe0f670945531d0c84fa"
+      },
+      "reason": "assets/rc240/stg-feel.js: Review fixes: beat order, ornamented warning band and callouts, kill beat and tally rows without 0/0, charge beam to target, heart ring and impact tint, calls the boss-form overlay last in its screen pass."
+    }
+  ],
+  "targetProtectedRowsSha256": "ee415bea36c21922cf0b2bd947a2169aa28e187c3e936ef429fd7ce3a2fb69c9"
+}

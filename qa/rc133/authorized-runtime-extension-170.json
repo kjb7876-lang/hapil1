@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "base": "50ef8d67fb5aa89a797f4859c3f2581b7249ac0a",
+  "baseTree": "67c9d8041864c7200819126180c817dad8f7e3de",
+  "sourceCommit": "8524d179c95071862c8994a409d3f89f81acc6c7",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "bb8c8c89a091c690e0f98fcd2512b997216196cd8fca63a2ebfae1af3e5986dd",
+  "files": [
+    {
+      "file": "assets/rc240/arcade-kit.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3eb4b8b88719b2fa3ea5da26870746745d0b25fd",
+        "file": "assets/rc240/arcade-kit.js"
+      },
+      "after": {
+        "file": "assets/rc240/arcade-kit.js",
+        "mode": "100644",
+        "sha256": "1aa0138e400b650e23aea1f0d82628010a7825dc1f8eeb14136349fca01bef9d",
+        "gitBlob": "d55c271bdcc648b909dbbd95ef400f99b9758f61"
+      },
+      "reason": "assets/rc240/arcade-kit.js: Familiars are rose-white friendly motes with a thin hero-colour ring (no glyph); the bomb is a dark dim with an additive gold floor shockwave and sparks (no flash disc); phone pips sit inline with the resonance bar and the PC shows its bomb input; native hostile bullets can be cancelled for other owners."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1dab79da1c92696f71c99cc1d8d6e7980c66f46d",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "ec352742801ae45ca95f223444644fc3e59b6427053539ec7dd39d26982adff6",
+        "gitBlob": "7522e1ff871e1c5b4c5025f2cef93f25b3c74d1a"
+      },
+      "reason": "assets/rc240/boss-form.js: The second form cancels native and RC240 hostile fire and holds RC240 firing until its banner ends; a boss killed mid-transformation drops its white-out at once; the second-form banner is the largest plate over a short dim; the phone GRAZE readout moves clear of the settings gear."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "fcb63df813680a9ff57a1204fcfaea34ddff2129",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "82dcb2e5da3c2160b41e1f8023e8eac47dc6503c062b0901b267e540888f607b",
+        "gitBlob": "ae8ac1578abd240cb5459c304d3ad32d1f7dd296"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: Balrog's sword is drawn by its bullets over a faint ember glow; Balrog colours leave the red hero's family; blooms are born off the boss and open toward the hero; Lucifer's wings are two mirrored arcs; the volley telegraph is a magenta line with a marching white core; every bullet carries a dark outer shadow and an underlay near the hero; the spell card collapses on its break."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "942e2186b40d94cf7ee4e7be5d92fb44aa45ac8a",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "f16a12c8305911bd9eba5aee086a7ac4631a476f5e0f388adb522e32805e4c56",
+        "gitBlob": "f086cb6269c324d6aabda2edcc8b11d896a3b609"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: The danger band darkens the floor (a dark warm multiply, texture kept) under amber hazard dashes along the far floor diagonal; the phone zoom gives the hero-side painted corner of Balrog's and Lucifer's rooms the spare width and takes the least zoom when the corners only just fit."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "10895e4b96341b107e3c92ccd093ca58158d7393",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "7310b9d2d2754194c82d91b65f71ef2d758fb31ffaf84bb30657e5757b203021",
+        "gitBlob": "451abe0faac6f5714372b0c300dd332af7a6bd81"
+      },
+      "reason": "assets/rc240/stg-feel.js: The kill beat is clamped to the frame with a capped flash; the warning plate uses a hazard language and is skipped for a boss first met damaged; the native debuff label is hidden while hostile bullets are near; phone bands clear the phase panel and the gear; the tally lands a total line."
+    }
+  ],
+  "targetProtectedRowsSha256": "b92f0565e27ec2b7013b6aec99ecbde7ae001c30616b59588e33d119c30f6e29"
+}

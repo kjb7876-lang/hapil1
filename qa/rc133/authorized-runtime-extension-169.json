@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "base": "87768e369d2e80a67fc676ca0d1731232b6b8add",
+  "baseTree": "68360cb41945361d26d8b5e5f33651ff653bc2d8",
+  "sourceCommit": "a78725d63ed4ee77223921b17ad8ec22a588db4b",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6c48956987e601cb5d8582f4317372a6c13378f54a8828b7fd24aef00eeacc9c",
+  "files": [
+    {
+      "file": "assets/rc240/arcade-kit.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b3e2c10a9925077425898e7803d47b571b1235ef",
+        "file": "assets/rc240/arcade-kit.js"
+      },
+      "after": {
+        "file": "assets/rc240/arcade-kit.js",
+        "mode": "100644",
+        "sha256": "84ee580795a84c00de6ec77b4e0953d6b9d55ee850981a7ba66bba4d69685b3c",
+        "gitBlob": "3eb4b8b88719b2fa3ea5da26870746745d0b25fd"
+      },
+      "reason": "assets/rc240/arcade-kit.js: Familiars are soft companion motes in the hero colour (glow, trail, muzzle flash) instead of white-core glyphs; the PC power pips are ~1.5x on a clipped-corner backing plate; the bomb sweep is a 2:1 floor ellipse kept below the top HUD."
+    },
+    {
+      "file": "assets/rc240/boss-form.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "519aa77a417b2184e59553e173711368fcf1c670",
+        "file": "assets/rc240/boss-form.js"
+      },
+      "after": {
+        "file": "assets/rc240/boss-form.js",
+        "mode": "100644",
+        "sha256": "4a8a6f03bcac6ff7e71f20958edae4dfe6a4799ce9a0375997894ab99a0da75b",
+        "gitBlob": "1dab79da1c92696f71c99cc1d8d6e7980c66f46d"
+      },
+      "reason": "assets/rc240/boss-form.js: The second-form white-out is shaped radially from the boss after its first frame (no full-frame haze); the spell card carries a second-form tag; callouts wait behind the second-form banner."
+    },
+    {
+      "file": "assets/rc240/danmaku-layer.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "94a983ff6a1d4a1f263af092d3d0304853b3d482",
+        "file": "assets/rc240/danmaku-layer.js"
+      },
+      "after": {
+        "file": "assets/rc240/danmaku-layer.js",
+        "mode": "100644",
+        "sha256": "a1f7ecf0b34bc074b065b76c14a7fd0a43e7526ef664ebed97cee8382845c05b",
+        "gitBlob": "fcb63df813680a9ff57a1204fcfaea34ddff2129"
+      },
+      "reason": "assets/rc240/danmaku-layer.js: The spell dim is ~35% lighter and luminance-only (lighter on the walkable floor); lava curtains are crimson and Lucifer curtain orbs violet with a white-hot core; the Envy mirror is an outlined oval; phone bullets are drawn 15% larger with trail lines >= 1.5 CSS px; band 3 escalates with a curved pattern of a second shape; native hostile projectiles get a thin red rim; the broad sword is narrower and fits the screen."
+    },
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "64b4dbc411a1141585bf44f07369a9bda67ca2dd",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "48fd6ec7456c44ee92ded83a2f0f9530c0e0030d3ac219d2843d8d463e83e759",
+        "gitBlob": "942e2186b40d94cf7ee4e7be5d92fb44aa45ac8a"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: The danger band reads as soft desaturated-amber light on the floor (no stripes, chevrons or hard edges); the phone zoom keeps the painted platform corners of Balrog's and Lucifer's rooms on screen, keeps Envy's lead room, gives Michaela the same zoom as the other heroes and re-aims a drifting boss inside an eased dead zone."
+    },
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "a593d6acc1c3a732f4a19786dc1dc4270c85545a",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "ce7a56efb814883ffefee3131408a8ebbfa91d8ef607b6c786de7be1b151b8b7",
+        "gitBlob": "10895e4b96341b107e3c92ccd093ca58158d7393"
+      },
+      "reason": "assets/rc240/stg-feel.js: The warning tint is an edge-only, luminance-only vignette; the heart ring is drawn over the native HUD; the warning is dropped instantly on a kill; the title band sits in the top band and phone banners clear the left HUD stack; the score is always visible in a fight with a bigger x2 badge; the tally is anchored clear of the hero row."
+    }
+  ],
+  "targetProtectedRowsSha256": "f8fa972fc24779ef38a78df9a0ee9965b8a0e30645256a21a8ece2a63f577322"
+}

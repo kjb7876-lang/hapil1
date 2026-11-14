@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "1ce23b1017f276fddf0c9b7d52c2b5bbf28147f6",
+  "baseTree": "f02408978588f540244a864850d7d9d2e2dde8f3",
+  "sourceCommit": "8331bace71cad308e6a554e4ec84fa2dfa861798",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e6367ea92abd126a44bee15dd8407b33a613d007ebecd5e7f61482d7304be24e",
+  "files": [
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b9bdf0da9b2c5c0c452b56836dd42e43a8d1451a",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "1ff960a7e37564cea574b93be88f2d9e49e5da5bd114e0313c75766b04b14bbd",
+        "gitBlob": "64b4dbc411a1141585bf44f07369a9bda67ca2dd"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: A viewport nudge of up to 2 CSS px moves the world-to-CSS scale toward the fresh fit by at most 0.9% at the nearest feasible pass, so a one-pixel resize cannot cause an abrupt world zoom (RC233)."
+    }
+  ],
+  "targetProtectedRowsSha256": "f5233dc27d5c2cc7119985ba03ace6906d4ab4780082ca2a6171924141e4172e"
+}

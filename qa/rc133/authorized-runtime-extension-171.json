@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "626544628d7ee333714d334ad6f76b1df9c4c0e9",
+  "baseTree": "c2feb22cc19dd7ddadc3c0ac33fc4cf549ffc1f2",
+  "sourceCommit": "d0c44db103fe92f9b82df6b9ee59ca48a3336dbe",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "43e0a0bd21dbc1445e6afb36dec94e26a897f1086f40899332ef4cf7513228e5",
+  "files": [
+    {
+      "file": "assets/rc240/stg-feel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "451abe0faac6f5714372b0c300dd332af7a6bd81",
+        "file": "assets/rc240/stg-feel.js"
+      },
+      "after": {
+        "file": "assets/rc240/stg-feel.js",
+        "mode": "100644",
+        "sha256": "28bd01162cdfd1a2359929c7228a3429b7b5df492e4210572409d4c4ac8abc5e",
+        "gitBlob": "975aa25ac10131677f04c6301eaf0c9ce53362a2"
+      },
+      "reason": "assets/rc240/stg-feel.js: The native status-label hide reads every ailment timer before zeroing any, restores only the timers it zeroed in that call and only while they still read 0, and keeps one hidden draw open at a time, so a re-entrant draw, a read fault or a native write never changes the hero's ailments."
+    }
+  ],
+  "targetProtectedRowsSha256": "8092ba1509f45182baa02b095b3d959cc165a4c6d1814dfe237db1380565c3c2"
+}

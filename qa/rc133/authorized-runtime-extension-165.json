@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "base": "cba3172441fb509a9e9128d0552648495969e355",
+  "baseTree": "1313d68741bd5e2891bfe473ed974f136b7781c3",
+  "sourceCommit": "c4ebe0e4997e664f129e214fcfe758e05563cd5a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f63f6d0e56b8fc6364984b68513dd3ab0662f70a37180969a28feb6100b10ddb",
+  "files": [
+    {
+      "file": "assets/rc240/mobile-landscape.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "6e5b8fd9214d8bce76f9ff17af5738f96037009d",
+        "file": "assets/rc240/mobile-landscape.js"
+      },
+      "after": {
+        "file": "assets/rc240/mobile-landscape.js",
+        "mode": "100644",
+        "sha256": "1750193c2c52775d6901604519b47ecb7b354400b25c9acaebb199642b9a9d65",
+        "gitBlob": "1ce13e8e35dad37b86b8e5216e3d88fa1632cc5c"
+      },
+      "reason": "assets/rc240/mobile-landscape.js: Snap re-fits taken while a modal holds the game and finish a running ease when a modal opens, so the warmed whole-body camera stays fixed (RC233 camera pose)."
+    }
+  ],
+  "targetProtectedRowsSha256": "4bb9cb7705867457d93e6c5cba904c7e7af7f004b43f029371dc08de2a6d3097"
+}
