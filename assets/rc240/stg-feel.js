@@ -434,13 +434,17 @@
  // near the heart it is taken out of the native draw (its timers read as expired for that one synchronous
  // draw call and are restored right after) and re-drawn as a faint tag above the head.
  const AIL_KEYS=['heroSleepUntil','heroCharmUntil','heroBleedUntil','heroBurnUntil','heroEnvyPoisonUntil','heroSlowUntil','heroHealingBlockedUntil','lifestealSuppressedUntil','themeRootUntilV31323'];
- const AIL_NAMES=['수면','매혹','출혈','화상','유리독','둔화','회복 차단','흡혈 억제','속박'],AIL_VAL=new Float64Array(AIL_KEYS.length),AIL_NEAR=110,AIL_ALPHA=.4;let ailN=0;
+ // The hide never changes game state: the timers are read in full before any is zeroed, only the ones
+ // zeroed in this call are restored (and only while they still read 0, so a native write wins), and one
+ // ghosted draw is open at a time (a re-entrant draw through the global API runs the native draw as is).
+ const AIL_NAMES=['수면','매혹','출혈','화상','유리독','둔화','회복 차단','흡혈 억제','속박'],AIL_VAL=new Float64Array(AIL_KEYS.length),AIL_NEAR=110,AIL_ALPHA=.4;let ailOpen=null;
  function bulletsNear(s,m){const P=m.pool,hx=n(m.hx),hy=n(m.hy);if(P)for(let i=0;i<P.live;i++){const dx=P.x[i]-hx,dy=P.y[i]-hy;if(dx*dx+dy*dy<AIL_NEAR*AIL_NEAR)return true;}
   const L=s.hostileProjectiles;if(Array.isArray(L)){const N=Math.min(L.length,96),sx=n(s.x),sy=n(s.y);for(let i=0;i<N;i++){const q=L[i];if(q&&n(q.damage)>0&&!q.friendly&&!q.visualOnly&&Math.abs(n(q.x,1e9)-sx)+Math.abs(n(q.y,1e9)-sy)<4.5)return true;}}return false;}
- function ghostBegin(s){ailN=0;if(!active()||!s||!(n(s.hp)>0))return false;const m=R()?.world?.(s),f=worlds.get(s);if(!m||!f)return false;const t=n(s.time),H=f.heroScr;if(!H||H.t!==t)return false;
-  if(bulletsNear(s,m))f.ghostUntil=t+.4;if(!(t<n(f.ghostUntil,-1))||t<n(f.ghostUntil,-1)-.41)return false;
-  try{for(let i=0;i<AIL_KEYS.length;i++){const v=s[AIL_KEYS[i]];if(typeof v==='number'&&v>t){AIL_VAL[i]=v;s[AIL_KEYS[i]]=0;ailN++;}else AIL_VAL[i]=0;}}catch(e){ghostEnd(s);ailN=0;return false;}return ailN>0;}
- function ghostEnd(s){for(let i=0;i<AIL_KEYS.length;i++)if(AIL_VAL[i]>0){try{s[AIL_KEYS[i]]=AIL_VAL[i];}catch(e){}}}
+ function ghostBegin(s){if(ailOpen)return 0;AIL_VAL.fill(0);if(!active()||!s||!(n(s.hp)>0))return false;const m=R()?.world?.(s),f=worlds.get(s);if(!m||!f)return 0;const t=n(s.time),H=f.heroScr;if(!H||H.t!==t)return 0;
+  if(bulletsNear(s,m))f.ghostUntil=t+.4;if(!(t<n(f.ghostUntil,-1))||t<n(f.ghostUntil,-1)-.41)return 0;
+  let k=0;try{for(let i=0;i<AIL_KEYS.length;i++){const v=s[AIL_KEYS[i]];if(typeof v==='number'&&v>t){AIL_VAL[i]=v;k++;}}}catch(e){AIL_VAL.fill(0);return 0;}if(!k)return 0;
+  ailOpen=s;try{for(let i=0;i<AIL_KEYS.length;i++)if(AIL_VAL[i]>0)s[AIL_KEYS[i]]=0;}catch(e){ghostEnd(s);AIL_VAL.fill(0);return 0;}return k;}
+ function ghostEnd(s){if(ailOpen!==s)return;ailOpen=null;for(let i=0;i<AIL_KEYS.length;i++)if(AIL_VAL[i]>0){try{if(s[AIL_KEYS[i]]===0)s[AIL_KEYS[i]]=AIL_VAL[i];}catch(e){}}}
  function ghostDraw(ctx,s){const f=worlds.get(s),u=U(),m=R()?.world?.(s),H=f?.heroScr;if(!H||!u?.screenSpace||!m)return;const t=n(s.time);
   ctx.save();try{const v=u.screenSpace(ctx);if(!v||Math.abs(v.w-H.w)>1||Math.abs(v.h-H.h)>1)return;const kc=clamp(n(m.kc,1),.3,3);let y=H.y-64*kc-10,row=0;
    ctx.globalCompositeOperation='source-over';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 10px sans-serif';
@@ -454,8 +458,8 @@
   const H=f.heroScr,t=n(s.time);if(!H||H.t!==t)return;
   ctx.save();try{const v=u.screenSpace(ctx);if(!v||Math.abs(v.w-H.w)>1||Math.abs(v.h-H.h)>1)return;const mobile=!!m.mobile||v.w<800||v.h<500;if(screenRing(ctx,s,m,set,f,v.w,v.h,t,mobile,H))f.ringPostAt=t;}catch(e){fail(e);}finally{ctx.restore();}}
  function wrapFeedback(){const F=root.__HAPIL_FEEDBACK_RC128__;if(!F||typeof F.draw!=='function')return false;for(let o=F,d=0;o&&d<40;o=Object.getPrototypeOf(o),d++)if(o===fbBridge)return true;
-  const base=F;const draw=function(ctx,s,canvas,settings,...rest){let g=false;if(!inFb){try{g=ghostBegin(s);}catch(e){fail(e);}}let r;try{r=base.draw.call(base,ctx,s,canvas,settings,...rest);}finally{if(ailN>0)ghostEnd(s);}
-   if(!inFb){inFb=true;try{if(g)ghostDraw(ctx,s);postRing(ctx,s);}catch(e){fail(e);}finally{inFb=false;ailN=0;}}return r;};
+  const base=F;const draw=function(ctx,s,canvas,settings,...rest){let g=0;if(!inFb&&!ailOpen){try{g=ghostBegin(s);}catch(e){fail(e);g=0;}}let r;try{r=base.draw.call(base,ctx,s,canvas,settings,...rest);}finally{if(g>0)ghostEnd(s);}
+   if(!inFb){inFb=true;try{if(g>0)ghostDraw(ctx,s);postRing(ctx,s);}catch(e){fail(e);}finally{inFb=false;}}return r;};
   const b=Object.create(base);Object.defineProperty(b,'draw',{value:draw,enumerable:true});Object.defineProperty(b,'rc240FeelRing',{value:true});fbBridge=Object.freeze(b);
   try{root.__HAPIL_FEEDBACK_RC128__=fbBridge;}catch(e){fail(e);return false;}return true;}
  try{root.setTimeout?.(wrapFeedback,0);root.setInterval?.(wrapFeedback,1000);}catch(e){}
