@@ -60,6 +60,7 @@
   zoomDriftSeconds:.75,    // a shift must persist this long before a re-aim
   zoomEaseSeconds:.6,      // re-aims are eased over this much game time
   zoomSettleSeconds:.25,   // a fresh state's framing settles (snaps) this long after its first fit
+  controlDeferMax:30,      // camera calls a moving control may defer the layout read
   resizeNudgePx:2,         // a viewport change this small (CSS px) is a nudge, not a new layout ...
   resizeScaleStep:.009,    // ... and moves the world-to-CSS scale by at most 0.9% (RC233: < 1% per pixel)
   zoomMapCover:.92,        // authored map keeps >= 92% of the screen (RC154 floor: 90%)
@@ -79,7 +80,7 @@
   maxFrameDelta:.1
  });
  const finite=v=>typeof v==='number'&&Number.isFinite(v);
- const metrics={installs:0,rewraps:0,enemyClamps:0,settleWrites:0,handovers:0,zoomFits:0,zoomRejected:0,reaims:0,lastZoom:null,lastFrame:null,bandDraws:0,lockAttempts:0,lockOk:0,lockRejected:0,lockUnsupported:0,classUpdates:0};
+ const metrics={installs:0,rewraps:0,enemyClamps:0,settleWrites:0,handovers:0,zoomFits:0,zoomRejected:0,reaims:0,lastZoom:null,lastFrame:null,bandDraws:0,lockAttempts:0,lockOk:0,lockRejected:0,lockUnsupported:0,classUpdates:0,controlReads:0,controlDeferrals:0};
  const worlds=new WeakMap();
  const scratch={x:0,y:0};
  const R=()=>root.__HAPIL_BATTLE_ARENA_RC138__,D=()=>root.__HAPIL_PERSONA_DUEL_RC134__;
@@ -142,6 +143,10 @@
  function installDevice(){
   injectStyle();refreshClasses();
   const onResize=()=>{refreshClasses();controlsRead=false;};
+  // Other layers switch control layouts and safe-area insets through <html>/
+  // <body> classes and inline CSS variables: re-read on the next camera call
+  // instead of waiting for the 1 s heartbeat (no per-frame polling).
+  try{const MO=root.MutationObserver;if(typeof MO==='function'){const mo=new MO(()=>{controlsRead=false;}),opts={attributes:true,attributeFilter:['class','style']};const doc=root.document;if(doc?.documentElement)mo.observe(doc.documentElement,opts);const watchBody=()=>{if(doc?.body)mo.observe(doc.body,opts);};watchBody();doc?.addEventListener?.('DOMContentLoaded',watchBody,{once:true});}}catch{}
   for(const t of ['resize','orientationchange','pageshow'])root.addEventListener?.(t,onResize,{passive:true});
   try{root.visualViewport?.addEventListener?.('resize',onResize,{passive:true});}catch{}
   root.addEventListener?.('pointerup',onFirstTouch,{capture:true,passive:true});
@@ -258,8 +263,17 @@
   let changed=false;for(const k of ['left','right','top','bottom']){const v=Math.max(0,parseFloat(css?.getPropertyValue?.('--rc154-safe-'+k))||0);if(insets[k]!==v){insets[k]=v;changed=true;}}
   return changed;
  }
+ // A control still in a CSS transition (e.g. the 0.05 s stick transition
+ // right after a rotation or mode change) reports a transient rect: keep the
+ // last layout and read again on the next camera call. The very first read
+ // takes what is there; looping animations never defer; a deferral streak is
+ // capped so a stuck transition cannot freeze the layout.
+ let deferStreak=0;
+ function moving(e){try{const a=e?.getAnimations?.();if(a)for(const x of a)if(typeof x?.transitionProperty==='string'&&(x.playState==='running'||x.playState==='pending'))return true;}catch{}return false;}
  function readControls(){
   if(!landscapePhone())return;
+  if(controls[0].valid&&deferStreak<POLICY.controlDeferMax)for(let i=0;i<CONTROL_SELECTORS.length;i++){let e=null;try{e=root.document?.querySelector?.(CONTROL_SELECTORS[i]);}catch{}if(moving(e)){deferStreak++;metrics.controlDeferrals++;return;}}
+  deferStreak=0;
   let changed=readInsets();
   const vw=Number(root.innerWidth)||0,vh=Number(root.innerHeight)||0,L=insets.left,Rr=insets.right,B=insets.bottom,T=insets.top;
   const fallback=[[L+6,vh-B-82,L+82,vh-B-6],[vw-Rr-162,vh-B-54,vw-Rr-6,vh-B-6],[L+6,T+100,L+46,T+140],[vw-Rr-44,T+4,vw-Rr-4,T+44]];
@@ -269,7 +283,7 @@
    const f=fallback[i],l=has?r.left:f[0],t=has?r.top:f[1],rr=has?r.right:f[2],b=has?r.bottom:f[3],c=controls[i];
    if(!c.valid||c.left!==l||c.top!==t||c.right!==rr||c.bottom!==b){c.left=l;c.top=t;c.right=rr;c.bottom=b;c.valid=true;changed=true;}
   }
-  controlsRead=true;if(changed)controlsVersion++;
+  controlsRead=true;metrics.controlReads++;if(changed)controlsVersion++;
  }
  function pointInPoly(x,y,xs,ys,n){let inside=false;for(let i=0,j=n-1;i<n;j=i++){if((ys[i]>y)!==(ys[j]>y)&&x<(xs[j]-xs[i])*(y-ys[i])/(ys[j]-ys[i])+xs[i])inside=!inside;}return inside;}
  function segHitsRect(ax,ay,bx,by,r){
